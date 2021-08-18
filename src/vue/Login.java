@@ -46,34 +46,27 @@ public class Login {
 		frame.setBounds(100, 100, 289, 162);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		
-		
-		
-		
+
 		JLabel lblNewLabel = new JLabel("Identifiant");
 		lblNewLabel.setBounds(31, 11, 86, 14);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
 		lblMotDePasse.setBounds(31, 46, 86, 14);
 		frame.getContentPane().add(lblMotDePasse);
-		
-		//bouton valider
+
+		// bouton valider
 		JButton btnsubmit = new JButton("Valider");
 		btnsubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String identifiant=tidentifiant.getText();
+				String identifiant = tidentifiant.getText();
 				String mdp = tmdp.getText();
-				
-			
-				
-				
+
 			}
 		});
 		btnsubmit.setBounds(31, 90, 89, 23);
 		frame.getContentPane().add(btnsubmit);
-		
+
 		// champ mdp
 		tmdp = new JTextField();
 		tmdp.addActionListener(new ActionListener() {
@@ -84,8 +77,8 @@ public class Login {
 		tmdp.setBounds(31, 59, 167, 20);
 		frame.getContentPane().add(tmdp);
 		tmdp.setColumns(10);
-		
-		//champ identifiant
+
+		// champ identifiant
 		tidentifiant = new JTextField();
 		tidentifiant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -95,7 +88,7 @@ public class Login {
 		tidentifiant.setBounds(31, 23, 167, 20);
 		frame.getContentPane().add(tidentifiant);
 		tidentifiant.setColumns(10);
-		
+
 	}
 
 	public JFrame getFrame() {

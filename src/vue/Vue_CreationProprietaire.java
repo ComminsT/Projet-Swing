@@ -1,38 +1,40 @@
 package vue;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import java.awt.FlowLayout;
-import javax.swing.JTextField;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.GridLayout;
-import java.awt.Font;
-import javax.swing.JPanel;
 import java.awt.Color;
-import javax.swing.JSeparator;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.JSpinner;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
-public class CreationProprietaire {
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
+
+import dao.ProprietaireDAO;
+import entite.Checker;
+import entite.Proprietaire;
+
+public class Vue_CreationProprietaire {
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
-					CreationProprietaire window = new CreationProprietaire();
+					Vue_CreationProprietaire window = new Vue_CreationProprietaire();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -40,7 +42,6 @@ public class CreationProprietaire {
 			}
 		});
 	}
-
 	private JFrame frame;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
@@ -48,8 +49,7 @@ public class CreationProprietaire {
 	private JTextField txtNom;
 
 	private JTextField txtPrenom;
-	private JLabel lblNewLabel_1;
-	private JLabel lblNewLabel_2;
+	private JLabel lblMailError;
 	private JLabel lblPays;
 	private JTextField txtAdresse;
 	private JTextField txtVille;
@@ -60,7 +60,7 @@ public class CreationProprietaire {
 	/**
 	 * Create the application.
 	 */
-	public CreationProprietaire() {
+	public Vue_CreationProprietaire() {
 		initialize();
 
 	}
@@ -70,15 +70,15 @@ public class CreationProprietaire {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 347, 747);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 350, 663);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
 		JButton btnNewButton = new JButton("Confirmer");
 
-		btnNewButton.setBounds(194, 599, 112, 23);
+		btnNewButton.setBounds(172, 584, 112, 23);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -200,26 +200,19 @@ public class CreationProprietaire {
 		txtDomaine.setBounds(172, 220, 134, 20);
 		frame.getContentPane().add(txtDomaine);
 
-		lblNewLabel_1 = new JLabel("Nom de domaine invalide");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblNewLabel_1.setForeground(Color.RED);
-		lblNewLabel_1.setBounds(176, 239, 118, 14);
-		frame.getContentPane().add(lblNewLabel_1);
-		lblNewLabel_1.setVisible(false);
-
-		lblNewLabel_2 = new JLabel("Adresse mail déjà enregistré");
-		lblNewLabel_2.setForeground(Color.RED);
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblNewLabel_2.setBounds(10, 239, 124, 13);
-		frame.getContentPane().add(lblNewLabel_2);
+		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistrée");
+		lblMailError.setForeground(Color.RED);
+		lblMailError.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblMailError.setBounds(10, 238, 252, 13);
+		frame.getContentPane().add(lblMailError);
 
 		lblPays = new JLabel("Pays");
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPays.setBounds(10, 263, 32, 17);
 		frame.getContentPane().add(lblPays);
 
-		JComboBox comboboxPays = new JComboBox();
-		comboboxPays.setModel(new DefaultComboBoxModel(new String[] { "Allemagne", "Autriche", "Belgique", "Bulgarie",
+		JComboBox<String> comboboxPays = new JComboBox<>();
+		comboboxPays.setModel(new DefaultComboBoxModel<>(new String[] { "Allemagne", "Autriche", "Belgique", "Bulgarie",
 				"Chypre", "Croatie", "Danemark", "Espagne", "Estonie", "Finlande", "France", "Grèce", "Hongrie",
 				"Irlande", "Italie", "Lettonie", "Lituanie", "Luxembourg", "Malte", "Pays-Bas", "Pologne", "Portugal",
 				"Roumanie", "Slovaquie", "Slovénie", "Suède", "Tchéquie" }));
@@ -324,21 +317,21 @@ public class CreationProprietaire {
 		lblVille_1.setBounds(10, 441, 123, 17);
 		frame.getContentPane().add(lblVille_1);
 
-		JComboBox comboboxJour = new JComboBox();
-		comboboxJour.setModel(new DefaultComboBoxModel(
+		JComboBox<String> comboboxJour = new JComboBox<>();
+		comboboxJour.setModel(new DefaultComboBoxModel<>(
 				new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16",
 						"17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31" }));
 		comboboxJour.setBounds(10, 469, 46, 22);
 		frame.getContentPane().add(comboboxJour);
 
-		JComboBox comboboxMois = new JComboBox();
-		comboboxMois.setModel(new DefaultComboBoxModel(new String[] { "Janvier", "Février", "Mars", "Avril", "Mai",
+		JComboBox<String> comboboxMois = new JComboBox<>();
+		comboboxMois.setModel(new DefaultComboBoxModel<>(new String[] { "Janvier", "Février", "Mars", "Avril", "Mai",
 				"Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre" }));
 		comboboxMois.setBounds(66, 469, 97, 22);
 		frame.getContentPane().add(comboboxMois);
 
-		JComboBox comboboxAnnee = new JComboBox();
-		comboboxAnnee.setModel(new DefaultComboBoxModel(new String[] { "2003", "2002", "2001", "2000", "1999", "1998",
+		JComboBox<String> comboboxAnnee = new JComboBox<>();
+		comboboxAnnee.setModel(new DefaultComboBoxModel<>(new String[] { "2003", "2002", "2001", "2000", "1999", "1998",
 				"1997", "1996", "1995", "1994", "1993", "1992", "1991", "1990", "1989", "1988", "1987", "1986", "1985",
 				"1984", "1983", "1982", "1981", "1980", "1979", "1978", "1977", "1976", "1975", "1974", "1973", "1972",
 				"1971", "1970", "1969", "1968", "1967", "1966", "1965", "1964", "1963", "1962", "1961", "1960", "1959",
@@ -350,15 +343,15 @@ public class CreationProprietaire {
 		comboboxAnnee.setBounds(172, 469, 60, 22);
 		frame.getContentPane().add(comboboxAnnee);
 
-		JLabel lblNewLabel_3 = new JLabel("Date de naissance non valide");
-		lblNewLabel_3.setForeground(Color.RED);
-		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblNewLabel_3.setBounds(10, 491, 181, 14);
-		lblNewLabel_3.setVisible(false);
-		frame.getContentPane().add(lblNewLabel_3);
+		JLabel lblDateError = new JLabel("Date de naissance non valide");
+		lblDateError.setForeground(Color.RED);
+		lblDateError.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		lblDateError.setBounds(10, 491, 181, 14);
+		lblDateError.setVisible(false);
+		frame.getContentPane().add(lblDateError);
 
-		JComboBox comboboxidentifiant = new JComboBox();
-		comboboxidentifiant.setModel(new DefaultComboBoxModel(new String[] {"AT +43", "BE +32", "BG +359", "CY +357", "CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385", "HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356", "NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44"}));
+		JComboBox<String> comboboxidentifiant = new JComboBox<>();
+		comboboxidentifiant.setModel(new DefaultComboBoxModel<>(new String[] {"AT +43", "BE +32", "BG +359", "CY +357", "CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385", "HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356", "NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44"}));
 		comboboxidentifiant.setBounds(10, 540, 73, 22);
 		frame.getContentPane().add(comboboxidentifiant);
 
@@ -402,19 +395,79 @@ public class CreationProprietaire {
 		lblNewLabel_4.setBounds(10, 516, 192, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 
-		lblNewLabel_2.setVisible(false);
+		lblMailError.setVisible(false);
 
 		btnNewButton.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
+				lblDateError.setVisible(false);
+				lblMailError.setVisible(false);
 				String nom = txtNom.getText();
 				String prenom = txtPrenom.getText();
 				String adresse = txtAdresse.getText();
 				String ville = txtVille.getText();
 				String cp = txtCodePostale.getText();
-				String pays = comboboxPays.getItemAt(comboboxPays.getSelectedIndex()).toString();
-				String tel = comboboxidentifiant.getSelectedItem().toString()+txtNumero;
-				String datedenaissance=comboboxJour.getSelectedItem().toString()+"/"+comboboxMois.getSelectedItem().toString()+"/"+comboboxAnnee.getSelectedItem().toString();
+				String pays = comboboxPays.getSelectedItem().toString();
+				String tel=Checker.phonenumber(comboboxidentifiant.getSelectedItem().toString()+txtNumero.getText());
+				String mois = Checker.monthtonumber(comboboxMois.getSelectedItem().toString());
+				String datedenaissance=comboboxAnnee.getSelectedItem().toString()+"-"+mois+"-"+comboboxJour.getSelectedItem().toString();
 				String mail=txtAdresseMail.getText()+"@"+txtDomaine.getText();
+
+
+				if(prenom.equals("Prénom")) {
+				txtPrenom.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(nom.equals("Nom")) {
+					txtNom.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(txtAdresseMail.getText().equals("Adresse Mail")) {
+					txtAdresseMail.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(txtDomaine.getText().equals("Domaine")) {
+					txtDomaine.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(adresse.equals("Adresse")) {
+					txtAdresse.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(ville.equals("Ville")) {
+					txtVille.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(cp.equals("Code Postale")) {
+					txtCodePostale.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(txtNumero.getText().equals("Numero")) {
+					txtNumero.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				}else if(!Checker.datechecker(datedenaissance)) {
+					lblDateError.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Date de naissance invalide");
+				}else if(!Checker.mailcheckerp(mail)) {
+					lblMailError.setVisible(true);
+					JOptionPane.showMessageDialog(null,"Adresse mail invalide");
+				}else {
+					ProprietaireDAO proprietaireDAO=new ProprietaireDAO();
+					Proprietaire proprietaire=new Proprietaire();
+					proprietaire.setAdresse(adresse);
+					proprietaire.setCp(cp);
+					proprietaire.setMail(mail);
+					proprietaire.setNaissance(datedenaissance);
+					proprietaire.setNom(nom);
+					proprietaire.setPrenom(prenom);
+					proprietaire.setTel(tel);
+					proprietaire.setVille(ville);
+					proprietaire.setPays(pays);
+					proprietaireDAO.save(proprietaire);
+
+					int input=JOptionPane.showConfirmDialog(null, "Le nouveau propriétaire a bien été enregistré."
+							+ "Souhaitez vous ajouter des biens immobilier immédiatement ?");
+					if(input==0) {
+						//Fenêtre création bien immobilier
+					}else {
+						System.out.println("Retour vueListeProprietaire");
+						//fenêtre VueListeProprietaire
+					}
+				}
+				Checker.datechecker(datedenaissance);
 			}
 		});
 

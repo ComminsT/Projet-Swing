@@ -126,5 +126,21 @@ public class ProprietaireDAO {
 			System.out.println("DELETED NO");
 		}
 	}
+	
+	public ArrayList<String> getAllMail(){
+		ArrayList<String>mails=new ArrayList<String>();
+		try {PreparedStatement ps=Database.connexion.prepareStatement("SELECT * FROM proprietaire");
+		ResultSet resultat=ps.executeQuery();
+		while(resultat.next()) {
+			mails.add(resultat.getString("mail"));
+		}
+		return mails;
+			
+		}catch(Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		
+	}
 
 }

@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class AccueilAgent {
+public class Vue_AccueilAgent {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class AccueilAgent {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					AccueilAgent window = new AccueilAgent();
+					Vue_AccueilAgent window = new Vue_AccueilAgent();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class AccueilAgent {
 	/**
 	 * Create the application.
 	 */
-	public AccueilAgent() {
+	public Vue_AccueilAgent() {
 		initialize();
 	}
 

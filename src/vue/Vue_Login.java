@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class Login {
+public class Vue_Login {
 
 	private JFrame frame;
 	private JTextField tmdp;
@@ -22,7 +22,7 @@ public class Login {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Login window = new Login();
+					Vue_Login window = new Vue_Login();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,7 +34,7 @@ public class Login {
 	/**
 	 * Create the application.
 	 */
-	public Login() {
+	public Vue_Login() {
 		initialize();
 	}
 

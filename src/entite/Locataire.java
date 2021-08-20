@@ -4,7 +4,6 @@ public class Locataire {
 	private int id;
 	private String nom;
 	private String prenom;
-	private String batiment;
 	private String adresse;
 	private String ville;
 	private String cp;
@@ -31,12 +30,6 @@ public class Locataire {
 	}
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
-	}
-	public String getBatiment() {
-		return batiment;
-	}
-	public void setBatiment(String batiment) {
-		this.batiment = batiment;
 	}
 	public String getAdresse() {
 		return adresse;

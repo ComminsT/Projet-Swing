@@ -17,7 +17,7 @@ public class AgentDAO {
 		try {
 			
 			if(agent.getId() != 0) {
-				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE agent set nom=?, prenom=?,identifiant=?,mdp=?,adresse=?,cp=?,ville=?,dateentree=?,statut=? WHERE id=?");
+				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE agent set nom=?, prenom=?,identifiant=?,mdp=?,adresse=?,cp=?,ville=?,dateentree=?,statut=?,mail=?,tel=? WHERE id=?");
 				ps.setString(1,agent.getNom());
 				ps.setString(2,agent.getPrenom());
 				ps.setString(3,agent.getIdentifiant());
@@ -27,10 +27,12 @@ public class AgentDAO {
 				ps.setString(7,agent.getVille());
 				ps.setString(8,agent.getDateentree());
 				ps.setString(9,agent.getStatut());
-				ps.setInt(10,agent.getId());
+				ps.setString(10, agent.getMail());
+				ps.setString(11, agent.getTel());
+				ps.setInt(12,agent.getId());
 				ps.executeUpdate();
 			}else {
-				PreparedStatement ps  = Database.connexion.prepareStatement("INSERT INTO agent (nom,prenom,identifiant,mdp,adresse,cp,ville,dateentree,statut) VALUES(?,?,?,?,?,?,?,?,?)");
+				PreparedStatement ps  = Database.connexion.prepareStatement("INSERT INTO agent (nom,prenom,identifiant,mdp,adresse,cp,ville,dateentree,statut,mail,tel) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1,agent.getNom());
 				ps.setString(2,agent.getPrenom());
 				ps.setString(3,agent.getIdentifiant());
@@ -40,6 +42,8 @@ public class AgentDAO {
 				ps.setString(7,agent.getVille());
 				ps.setString(8,agent.getDateentree());
 				ps.setString(9,agent.getStatut());
+				ps.setString(10,agent.getMail());
+				ps.setString(11,agent.getTel());
 				ps.executeUpdate();
 			}
 			System.out.println("SAVED OK");
@@ -71,6 +75,8 @@ public Agent getById(int id) {
 				agent.setVille(resultat.getString( "ville" ));
 				agent.setDateentree(resultat.getString( "dateentree" ));
 				agent.setStatut(resultat.getString( "statut" ));
+				agent.setMail(resultat.getString("mail"));
+				agent.setTel(resultat.getString("tel"));
 				
 			}
 			return agent;
@@ -102,6 +108,8 @@ public ArrayList<Agent> getAll() {
 				agent.setVille(resultat.getString( "ville" ));
 				agent.setDateentree(resultat.getString( "dateentree" ));
 				agent.setStatut(resultat.getString( "statut" ));
+				agent.setMail(resultat.getString("mail"));
+				agent.setTel(resultat.getString("tel"));
 				agents.add(agent);
 			}
 			return agents;
@@ -126,5 +134,40 @@ public void deleteById(int id) {
     	System.out.println("DELETED NO");
     }
 }
+
+public ArrayList<String> getAllMail() {
+	ArrayList<String> mails = new ArrayList<String>();
+	try {
+		PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent");
+		ResultSet resultat = ps.executeQuery();
+		while (resultat.next()) {
+			mails.add(resultat.getString("mail"));
+		}
+		return mails;
+
+	} catch (Exception ex) {
+		ex.printStackTrace();
+		return null;
+	}
+
+}
+public ArrayList<String> getAllPhone() {
+	ArrayList<String> phones = new ArrayList<String>();
+	try {
+		PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent");
+		ResultSet resultat = ps.executeQuery();
+		while (resultat.next()) {
+			phones.add(resultat.getString("tel"));
+		}
+		return phones;
+
+	} catch (Exception ex) {
+		ex.printStackTrace();
+		return null;
+	}
+
+}
+
+
 
 }

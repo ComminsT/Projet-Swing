@@ -11,6 +11,20 @@ public class Agent {
 	private String ville;
 	private String dateentree;
 	private String statut;
+	private String mail;
+	private String tel;
+	public String getTel() {
+		return tel;
+	}
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	public String getMail() {
+		return mail;
+	}
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
 	public int getId() {
 		return id;
 	}

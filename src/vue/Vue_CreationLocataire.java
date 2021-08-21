@@ -44,6 +44,7 @@ public class Vue_CreationLocataire {
 			}
 		});
 	}
+
 	private JFrame frame;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
@@ -71,7 +72,7 @@ public class Vue_CreationLocataire {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		
+
 		frame = new JFrame();
 		frame.setBounds(100, 100, 534, 693);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -321,7 +322,10 @@ public class Vue_CreationLocataire {
 		frame.getContentPane().add(lblVille_1);
 
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
-		comboboxidentifiant.setModel(new DefaultComboBoxModel<>(new String[] {"AT +43", "BE +32", "BG +359", "CY +357", "CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385", "HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356", "NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44"}));
+		comboboxidentifiant.setModel(new DefaultComboBoxModel<>(new String[] { "AT +43", "BE +32", "BG +359", "CY +357",
+				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
+				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
+				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44" }));
 		comboboxidentifiant.setBounds(239, 421, 73, 22);
 		frame.getContentPane().add(comboboxidentifiant);
 
@@ -364,37 +368,38 @@ public class Vue_CreationLocataire {
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(239, 397, 192, 14);
 		frame.getContentPane().add(lblNewLabel_4);
-		
+
 		JLabel lblNewLabel_4_1 = new JLabel("Situation");
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1.setBounds(239, 454, 100, 14);
 		frame.getContentPane().add(lblNewLabel_4_1);
-		
-		JComboBox<String>comboboxSituation = new JComboBox<String>();
-		comboboxSituation.setModel(new DefaultComboBoxModel<String>(new String[] {"Etudiant", "Employé CDI", "Employé CDD", "Indépendant", "Retraité", "En recherche d'emploi", "Autre"}));
+
+		JComboBox<String> comboboxSituation = new JComboBox<String>();
+		comboboxSituation.setModel(new DefaultComboBoxModel<String>(new String[] { "Etudiant", "Employé CDI",
+				"Employé CDD", "Indépendant", "Retraité", "En recherche d'emploi", "Autre" }));
 		comboboxSituation.setBounds(239, 479, 100, 22);
 		frame.getContentPane().add(comboboxSituation);
-		
+
 		JLabel lblNewLabel_4_1_1 = new JLabel("Statut");
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_1.setBounds(349, 454, 100, 14);
 		frame.getContentPane().add(lblNewLabel_4_1_1);
-		
+
 		JComboBox<String> comboboxStatut = new JComboBox<String>();
-		comboboxStatut.setModel(new DefaultComboBoxModel<String>(new String[] {"Locataire", "Ex-Locataire", "Expulsé", "Autre"}));
+		comboboxStatut.setModel(
+				new DefaultComboBoxModel<String>(new String[] { "Locataire", "Ex-Locataire", "Expulsé", "Autre" }));
 		comboboxStatut.setBounds(349, 479, 100, 22);
 		frame.getContentPane().add(comboboxStatut);
-		
+
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(24, 421, 205, 153);
 		frame.getContentPane().add(calendar);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("Numéro de téléphone déjà enregistré ou invalide");
 		lblNewLabel_1.setForeground(Color.RED);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNewLabel_1.setBounds(239, 442, 240, 14);
 		frame.getContentPane().add(lblNewLabel_1);
-		
 
 		lblMailError.setVisible(false);
 
@@ -409,48 +414,47 @@ public class Vue_CreationLocataire {
 				String ville = txtVille.getText();
 				String cp = txtCodePostale.getText();
 				String pays = comboboxPays.getSelectedItem().toString();
-				String tel=Checker.phonenumber(comboboxidentifiant.getSelectedItem().toString()+txtNumero.getText());
-				String mois = String.valueOf(calendar.getMonthChooser().getMonth()+1);
+				String tel = Checker
+						.phonenumber(comboboxidentifiant.getSelectedItem().toString() + txtNumero.getText());
+				String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
 				String jour = String.valueOf(calendar.getDayChooser().getDay());
 				String annee = String.valueOf(calendar.getYearChooser().getYear());
-				String datedenaissance=annee+"-"+mois+"-"+jour;
-				String mail=txtAdresseMail.getText()+"@"+txtDomaine.getText();
-				String situation=comboboxSituation.getSelectedItem().toString();
-				String statut=comboboxStatut.getSelectedItem().toString();
+				String datedenaissance = annee + "-" + mois + "-" + jour;
+				String mail = txtAdresseMail.getText() + "@" + txtDomaine.getText();
+				String situation = comboboxSituation.getSelectedItem().toString();
+				String statut = comboboxStatut.getSelectedItem().toString();
 
-
-				if(prenom.equals("Prénom")) {
-				txtPrenom.setForeground(Color.red);
+				if (prenom.equals("Prénom")) {
+					txtPrenom.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(nom.equals("Nom")) {
+				} else if (nom.equals("Nom")) {
 					txtNom.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(txtAdresseMail.getText().equals("Adresse Mail")) {
+				} else if (txtAdresseMail.getText().equals("Adresse Mail")) {
 					txtAdresseMail.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(txtDomaine.getText().equals("Domaine")) {
+				} else if (txtDomaine.getText().equals("Domaine")) {
 					txtDomaine.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(adresse.equals("Adresse")) {
+				} else if (adresse.equals("Adresse")) {
 					txtAdresse.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(ville.equals("Ville")) {
+				} else if (ville.equals("Ville")) {
 					txtVille.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(cp.equals("Code Postale")) {
+				} else if (cp.equals("Code Postale")) {
 					txtCodePostale.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(txtNumero.getText().equals("Numero")) {
+				} else if (txtNumero.getText().equals("Numero")) {
 					txtNumero.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(!Checker.mailcheckerl(mail)) {
+				} else if (!Checker.mailcheckerl(mail)) {
 					lblMailError.setVisible(true);
-					JOptionPane.showMessageDialog(null,"Adresse mail invalide");
-				}else if(!Checker.phonecheckerl(tel)) {
-				
-				
-				}else {
-					LocataireDAO locataireDAO=new LocataireDAO();
+					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
+				} else if (!Checker.phonecheckerl(tel)) {
+
+				} else {
+					LocataireDAO locataireDAO = new LocataireDAO();
 					Locataire locataire = new Locataire();
 					locataire.setAdresse(adresse);
 					locataire.setCp(cp);
@@ -465,13 +469,13 @@ public class Vue_CreationLocataire {
 					locataire.setStatut(statut);
 					locataireDAO.save(locataire);
 
-					int input=JOptionPane.showConfirmDialog(null, "Le nouveau locataire a bien été enregistré."
+					int input = JOptionPane.showConfirmDialog(null, "Le nouveau locataire a bien été enregistré.\n"
 							+ "Souhaitez vous lui attribuer un logement immédiatement ?");
-					if(input==0) {
-						//Fenêtre création de contratl
-					}else {
+					if (input == 0) {
+						// Fenêtre création de contratl
+					} else {
 						System.out.println("Retour vueListeProprietaire");
-						//fenêtre VueListeLocataire
+						// fenêtre VueListeLocataire
 					}
 				}
 			}

@@ -14,7 +14,7 @@ public class Proprietaire {
 	private String mail;
 	@Override
 	public String toString() {
-		return "Proprietaire [nom=" + nom + ", prenom=" + prenom + "]";
+		return nom+" "+prenom;
 	}
 	public int getId() {
 		return id;

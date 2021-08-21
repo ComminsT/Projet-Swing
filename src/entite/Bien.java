@@ -13,6 +13,13 @@ public class Bien {
 	private String statut;
 	private int id_agent;
 	private int id_proprietaire;
+	private int annee;
+	public int getAnnee() {
+		return annee;
+	}
+	public void setAnnee(int annee) {
+		this.annee = annee;
+	}
 	@Override
 	public String toString() {
 		return "Bien [nom=" + nom + ", adresse=" + adresse + ", id_proprietaire=" + id_proprietaire + "]";

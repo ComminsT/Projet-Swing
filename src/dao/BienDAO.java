@@ -17,7 +17,7 @@ public BienDAO() {
 		try {
 			
 			if(bien.getId() != 0) {
-				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE bien set nom=?,adresse=?,cp=?,ville=?,pays=?,type=?,valeur=?,surface=?,statut=?,id_agent=?,id_proprietaire=? WHERE id=?");
+				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE bien set nom=?,adresse=?,cp=?,ville=?,pays=?,type=?,valeur=?,surface=?,statut=?,id_agent=?,id_proprietaire=?,annee=? WHERE id=?");
 				ps.setString(1,bien.getNom());
 				ps.setString(2,bien.getAdresse());
 				ps.setString(3,bien.getCp());
@@ -29,10 +29,11 @@ public BienDAO() {
 				ps.setString(9, bien.getStatut());
 				ps.setInt(10,bien.getId_agent());
 				ps.setInt(11,bien.getId_proprietaire());
-				ps.setInt(12, bien.getId());
+				ps.setInt(12,bien.getAnnee());
+				ps.setInt(13, bien.getId());
 				ps.executeUpdate();
 			}else {
-				PreparedStatement ps  = Database.connexion.prepareStatement("INSERT INTO bien (nom,adresse,cp,ville,pays,type,valeur,surface,statut,id_agent,id_proprietaire) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+				PreparedStatement ps  = Database.connexion.prepareStatement("INSERT INTO bien (nom,adresse,cp,ville,pays,type,valeur,surface,statut,id_agent,id_proprietaire,annee) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1,bien.getNom());
 				ps.setString(2,bien.getAdresse());
 				ps.setString(3,bien.getCp());
@@ -44,6 +45,7 @@ public BienDAO() {
 				ps.setString(9, bien.getStatut());
 				ps.setInt(10,bien.getId_agent());
 				ps.setInt(11,bien.getId_proprietaire());
+				ps.setInt(12,bien.getAnnee());
 				ps.executeUpdate();
 			}
 			System.out.println("SAVED OK");
@@ -77,6 +79,7 @@ public Bien getById(int id) {
 				bien.setStatut(resultat.getString("statut"));
 				bien.setId_agent(resultat.getInt("id_agent"));
 				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
+				bien.setAnnee(resultat.getInt("annee"));
 				
 			}
 			return bien;
@@ -110,6 +113,7 @@ public ArrayList<Bien> getAll() {
 				bien.setStatut(resultat.getString("statut"));
 				bien.setId_agent(resultat.getInt("id_agent"));
 				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
+				bien.setAnnee(resultat.getInt("annee"));
 				biens.add(bien);
 			}
 			return biens;

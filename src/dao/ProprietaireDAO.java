@@ -18,7 +18,7 @@ public class ProprietaireDAO {
 
 			if (proprietaire.getId() != 0) {
 				PreparedStatement ps = Database.connexion.prepareStatement(
-						"UPDATE proprietaire set nom=?,prenom=?,adresse=?,ville=?,cp=?,pays=?,tel=?,naissance=?,mail=? WHERE id=?");
+						"UPDATE proprietaire set nom=?,prenom=?,adresse=?,ville=?,cp=?,pays=?,tel=?,naissance=?,mail=? WHERE id=? ");
 				ps.setString(1, proprietaire.getNom());
 				ps.setString(2, proprietaire.getPrenom());
 				ps.setString(3, proprietaire.getAdresse());
@@ -86,7 +86,7 @@ public class ProprietaireDAO {
 		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire ORDER BY nom");
 
 			ResultSet resultat = ps.executeQuery();
 

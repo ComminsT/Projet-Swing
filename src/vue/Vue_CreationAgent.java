@@ -21,15 +21,9 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 import dao.AgentDAO;
-import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Checker;
-import entite.Proprietaire;
 import entite.Database;
-import javax.swing.JPanel;
-import java.awt.Window;
-import java.awt.Frame;
-
 import com.cemiltokatli.passwordgenerate.Password;
 import com.cemiltokatli.passwordgenerate.PasswordType;
 import com.toedter.calendar.JCalendar;
@@ -160,7 +154,6 @@ public class Vue_CreationAgent {
 				if (txtAdresseMail.getText().equals("Adresse Mail")) {
 					txtAdresseMail.setText("");
 					txtAdresseMail.setForeground(Color.black);
-
 				}
 			}
 

@@ -62,8 +62,10 @@ public class Vue_AccueilAgent {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
-		JButton lblNewLabel = new JButton("Locataires");
-		lblNewLabel.addMouseListener(new MouseAdapter() {
+		JButton btnLocataires = new JButton("Locataires");
+		btnLocataires.setOpaque(false);
+		btnLocataires.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/locataires.png")));
+		btnLocataires.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
@@ -73,73 +75,146 @@ public class Vue_AccueilAgent {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
-		lblNewLabel.addActionListener(new ActionListener() {
+		btnLocataires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				new Vue_LocatairesList(agent).getFrame().setVisible(true);
+				frame.dispose();
 				
 			}
 		});
-		lblNewLabel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		lblNewLabel.setBackground(Color.LIGHT_GRAY);
-		lblNewLabel.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblNewLabel.setVerticalTextPosition(SwingConstants.BOTTOM);
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Seria\\OneDrive\\CDA\\ExerciceSwingBinomeCRUD\\src\\images\\client.png"));
-		lblNewLabel.setBounds(20, 6, 121, 112);
-		frame.getContentPane().add(lblNewLabel);
+		btnLocataires.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnLocataires.setBackground(Color.LIGHT_GRAY);
+		btnLocataires.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnLocataires.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnLocataires.setHorizontalAlignment(SwingConstants.CENTER);
+		btnLocataires.setBounds(20, 21, 121, 84);
+		frame.getContentPane().add(btnLocataires);
 		
 		JButton btnProprietaires = new JButton("Proprietaires");
+		btnProprietaires.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/proprietaire.png")));
+		btnProprietaires.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				frame.setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				frame.setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
 		btnProprietaires.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnProprietaires.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnProprietaires.setHorizontalAlignment(SwingConstants.CENTER);
 		btnProprietaires.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnProprietaires.setBackground(Color.LIGHT_GRAY);
-		btnProprietaires.setBounds(153, 6, 121, 112);
+		btnProprietaires.setBounds(153, 21, 121, 84);
 		frame.getContentPane().add(btnProprietaires);
 		
 		JButton btnBiens = new JButton("Biens");
+		btnBiens.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/bien.png")));
+		btnBiens.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				frame.setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				frame.setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
 		btnBiens.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnBiens.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnBiens.setHorizontalAlignment(SwingConstants.CENTER);
 		btnBiens.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnBiens.setBackground(Color.LIGHT_GRAY);
-		btnBiens.setBounds(286, 6, 121, 112);
+		btnBiens.setBounds(286, 21, 121, 84);
 		frame.getContentPane().add(btnBiens);
 		
-		JButton btnVisite = new JButton("Visite");
-		btnVisite.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnVisite.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnVisite.setHorizontalAlignment(SwingConstants.CENTER);
-		btnVisite.setBorder(new LineBorder(new Color(0, 0, 0)));
-		btnVisite.setBackground(Color.LIGHT_GRAY);
-		btnVisite.setBounds(419, 6, 121, 112);
-		frame.getContentPane().add(btnVisite);
+		JButton btnVisites = new JButton("Visites");
+		btnVisites.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/visits.png")));
+		btnVisites.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				frame.setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				frame.setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		btnVisites.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnVisites.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnVisites.setHorizontalAlignment(SwingConstants.CENTER);
+		btnVisites.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnVisites.setBackground(Color.LIGHT_GRAY);
+		btnVisites.setBounds(419, 21, 121, 84);
+		frame.getContentPane().add(btnVisites);
 		
-		JButton btnEspacePersonnel = new JButton("Comptabilité");
-		btnEspacePersonnel.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnEspacePersonnel.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnEspacePersonnel.setHorizontalAlignment(SwingConstants.CENTER);
-		btnEspacePersonnel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		btnEspacePersonnel.setBackground(Color.LIGHT_GRAY);
-		btnEspacePersonnel.setBounds(552, 6, 121, 112);
-		frame.getContentPane().add(btnEspacePersonnel);
+		JButton btnComptabilite = new JButton("Comptabilité");
+		btnComptabilite.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/compta.png")));
+		btnComptabilite.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				frame.setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				frame.setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		btnComptabilite.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnComptabilite.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnComptabilite.setHorizontalAlignment(SwingConstants.CENTER);
+		btnComptabilite.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnComptabilite.setBackground(Color.LIGHT_GRAY);
+		btnComptabilite.setBounds(552, 21, 121, 84);
+		frame.getContentPane().add(btnComptabilite);
 		
 		JButton btnEspacePersonnelle = new JButton("Espace personnelle");
+		btnEspacePersonnelle.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/personal.png")));
+		btnEspacePersonnelle.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				frame.setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				frame.setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
 		btnEspacePersonnelle.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnEspacePersonnelle.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnEspacePersonnelle.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEspacePersonnelle.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnEspacePersonnelle.setBackground(Color.LIGHT_GRAY);
-		btnEspacePersonnelle.setBounds(685, 6, 121, 112);
+		btnEspacePersonnelle.setBounds(685, 21, 121, 84);
 		frame.getContentPane().add(btnEspacePersonnelle);
 		
-		JButton btnDconnexion = new JButton("Déconnexion");
-		btnDconnexion.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnDconnexion.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnDconnexion.setHorizontalAlignment(SwingConstants.CENTER);
-		btnDconnexion.setBorder(new LineBorder(new Color(0, 0, 0)));
-		btnDconnexion.setBackground(Color.LIGHT_GRAY);
-		btnDconnexion.setBounds(818, 6, 121, 112);
-		frame.getContentPane().add(btnDconnexion);
+		JButton btnDeconnexion = new JButton("Déconnexion");
+		btnDeconnexion.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_Login().getFrame().setVisible(true);
+			}
+		});
+		btnDeconnexion.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/logOut.png")));
+		btnDeconnexion.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				frame.setCursor(Cursor.HAND_CURSOR);
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				frame.setCursor(Cursor.DEFAULT_CURSOR);
+			}
+		});
+		btnDeconnexion.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnDeconnexion.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnDeconnexion.setHorizontalAlignment(SwingConstants.CENTER);
+		btnDeconnexion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnDeconnexion.setBackground(Color.LIGHT_GRAY);
+		btnDeconnexion.setBounds(818, 21, 121, 84);
+		frame.getContentPane().add(btnDeconnexion);
 		
 		JLabel lblNewLabel_1 = new JLabel("Bienvenue "+agent.getPrenom());
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.BOLD, 15));
@@ -147,7 +222,7 @@ public class Vue_AccueilAgent {
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("C:\\Users\\Seria\\OneDrive\\Bureau fixe\\AdobeStock_130518605c.jpeg"));
+		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel_2.setBounds(-16, 0, 1000, 591);
 		frame.getContentPane().add(lblNewLabel_2);
 	}

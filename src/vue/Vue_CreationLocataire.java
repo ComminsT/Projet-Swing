@@ -75,7 +75,7 @@ public class Vue_CreationLocataire {
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 534, 693);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -481,5 +481,13 @@ public class Vue_CreationLocataire {
 			}
 		});
 
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
 	}
 }

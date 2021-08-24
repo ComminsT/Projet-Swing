@@ -1,23 +1,22 @@
 package vue;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-
-import entite.Agent;
-import javax.swing.JLabel;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Cursor;
-
-import javax.swing.border.LineBorder;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
+
+import entite.Agent;
 
 public class Vue_AccueilAgent {
 
@@ -109,6 +108,7 @@ public class Vue_AccueilAgent {
 		btnProprietaires.setBackground(Color.LIGHT_GRAY);
 		btnProprietaires.setBounds(153, 21, 121, 84);
 		frame.getContentPane().add(btnProprietaires);
+		btnProprietaires.setOpaque(false);
 		
 		JButton btnBiens = new JButton("Biens");
 		btnBiens.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/bien.png")));
@@ -129,6 +129,7 @@ public class Vue_AccueilAgent {
 		btnBiens.setBackground(Color.LIGHT_GRAY);
 		btnBiens.setBounds(286, 21, 121, 84);
 		frame.getContentPane().add(btnBiens);
+		btnBiens.setOpaque(false);
 		
 		JButton btnVisites = new JButton("Visites");
 		btnVisites.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/visits.png")));
@@ -149,6 +150,7 @@ public class Vue_AccueilAgent {
 		btnVisites.setBackground(Color.LIGHT_GRAY);
 		btnVisites.setBounds(419, 21, 121, 84);
 		frame.getContentPane().add(btnVisites);
+		btnVisites.setOpaque(false);
 		
 		JButton btnComptabilite = new JButton("Comptabilité");
 		btnComptabilite.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/compta.png")));
@@ -169,8 +171,10 @@ public class Vue_AccueilAgent {
 		btnComptabilite.setBackground(Color.LIGHT_GRAY);
 		btnComptabilite.setBounds(552, 21, 121, 84);
 		frame.getContentPane().add(btnComptabilite);
+		btnComptabilite.setOpaque(false);
+
 		
-		JButton btnEspacePersonnelle = new JButton("Espace personnelle");
+		JButton btnEspacePersonnelle = new JButton("Espace personnel");
 		btnEspacePersonnelle.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/personal.png")));
 		btnEspacePersonnelle.addMouseListener(new MouseAdapter() {
 			@Override
@@ -189,6 +193,7 @@ public class Vue_AccueilAgent {
 		btnEspacePersonnelle.setBackground(Color.LIGHT_GRAY);
 		btnEspacePersonnelle.setBounds(685, 21, 121, 84);
 		frame.getContentPane().add(btnEspacePersonnelle);
+		btnEspacePersonnelle.setOpaque(false);
 		
 		JButton btnDeconnexion = new JButton("Déconnexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
@@ -215,6 +220,8 @@ public class Vue_AccueilAgent {
 		btnDeconnexion.setBackground(Color.LIGHT_GRAY);
 		btnDeconnexion.setBounds(818, 21, 121, 84);
 		frame.getContentPane().add(btnDeconnexion);
+		btnDeconnexion.setOpaque(false);
+
 		
 		JLabel lblNewLabel_1 = new JLabel("Bienvenue "+agent.getPrenom());
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.BOLD, 15));

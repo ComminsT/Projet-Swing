@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import entite.Database;
+import entite.Locataire;
 import entite.Proprietaire;
 
 public class ProprietaireDAO {
@@ -159,6 +160,68 @@ public class ProprietaireDAO {
 			return null;
 		}
 
+	}
+
+	public ArrayList<Proprietaire> getAllByIdAgent(int id) {
+		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
+		try {
+			PreparedStatement ps = Database.connexion.prepareStatement(
+					"SELECT * FROM proprietaire WHERE id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?)) ");
+			ps.setInt(1, id);
+			ResultSet resultat = ps.executeQuery();
+			while (resultat.next()) {
+				Proprietaire proprietaire = new Proprietaire();
+				proprietaire.setId(resultat.getInt("id"));
+				proprietaire.setNom(resultat.getString("nom"));
+				proprietaire.setPrenom(resultat.getString("prenom"));
+				proprietaire.setAdresse(resultat.getString("adresse"));
+				proprietaire.setVille(resultat.getString("ville"));
+				proprietaire.setCp(resultat.getString("cp"));
+				proprietaire.setPays(resultat.getString("pays"));
+				proprietaire.setTel(resultat.getString("tel"));
+				proprietaire.setNaissance(resultat.getString("naissance"));
+				proprietaire.setMail(resultat.getString("mail"));
+				proprietaires.add(proprietaire);
+			}
+			return proprietaires;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+
+	}
+
+	public ArrayList<Proprietaire> getByKeywordsAndByIdAgent(String keyword, int id) {
+		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
+		try {
+			PreparedStatement ps = Database.connexion.prepareStatement(
+					"SELECT * FROM proprietaire WHERE nom LIKE ? OR prenom LIKE ? OR ville LIKE ? AND id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?))");
+			ps.setString(1, "%" + keyword + "%");
+			ps.setString(2, "%" + keyword + "%");
+			ps.setString(3, "%" + keyword + "%");
+			ps.setInt(4, id);
+			ResultSet resultat = ps.executeQuery();
+			while (resultat.next()) {
+				Proprietaire proprietaire = new Proprietaire();
+				proprietaire.setId(resultat.getInt("id"));
+				proprietaire.setNom(resultat.getString("nom"));
+				proprietaire.setPrenom(resultat.getString("prenom"));
+				proprietaire.setAdresse(resultat.getString("adresse"));
+				proprietaire.setVille(resultat.getString("ville"));
+				proprietaire.setCp(resultat.getString("cp"));
+				proprietaire.setPays(resultat.getString("pays"));
+				proprietaire.setTel(resultat.getString("tel"));
+				proprietaire.setNaissance(resultat.getString("naissance"));
+				proprietaire.setMail(resultat.getString("mail"));
+				proprietaires.add(proprietaire);
+			}
+			return proprietaires;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+
+		}
 	}
 
 }

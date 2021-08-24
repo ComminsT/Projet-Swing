@@ -47,6 +47,14 @@ public class Vue_CreationProprietaire {
 		});
 	}
 
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+
 	private JFrame frame;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
@@ -77,7 +85,7 @@ public class Vue_CreationProprietaire {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 534, 749);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);

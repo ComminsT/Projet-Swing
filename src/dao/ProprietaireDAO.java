@@ -166,7 +166,7 @@ public class ProprietaireDAO {
 		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
 		try {
 			PreparedStatement ps = Database.connexion.prepareStatement(
-					"SELECT * FROM proprietaire WHERE id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?)) ");
+					"SELECT * FROM proprietaire WHERE id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?) ");
 			ps.setInt(1, id);
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
@@ -195,7 +195,7 @@ public class ProprietaireDAO {
 		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
 		try {
 			PreparedStatement ps = Database.connexion.prepareStatement(
-					"SELECT * FROM proprietaire WHERE nom LIKE ? OR prenom LIKE ? OR ville LIKE ? AND id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?))");
+					"SELECT * FROM proprietaire WHERE (nom LIKE ? OR prenom LIKE ? OR ville LIKE ?) AND id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?)");
 			ps.setString(1, "%" + keyword + "%");
 			ps.setString(2, "%" + keyword + "%");
 			ps.setString(3, "%" + keyword + "%");

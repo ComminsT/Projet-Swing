@@ -147,4 +147,35 @@ public class Checker {
 
 	}
 
+	public static boolean phonemodifierp(String tel, Proprietaire proprietaire) {
+		Database.Connect();
+	ProprietaireDAO proprietaireDAO=new ProprietaireDAO();
+		ArrayList<String> tels = proprietaireDAO.getAllPhone();
+		if (tel.equals(proprietaire.getTel())) {
+			return true;
+		} else if (tel.matches(
+				"^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$")
+				&& !tels.contains(tel)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public static boolean mailmodifierp(String mail, Proprietaire proprietaire) {
+		Database.Connect();
+		ProprietaireDAO proprietaireDAO=new ProprietaireDAO();
+		ArrayList<String> mails = proprietaireDAO.getAllMail();
+		if (mail.equals(proprietaire.getMail())) {
+			return true;
+		} else if (mail.matches(
+				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+				&& !mails.contains(mail)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+
 }

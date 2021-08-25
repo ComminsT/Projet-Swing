@@ -213,7 +213,7 @@ public class Vue_LocatairesList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(551, 75, 93, 20);
+		btnSearch.setBounds(534, 75, 110, 20);
 		frame.getContentPane().add(btnSearch);
 		btnSearch.setOpaque(false);
 

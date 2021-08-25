@@ -202,7 +202,7 @@ return locataires;
 	public ArrayList<Locataire>getByKeywordsAndByIdAgent(String keyword,int id){
 		ArrayList<Locataire>locataires=new ArrayList<Locataire>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE nom LIKE ? OR prenom LIKE ? OR ville LIKE ? AND  id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?))");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE (nom LIKE ? OR prenom LIKE ? OR ville LIKE ?) AND  id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?))");
 			ps.setString(1,"%" + keyword + "%");
 			ps.setString(2,"%" + keyword + "%");
 			ps.setString(3,"%" + keyword + "%");

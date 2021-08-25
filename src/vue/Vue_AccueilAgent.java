@@ -90,6 +90,12 @@ public class Vue_AccueilAgent {
 		frame.getContentPane().add(btnLocataires);
 		
 		JButton btnProprietaires = new JButton("Proprietaires");
+		btnProprietaires.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
+			}
+		});
 		btnProprietaires.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/proprietaire.png")));
 		btnProprietaires.addMouseListener(new MouseAdapter() {
 			@Override
@@ -111,6 +117,12 @@ public class Vue_AccueilAgent {
 		btnProprietaires.setOpaque(false);
 		
 		JButton btnBiens = new JButton("Biens");
+		btnBiens.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Vue_BiensList(agent).getFrame().setVisible(true);
+				frame.dispose();
+			}
+		});
 		btnBiens.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/bien.png")));
 		btnBiens.addMouseListener(new MouseAdapter() {
 			@Override

@@ -9,6 +9,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
@@ -21,14 +22,14 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import com.toedter.calendar.JYearChooser;
+
 import dao.BienDAO;
 import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Bien;
 import entite.Database;
 import entite.Proprietaire;
-
-import com.toedter.calendar.JYearChooser;
 
 public class Vue_CreationBien {
 
@@ -73,6 +74,12 @@ public class Vue_CreationBien {
 		initialize();
 	}
 
+	public JFrame getFrame() {
+		return frame;
+	}
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -80,7 +87,7 @@ public class Vue_CreationBien {
 Database.Connect();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 534, 693);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -409,6 +416,18 @@ Database.Connect();
 					int annee=Integer.parseInt(strannee);
 				    bien.setAnnee(annee);
 				    bienDAO.save(bien);
+				    ArrayList<Bien>biens = bienDAO.getAll();
+				    bien=biens.get(biens.size());
+				    String folderName=String.valueOf(bien.getId());
+				    String basePath="C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING";
+				    String concat=basePath+"\\"+folderName;
+				    File f1=new File(concat);
+				    boolean bool = f1.mkdir();  
+				      if(bool){  
+				         System.out.println("Folder is created successfully");  
+				      }else{  
+				         System.out.println("Error Found!");  
+				      }  
 	
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau bien a bien été enregistré.\n"
 							+ "Souhaitez vous lui attribuer des photos tout de suite?");

@@ -19,10 +19,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import dao.LocataireDAO;
 import dao.ProprietaireDAO;
 import entite.Agent;
-import entite.Locataire;
 import entite.Proprietaire;
 
 public class Vue_ProprietairesList {
@@ -82,10 +80,10 @@ public class Vue_ProprietairesList {
 		scrollPane.setBounds(10, 106, 945, 474);
 		frame.getContentPane().add(scrollPane);
 
-		ProprietaireDAO proprietaireDAO= new ProprietaireDAO();
+		ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 
 		ArrayList<Proprietaire> proprietaires = proprietaireDAO.getAllByIdAgent(agent.getId());
-		String columns[] = { "ID", "Nom", "Prenom", "Telephone"};
+		String columns[] = { "ID", "Nom", "Prenom", "Telephone" };
 		String data[][] = new String[proprietaires.size()][columns.length];
 		int i = 0;
 		for (Proprietaire p : proprietaires) {
@@ -141,10 +139,10 @@ public class Vue_ProprietairesList {
 				if (tableProprietaire.getSelectedRow() != -1) {
 					int row = tableProprietaire.convertRowIndexToModel(tableProprietaire.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					LocataireDAO locataireDAO = new LocataireDAO();
-					Locataire locataire = locataireDAO.getById(selectedId);
+					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
+					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_LocataireModif(locataire,agent).getFrame().setVisible(true);
+					new Vue_ProprietaireModif(proprietaire, agent).getFrame().setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -168,16 +166,16 @@ public class Vue_ProprietairesList {
 				if (tableProprietaire.getSelectedRow() != -1) {
 					int row = tableProprietaire.convertRowIndexToModel(tableProprietaire.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-				ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
+					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_ProprietaireDetails(proprietaire,agent).getFrame().setVisible(true);
+					new Vue_ProprietaireDetails(proprietaire, agent).getFrame().setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
 			}
-			
+
 		});
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -187,7 +185,6 @@ public class Vue_ProprietairesList {
 		btnDetails.setBounds(403, 11, 121, 84);
 		frame.getContentPane().add(btnDetails);
 		btnDetails.setOpaque(false);
-
 
 		JButton btnSearch = new JButton("Recherche : ");
 		btnSearch.addActionListener(new ActionListener() {
@@ -211,7 +208,7 @@ public class Vue_ProprietairesList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(551, 75, 93, 20);
+		btnSearch.setBounds(534, 75, 110, 20);
 		frame.getContentPane().add(btnSearch);
 		btnSearch.setOpaque(false);
 

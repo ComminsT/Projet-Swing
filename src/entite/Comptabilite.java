@@ -9,7 +9,16 @@ public class Comptabilite {
 	private Double montantdu;
 	private Double montantpaye;
 	private int id_contratl;
+	private int visible;
 	
+	public int getVisible() {
+		return visible;
+	}
+
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
+
 	public Comptabilite() {
 
 	}

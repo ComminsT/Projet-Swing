@@ -74,7 +74,7 @@ public class Vue_CreationContrat {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 436, 595);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JSeparator separator = new JSeparator();
@@ -86,7 +86,7 @@ public class Vue_CreationContrat {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new Vue_BiensList(agent).getFrame().setVisible(true);
+				new Vue_ContratList(agent).getFrame().setVisible(true);
 			}
 		});
 		btnNewButton.setBounds(10, 11, 109, 66);

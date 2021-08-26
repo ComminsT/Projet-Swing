@@ -71,22 +71,6 @@ public class Vue_BiensList {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
-		
-		JButton btnNouveauContrat = new JButton("Nouveau contrat");
-		btnNouveauContrat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new Vue_CreationContrat(agent).getFrame().setVisible(true);
-				
-			}
-		});
-		btnNouveauContrat.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnNouveauContrat.setOpaque(false);
-		btnNouveauContrat.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNouveauContrat.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNouveauContrat.setBorder(new LineBorder(new Color(0, 0, 0)));
-		btnNouveauContrat.setBackground(Color.LIGHT_GRAY);
-		btnNouveauContrat.setBounds(534, 11, 121, 84);
-		frame.getContentPane().add(btnNouveauContrat);
 
 		txtSearch = new JTextField();
 

@@ -240,6 +240,37 @@ return locataires;
 		}
 	}
 	
+	public Locataire getByIdComptabilite(int id) {
+		try {
+
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE visible=0 AND id IN(SELECT id_locataire FROM contratl WHERE id IN(SELECT id_contratl FROM comptabilite WHERE id=?))");
+			ps.setInt(1, id);
+			ResultSet resultat = ps.executeQuery();
+			Locataire locataire = new Locataire();
+			if (resultat.next()) {
+				locataire.setId(resultat.getInt("id"));
+				locataire.setNom(resultat.getString("nom"));
+				locataire.setPrenom(resultat.getString("prenom"));
+				locataire.setAdresse(resultat.getString("adresse"));
+				locataire.setVille(resultat.getString("ville"));
+				locataire.setCp(resultat.getString("cp"));
+				locataire.setPays(resultat.getString("pays"));
+				locataire.setTel(resultat.getString("tel"));
+				locataire.setNaissance(resultat.getString("naissance"));
+				locataire.setStatut(resultat.getString("statut"));
+				locataire.setSituation(resultat.getString("situation"));
+				locataire.setMail(resultat.getString("mail"));
+				locataire.setVisible(resultat.getInt("visible"));
+				locataire.setId(resultat.getInt("id"));
+			}
+			return locataire;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+	}
+	
 	
 	
 

@@ -6,6 +6,20 @@ public class Visite {
 	private String nom;
 	private String remarque;
 	private int id_bien;
+	private String heure;
+	private int visible;
+	public String getHeure() {
+		return heure;
+	}
+	public void setHeure(String heure) {
+		this.heure = heure;
+	}
+	public int getVisible() {
+		return visible;
+	}
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
 	public Visite() {
 		super();
 		// TODO Auto-generated constructor stub

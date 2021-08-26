@@ -213,7 +213,7 @@ public ArrayList<Bien> getAllByProprietaireId(int id) {
 public ArrayList<Bien> getByKeywordsAndByIdAgent(String keyword, int id) {
 	ArrayList<Bien> biens = new ArrayList<Bien>();
 	try {
-			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=? AND visible=0 AND (nom LIKE ? OR ville LIKE ?)");
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=? AND visible=0 AND (nom LIKE ? OR ville LIKE ? )");
 			ps.setInt(1, id);
 			ps.setString(2,"%" + keyword + "%");
 			ps.setString(3,"%" + keyword + "%");
@@ -301,6 +301,39 @@ public ArrayList<Bien> getAllByIdAgentLIBRE(int id) {
 				biens.add(bien);
 			}
 			return biens;
+		
+	} catch (Exception ex) {
+    	ex.printStackTrace();
+    	return null;
+    }
+}
+
+public Bien getByIdComptabilite(int id) {
+	try {
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE visible=0 AND id IN(SELECT id_bien FROM contratl WHERE id IN(SELECT id_contratl FROM comptabilite WHERE id=?))");
+			ps.setInt(1,id);
+			
+			ResultSet resultat=ps.executeQuery();
+			
+			Bien bien= new Bien();
+			if(resultat.next()) {
+				bien.setId(resultat.getInt( "id" ));
+				bien.setNom(resultat.getString( "nom" ));
+				bien.setAdresse(resultat.getString("adresse"));
+				bien.setCp(resultat.getString("cp"));
+				bien.setVille(resultat.getString("ville"));
+				bien.setPays(resultat.getString("pays"));
+				bien.setType(resultat.getString("type"));
+				bien.setValeur(resultat.getDouble("valeur"));
+				bien.setSurface(resultat.getDouble("surface"));
+				bien.setStatut(resultat.getString("statut"));
+				bien.setId_agent(resultat.getInt("id_agent"));
+				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
+				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
+				
+			}
+			return bien;
 		
 	} catch (Exception ex) {
     	ex.printStackTrace();

@@ -144,6 +144,12 @@ public class Vue_AccueilAgent {
 		btnBiens.setOpaque(false);
 		
 		JButton btnVisites = new JButton("Visites");
+		btnVisites.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_VisitesList(agent).getFrame().setVisible(true);
+			}
+		});
 		btnVisites.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/visits.png")));
 		btnVisites.addMouseListener(new MouseAdapter() {
 			@Override
@@ -165,6 +171,12 @@ public class Vue_AccueilAgent {
 		btnVisites.setOpaque(false);
 		
 		JButton btnComptabilite = new JButton("Comptabilité");
+		btnComptabilite.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_ComptaList(agent).getFrame().setVisible(true);
+			}
+		});
 		btnComptabilite.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/compta.png")));
 		btnComptabilite.addMouseListener(new MouseAdapter() {
 			@Override

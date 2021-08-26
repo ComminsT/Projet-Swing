@@ -102,9 +102,9 @@ public class Vue_ContratList {
 				new Vue_CreationContrat(agent).getFrame().setVisible(true);
 			}
 		});
-		
+
 		JButton btnDetails = new JButton("Détails");
-		
+
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setOpaque(false);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -183,7 +183,7 @@ public class Vue_ContratList {
 					Contratl contrat = contratDAO.getById(selectedId);
 					frame.dispose();
 					new Vue_ContratFin(contrat, agent).getFrame().setVisible(true);
-				}else if(tableContratFini.getSelectedRow() != -1) {
+				} else if (tableContratFini.getSelectedRow() != -1) {
 					JOptionPane.showMessageDialog(null, "Ce contrat est déjà terminé");
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -204,7 +204,7 @@ public class Vue_ContratList {
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		btnDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (tableContratEnCours.getSelectedRow() != -1) {
@@ -212,21 +212,17 @@ public class Vue_ContratList {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					ContratlDAO contratDAO = new ContratlDAO();
 					Contratl contrat = contratDAO.getById(selectedId);
-					frame.dispose();
 					new Vue_ContratDetails(contrat, agent).getFrame().setVisible(true);
-				}else if(tableContratFini.getSelectedRow() != -1) {
+				} else if (tableContratFini.getSelectedRow() != -1) {
 					int row = tableContratFini.convertRowIndexToModel(tableContratFini.getSelectedRow());
 					int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
 					ContratlDAO contratDAO = new ContratlDAO();
 					Contratl contrat = contratDAO.getById(selectedId);
-					frame.dispose();
 					new Vue_ContratDetails(contrat, agent).getFrame().setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
-				
-				
-				
+
 			}
 		});
 	}

@@ -84,7 +84,7 @@ public class Vue_ContratConfirmation {
 		contrat.setId_bien(bien.getId());
 		frame = new JFrame();
 		frame.setBounds(100, 100, 527, 826);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JSeparator separator = new JSeparator();
@@ -96,6 +96,12 @@ public class Vue_ContratConfirmation {
 		frame.getContentPane().add(calendar);
 
 		JButton btnNewButton = new JButton("Retour");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_ContratBienSelect(locataire,agent).getFrame().setVisible(true);	
+			}
+		});
 		btnNewButton.setBounds(10, 11, 116, 66);
 		frame.getContentPane().add(btnNewButton);
 

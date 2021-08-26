@@ -12,6 +12,14 @@ public class Proprietaire {
 	private String tel;
 	private String naissance;
 	private String mail;
+	private int visible;
+	
+	public int getVisible() {
+		return visible;
+	}
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
 	@Override
 	public String toString() {
 		return nom+" "+prenom;

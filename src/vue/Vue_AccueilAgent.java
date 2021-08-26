@@ -203,7 +203,7 @@ public class Vue_AccueilAgent {
 		btnEspacePersonnelle.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEspacePersonnelle.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnEspacePersonnelle.setBackground(Color.LIGHT_GRAY);
-		btnEspacePersonnelle.setBounds(685, 21, 121, 84);
+		btnEspacePersonnelle.setBounds(715, 501, 121, 84);
 		frame.getContentPane().add(btnEspacePersonnelle);
 		btnEspacePersonnelle.setOpaque(false);
 		
@@ -230,7 +230,7 @@ public class Vue_AccueilAgent {
 		btnDeconnexion.setHorizontalAlignment(SwingConstants.CENTER);
 		btnDeconnexion.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnDeconnexion.setBackground(Color.LIGHT_GRAY);
-		btnDeconnexion.setBounds(818, 21, 121, 84);
+		btnDeconnexion.setBounds(838, 501, 121, 84);
 		frame.getContentPane().add(btnDeconnexion);
 		btnDeconnexion.setOpaque(false);
 
@@ -239,6 +239,24 @@ public class Vue_AccueilAgent {
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(20, 130, 254, 58);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		JButton btnContrats = new JButton("Contrats");
+		btnContrats.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_ContratList(agent).getFrame().setVisible(true);
+				
+			}
+		});
+		
+		btnContrats.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnContrats.setOpaque(false);
+		btnContrats.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnContrats.setHorizontalAlignment(SwingConstants.CENTER);
+		btnContrats.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnContrats.setBackground(Color.LIGHT_GRAY);
+		btnContrats.setBounds(685, 21, 121, 84);
+		frame.getContentPane().add(btnContrats);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));

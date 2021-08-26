@@ -13,6 +13,14 @@ public class Locataire {
 	private String statut;
 	private String situation;
 	private String mail;
+	private int visible;
+	
+	public int getVisible() {
+		return visible;
+	}
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
 	public int getId() {
 		return id;
 	}
@@ -87,7 +95,7 @@ public class Locataire {
 	}
 	@Override
 	public String toString() {
-		return "Locataire [nom=" + nom + ", prenom=" + prenom + "]";
+		return nom+" "+ prenom;
 	}
 	public Locataire() {
 		super();

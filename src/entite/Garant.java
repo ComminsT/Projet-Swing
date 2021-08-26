@@ -13,7 +13,7 @@ public class Garant {
 	private int id_contratl;
 	@Override
 	public String toString() {
-		return "Garant [nom=" + nom + ", prenom=" + prenom + ", id_contratl=" + id_contratl + "]";
+		return nom +" "+ prenom;
 	}
 	public int getId() {
 		return id;

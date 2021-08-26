@@ -102,6 +102,7 @@ public class Vue_ProprietairesList {
 		btnNewLandlord.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewLandlord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
 				new Vue_CreationProprietaire().getFrame().setVisible(true);
 			}
 		});

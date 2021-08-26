@@ -5,7 +5,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import entite.Database;
-import entite.Locataire;
 import entite.Proprietaire;
 
 public class ProprietaireDAO {
@@ -19,7 +18,7 @@ public class ProprietaireDAO {
 
 			if (proprietaire.getId() != 0) {
 				PreparedStatement ps = Database.connexion.prepareStatement(
-						"UPDATE proprietaire set nom=?,prenom=?,adresse=?,ville=?,cp=?,pays=?,tel=?,naissance=?,mail=? WHERE id=? ");
+						"UPDATE proprietaire set nom=?,prenom=?,adresse=?,ville=?,cp=?,pays=?,tel=?,naissance=?,mail=?,visible=? WHERE id=? ");
 				ps.setString(1, proprietaire.getNom());
 				ps.setString(2, proprietaire.getPrenom());
 				ps.setString(3, proprietaire.getAdresse());
@@ -29,7 +28,8 @@ public class ProprietaireDAO {
 				ps.setString(7, proprietaire.getTel());
 				ps.setString(8, proprietaire.getNaissance());
 				ps.setString(9, proprietaire.getMail());
-				ps.setInt(10, proprietaire.getId());
+				ps.setInt(10, proprietaire.getVisible());
+				ps.setInt(11, proprietaire.getId());
 				ps.executeUpdate();
 			} else {
 				PreparedStatement ps = Database.connexion.prepareStatement(
@@ -57,7 +57,7 @@ public class ProprietaireDAO {
 	public Proprietaire getById(int id) {
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire WHERE id=?");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire WHERE id=? AND visible=0");
 			ps.setInt(1, id);
 
 			ResultSet resultat = ps.executeQuery();
@@ -74,6 +74,8 @@ public class ProprietaireDAO {
 				proprietaire.setTel(resultat.getString("tel"));
 				proprietaire.setNaissance(resultat.getString("naissance"));
 				proprietaire.setMail(resultat.getString("mail"));
+				proprietaire.setVisible(resultat.getInt("visible"));
+
 			}
 			return proprietaire;
 
@@ -87,7 +89,7 @@ public class ProprietaireDAO {
 		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire ORDER BY nom");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire WHERE visible=0 ORDER BY nom");
 
 			ResultSet resultat = ps.executeQuery();
 
@@ -103,6 +105,8 @@ public class ProprietaireDAO {
 				proprietaire.setTel(resultat.getString("tel"));
 				proprietaire.setNaissance(resultat.getString("naissance"));
 				proprietaire.setMail(resultat.getString("mail"));
+				proprietaire.setVisible(resultat.getInt("visible"));
+
 				proprietaires.add(proprietaire);
 			}
 			return proprietaires;
@@ -116,7 +120,7 @@ public class ProprietaireDAO {
 	public void deleteById(int id) {
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("DELETE FROM proprietaire WHERE id=?");
+			PreparedStatement ps = Database.connexion.prepareStatement("UPDATE proprietaire SET visible=1 WHERE id=?");
 			ps.setInt(1, id);
 			ps.executeUpdate();
 
@@ -131,7 +135,7 @@ public class ProprietaireDAO {
 	public ArrayList<String> getAllMail() {
 		ArrayList<String> mails = new ArrayList<String>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire WHERE visible=0");
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
 				mails.add(resultat.getString("mail"));
@@ -148,7 +152,7 @@ public class ProprietaireDAO {
 	public ArrayList<String> getAllPhone() {
 		ArrayList<String> phones = new ArrayList<String>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM proprietaire WHERE visible=0");
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
 				phones.add(resultat.getString("tel"));
@@ -166,7 +170,7 @@ public class ProprietaireDAO {
 		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
 		try {
 			PreparedStatement ps = Database.connexion.prepareStatement(
-					"SELECT * FROM proprietaire WHERE id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?) ");
+					"SELECT * FROM proprietaire WHERE id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?) AND visible=0 ");
 			ps.setInt(1, id);
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
@@ -181,6 +185,7 @@ public class ProprietaireDAO {
 				proprietaire.setTel(resultat.getString("tel"));
 				proprietaire.setNaissance(resultat.getString("naissance"));
 				proprietaire.setMail(resultat.getString("mail"));
+				proprietaire.setVisible(resultat.getInt("visible"));
 				proprietaires.add(proprietaire);
 			}
 			return proprietaires;
@@ -195,7 +200,7 @@ public class ProprietaireDAO {
 		ArrayList<Proprietaire> proprietaires = new ArrayList<Proprietaire>();
 		try {
 			PreparedStatement ps = Database.connexion.prepareStatement(
-					"SELECT * FROM proprietaire WHERE (nom LIKE ? OR prenom LIKE ? OR ville LIKE ?) AND id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?)");
+					"SELECT * FROM proprietaire WHERE (nom LIKE ? OR prenom LIKE ? OR ville LIKE ?) AND id IN(SELECT id_proprietaire FROM bien WHERE id_agent=?) AND visible=0");
 			ps.setString(1, "%" + keyword + "%");
 			ps.setString(2, "%" + keyword + "%");
 			ps.setString(3, "%" + keyword + "%");
@@ -213,6 +218,7 @@ public class ProprietaireDAO {
 				proprietaire.setTel(resultat.getString("tel"));
 				proprietaire.setNaissance(resultat.getString("naissance"));
 				proprietaire.setMail(resultat.getString("mail"));
+				proprietaire.setVisible(resultat.getInt("visible"));
 				proprietaires.add(proprietaire);
 			}
 			return proprietaires;

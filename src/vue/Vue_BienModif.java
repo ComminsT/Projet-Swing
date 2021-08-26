@@ -3,6 +3,7 @@ package vue;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
@@ -21,6 +22,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
@@ -79,6 +81,7 @@ public class Vue_BienModif {
 	private JTextField txtSurface;
 	private Agent agent;
 	private Bien bien;
+	private int photoDisplayed = 1;
 
 	/**
 	 * Create the application.
@@ -117,7 +120,7 @@ public class Vue_BienModif {
 
 		JButton btnNewButton = new JButton("Confirmer");
 
-		btnNewButton.setBounds(852, 11, 113, 53);
+		btnNewButton.setBounds(852, 11, 113, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
@@ -414,7 +417,7 @@ public class Vue_BienModif {
 		frame.getContentPane().add(lblVille_2_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Modification biens immobiliers");
-		lblNewLabel_1.setBounds(346, 20, 190, 34);
+		lblNewLabel_1.setBounds(291, 28, 190, 34);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JButton btnRetour = new JButton("Retour");
@@ -424,23 +427,24 @@ public class Vue_BienModif {
 				new Vue_BiensList(agent).getFrame().setVisible(true);
 			}
 		});
-		btnRetour.setBounds(10, 11, 113, 53);
+		btnRetour.setBounds(10, 11, 113, 69);
 		frame.getContentPane().add(btnRetour);
 
-		JButton btnAjouterDesPhotos = new JButton("Photos");
+		JButton btnAjouterDesPhotos = new JButton("Ajouter des photos");
 		btnAjouterDesPhotos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG", "jpg", "png");
 				Path pathtoimg_appart = Paths
 						.get("C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId() + "\\");
-				File pathtoimg_appart_file=new File("C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
+				File pathtoimg_appart_file = new File(
+						"C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
 				System.out.println(pathtoimg_appart);
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(filter);
 				fileChooser.setCurrentDirectory(new File("c:"));
 				fileChooser.setMultiSelectionEnabled(true);
 				int response = fileChooser.showSaveDialog(null);
-				int fileCount=pathtoimg_appart_file.list().length;
+				int fileCount = pathtoimg_appart_file.list().length;
 				System.out.println(fileCount);
 
 				if (response == JFileChooser.APPROVE_OPTION) {
@@ -448,13 +452,14 @@ public class Vue_BienModif {
 					for (int i = 0; i < filesselected; i++) {
 						File file = new File(fileChooser.getSelectedFiles()[i].getAbsolutePath());
 						Path pathtofile = Paths.get(file.toString());
-						String fileName=file.toString();
+						String fileName = file.toString();
 						int index = fileName.lastIndexOf('.');
-						System.out.println(fileName.substring(index+1));
+						System.out.println(fileName.substring(index + 1));
 						System.out.println(file);
-						
+
 						try {
-							Files.copy(pathtofile, pathtoimg_appart.resolve(i+fileCount+1+"."+fileName.substring(index+1)),
+							Files.copy(pathtofile,
+									pathtoimg_appart.resolve(i + fileCount + 1 + "." + fileName.substring(index + 1)),
 									REPLACE_EXISTING);
 						} catch (IOException e1) {
 							e1.printStackTrace();
@@ -465,27 +470,84 @@ public class Vue_BienModif {
 				}
 			}
 		});
-		btnAjouterDesPhotos.setBounds(133, 11, 113, 53);
+		btnAjouterDesPhotos.setBounds(133, 11, 148, 68);
 		frame.getContentPane().add(btnAjouterDesPhotos);
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(495, 95, 470, 414);
+		layeredPane.setBounds(434, 90, 531, 500);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
-		File pathtoimg_appart_file=new File("C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
-		int fileCount=pathtoimg_appart_file.list().length;
-		
-		for(int index=0;index<fileCount;index++) {
-			JPanel panel=new JPanel();
-			panel.setBackground(Color.blue);
-		System.out.println(index);
-			layeredPane.add(panel);
-			
-		}
-
 		JPanel panel = new JPanel();
 		layeredPane.add(panel, "name_463069160670000");
+		panel.setLayout(null);
+
+		JButton btnSuivant = new JButton("Suivant");
+
+		btnSuivant.setBounds(442, 241, 89, 23);
+		panel.add(btnSuivant);
+
+		JButton btnPrecedent = new JButton("Precedent");
+
+		btnPrecedent.setBounds(0, 241, 89, 23);
+		panel.add(btnPrecedent);
+
+		JLabel lblNewLabel_2 = new JLabel("");
 		
+
+		lblNewLabel_2.setBounds(0, 0, 531, 500);
+		panel.add(lblNewLabel_2);
+
+		File pathtoimg_appart_file = new File(
+				"C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
+		File[] paths = pathtoimg_appart_file.listFiles();
+		ArrayList<String> imgpaths = new ArrayList<String>();
+		for (File f : paths) {
+			imgpaths.add(f.getAbsolutePath());
+		}
+		int fileCount = pathtoimg_appart_file.list().length;
+		btnPrecedent.setVisible(false);
+		btnSuivant.setVisible(false);
+		if (fileCount > 0) {
+			btnPrecedent.setVisible(true);
+			btnSuivant.setVisible(true);
+			lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+					.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
+
+		} else {
+			lblNewLabel_2.setIcon(new ImageIcon(
+					new ImageIcon(Vue_BienModif.class.getResource("/img/no_pics.jpg"))
+							.getImage().getScaledInstance(470, 414, Image.SCALE_DEFAULT)));
+
+		}
+		btnSuivant.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (photoDisplayed != fileCount) {
+					photoDisplayed++;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
+				} else {
+					photoDisplayed = 1;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
+				}
+
+			}
+		});
+
+		btnPrecedent.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (photoDisplayed == 1) {
+					photoDisplayed = fileCount;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
+				} else {
+					photoDisplayed--;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
+				}
+
+			}
+		});
 
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override

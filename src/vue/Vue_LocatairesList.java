@@ -30,6 +30,7 @@ public class Vue_LocatairesList {
 	private Agent agent;
 	private JTextField txtSearch;
 	private DefaultTableModel model;
+	
 
 	/**
 	 * Launch the application.
@@ -81,7 +82,6 @@ public class Vue_LocatairesList {
 		frame.getContentPane().add(scrollPane);
 
 		LocataireDAO locataireDAO = new LocataireDAO();
-
 		ArrayList<Locataire> locataires = locataireDAO.getAllByIdAgent(agent.getId());
 		String columns[] = { "ID", "Nom", "Prenom", "Telephone", "Statut", "Situation" };
 		String data[][] = new String[locataires.size()][columns.length];
@@ -104,6 +104,7 @@ public class Vue_LocatairesList {
 		btnNewTenant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewTenant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
 				new Vue_CreationLocataire().getFrame().setVisible(true);
 			}
 		});

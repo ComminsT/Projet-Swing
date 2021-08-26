@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import entite.Contratl;
 import entite.Database;
+import entite.Proprietaire;
 
 public class ContratlDAO {
 	public ContratlDAO() {
@@ -17,11 +18,12 @@ public class ContratlDAO {
 		try {
 			
 			if(contratl.getId() != 0) {
-				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE contratl set date=?, id_locataire=?, id_bien=? WHERE id=?");
+				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE contratl set date=?, id_locataire=?, id_bien=?, datefin=? WHERE id=?");
 				ps.setString(1,contratl.getDate());
 				ps.setInt(2,contratl.getId_locataire());
 				ps.setInt(3,contratl.getId_bien());
-				ps.setInt(4,contratl.getId());
+				ps.setString(4, contratl.getDatefin());
+				ps.setInt(5,contratl.getId());
 				ps.executeUpdate();
 			}else {
 				PreparedStatement ps  = Database.connexion.prepareStatement("INSERT INTO contratl (date,id_locataire,id_bien) VALUES(?,?,?)");
@@ -53,6 +55,7 @@ public Contratl getById(int id) {
 				cl.setDate(resultat.getString( "date" ));
 				cl.setId_locataire(resultat.getInt( "id_locataire" ));
 				cl.setId_bien(resultat.getInt( "id_bien" ));
+				cl.setDatefin(resultat.getString("datefin"));
 			}
 			return cl;
 		
@@ -77,6 +80,7 @@ public ArrayList<Contratl> getAll() {
 				cl.setDate(resultat.getString( "date" ));
 				cl.setId_locataire(resultat.getInt( "id_locataire" ));
 				cl.setId_bien(resultat.getInt( "id_bien" ));
+				cl.setDatefin(resultat.getString("datefin"));
 				contratls.add(cl);
 			}
 			
@@ -104,5 +108,54 @@ public void deleteById(int id) {
     	System.out.println("DELETED NO");
     }
 }
+
+public ArrayList<Contratl> getAllByIdAgentNOTFINISHED(int id) {
+	ArrayList<Contratl> contrats = new ArrayList<Contratl>();
+	try {
+		PreparedStatement ps = Database.connexion.prepareStatement(
+				"SELECT * FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?) AND datefin IS NULL ");
+		ps.setInt(1, id);
+		ResultSet resultat = ps.executeQuery();
+		while (resultat.next()) {
+			Contratl cl = new Contratl();
+			cl.setId(resultat.getInt( "id" ));
+			cl.setDate(resultat.getString( "date" ));
+			cl.setDatefin(resultat.getString("datefin"));
+			cl.setId_locataire(resultat.getInt( "id_locataire" ));
+			cl.setId_bien(resultat.getInt( "id_bien" ));
+			contrats.add(cl);
+		}
+		return contrats;
+	} catch (Exception ex) {
+		ex.printStackTrace();
+		return null;
+	}
+
+}
+public ArrayList<Contratl> getAllByIdAgentFINISHED(int id) {
+	ArrayList<Contratl> contrats = new ArrayList<Contratl>();
+	try {
+		PreparedStatement ps = Database.connexion.prepareStatement(
+				"SELECT * FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?) AND datefin IS NOT NULL ");
+		ps.setInt(1, id);
+		ResultSet resultat = ps.executeQuery();
+		while (resultat.next()) {
+			Contratl cl = new Contratl();
+			cl.setId(resultat.getInt( "id" ));
+			cl.setDate(resultat.getString( "date" ));
+			cl.setDatefin(resultat.getString("datefin"));
+			cl.setId_locataire(resultat.getInt( "id_locataire" ));
+			cl.setId_bien(resultat.getInt( "id_bien" ));
+			cl.setDatefin(resultat.getString("datefin"));
+			contrats.add(cl);
+		}
+		return contrats;
+	} catch (Exception ex) {
+		ex.printStackTrace();
+		return null;
+	}
+
+}
+
 
 }

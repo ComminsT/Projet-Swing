@@ -71,10 +71,26 @@ public class Vue_BiensList {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
+		
+		JButton btnNouveauContrat = new JButton("Nouveau contrat");
+		btnNouveauContrat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new Vue_CreationContrat(agent).getFrame().setVisible(true);
+				
+			}
+		});
+		btnNouveauContrat.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNouveauContrat.setOpaque(false);
+		btnNouveauContrat.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNouveauContrat.setHorizontalAlignment(SwingConstants.CENTER);
+		btnNouveauContrat.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnNouveauContrat.setBackground(Color.LIGHT_GRAY);
+		btnNouveauContrat.setBounds(534, 11, 121, 84);
+		frame.getContentPane().add(btnNouveauContrat);
 
 		txtSearch = new JTextField();
 
-		txtSearch.setBounds(654, 75, 301, 20);
+		txtSearch.setBounds(769, 75, 186, 20);
 		frame.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
@@ -104,6 +120,7 @@ public class Vue_BiensList {
 		btnNewLandlord.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewLandlord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
 				new Vue_CreationBien(agent).getFrame().setVisible(true);
 			}
 		});
@@ -171,7 +188,7 @@ public class Vue_BiensList {
 					BienDAO bienDAO= new BienDAO();
 					Bien bien = bienDAO.getById(selectedId);
 					frame.dispose();
-					//new Vue_BienDetails(bien, agent).getFrame().setVisible(true);
+					new Vue_BienDetails(bien, agent).getFrame().setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -209,7 +226,7 @@ public class Vue_BiensList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(534, 75, 110, 20);
+		btnSearch.setBounds(665, 75, 94, 20);
 		frame.getContentPane().add(btnSearch);
 		btnSearch.setOpaque(false);
 

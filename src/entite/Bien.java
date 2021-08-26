@@ -14,6 +14,13 @@ public class Bien {
 	private int id_agent;
 	private int id_proprietaire;
 	private int annee;
+	private int visible;
+	public int getVisible() {
+		return visible;
+	}
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
 	public int getAnnee() {
 		return annee;
 	}
@@ -22,7 +29,7 @@ public class Bien {
 	}
 	@Override
 	public String toString() {
-		return "Bien [nom=" + nom + ", adresse=" + adresse + ", id_proprietaire=" + id_proprietaire + "]";
+		return nom;
 	}
 	public int getId() {
 		return id;

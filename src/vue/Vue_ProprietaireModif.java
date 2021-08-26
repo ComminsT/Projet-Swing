@@ -337,17 +337,16 @@ public class Vue_ProprietaireModif {
 
 		lblVille_1 = new JLabel("Date de naissance");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(10, 419, 123, 17);
+		lblVille_1.setBounds(10, 372, 123, 17);
 		frame.getContentPane().add(lblVille_1);
 		String phone2 = proprietaire.getTel().substring(proprietaire.getTel().length()-9,proprietaire.getTel().length());
 		String phoneid=proprietaire.getTel().substring(0,proprietaire.getTel().length()-9);
-		System.out.println(phoneid);
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
 		comboboxidentifiant.setModel(new DefaultComboBoxModel<>(new String []  { "AT +43", "BE +32", "BG +359", "CY +357",
 				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
 				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44" }));
-		comboboxidentifiant.setBounds(10, 380, 73, 22);
+		comboboxidentifiant.setBounds(10, 333, 73, 22);
 		String[] id=new String[] {"AT +43", "BE +32", "BG +359", "CY +357",
 				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
@@ -396,19 +395,13 @@ public class Vue_ProprietaireModif {
 		txtNumero.setText(phone2);
 		txtNumero.setForeground(Color.BLACK);
 		txtNumero.setColumns(10);
-		txtNumero.setBounds(93, 380, 139, 22);
+		txtNumero.setBounds(93, 333, 139, 22);
 		frame.getContentPane().add(txtNumero);
 
 		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_4.setBounds(10, 361, 170, 14);
+		lblNewLabel_4.setBounds(10, 314, 170, 14);
 		frame.getContentPane().add(lblNewLabel_4);
-
-		JLabel lblNewLabel_4_1 = new JLabel("Situation :");
-		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_4_1.setBounds(13, 311, 100, 14);
-		frame.getContentPane().add(lblNewLabel_4_1);
 
 		
 
@@ -418,7 +411,7 @@ public class Vue_ProprietaireModif {
 		int jour=Integer.parseInt(date[2]);
 		
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(27, 437, 205, 153);
+		calendar.setBounds(27, 390, 205, 153);
 		frame.getContentPane().add(calendar);
 		calendar.getYearChooser().setYear(annee);
 		calendar.getMonthChooser().setMonth(mois-1);
@@ -428,7 +421,7 @@ public class Vue_ProprietaireModif {
 		JLabel lblPhoneError = new JLabel("Numéro de téléphone déjà enregistré ou invalide");
 		lblPhoneError.setForeground(Color.RED);
 		lblPhoneError.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblPhoneError.setBounds(10, 405, 240, 14);
+		lblPhoneError.setBounds(10, 358, 240, 14);
 		frame.getContentPane().add(lblPhoneError);
 
 		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du proprietaire");
@@ -458,12 +451,14 @@ public class Vue_ProprietaireModif {
 		frame.getContentPane().add(btnAnnuler);
 
 		lblMailError.setVisible(false);
+		lblPhoneError.setVisible(false);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Database.Connect();
 				lblMailError.setVisible(false);
+				lblPhoneError.setVisible(false);
 				String nom = txtNom.getText();
 				String prenom = txtPrenom.getText();
 				String adresse = txtAdresse.getText();
@@ -506,7 +501,7 @@ public class Vue_ProprietaireModif {
 					lblMailError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
 				} else if (!Checker.phonemodifierp(tel,proprietaire)) {
-					lblPhoneError.setForeground(Color.red);
+					lblPhoneError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Numéro de telephone invalide ou déjà utilisé");
 				} else {
 					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();

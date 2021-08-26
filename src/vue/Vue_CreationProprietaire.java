@@ -85,7 +85,7 @@ public class Vue_CreationProprietaire {
 		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 534, 749);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);

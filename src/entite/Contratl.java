@@ -5,6 +5,13 @@ public class Contratl {
 	private String date;
 	private int id_locataire;
 	private int id_bien;
+	private String datefin;
+	public String getDatefin() {
+		return datefin;
+	}
+	public void setDatefin(String datefin) {
+		this.datefin = datefin;
+	}
 	@Override
 	public String toString() {
 		return "Contratl [date=" + date + ", id_locataire=" + id_locataire + ", id_bien=" + id_bien + "]";

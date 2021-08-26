@@ -17,7 +17,7 @@ public BienDAO() {
 		try {
 			
 			if(bien.getId() != 0) {
-				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE bien set nom=?,adresse=?,cp=?,ville=?,pays=?,type=?,valeur=?,surface=?,statut=?,id_agent=?,id_proprietaire=?,annee=? WHERE id=?");
+				PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE bien set nom=?,adresse=?,cp=?,ville=?,pays=?,type=?,valeur=?,surface=?,statut=?,id_agent=?,id_proprietaire=?,annee=?,visible=? WHERE id=?");
 				ps.setString(1,bien.getNom());
 				ps.setString(2,bien.getAdresse());
 				ps.setString(3,bien.getCp());
@@ -30,10 +30,11 @@ public BienDAO() {
 				ps.setInt(10,bien.getId_agent());
 				ps.setInt(11,bien.getId_proprietaire());
 				ps.setInt(12,bien.getAnnee());
-				ps.setInt(13, bien.getId());
+				ps.setInt(13, bien.getVisible());
+				ps.setInt(14, bien.getId());
 				ps.executeUpdate();
 			}else {
-				PreparedStatement ps  = Database.connexion.prepareStatement("INSERT INTO bien (nom,adresse,cp,ville,pays,type,valeur,surface,statut,id_agent,id_proprietaire,annee) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+				PreparedStatement ps  = Database.connexion.prepareStatement("INSERT INTO bien (nom,adresse,cp,ville,pays,type,valeur,surface,statut,id_agent,id_proprietaire,annee,visible) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1,bien.getNom());
 				ps.setString(2,bien.getAdresse());
 				ps.setString(3,bien.getCp());
@@ -46,6 +47,7 @@ public BienDAO() {
 				ps.setInt(10,bien.getId_agent());
 				ps.setInt(11,bien.getId_proprietaire());
 				ps.setInt(12,bien.getAnnee());
+				ps.setInt(13,bien.getVisible());
 				ps.executeUpdate();
 			}
 			System.out.println("SAVED OK");
@@ -60,7 +62,7 @@ public BienDAO() {
 public Bien getById(int id) {
 	try {
 	
-			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id=?");
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id=? AND visible=0");
 			ps.setInt(1,id);
 			
 			ResultSet resultat=ps.executeQuery();
@@ -80,6 +82,7 @@ public Bien getById(int id) {
 				bien.setId_agent(resultat.getInt("id_agent"));
 				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
 				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
 				
 			}
 			return bien;
@@ -95,7 +98,7 @@ public ArrayList<Bien> getAll() {
 	ArrayList<Bien> biens = new ArrayList<Bien>();
 	try {
 		
-			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien");
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE visible=0");
 			
 			ResultSet resultat=ps.executeQuery();
 
@@ -114,6 +117,7 @@ public ArrayList<Bien> getAll() {
 				bien.setId_agent(resultat.getInt("id_agent"));
 				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
 				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
 				biens.add(bien);
 			}
 			return biens;
@@ -127,7 +131,7 @@ public ArrayList<Bien> getAll() {
 public void deleteById(int id) {
 	try {
 		
-			PreparedStatement ps  = Database.connexion.prepareStatement("DELETE FROM bien WHERE id=?");
+			PreparedStatement ps  = Database.connexion.prepareStatement("UPDATE bien SET visible=1 WHERE id=?");
 			ps.setInt(1,id);
 			ps.executeUpdate();
 			
@@ -139,10 +143,12 @@ public void deleteById(int id) {
     }
 }
 
+
+
 public ArrayList<Bien> getAllByIdAgent(int id) {
 	ArrayList<Bien> biens = new ArrayList<Bien>();
 	try {
-			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=?");
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=? and visible=0");
 			ps.setInt(1, id);
 			ResultSet resultat=ps.executeQuery();
 
@@ -161,6 +167,7 @@ public ArrayList<Bien> getAllByIdAgent(int id) {
 				bien.setId_agent(resultat.getInt("id_agent"));
 				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
 				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
 				biens.add(bien);
 			}
 			return biens;
@@ -173,7 +180,7 @@ public ArrayList<Bien> getAllByIdAgent(int id) {
 public ArrayList<Bien> getAllByProprietaireId(int id) {
 	ArrayList<Bien> biens = new ArrayList<Bien>();
 	try {
-			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_proprietaire=?");
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_proprietaire=? AND visible=0");
 			ps.setInt(1, id);
 			ResultSet resultat=ps.executeQuery();
 
@@ -192,6 +199,7 @@ public ArrayList<Bien> getAllByProprietaireId(int id) {
 				bien.setId_agent(resultat.getInt("id_agent"));
 				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
 				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
 				biens.add(bien);
 			}
 			return biens;
@@ -205,7 +213,7 @@ public ArrayList<Bien> getAllByProprietaireId(int id) {
 public ArrayList<Bien> getByKeywordsAndByIdAgent(String keyword, int id) {
 	ArrayList<Bien> biens = new ArrayList<Bien>();
 	try {
-			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=? AND (nom LIKE ? OR ville LIKE ?)");
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=? AND visible=0 AND (nom LIKE ? OR ville LIKE ?)");
 			ps.setInt(1, id);
 			ps.setString(2,"%" + keyword + "%");
 			ps.setString(3,"%" + keyword + "%");
@@ -225,6 +233,7 @@ public ArrayList<Bien> getByKeywordsAndByIdAgent(String keyword, int id) {
 				bien.setId_agent(resultat.getInt("id_agent"));
 				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
 				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
 				biens.add(bien);
 			}
 			return biens;
@@ -233,5 +242,71 @@ public ArrayList<Bien> getByKeywordsAndByIdAgent(String keyword, int id) {
     	return null;
     }
 }
+public ArrayList<Bien> getByKeywordsAndByIdAgentLIBRE(String keyword, int id) {
+	ArrayList<Bien> biens = new ArrayList<Bien>();
+	try {
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=? AND visible=0 AND statut=\"En recherche de locataire\" AND (nom LIKE ? OR ville LIKE ?)");
+			ps.setInt(1, id);
+			ps.setString(2,"%" + keyword + "%");
+			ps.setString(3,"%" + keyword + "%");
+			ResultSet resultat=ps.executeQuery();
+			while(resultat.next()) {
+				Bien bien  = new Bien();
+				bien.setId(resultat.getInt( "id" ));
+				bien.setNom(resultat.getString( "nom" ));
+				bien.setAdresse(resultat.getString("adresse"));
+				bien.setCp(resultat.getString("cp"));
+				bien.setVille(resultat.getString("ville"));
+				bien.setPays(resultat.getString("pays"));
+				bien.setType(resultat.getString("type"));
+				bien.setValeur(resultat.getDouble("valeur"));
+				bien.setSurface(resultat.getDouble("surface"));
+				bien.setStatut(resultat.getString("statut"));
+				bien.setId_agent(resultat.getInt("id_agent"));
+				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
+				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
+				biens.add(bien);
+			}
+			return biens;
+	} catch (Exception ex) {
+    	ex.printStackTrace();
+    	return null;
+    }
+}
+
+public ArrayList<Bien> getAllByIdAgentLIBRE(int id) {
+	ArrayList<Bien> biens = new ArrayList<Bien>();
+	try {
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM bien WHERE id_agent=? AND visible=0 AND statut=\"En recherche de locataire\"");
+			ps.setInt(1, id);
+			ResultSet resultat=ps.executeQuery();
+
+			while(resultat.next()) {
+				Bien bien  = new Bien();
+				bien.setId(resultat.getInt( "id" ));
+				bien.setNom(resultat.getString( "nom" ));
+				bien.setAdresse(resultat.getString("adresse"));
+				bien.setCp(resultat.getString("cp"));
+				bien.setVille(resultat.getString("ville"));
+				bien.setPays(resultat.getString("pays"));
+				bien.setType(resultat.getString("type"));
+				bien.setValeur(resultat.getDouble("valeur"));
+				bien.setSurface(resultat.getDouble("surface"));
+				bien.setStatut(resultat.getString("statut"));
+				bien.setId_agent(resultat.getInt("id_agent"));
+				bien.setId_proprietaire(resultat.getInt("id_proprietaire"));
+				bien.setAnnee(resultat.getInt("annee"));
+				bien.setVisible(resultat.getInt("visible"));
+				biens.add(bien);
+			}
+			return biens;
+		
+	} catch (Exception ex) {
+    	ex.printStackTrace();
+    	return null;
+    }
+}
+
 
 }

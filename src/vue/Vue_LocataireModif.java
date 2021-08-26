@@ -341,7 +341,6 @@ public class Vue_LocataireModif {
 		frame.getContentPane().add(lblVille_1);
 		String phone2 = locataire.getTel().substring(locataire.getTel().length()-9,locataire.getTel().length());
 		String phoneid=locataire.getTel().substring(0,locataire.getTel().length()-9);
-		System.out.println(phoneid);
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
 		comboboxidentifiant.setModel(new DefaultComboBoxModel<>(new String []  { "AT +43", "BE +32", "BG +359", "CY +357",
 				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
@@ -475,12 +474,14 @@ public class Vue_LocataireModif {
 		frame.getContentPane().add(btnAnnuler);
 
 		lblMailError.setVisible(false);
+		lblPhoneError.setVisible(false);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Database.Connect();
 				lblMailError.setVisible(false);
+				lblPhoneError.setVisible(false);
 				String nom = txtNom.getText();
 				String prenom = txtPrenom.getText();
 				String adresse = txtAdresse.getText();
@@ -525,7 +526,7 @@ public class Vue_LocataireModif {
 					lblMailError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
 				} else if (!Checker.phonemodifierl(tel,locataire)) {
-					lblPhoneError.setForeground(Color.red);
+					lblPhoneError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Numéro de telephone invalide ou déjà utilisé");
 				} else {
 					LocataireDAO locataireDAO = new LocataireDAO();

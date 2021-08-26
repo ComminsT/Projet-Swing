@@ -18,7 +18,7 @@ public class LocataireDAO {
 
 			if (locataire.getId() != 0) {
 				PreparedStatement ps = Database.connexion.prepareStatement(
-						"UPDATE locataire set nom=?, prenom=?,adresse=?,ville=?,cp=?,pays=?,tel=?,naissance=?,statut=?,situation=?,mail=? WHERE id=?");
+						"UPDATE locataire set nom=?, prenom=?,adresse=?,ville=?,cp=?,pays=?,tel=?,naissance=?,statut=?,situation=?,mail=?,visible=? WHERE id=?");
 				ps.setString(1, locataire.getNom());
 				ps.setString(2, locataire.getPrenom());
 				ps.setString(3, locataire.getAdresse());
@@ -30,7 +30,8 @@ public class LocataireDAO {
 				ps.setString(9, locataire.getStatut());
 				ps.setString(10, locataire.getSituation());
 				ps.setString(11, locataire.getMail());
-				ps.setInt(12, locataire.getId());
+				ps.setInt(12, locataire.getVisible());
+				ps.setInt(13, locataire.getId());
 				ps.executeUpdate();
 			} else {
 				PreparedStatement ps = Database.connexion.prepareStatement(
@@ -60,7 +61,7 @@ public class LocataireDAO {
 	public Locataire getById(int id) {
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE id=?");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE id=? AND visible=0");
 			ps.setInt(1, id);
 
 			ResultSet resultat = ps.executeQuery();
@@ -79,6 +80,7 @@ public class LocataireDAO {
 				locataire.setStatut(resultat.getString("statut"));
 				locataire.setSituation(resultat.getString("situation"));
 				locataire.setMail(resultat.getString("mail"));
+				locataire.setVisible(resultat.getInt("visible"));
 				locataire.setId(resultat.getInt("id"));
 			}
 			return locataire;
@@ -93,7 +95,7 @@ public class LocataireDAO {
 		ArrayList<Locataire> locataires = new ArrayList<Locataire>();
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE visible=0");
 
 			ResultSet resultat = ps.executeQuery();
 
@@ -111,6 +113,7 @@ public class LocataireDAO {
 				locataire.setStatut(resultat.getString("statut"));
 				locataire.setSituation(resultat.getString("situation"));
 				locataire.setMail(resultat.getString("mail"));
+				locataire.setVisible(resultat.getInt("visible"));
 				locataire.setId(resultat.getInt("id"));
 				locataires.add(locataire);
 			}
@@ -125,7 +128,7 @@ public class LocataireDAO {
 	public void deleteById(int id) {
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("DELETE FROM locataire WHERE id=?");
+			PreparedStatement ps = Database.connexion.prepareStatement("UPDATE locataire SET visible=1 WHERE id=?");
 			ps.setInt(1, id);
 			ps.executeUpdate();
 
@@ -140,7 +143,7 @@ public class LocataireDAO {
 	public ArrayList<String> getAllMail() {
 		ArrayList<String> mails = new ArrayList<String>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE visible=0");
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
 				mails.add(resultat.getString("mail"));
@@ -156,7 +159,7 @@ public class LocataireDAO {
 	public ArrayList<String> getAllPhone() {
 		ArrayList<String> phones = new ArrayList<String>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE visible=0");
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
 				phones.add(resultat.getString("tel"));
@@ -171,7 +174,7 @@ public class LocataireDAO {
 
 	public ArrayList<Locataire> getAllByIdAgent(int id) {
 		ArrayList<Locataire>locataires=new ArrayList<Locataire>();
-		try {PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) ");
+		try {PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND visible=0 ");
 		ps.setInt(1, id);
 		ResultSet resultat=ps.executeQuery();
 		while(resultat.next()) {
@@ -188,6 +191,7 @@ public class LocataireDAO {
 			locataire.setStatut(resultat.getString("statut"));
 			locataire.setSituation(resultat.getString("situation"));
 			locataire.setMail(resultat.getString("mail"));
+			locataire.setVisible(resultat.getInt("visible"));
 			locataire.setId(resultat.getInt("id"));
 			locataires.add(locataire);
 		}
@@ -202,7 +206,7 @@ return locataires;
 	public ArrayList<Locataire>getByKeywordsAndByIdAgent(String keyword,int id){
 		ArrayList<Locataire>locataires=new ArrayList<Locataire>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE (nom LIKE ? OR prenom LIKE ? OR ville LIKE ?) AND  id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?))");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM locataire WHERE (nom LIKE? OR prenom LIKE ? or ville LIKE ?) AND id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND visible=0");
 			ps.setString(1,"%" + keyword + "%");
 			ps.setString(2,"%" + keyword + "%");
 			ps.setString(3,"%" + keyword + "%");
@@ -222,6 +226,7 @@ return locataires;
 				locataire.setStatut(resultat.getString("statut"));
 				locataire.setSituation(resultat.getString("situation"));
 				locataire.setMail(resultat.getString("mail"));
+				locataire.setVisible(resultat.getInt("visible"));
 				locataire.setId(resultat.getInt("id"));
 				locataires.add(locataire);
 			}
@@ -234,5 +239,8 @@ return locataires;
 			
 		}
 	}
+	
+	
+	
 
 }

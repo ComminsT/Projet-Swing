@@ -13,6 +13,13 @@ public class Agent {
 	private String statut;
 	private String mail;
 	private String tel;
+	private int visible;
+	public int getVisible() {
+		return visible;
+	}
+	public void setVisible(int visible) {
+		this.visible = visible;
+	}
 	public String getTel() {
 		return tel;
 	}

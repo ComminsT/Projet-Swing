@@ -18,7 +18,7 @@ public class AgentDAO {
 
 			if (agent.getId() != 0) {
 				PreparedStatement ps = Database.connexion.prepareStatement(
-						"UPDATE agent set nom=?, prenom=?,identifiant=?,mdp=?,adresse=?,cp=?,ville=?,dateentree=?,statut=?,mail=?,tel=? WHERE id=?");
+						"UPDATE agent set nom=?, prenom=?,identifiant=?,mdp=?,adresse=?,cp=?,ville=?,dateentree=?,statut=?,mail=?,tel=?,visible=? WHERE id=?");
 				ps.setString(1, agent.getNom());
 				ps.setString(2, agent.getPrenom());
 				ps.setString(3, agent.getIdentifiant());
@@ -30,11 +30,12 @@ public class AgentDAO {
 				ps.setString(9, agent.getStatut());
 				ps.setString(10, agent.getMail());
 				ps.setString(11, agent.getTel());
-				ps.setInt(12, agent.getId());
+				ps.setInt(12, agent.getVisible());
+				ps.setInt(13, agent.getId());
 				ps.executeUpdate();
 			} else {
 				PreparedStatement ps = Database.connexion.prepareStatement(
-						"INSERT INTO agent (nom,prenom,identifiant,mdp,adresse,cp,ville,dateentree,statut,mail,tel) VALUES(?,?,?,?,?,?,?,?,?,?,?)");
+						"INSERT INTO agent (nom,prenom,identifiant,mdp,adresse,cp,ville,dateentree,statut,mail,tel,visible) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1, agent.getNom());
 				ps.setString(2, agent.getPrenom());
 				ps.setString(3, agent.getIdentifiant());
@@ -46,6 +47,7 @@ public class AgentDAO {
 				ps.setString(9, agent.getStatut());
 				ps.setString(10, agent.getMail());
 				ps.setString(11, agent.getTel());
+				ps.setInt(12, agent.getVisible());
 				ps.executeUpdate();
 			}
 			System.out.println("SAVED OK");
@@ -60,7 +62,7 @@ public class AgentDAO {
 	public Agent getById(int id) {
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent WHERE id=?");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent WHERE id=? AND visible=0");
 			ps.setInt(1, id);
 
 			ResultSet resultat = ps.executeQuery();
@@ -79,6 +81,7 @@ public class AgentDAO {
 				agent.setStatut(resultat.getString("statut"));
 				agent.setMail(resultat.getString("mail"));
 				agent.setTel(resultat.getString("tel"));
+				agent.setVisible(resultat.getInt("visible"));
 
 			}
 			return agent;
@@ -93,7 +96,7 @@ public class AgentDAO {
 		ArrayList<Agent> agents = new ArrayList<Agent>();
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent WHERE visible=0");
 
 			ResultSet resultat = ps.executeQuery();
 
@@ -111,6 +114,7 @@ public class AgentDAO {
 				agent.setStatut(resultat.getString("statut"));
 				agent.setMail(resultat.getString("mail"));
 				agent.setTel(resultat.getString("tel"));
+				agent.setVisible(resultat.getInt("visible"));
 				agents.add(agent);
 			}
 			return agents;
@@ -124,7 +128,7 @@ public class AgentDAO {
 	public void deleteById(int id) {
 		try {
 
-			PreparedStatement ps = Database.connexion.prepareStatement("DELETE FROM agent WHERE id=?");
+			PreparedStatement ps = Database.connexion.prepareStatement("UPDATE agent SET visible=1 WHERE id=?");
 			ps.setInt(1, id);
 			ps.executeUpdate();
 
@@ -139,7 +143,7 @@ public class AgentDAO {
 	public ArrayList<String> getAllMail() {
 		ArrayList<String> mails = new ArrayList<String>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent WHERE visible=0");
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
 				mails.add(resultat.getString("mail"));
@@ -156,7 +160,7 @@ public class AgentDAO {
 	public ArrayList<String> getAllPhone() {
 		ArrayList<String> phones = new ArrayList<String>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent WHERE visible=0");
 			ResultSet resultat = ps.executeQuery();
 			while (resultat.next()) {
 				phones.add(resultat.getString("tel"));
@@ -172,7 +176,7 @@ public class AgentDAO {
 
 	public ArrayList<Agent> getByIdentifiant(String identifiant,String mdp) {
 try {
-	PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent WHERE identifiant=? AND mdp=?");
+	PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM agent WHERE identifiant=? AND mdp=? AND visible=0");
 	ps.setString(1, identifiant);
 	ps.setString(2, mdp);
 	ResultSet resultat=ps.executeQuery();
@@ -191,6 +195,7 @@ try {
 		agent.setStatut(resultat.getString("statut"));
 		agent.setMail(resultat.getString("mail"));
 		agent.setTel(resultat.getString("tel"));
+		agent.setVisible(resultat.getInt("visible"));
 		agents.add(agent);
 	}
 		return agents;

@@ -87,7 +87,7 @@ public class Vue_CreationBien {
 Database.Connect();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 534, 693);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -417,9 +417,9 @@ Database.Connect();
 				    bien.setAnnee(annee);
 				    bienDAO.save(bien);
 				    ArrayList<Bien>biens = bienDAO.getAll();
-				    bien=biens.get(biens.size());
+				    bien=biens.get(biens.size()-1);
 				    String folderName=String.valueOf(bien.getId());
-				    String basePath="C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING";
+				    String basePath="C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart";
 				    String concat=basePath+"\\"+folderName;
 				    File f1=new File(concat);
 				    boolean bool = f1.mkdir();  
@@ -432,10 +432,11 @@ Database.Connect();
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau bien a bien été enregistré.\n"
 							+ "Souhaitez vous lui attribuer des photos tout de suite?");
 					if (input == 0) {
-						// Fenêtre détail du bien
+						frame.dispose();
+						new Vue_BienModif(bien,agent).getFrame().setVisible(true);
 					} else {
-						System.out.println("Retour vueListeProprietaire");
-						// fenêtre VueListeLocataire
+						frame.dispose();
+						new Vue_BiensList(agent).getFrame().setVisible(true);
 					}
 				}
 			}

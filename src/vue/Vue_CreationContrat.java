@@ -5,32 +5,31 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
-import dao.BienDAO;
 import dao.LocataireDAO;
 import entite.Agent;
-import entite.Bien;
 import entite.Locataire;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 public class Vue_CreationContrat {
 
 	private JFrame frame;
 	private Agent agent;
 	private DefaultTableModel modelLocataire;
-	private JTable table_locataire;
+	private JTable table;
 	private JTextField txtSearch;
+	private Vector originalTableModel;
 
 	/**
 	 * Launch the application.
@@ -111,10 +110,10 @@ public class Vue_CreationContrat {
 		scrollPane.setBounds(10, 142, 400, 330);
 		frame.getContentPane().add(scrollPane);
 
-		table_locataire = new JTable();
+		table = new JTable();
 
 		LocataireDAO locataireDAO = new LocataireDAO();
-		ArrayList<Locataire> locataires = locataireDAO.getAllByIdAgent(agent.getId());
+		ArrayList<Locataire> locataires = locataireDAO.getAllFromAgent(agent.getId());
 		String columns[] = { "ID", "Nom", "Prenom", "Telephone", "Statut", "Situation" };
 		String data[][] = new String[locataires.size()][columns.length];
 		int i = 0;
@@ -128,40 +127,39 @@ public class Vue_CreationContrat {
 			i++;
 		}
 		modelLocataire = new DefaultTableModel(data, columns);
-		table_locataire.setModel(modelLocataire);
-		scrollPane.setViewportView(table_locataire);
+		table.setModel(modelLocataire);
+		scrollPane.setViewportView(table);
+		originalTableModel = (Vector) ((DefaultTableModel) table.getModel()).getDataVector().clone();
 
 		txtSearch = new JTextField();
 
 		txtSearch.setColumns(10);
-		txtSearch.setBounds(109, 120, 301, 20);
+		txtSearch.setBounds(129, 120, 281, 20);
 		frame.getContentPane().add(txtSearch);
 
 		JButton btnSearch = new JButton("Recherche");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				LocataireDAO locataireDAO = new LocataireDAO();
-				ArrayList<Locataire> locataires = locataireDAO.getByKeywordsAndByIdAgent(txtSearch.getText(),
-						agent.getId());
-				String columns[] = { "ID", "Nom", "Prenom", "Telephone", "Statut", "Situation" };
-				String data[][] = new String[locataires.size()][columns.length];
-				int i = 0;
-				for (Locataire l : locataires) {
-					data[i][0] = l.getId() + "";
-					data[i][1] = l.getNom();
-					data[i][2] = l.getPrenom();
-					data[i][3] = l.getTel();
-					data[i][4] = l.getStatut();
-					data[i][5] = l.getSituation();
-					i++;
-				}
-
-			}
+			
+				String keyword = txtSearch.getText();
+				DefaultTableModel currtableModel = (DefaultTableModel)table.getModel();
+								currtableModel.setRowCount(0);
+								for(Object rows : originalTableModel) {
+									Vector rowVector = (Vector) rows;
+									for(Object column : rowVector) {
+										if(column.toString().contains(keyword)) {
+											currtableModel.addRow(rowVector);
+											break;
+										}
+									}
+									
+								}
+				table.setModel(currtableModel);}
 		});
 
 		modelLocataire = new DefaultTableModel(data, columns);
-		table_locataire.setModel(modelLocataire);
+		table.setModel(modelLocataire);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -169,13 +167,13 @@ public class Vue_CreationContrat {
 			}
 		});
 
-		btnSearch.setBounds(10, 119, 89, 23);
+		btnSearch.setBounds(10, 119, 109, 23);
 		frame.getContentPane().add(btnSearch);
 
 		btnNext.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (table_locataire.getSelectedRow() != -1) {
-					int row = table_locataire.convertRowIndexToModel(table_locataire.getSelectedRow());
+				if (table.getSelectedRow() != -1) {
+					int row = table.convertRowIndexToModel(table.getSelectedRow());
 					int selectedId = Integer.parseInt(modelLocataire.getValueAt(row, 0).toString());
 					LocataireDAO locataireDAO = new LocataireDAO();
 					Locataire locataire = locataireDAO.getById(selectedId);

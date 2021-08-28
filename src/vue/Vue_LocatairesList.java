@@ -82,7 +82,7 @@ public class Vue_LocatairesList {
 		frame.getContentPane().add(scrollPane);
 
 		LocataireDAO locataireDAO = new LocataireDAO();
-		ArrayList<Locataire> locataires = locataireDAO.getAllByIdAgent(agent.getId());
+		ArrayList<Locataire> locataires = locataireDAO.getAllFromAgent(agent.getId());
 		String columns[] = { "ID", "Nom", "Prenom", "Telephone", "Statut", "Situation" };
 		String data[][] = new String[locataires.size()][columns.length];
 		int i = 0;
@@ -105,7 +105,7 @@ public class Vue_LocatairesList {
 		btnNewTenant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new Vue_CreationLocataire().getFrame().setVisible(true);
+				new Vue_CreationLocataire(agent).getFrame().setVisible(true);
 			}
 		});
 		btnNewTenant.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/peopleAdd.png")));

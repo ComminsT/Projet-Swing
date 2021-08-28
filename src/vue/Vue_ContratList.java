@@ -104,6 +104,7 @@ public class Vue_ContratList {
 		});
 
 		JButton btnDetails = new JButton("Détails");
+		btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setOpaque(false);
@@ -115,7 +116,7 @@ public class Vue_ContratList {
 		frame.getContentPane().add(btnDetails);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setBounds(20, 130, 872, 433);
+		tabbedPane.setBounds(10, 130, 945, 450);
 		frame.getContentPane().add(tabbedPane);
 
 		JScrollPane scrollPane = new JScrollPane();

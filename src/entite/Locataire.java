@@ -14,7 +14,14 @@ public class Locataire {
 	private String situation;
 	private String mail;
 	private int visible;
+	private int id_agent;
 	
+	public int getId_agent() {
+		return id_agent;
+	}
+	public void setId_agent(int id_agent) {
+		this.id_agent = id_agent;
+	}
 	public int getVisible() {
 		return visible;
 	}

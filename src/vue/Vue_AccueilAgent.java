@@ -8,20 +8,34 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 
+import dao.BienDAO;
+import dao.VisiteDAO;
 import entite.Agent;
+import entite.Bien;
+import entite.Visite;
 
 public class Vue_AccueilAgent {
 
 	private JFrame frame;
 	private Agent agent;
+	private JTable table;
+	private Vector originalTableModel;
 
 	/**
 	 * Launch the application.
@@ -45,9 +59,9 @@ public class Vue_AccueilAgent {
 	public Vue_AccueilAgent() {
 		initialize();
 	}
-	
+
 	public Vue_AccueilAgent(Agent agent) {
-		this.agent=agent;
+		this.agent = agent;
 		initialize();
 	}
 
@@ -60,7 +74,7 @@ public class Vue_AccueilAgent {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
-		
+
 		JButton btnLocataires = new JButton("Locataires");
 		btnLocataires.setOpaque(false);
 		btnLocataires.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/locataires.png")));
@@ -69,6 +83,7 @@ public class Vue_AccueilAgent {
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
@@ -78,9 +93,38 @@ public class Vue_AccueilAgent {
 			public void actionPerformed(ActionEvent e) {
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
 				frame.dispose();
-				
+
 			}
 		});
+
+		JLabel lblNewLabel = new JLabel("Vos visites aujourd'hui");
+		lblNewLabel.setBounds(89, 194, 145, 16);
+		frame.getContentPane().add(lblNewLabel);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(20, 210, 305, 375);
+		frame.getContentPane().add(scrollPane);
+
+		VisiteDAO visiteDAO = new VisiteDAO();
+		ArrayList<Visite> visites = visiteDAO.getAllByIdAgentTODAY(agent.getId());
+		String[] columns = { "Heure", "Visiteur", "Bien" };
+		String[][] data = new String[visites.size()][columns.length];
+		int i = 0;
+		BienDAO bienDAO = new BienDAO();
+		Bien bien = new Bien();
+		for (Visite v : visites) {
+			bien = bienDAO.getById(v.getId_bien());
+			data[i][0] = v.getHeure();
+			data[i][1] = v.getNom();
+			data[i][2] = bien + "";
+			i++;
+		}
+
+		DefaultTableModel model = new DefaultTableModel(data, columns);
+
+		table = new JTable(model);
+		table.setAutoCreateRowSorter(true);
+		scrollPane.setViewportView(table);
 		btnLocataires.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnLocataires.setBackground(Color.LIGHT_GRAY);
 		btnLocataires.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -88,7 +132,10 @@ public class Vue_AccueilAgent {
 		btnLocataires.setHorizontalAlignment(SwingConstants.CENTER);
 		btnLocataires.setBounds(20, 21, 121, 84);
 		frame.getContentPane().add(btnLocataires);
-		
+	
+
+
+
 		JButton btnProprietaires = new JButton("Proprietaires");
 		btnProprietaires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -102,6 +149,7 @@ public class Vue_AccueilAgent {
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
@@ -115,7 +163,7 @@ public class Vue_AccueilAgent {
 		btnProprietaires.setBounds(153, 21, 121, 84);
 		frame.getContentPane().add(btnProprietaires);
 		btnProprietaires.setOpaque(false);
-		
+
 		JButton btnBiens = new JButton("Biens");
 		btnBiens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -129,6 +177,7 @@ public class Vue_AccueilAgent {
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
@@ -142,7 +191,7 @@ public class Vue_AccueilAgent {
 		btnBiens.setBounds(286, 21, 121, 84);
 		frame.getContentPane().add(btnBiens);
 		btnBiens.setOpaque(false);
-		
+
 		JButton btnVisites = new JButton("Visites");
 		btnVisites.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -156,6 +205,7 @@ public class Vue_AccueilAgent {
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
@@ -169,7 +219,7 @@ public class Vue_AccueilAgent {
 		btnVisites.setBounds(419, 21, 121, 84);
 		frame.getContentPane().add(btnVisites);
 		btnVisites.setOpaque(false);
-		
+
 		JButton btnComptabilite = new JButton("Comptabilité");
 		btnComptabilite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -183,6 +233,7 @@ public class Vue_AccueilAgent {
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
@@ -197,7 +248,6 @@ public class Vue_AccueilAgent {
 		frame.getContentPane().add(btnComptabilite);
 		btnComptabilite.setOpaque(false);
 
-		
 		JButton btnEspacePersonnelle = new JButton("Espace personnel");
 		btnEspacePersonnelle.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/personal.png")));
 		btnEspacePersonnelle.addMouseListener(new MouseAdapter() {
@@ -205,6 +255,7 @@ public class Vue_AccueilAgent {
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
@@ -218,7 +269,7 @@ public class Vue_AccueilAgent {
 		btnEspacePersonnelle.setBounds(715, 501, 121, 84);
 		frame.getContentPane().add(btnEspacePersonnelle);
 		btnEspacePersonnelle.setOpaque(false);
-		
+
 		JButton btnDeconnexion = new JButton("Déconnexion");
 		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -232,6 +283,7 @@ public class Vue_AccueilAgent {
 			public void mouseEntered(MouseEvent e) {
 				frame.setCursor(Cursor.HAND_CURSOR);
 			}
+
 			@Override
 			public void mouseExited(MouseEvent e) {
 				frame.setCursor(Cursor.DEFAULT_CURSOR);
@@ -246,21 +298,21 @@ public class Vue_AccueilAgent {
 		frame.getContentPane().add(btnDeconnexion);
 		btnDeconnexion.setOpaque(false);
 
-		
-		JLabel lblNewLabel_1 = new JLabel("Bienvenue "+agent.getPrenom());
+		JLabel lblNewLabel_1 = new JLabel("Bienvenue " + agent.getPrenom());
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(20, 130, 254, 58);
 		frame.getContentPane().add(lblNewLabel_1);
-		
+
 		JButton btnContrats = new JButton("Contrats");
+		btnContrats.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnContrats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
-				
+
 			}
 		});
-		
+
 		btnContrats.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnContrats.setOpaque(false);
 		btnContrats.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -269,7 +321,7 @@ public class Vue_AccueilAgent {
 		btnContrats.setBackground(Color.LIGHT_GRAY);
 		btnContrats.setBounds(685, 21, 121, 84);
 		frame.getContentPane().add(btnContrats);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel_2.setBounds(-16, 0, 1000, 591);

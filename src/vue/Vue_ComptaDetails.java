@@ -140,6 +140,7 @@ public class Vue_ComptaDetails {
 		lblDatePaye.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblDatePaye.setBounds(56, 319, 73, 25);
 		frame.getContentPane().add(lblDatePaye);
+		lblDatePaye.setVisible(false);
 
 		JButton btnConfirmer = new JButton("Imprimer");
 		btnConfirmer.addActionListener(new ActionListener() {
@@ -158,6 +159,7 @@ public class Vue_ComptaDetails {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 118, 965, 2);
 		frame.getContentPane().add(separator);
+		
 		
 		JLabel lblBienConcern = new JLabel("Bien concerné :");
 		lblBienConcern.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -202,14 +204,21 @@ public class Vue_ComptaDetails {
 		BienDAO bienDAO = new BienDAO();
 		Bien bien = bienDAO.getByIdComptabilite(compta.getId()); 
 		String[] datedu=compta.getDatedue().split("-");
-		String[] datepaye=compta.getDatepaye().split("-");
+		if(compta.getDatepaye()!=null) {
+			String[] datepaye=compta.getDatepaye().split("-");
+			txtDatePaye.setText(datepaye[2]+"/"+datepaye[1]+"/"+datepaye[0]);
+			lblDatePaye.setVisible(true);
+			txtDatePaye.setVisible(true);
+		}
+		
 		txtType.setText(compta.getCategorie());
 		txtMontantDu.setText(compta.getMontantdu()+" €");
 		txtMontantPaye.setText(compta.getMontantpaye()+"  €");
 		txtBien.setText(bien+"");
 		txtLocataire.setText(locataire+"");
 		txtDateDu.setText(datedu[2]+"/"+datedu[1]+"/"+datedu[0]);
-		txtDatePaye.setText(datepaye[2]+"/"+datepaye[1]+"/"+datepaye[0]);
+		txtDatePaye.setVisible(false);
+	
 		
 	}
 

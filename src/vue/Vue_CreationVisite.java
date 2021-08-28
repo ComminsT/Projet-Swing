@@ -75,6 +75,7 @@ public class Vue_CreationVisite {
 		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(0, 88, 420, 2);
 		frame.getContentPane().add(separator);
+		frame.setLocationRelativeTo(null);
 		
 		JLabel lblNewLabel = new JLabel("Creation visite");
 		lblNewLabel.setBounds(151, 21, 151, 30);
@@ -112,7 +113,7 @@ public class Vue_CreationVisite {
 		frame.getContentPane().add(lblNewLabel_3);
 		
 		JComboBox comboboxMinute = new JComboBox();
-		comboboxMinute.setModel(new DefaultComboBoxModel(new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"}));
+		comboboxMinute.setModel(new DefaultComboBoxModel(new String[] {"00","01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59"}));
 		comboboxMinute.setBounds(191, 314, 51, 20);
 		frame.getContentPane().add(comboboxMinute);
 		

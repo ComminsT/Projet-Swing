@@ -20,11 +20,13 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import com.toedter.calendar.JCalendar;
+
 import dao.LocataireDAO;
+import entite.Agent;
 import entite.Checker;
 import entite.Database;
 import entite.Locataire;
-import com.toedter.calendar.JCalendar;
 
 public class Vue_CreationLocataire {
 
@@ -59,13 +61,17 @@ public class Vue_CreationLocataire {
 	private JTextField txtCodePostale;
 	private JLabel lblVille_1;
 	private JTextField txtNumero;
+	private Agent agent;
 
 	/**
 	 * Create the application.
 	 */
 	public Vue_CreationLocataire() {
 		initialize();
-
+	}
+	public Vue_CreationLocataire(Agent agent) {
+		this.agent=agent;
+		initialize();
 	}
 
 	/**
@@ -82,7 +88,7 @@ public class Vue_CreationLocataire {
 
 		JButton btnNewButton = new JButton("Confirmer");
 
-		btnNewButton.setBounds(390, 586, 113, 53);
+		btnNewButton.setBounds(405, 11, 113, 53);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -400,6 +406,16 @@ public class Vue_CreationLocataire {
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblNewLabel_1.setBounds(239, 442, 240, 14);
 		frame.getContentPane().add(lblNewLabel_1);
+		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_LocatairesList(agent).getFrame().setVisible(true);
+			}
+		});
+		btnRetour.setBounds(10, 11, 113, 53);
+		frame.getContentPane().add(btnRetour);
 
 		lblMailError.setVisible(false);
 
@@ -467,15 +483,17 @@ public class Vue_CreationLocataire {
 					locataire.setPays(pays);
 					locataire.setSituation(situation);
 					locataire.setStatut(statut);
+					locataire.setId_agent(agent.getId());
 					locataireDAO.save(locataire);
 
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau locataire a bien été enregistré.\n"
 							+ "Souhaitez vous lui attribuer un logement immédiatement ?");
 					if (input == 0) {
-						// Fenêtre création de contratl
+						frame.dispose();
+						new Vue_CreationContrat(agent).getFrame().setVisible(true);
 					} else {
-						System.out.println("Retour vueListeProprietaire");
-						// fenêtre VueListeLocataire
+						frame.dispose();
+						new Vue_LocatairesList(agent).getFrame().setVisible(true);
 					}
 				}
 			}

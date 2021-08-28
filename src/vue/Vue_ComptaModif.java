@@ -7,6 +7,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -14,6 +16,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.LineBorder;
@@ -29,11 +32,6 @@ import entite.Bien;
 import entite.Comptabilite;
 import entite.Database;
 import entite.Locataire;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JSeparator;
 
 public class Vue_ComptaModif {
 
@@ -182,6 +180,16 @@ public class Vue_ComptaModif {
 		txtEurop.setBounds(88, 179, 157, 20);
 		frame.getContentPane().add(txtEurop);
 		JCalendar calendar = new JCalendar();
+		try {
+			Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(compta.getDatedue());
+			calendar.setDate(date1);
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}  
+		
+		
+		
 
 		calendar.setBounds(10, 313, 302, 198);
 		frame.getContentPane().add(calendar);

@@ -3,10 +3,10 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.Date;
 
-import entite.Visite;
 import entite.Database;
-import entite.Proprietaire;
+import entite.Visite;
 
 public class VisiteDAO {
 
@@ -238,6 +238,46 @@ public class VisiteDAO {
 
 		}
 		
+	}
+	
+	public ArrayList<Visite> getAllByIdAgentTODAY(int id) {
+		ArrayList<Visite> visites = new ArrayList<Visite>();
+		Date d = new Date();
+		String month="";
+		int dm= d.getMonth()+1;
+		if(dm>9) {
+			 month=String.valueOf(dm);
+		}else {
+			month=0+String.valueOf(dm);
+		}
+		String date = d.getYear()+1900+"-"+month+"-"+d.getDate();
+		try {
+			
+			PreparedStatement ps = Database.connexion.prepareStatement(
+					"SELECT * FROM visite WHERE visible=0 AND id_bien IN(SELECT id FROM bien WHERE id_agent=?) AND remarque IS NULL AND date=?");
+			ps.setInt(1, id);
+			ps.setString(2, date);
+			ResultSet resultat = ps.executeQuery();
+
+			while (resultat.next()) {
+				Visite v = new Visite();
+				v.setId(resultat.getInt("id"));
+				v.setDate(resultat.getString("date"));
+				v.setNom(resultat.getString("nom"));
+				v.setRemarque(resultat.getString("remarque"));
+				v.setId_bien(resultat.getInt("id_bien"));
+				v.setHeure(resultat.getString("heure"));
+				v.setVisible(resultat.getInt("visible"));
+				visites.add(v);
+			}
+
+			return visites;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+
 	}
 
 }

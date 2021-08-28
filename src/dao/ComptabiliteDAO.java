@@ -126,7 +126,7 @@ public class ComptabiliteDAO {
 		try {
 
 			PreparedStatement ps = Database.connexion.prepareStatement(
-					"SELECT * FROM comptabilite WHERE id_contratl IN(SELECT id FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND montantdu<>montantpaye");
+					"SELECT * FROM comptabilite WHERE id_contratl IN(SELECT id FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND montantdu>montantpaye");
 			ps.setInt(1, id);
 			ResultSet resultat = ps.executeQuery();
 
@@ -154,7 +154,7 @@ public class ComptabiliteDAO {
 		try {
 
 			PreparedStatement ps = Database.connexion.prepareStatement(
-					"SELECT * FROM comptabilite WHERE id_contratl IN(SELECT id FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND montantdu=montantpaye");
+					"SELECT * FROM comptabilite WHERE id_contratl IN(SELECT id FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND montantdu<=montantpaye");
 			ps.setInt(1, id);
 			ResultSet resultat = ps.executeQuery();
 
@@ -210,7 +210,7 @@ public class ComptabiliteDAO {
 	public ArrayList<Comptabilite> getByKeywordsAndByIdAgentPAID(String keyword, int id) {
 		ArrayList<Comptabilite>comptabilites=new ArrayList<Comptabilite>();
 		try {
-			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM comptabilite WHERE categorie LIKE ?  AND id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND visible=0 AND montantdu=montantpaye ");
+			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM comptabilite WHERE categorie LIKE ?  AND id IN(SELECT id_locataire FROM contratl WHERE id_bien IN(SELECT id FROM bien WHERE id_agent=?)) AND visible=0 AND montantdu<=montantpaye ");
 			ps.setString(1,"%" + keyword + "%");
 			ps.setInt(2, id);
 			ResultSet resultat=ps.executeQuery();

@@ -20,13 +20,14 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
-import dao.ProprietaireDAO;
-import entite.Checker;
-import entite.Proprietaire;
-import entite.Database;
-
-
 import com.toedter.calendar.JCalendar;
+
+import dao.ProprietaireDAO;
+import entite.Agent;
+import entite.Checker;
+import entite.Database;
+import entite.Proprietaire;
+import javax.swing.SwingConstants;
 
 public class Vue_CreationProprietaire {
 
@@ -69,6 +70,7 @@ public class Vue_CreationProprietaire {
 	private JTextField txtCodePostale;
 	private JLabel lblVille_1;
 	private JTextField txtNumero;
+	private Agent agent;
 
 	/**
 	 * Create the application.
@@ -76,6 +78,11 @@ public class Vue_CreationProprietaire {
 	public Vue_CreationProprietaire() {
 		initialize();
 
+	}
+	public Vue_CreationProprietaire(Agent agent) {
+		this.agent=agent;
+		initialize();
+		
 	}
 
 	/**
@@ -91,8 +98,9 @@ public class Vue_CreationProprietaire {
 		frame.setLocationRelativeTo(null);
 
 		JButton btnNewButton = new JButton("Confirmer");
+		btnNewButton.setOpaque(false);
 
-		btnNewButton.setBounds(403, 655, 113, 53);
+		btnNewButton.setBounds(403, 12, 113, 53);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -387,6 +395,22 @@ public class Vue_CreationProprietaire {
 		lblPhoneError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblPhoneError.setBounds(115, 647, 221, 16);
 		frame.getContentPane().add(lblPhoneError);
+		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
+			}
+		});
+		btnRetour.setOpaque(false);
+		btnRetour.setBounds(12, 12, 113, 53);
+		frame.getContentPane().add(btnRetour);
+		
+		JLabel lblNewLabel_1 = new JLabel("Création nouveau proprietaire");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(148, 12, 221, 53);
+		frame.getContentPane().add(lblNewLabel_1);
 		lblPhoneError.setVisible(false);
 		
 
@@ -459,7 +483,7 @@ public class Vue_CreationProprietaire {
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau propriétaire a bien été enregistré."
 							+ "Souhaitez vous ajouter des biens immobilier immédiatement ?");
 					if (input == 0) {
-						// Fenêtre création bien immobilier
+						new Vue_CreationBien(agent).getFrame().setVisible(true);
 					} else {
 						System.out.println("Retour vueListeProprietaire");
 						// fenêtre VueListeProprietaire

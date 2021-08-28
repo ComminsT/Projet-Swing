@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -26,7 +28,6 @@ import entite.Agent;
 import entite.Bien;
 import entite.Comptabilite;
 import entite.Locataire;
-import javax.swing.JTabbedPane;
 
 public class Vue_ComptaList {
 
@@ -37,6 +38,8 @@ public class Vue_ComptaList {
 	private DefaultTableModel model;
 	private DefaultTableModel model2;
 	private JTable tableComptabilitePayee;
+	private Vector originalTableModel;
+	private Vector originalTableModel2;
 	
 
 	/**
@@ -71,7 +74,7 @@ public class Vue_ComptaList {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
+		
 		frame = new JFrame();
 		frame.setBounds(100, 100, 981, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -79,7 +82,6 @@ public class Vue_ComptaList {
 		frame.getContentPane().setLayout(null);
 
 		txtSearch = new JTextField();
-		txtSearch.setEnabled(false);
 
 		txtSearch.setBounds(654, 75, 301, 20);
 		frame.getContentPane().add(txtSearch);
@@ -116,7 +118,7 @@ public class Vue_ComptaList {
 		tableComptabiliteEnCours = new JTable(model);
 		scrollPane.setViewportView(tableComptabiliteEnCours);
 		tableComptabiliteEnCours.setAutoCreateRowSorter(true);
-		
+		originalTableModel = (Vector) ((DefaultTableModel) tableComptabiliteEnCours.getModel()).getDataVector().clone();
 		JScrollPane scrollPane_1 = new JScrollPane();
 		tabbedPane_1.addTab("Facture payée", null, scrollPane_1, null);
 		ArrayList<Comptabilite> comptabilites2 = comptabiliteDAO.getAllByIdAgentPAID(agent.getId());
@@ -138,8 +140,10 @@ public class Vue_ComptaList {
 		model2=new DefaultTableModel(data2,columns);
 		tableComptabilitePayee = new JTable(model2);
 		scrollPane_1.setViewportView(tableComptabilitePayee);
+		originalTableModel2 = (Vector) ((DefaultTableModel) tableComptabilitePayee.getModel()).getDataVector().clone();
 
 		JButton btnNewTenant = new JButton("Nouvelle facture");
+		btnNewTenant.setOpaque(false);
 		btnNewTenant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewTenant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -155,9 +159,9 @@ public class Vue_ComptaList {
 		btnNewTenant.setBackground(Color.LIGHT_GRAY);
 		btnNewTenant.setBounds(141, 11, 121, 84);
 		frame.getContentPane().add(btnNewTenant);
-		btnNewTenant.setOpaque(false);
 
 		JButton btnRetour = new JButton("Retour");
+		btnRetour.setOpaque(false);
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -172,7 +176,6 @@ public class Vue_ComptaList {
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(10, 11, 121, 84);
 		frame.getContentPane().add(btnRetour);
-		btnRetour.setOpaque(false);
 
 		JButton btnModifier = new JButton("Modifier");
 		btnModifier.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -204,6 +207,7 @@ public class Vue_ComptaList {
 		btnModifier.setOpaque(false);
 
 		JButton btnDetails = new JButton("Détails");
+		btnDetails.setOpaque(false);
 		btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnDetails.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -235,52 +239,38 @@ public class Vue_ComptaList {
 		btnDetails.setBackground(Color.LIGHT_GRAY);
 		btnDetails.setBounds(403, 11, 121, 84);
 		frame.getContentPane().add(btnDetails);
-		btnDetails.setOpaque(false);
 
 
 		JButton btnSearch = new JButton("Recherche : ");
-		btnSearch.setEnabled(false);
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Comptabilite> comptabilites = comptabiliteDAO.getByKeywordsAndByIdAgentNOTPAID(txtSearch.getText(),
-						agent.getId());
-				ArrayList<Comptabilite> comptabilites2 = comptabiliteDAO.getByKeywordsAndByIdAgentPAID(txtSearch.getText(),
-						agent.getId());
-				
-				String data[][] = new String[comptabilites.size()][columns.length];
-				String data2[][] = new String[comptabilites2.size()][columns.length];
-				int i = 0;
-				for (Comptabilite c : comptabilites) {
-					LocataireDAO locataireDAO = new LocataireDAO();
-					Locataire locataire = locataireDAO.getByIdComptabilite(c.getId());
-					BienDAO bienDAO = new BienDAO();
-					Bien bien = bienDAO.getByIdComptabilite(c.getId()); 
-					data[i][0] = c.getId() + "";
-					data[i][1] = c.getDatedue();
-					data[i][2] = c.getMontantdu()+"";
-					data[i][3] = locataire+"";
-					data[i][4] = bien+"";
-					i++;
+				String keyword = txtSearch.getText();
+				DefaultTableModel currtableModel = (DefaultTableModel)tableComptabiliteEnCours.getModel();
+				DefaultTableModel currtableModel2 = (DefaultTableModel)tableComptabilitePayee.getModel();
+				currtableModel.setRowCount(0);
+				currtableModel2.setRowCount(0);
+				for(Object rows : originalTableModel) {
+					Vector rowVector = (Vector) rows;
+					for(Object column : rowVector) {
+						if(column.toString().contains(keyword)) {
+							currtableModel.addRow(rowVector);
+							break;
+						}
+					}
+					
 				}
-				i=0;
-				for (Comptabilite c : comptabilites2) {
-					LocataireDAO locataireDAO = new LocataireDAO();
-					Locataire locataire = locataireDAO.getByIdComptabilite(c.getId());
-					BienDAO bienDAO = new BienDAO();
-					Bien bien = bienDAO.getByIdComptabilite(c.getId()); 
-					data2[i][0] = c.getId() + "";
-					data2[i][1] = c.getDatedue();
-					data2[i][2] = c.getMontantdu()+"";
-					data2[i][3] = locataire+"";
-					data2[i][4] = bien+"";
-					i++;
-				}
-				model2=new DefaultTableModel(data2,columns);
-				tableComptabilitePayee.setModel(model2);
-				
-				
-				model = new DefaultTableModel(data, columns);
-				tableComptabiliteEnCours.setModel(model);
+				for(Object rows : originalTableModel2) {
+					Vector rowVector = (Vector) rows;
+					for(Object column : rowVector) {
+						if(column.toString().contains(keyword)) {
+							currtableModel2.addRow(rowVector);
+							break;
+						}
+					}
+					
+				}	
+				tableComptabilitePayee.setModel(currtableModel2);
+				tableComptabiliteEnCours.setModel(currtableModel);
 
 			}
 		});
@@ -288,7 +278,6 @@ public class Vue_ComptaList {
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearch.setBounds(534, 75, 110, 20);
 		frame.getContentPane().add(btnSearch);
-		btnSearch.setOpaque(false);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -305,6 +294,11 @@ public class Vue_ComptaList {
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 100, 945, 480);
 		frame.getContentPane().add(tabbedPane);
+		
+		JLabel lblNewLabel_2 = new JLabel("");
+		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblNewLabel_2.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblNewLabel_2);
 	}
 
 	public JFrame getFrame() {

@@ -88,7 +88,8 @@ public class Vue_ContratFin {
 		
 		
 		 
-		JLabel lblNewLabel_1 = new JLabel("Sélectionnez la date de fin du contrat :");
+		JLabel lblNewLabel_1 = new JLabel("Sélectionnez la date de fin du contrat");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(104, 101, 276, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
@@ -113,6 +114,8 @@ public class Vue_ContratFin {
 				contrat.setDatefin(date);
 				ContratlDAO contratDAO = new ContratlDAO();
 				contratDAO.save(contrat);
+				frame.dispose();
+				new Vue_ContratList(agent).getFrame().setVisible(true);
 			}
 		});
 		btnValider.setBounds(362, 11, 145, 69);

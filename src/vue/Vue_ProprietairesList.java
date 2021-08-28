@@ -103,7 +103,7 @@ public class Vue_ProprietairesList {
 		btnNewLandlord.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
-				new Vue_CreationProprietaire().getFrame().setVisible(true);
+				new Vue_CreationProprietaire(agent).getFrame().setVisible(true);
 			}
 		});
 		btnNewLandlord.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/peopleAdd.png")));

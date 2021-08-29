@@ -281,7 +281,7 @@ public class Vue_CreationAgent {
 		txtCodePostale.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtCodePostale.getText().equals("Code Postale")) {
+				if (txtCodePostale.getText().equals("Code Postal")) {
 					txtCodePostale.setText("");
 					txtCodePostale.setForeground(Color.black);
 				}
@@ -290,12 +290,12 @@ public class Vue_CreationAgent {
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtCodePostale.getText().equals("")) {
-					txtCodePostale.setText("Code Postale");
+					txtCodePostale.setText("Code Postal");
 					txtCodePostale.setForeground(Color.LIGHT_GRAY);
 				}
 			}
 		});
-		txtCodePostale.setText("Code Postale");
+		txtCodePostale.setText("Code Postal");
 		txtCodePostale.setForeground(Color.LIGHT_GRAY);
 		txtCodePostale.setColumns(10);
 		txtCodePostale.setBounds(306, 295, 105, 20);
@@ -401,7 +401,7 @@ public class Vue_CreationAgent {
 				}else if(ville.equals("Ville")) {
 					txtVille.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				}else if(cp.equals("Code Postale")) {
+				}else if(cp.equals("Code Postal")) {
 					txtCodePostale.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
 				}else if(txtNumero.getText().equals("Numero")) {

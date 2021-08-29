@@ -141,21 +141,21 @@ public class Vue_CreationContrat {
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-			
 				String keyword = txtSearch.getText();
-				DefaultTableModel currtableModel = (DefaultTableModel)table.getModel();
-								currtableModel.setRowCount(0);
-								for(Object rows : originalTableModel) {
-									Vector rowVector = (Vector) rows;
-									for(Object column : rowVector) {
-										if(column.toString().contains(keyword)) {
-											currtableModel.addRow(rowVector);
-											break;
-										}
-									}
-									
-								}
-				table.setModel(currtableModel);}
+				DefaultTableModel currtableModel = (DefaultTableModel) table.getModel();
+				currtableModel.setRowCount(0);
+				for (Object rows : originalTableModel) {
+					Vector rowVector = (Vector) rows;
+					for (Object column : rowVector) {
+						if (column.toString().contains(keyword)) {
+							currtableModel.addRow(rowVector);
+							break;
+						}
+					}
+
+				}
+				table.setModel(currtableModel);
+			}
 		});
 
 		modelLocataire = new DefaultTableModel(data, columns);

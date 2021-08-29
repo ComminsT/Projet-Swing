@@ -234,7 +234,7 @@ public class Vue_ProprietaireDetails {
 		panelInfos.add(txtDateOfBirth);
 		txtDateOfBirth.setText(birth[2] + "/" + birth[1] + "/" + birth[0]);
 
-		JLabel lblVille_2_1 = new JLabel("Code postale :");
+		JLabel lblVille_2_1 = new JLabel("Code postal :");
 		lblVille_2_1.setBounds(0, 176, 113, 17);
 		panelInfos.add(lblVille_2_1);
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);

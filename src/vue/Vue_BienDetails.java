@@ -103,6 +103,9 @@ public class Vue_BienDetails {
 		frame.setLocationRelativeTo(null);
 
 		JButton btnNewButton = new JButton("Imprimer");
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/print.png")));
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 
 		btnNewButton.setBounds(852, 11, 113, 68);
 		frame.getContentPane().add(btnNewButton);
@@ -113,10 +116,14 @@ public class Vue_BienDetails {
 		frame.getContentPane().add(separator);
 
 		JLabel lblNewLabel_1 = new JLabel("Modification biens immobiliers");
-		lblNewLabel_1.setBounds(291, 28, 190, 34);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(291, 28, 214, 34);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JButton btnRetour = new JButton("Retour");
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/back.png")));
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -271,7 +278,7 @@ public class Vue_BienDetails {
 		Proprietaire proprietaire = proprietaireDAO.getById(bien.getId_proprietaire());
 		lblProprietaire.setText(proprietaire.toString());
 
-		JLabel lblVille_2_1 = new JLabel("Code Postale :");
+		JLabel lblVille_2_1 = new JLabel("Code Postal :");
 		lblVille_2_1.setBounds(10, 126, 113, 17);
 		panel_info.add(lblVille_2_1);
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);

@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,7 +31,7 @@ public class Vue_LocatairesList {
 	private Agent agent;
 	private JTextField txtSearch;
 	private DefaultTableModel model;
-	
+	private Vector originalTableModel;
 
 	/**
 	 * Launch the application.
@@ -97,6 +98,7 @@ public class Vue_LocatairesList {
 		}
 		model = new DefaultTableModel(data, columns);
 		tableLocataires = new JTable(model);
+		originalTableModel = (Vector) ((DefaultTableModel) tableLocataires.getModel()).getDataVector().clone();
 		scrollPane.setViewportView(tableLocataires);
 		tableLocataires.setAutoCreateRowSorter(true);
 
@@ -145,7 +147,7 @@ public class Vue_LocatairesList {
 					LocataireDAO locataireDAO = new LocataireDAO();
 					Locataire locataire = locataireDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_LocataireModif(locataire,agent).getFrame().setVisible(true);
+					new Vue_LocataireModif(locataire, agent).getFrame().setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -172,13 +174,13 @@ public class Vue_LocatairesList {
 					LocataireDAO locataireDAO = new LocataireDAO();
 					Locataire locataire = locataireDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_LocataireDetails(locataire,agent).getFrame().setVisible(true);
+					new Vue_LocataireDetails(locataire, agent).getFrame().setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
 			}
-			
+
 		});
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -189,26 +191,23 @@ public class Vue_LocatairesList {
 		frame.getContentPane().add(btnDetails);
 		btnDetails.setOpaque(false);
 
-
 		JButton btnSearch = new JButton("Recherche : ");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Locataire> locataires = locataireDAO.getByKeywordsAndByIdAgent(txtSearch.getText(),
-						agent.getId());
-				String data[][] = new String[locataires.size()][columns.length];
-				int i = 0;
-				for (Locataire l : locataires) {
-					data[i][0] = l.getId() + "";
-					data[i][1] = l.getNom();
-					data[i][2] = l.getPrenom();
-					data[i][3] = l.getTel();
-					data[i][4] = l.getStatut();
-					data[i][5] = l.getSituation();
-					i++;
+				String keyword = txtSearch.getText();
+				DefaultTableModel currtableModel = (DefaultTableModel) tableLocataires.getModel();
+				currtableModel.setRowCount(0);
+				for (Object rows : originalTableModel) {
+					Vector rowVector = (Vector) rows;
+					for (Object column : rowVector) {
+						if (column.toString().contains(keyword)) {
+							currtableModel.addRow(rowVector);
+							break;
+						}
+					}
 
 				}
-				model = new DefaultTableModel(data, columns);
-				tableLocataires.setModel(model);
+				tableLocataires.setModel(currtableModel);
 
 			}
 		});

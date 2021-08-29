@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -20,10 +21,8 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
 import dao.BienDAO;
-import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Bien;
-import entite.Proprietaire;
 
 public class Vue_BiensList {
 
@@ -32,6 +31,7 @@ public class Vue_BiensList {
 	private Agent agent;
 	private JTextField txtSearch;
 	private DefaultTableModel model;
+	private Vector originalTableModel;
 
 	/**
 	 * Launch the application.
@@ -99,6 +99,7 @@ public class Vue_BiensList {
 		tableBiens = new JTable(model);
 		scrollPane.setViewportView(tableBiens);
 		tableBiens.setAutoCreateRowSorter(true);
+		originalTableModel = (Vector) ((DefaultTableModel) tableBiens.getModel()).getDataVector().clone();
 
 		JButton btnNewLandlord = new JButton("Nouveau Bien");
 		btnNewLandlord.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -142,7 +143,7 @@ public class Vue_BiensList {
 				if (tableBiens.getSelectedRow() != -1) {
 					int row = tableBiens.convertRowIndexToModel(tableBiens.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					BienDAO bienDAO= new BienDAO();
+					BienDAO bienDAO = new BienDAO();
 					Bien bien = bienDAO.getById(selectedId);
 					frame.dispose();
 					new Vue_BienModif(bien, agent).getFrame().setVisible(true);
@@ -169,7 +170,7 @@ public class Vue_BiensList {
 				if (tableBiens.getSelectedRow() != -1) {
 					int row = tableBiens.convertRowIndexToModel(tableBiens.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					BienDAO bienDAO= new BienDAO();
+					BienDAO bienDAO = new BienDAO();
 					Bien bien = bienDAO.getById(selectedId);
 					frame.dispose();
 					new Vue_BienDetails(bien, agent).getFrame().setVisible(true);
@@ -192,22 +193,26 @@ public class Vue_BiensList {
 		JButton btnSearch = new JButton("Recherche : ");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Bien> biens = bienDAO.getByKeywordsAndByIdAgent(txtSearch.getText(),
-						agent.getId());
-				String data[][] = new String[biens.size()][columns.length];
-				int i = 0;
-				for (Bien b : biens) {
-					data[i][0] = b.getId() + "";
-					data[i][1] = b.getNom();
-					data[i][2] = b.getVille();
-					data[i][3] = b.getStatut();
-					i++;
+				String keyword = txtSearch.getText();
+				DefaultTableModel currtableModel = (DefaultTableModel) tableBiens.getModel();
+				currtableModel.setRowCount(0);
+				for (Object rows : originalTableModel) {
+					Vector rowVector = (Vector) rows;
+					for (Object column : rowVector) {
+						if (column.toString().contains(keyword)) {
+							currtableModel.addRow(rowVector);
+							break;
+						}
+					}
+
 				}
-				model = new DefaultTableModel(data, columns);
-				tableBiens.setModel(model);
+				tableBiens.setModel(currtableModel);
+
 
 			}
 		});
+		
+		
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearch.setBounds(665, 75, 94, 20);

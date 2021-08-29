@@ -12,6 +12,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,11 +20,16 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
+import dao.ComptabiliteDAO;
 import entite.Agent;
+import entite.Comptabilite;
 import entite.Locataire;
 
 public class Vue_LocataireDetails {
@@ -59,6 +65,7 @@ public class Vue_LocataireDetails {
 	private JLabel lblVille_1;
 	private Locataire locataire;
 	private Agent agent;
+	private JTable table;
 
 	/**
 	 * Create the application.
@@ -260,7 +267,7 @@ public class Vue_LocataireDetails {
 		panelInfos.add(txtDateOfBirth);
 		txtDateOfBirth.setText(birth[2] + "/" + birth[1] + "/" + birth[0]);
 
-		JLabel lblVille_2_1 = new JLabel("Code postale :");
+		JLabel lblVille_2_1 = new JLabel("Code postal :");
 		lblVille_2_1.setBounds(0, 176, 113, 17);
 		panelInfos.add(lblVille_2_1);
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -282,15 +289,35 @@ public class Vue_LocataireDetails {
 		lblNewLabel_3.setBounds(10, 11, 104, 14);
 		panelContrats.add(lblNewLabel_3);
 
+		JScrollPane scrollPane = new JScrollPane();
+		layeredPane.add(scrollPane, "name_68207472195916");
+
+		ComptabiliteDAO comptaDAO = new ComptabiliteDAO();
+		ArrayList<Comptabilite> comptas = comptaDAO.getAllByLocataireId(locataire.getId());
+
+		String[] columns = { "ID", "Date dû", "Date payé" };
+		String[][] data = new String[comptas.size()][columns.length];
+		int i = 0;
+		for (Comptabilite c : comptas) {
+			data[i][0] = c.getId() + "";
+			data[i][1] = c.getDatedue();
+			data[i][2] = c.getDatepaye();
+			i++;
+		}
+		DefaultTableModel model = new DefaultTableModel(data,columns);
+		table = new JTable(model);
+		scrollPane.setViewportView(table);
+
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				printRecord(frame);
-								
-				
+
 			}
 
 		});
+		
+		
 
 		btnInformations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -300,7 +327,7 @@ public class Vue_LocataireDetails {
 		});
 		btnHistorique.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelHistorique);
+				switchScrollPane(scrollPane);
 			}
 		});
 		btnContrats.addActionListener(new ActionListener() {
@@ -317,46 +344,54 @@ public class Vue_LocataireDetails {
 		layeredPane.revalidate();
 	}
 	
+	public void switchScrollPane(JScrollPane panel) {
+		layeredPane.removeAll();
+		layeredPane.add(panel);
+		layeredPane.repaint();
+		layeredPane.revalidate();
+	}
+	
 	
 
 	private void printRecord(JFrame frametoprint) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 		printerJob.setJobName("Print Record");
 		printerJob.setPrintable(new Printable() {
-            @Override
-            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-                // Check If No Printable Content
-                if(pageIndex > 0){
-                    return Printable.NO_SUCH_PAGE;
-                }
-                
-                // Make 2D Graphics to map content
-                Graphics2D graphics2D = (Graphics2D)graphics;
-                // Set Graphics Translations
-                // A Little Correction here Multiplication was not working so I replaced with addition
-                graphics2D.translate(pageFormat.getImageableX()+10, pageFormat.getImageableY()+10);
-                // This is a page scale. Default should be 0.3 I am using 0.5
-                graphics2D.scale(0.5, 0.5);
-                
-                // Now paint panel as graphics2D
-                frametoprint.paint(graphics2D);
-                
-                // return if page exists
-                return Printable.PAGE_EXISTS;
-            }
-        });
-		 boolean returningResult = printerJob.printDialog();
-	        // check if dialog is showing
-	        if(returningResult){
-	            // Use try catch exeption for failure
-	            try{
-	                // Now call print method inside printerJob to print
-	                printerJob.print();
-	            }catch (PrinterException printerException){
-	                JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
-	            }
-	        }
-		
+			@Override
+			public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+				// Check If No Printable Content
+				if (pageIndex > 0) {
+					return Printable.NO_SUCH_PAGE;
+				}
+
+				// Make 2D Graphics to map content
+				Graphics2D graphics2D = (Graphics2D) graphics;
+				// Set Graphics Translations
+				// A Little Correction here Multiplication was not working so I replaced with
+				// addition
+				graphics2D.translate(pageFormat.getImageableX() + 10, pageFormat.getImageableY() + 10);
+				// This is a page scale. Default should be 0.3 I am using 0.5
+				graphics2D.scale(0.5, 0.5);
+
+				// Now paint panel as graphics2D
+				frametoprint.paint(graphics2D);
+
+				// return if page exists
+				return Printable.PAGE_EXISTS;
+			}
+		});
+		boolean returningResult = printerJob.printDialog();
+		// check if dialog is showing
+		if (returningResult) {
+			// Use try catch exeption for failure
+			try {
+				// Now call print method inside printerJob to print
+				printerJob.print();
+			} catch (PrinterException printerException) {
+				JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
+			}
+		}
+
 	}
 
 	public JFrame getFrame() {

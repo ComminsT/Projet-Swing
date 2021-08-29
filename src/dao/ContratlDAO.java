@@ -108,6 +108,30 @@ public void deleteById(int id) {
     	System.out.println("DELETED NO");
     }
 }
+public ArrayList<Contratl> getAllByLocataireId(int id) {
+	ArrayList<Contratl> contrats = new ArrayList<Contratl>();
+	try {
+		PreparedStatement ps = Database.connexion.prepareStatement(
+				"SELECT * FROM contratl WHERE id_locataire=? ");
+		ps.setInt(1, id);
+		ResultSet resultat = ps.executeQuery();
+		while (resultat.next()) {
+			Contratl cl = new Contratl();
+			cl.setId(resultat.getInt( "id" ));
+			cl.setDate(resultat.getString( "date" ));
+			cl.setDatefin(resultat.getString("datefin"));
+			cl.setId_locataire(resultat.getInt( "id_locataire" ));
+			cl.setId_bien(resultat.getInt( "id_bien" ));
+			contrats.add(cl);
+		}
+		return contrats;
+	} catch (Exception ex) {
+		ex.printStackTrace();
+		return null;
+	}
+
+}
+
 
 public ArrayList<Contratl> getAllByIdAgentNOTFINISHED(int id) {
 	ArrayList<Contratl> contrats = new ArrayList<Contratl>();

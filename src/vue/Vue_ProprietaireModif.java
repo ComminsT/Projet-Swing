@@ -315,7 +315,7 @@ public class Vue_ProprietaireModif {
 		txtCodePostale.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtCodePostale.getText().equals("Code Postale")) {
+				if (txtCodePostale.getText().equals("Code Postal")) {
 					txtCodePostale.setText("");
 					txtCodePostale.setForeground(Color.black);
 				}
@@ -324,7 +324,7 @@ public class Vue_ProprietaireModif {
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtCodePostale.getText().equals("")) {
-					txtCodePostale.setText("Code Postale");
+					txtCodePostale.setText("Code Postal");
 					txtCodePostale.setForeground(Color.LIGHT_GRAY);
 				}
 			}
@@ -434,7 +434,7 @@ public class Vue_ProprietaireModif {
 		lblPrnom.setBounds(10, 126, 103, 14);
 		frame.getContentPane().add(lblPrnom);
 
-		JLabel lblVille_2_1 = new JLabel("Code postale :");
+		JLabel lblVille_2_1 = new JLabel("Code postal :");
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2_1.setBounds(0, 283, 113, 17);
@@ -491,7 +491,7 @@ public class Vue_ProprietaireModif {
 				} else if (ville.equals("Ville")) {
 					txtVille.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				} else if (cp.equals("Code Postale")) {
+				} else if (cp.equals("Code Postal")) {
 					txtCodePostale.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
 				} else if (txtNumero.getText().equals("Numero")) {

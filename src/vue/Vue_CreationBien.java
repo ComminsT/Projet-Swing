@@ -97,7 +97,7 @@ Database.Connect();
 		btnNewButton.setBounds(390, 586, 113, 53);
 		frame.getContentPane().add(btnNewButton);
 
-		JLabel lblNewLabel = new JLabel("Nom");
+		JLabel lblNewLabel = new JLabel("Nom du bien immobilier");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(115, 96, 46, 14);
 		frame.getContentPane().add(lblNewLabel);
@@ -106,7 +106,7 @@ Database.Connect();
 		txtNom.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtNom.getText().equals("Nom")) {
+				if (txtNom.getText().equals("Nom du bien immobilier")) {
 					txtNom.setText("");
 					txtNom.setForeground(Color.black);
 				}
@@ -115,7 +115,7 @@ Database.Connect();
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtNom.getText().equals("")) {
-					txtNom.setText("Nom");
+					txtNom.setText("Nom du bien immobilier");
 					txtNom.setForeground(Color.LIGHT_GRAY);
 				}
 			}
@@ -217,7 +217,7 @@ Database.Connect();
 		txtCodePostale.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtCodePostale.getText().equals("Code Postale")) {
+				if (txtCodePostale.getText().equals("Code Postal")) {
 					txtCodePostale.setText("");
 					txtCodePostale.setForeground(Color.black);
 				}
@@ -226,12 +226,12 @@ Database.Connect();
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtCodePostale.getText().equals("")) {
-					txtCodePostale.setText("Code Postale");
+					txtCodePostale.setText("Code Postal");
 					txtCodePostale.setForeground(Color.LIGHT_GRAY);
 				}
 			}
 		});
-		txtCodePostale.setText("Code Postale");
+		txtCodePostale.setText("Code Postal");
 		txtCodePostale.setForeground(Color.LIGHT_GRAY);
 		txtCodePostale.setColumns(10);
 		txtCodePostale.setBounds(306, 301, 105, 20);
@@ -378,7 +378,7 @@ Database.Connect();
 				int id_agent=agent.getId();
 				String statut = comboboxStatut.getSelectedItem().toString();
 
-				 if (nom.equals("Nom")) {
+				 if (nom.equals("Nom du bien immobilier")) {
 					txtNom.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
 				}  else if (adresse.equals("Adresse")) {
@@ -387,7 +387,7 @@ Database.Connect();
 				} else if (ville.equals("Ville")) {
 					txtVille.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				} else if (cp.equals("Code Postale")) {
+				} else if (cp.equals("Code Postal")) {
 					txtCodePostale.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
 				} else if(strvaleur.equals("€")){

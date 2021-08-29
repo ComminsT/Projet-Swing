@@ -5,24 +5,23 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import dao.BienDAO;
-import dao.LocataireDAO;
 import entite.Agent;
 import entite.Bien;
 import entite.Locataire;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
 
 public class Vue_ContratBienSelect {
 
@@ -32,6 +31,7 @@ public class Vue_ContratBienSelect {
 	private JTable table_proprietaire;
 	private JTextField txtSearch;
 	private Locataire locataire;
+	private Vector originalTableModel;
 
 	/**
 	 * Launch the application.
@@ -115,17 +115,14 @@ public class Vue_ContratBienSelect {
 
 		table_proprietaire = new JTable();
 
-
-		
-
 		txtSearch = new JTextField();
-		
+
 		txtSearch.setBounds(109, 121, 301, 20);
 		frame.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
 		BienDAO bienDAO = new BienDAO();
-		
+
 		ArrayList<Bien> biens = bienDAO.getAllByIdAgentLIBRE(agent.getId());
 		String columnsBiens[] = { "ID", "Nom", "Ville", "Statut" };
 		String dataBiens[][] = new String[biens.size()][columnsBiens.length];
@@ -139,31 +136,33 @@ public class Vue_ContratBienSelect {
 		}
 		modelbiens = new DefaultTableModel(dataBiens, columnsBiens);
 		table_proprietaire.setModel(modelbiens);
+		originalTableModel = (Vector) ((DefaultTableModel) table_proprietaire.getModel()).getDataVector().clone();
+
 		scrollPane.setViewportView(table_proprietaire);
-		
+
 		JButton btnSearch = new JButton("Recherche");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Bien> biens = bienDAO.getByKeywordsAndByIdAgentLIBRE(txtSearch.getText(),agent.getId());
-				String columnsBiens[] = { "ID", "Nom", "Ville", "Statut" };
-				String dataBiens[][] = new String[biens.size()][columnsBiens.length];
-				int a = 0;
-				for (Bien b : biens) {
-					dataBiens[a][0] = b.getId() + "";
-					dataBiens[a][1] = b.getNom();
-					dataBiens[a][2] = b.getVille();
-					dataBiens[a][3] = b.getStatut();
-					a++;
+				String keyword = txtSearch.getText();
+				DefaultTableModel currtableModel = (DefaultTableModel) table_proprietaire.getModel();
+				currtableModel.setRowCount(0);
+				for (Object rows : originalTableModel) {
+					Vector rowVector = (Vector) rows;
+					for (Object column : rowVector) {
+						if (column.toString().contains(keyword)) {
+							currtableModel.addRow(rowVector);
+							break;
+						}
+					}
+					table_proprietaire.setModel(currtableModel);
 				}
-				modelbiens = new DefaultTableModel(dataBiens, columnsBiens);
-				table_proprietaire.setModel(modelbiens);
-				
-				
+
 			}
 		});
+
 		btnSearch.setBounds(10, 120, 89, 23);
 		frame.getContentPane().add(btnSearch);
-		
+
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnSearch.doClick();
@@ -176,13 +175,13 @@ public class Vue_ContratBienSelect {
 					int row = table_proprietaire.convertRowIndexToModel(table_proprietaire.getSelectedRow());
 					int selectedId = Integer.parseInt(modelbiens.getValueAt(row, 0).toString());
 					BienDAO bienDAO = new BienDAO();
-					Bien bien=bienDAO.getById(selectedId);
+					Bien bien = bienDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_ContratConfirmation(bien,locataire, agent).getFrame().setVisible(true);
+					new Vue_ContratConfirmation(bien, locataire, agent).getFrame().setVisible(true);
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
-				
+
 			}
 		});
 	}

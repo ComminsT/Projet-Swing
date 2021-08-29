@@ -119,6 +119,9 @@ public class Vue_BienModif {
 		frame.setLocationRelativeTo(null);
 
 		JButton btnNewButton = new JButton("Confirmer");
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/valider.png")));
 
 		btnNewButton.setBounds(852, 11, 113, 68);
 		frame.getContentPane().add(btnNewButton);
@@ -257,7 +260,7 @@ public class Vue_BienModif {
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtCodePostale.getText().equals("")) {
-					txtCodePostale.setText("Code Postale");
+					txtCodePostale.setText("Code Postal");
 					txtCodePostale.setForeground(Color.LIGHT_GRAY);
 				}
 			}
@@ -417,7 +420,7 @@ public class Vue_BienModif {
 		frame.getContentPane().add(lblVille_2_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Modification biens immobiliers");
-		lblNewLabel_1.setBounds(291, 28, 190, 34);
+		lblNewLabel_1.setBounds(291, 28, 296, 34);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JButton btnRetour = new JButton("Retour");
@@ -431,6 +434,10 @@ public class Vue_BienModif {
 		frame.getContentPane().add(btnRetour);
 
 		JButton btnAjouterDesPhotos = new JButton("Ajouter des photos");
+		btnAjouterDesPhotos.setFont(new Font("Dialog", Font.BOLD, 10));
+		btnAjouterDesPhotos.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnAjouterDesPhotos.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnAjouterDesPhotos.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/photo.png")));
 		btnAjouterDesPhotos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG", "jpg", "png");

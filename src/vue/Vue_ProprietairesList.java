@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,6 +31,7 @@ public class Vue_ProprietairesList {
 	private Agent agent;
 	private JTextField txtSearch;
 	private DefaultTableModel model;
+	private Vector originalTableModel;
 
 	/**
 	 * Launch the application.
@@ -95,6 +97,7 @@ public class Vue_ProprietairesList {
 		}
 		model = new DefaultTableModel(data, columns);
 		tableProprietaire = new JTable(model);
+		originalTableModel = (Vector) ((DefaultTableModel) tableProprietaire.getModel()).getDataVector().clone();
 		scrollPane.setViewportView(tableProprietaire);
 		tableProprietaire.setAutoCreateRowSorter(true);
 
@@ -190,20 +193,20 @@ public class Vue_ProprietairesList {
 		JButton btnSearch = new JButton("Recherche : ");
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<Proprietaire> proprietaires = proprietaireDAO.getByKeywordsAndByIdAgent(txtSearch.getText(),
-						agent.getId());
-				String data[][] = new String[proprietaires.size()][columns.length];
-				int i = 0;
-				for (Proprietaire p : proprietaires) {
-					data[i][0] = p.getId() + "";
-					data[i][1] = p.getNom();
-					data[i][2] = p.getPrenom();
-					data[i][3] = p.getTel();
-					i++;
+				String keyword = txtSearch.getText();
+				DefaultTableModel currtableModel = (DefaultTableModel) tableProprietaire.getModel();
+				currtableModel.setRowCount(0);
+				for (Object rows : originalTableModel) {
+					Vector rowVector = (Vector) rows;
+					for (Object column : rowVector) {
+						if (column.toString().contains(keyword)) {
+							currtableModel.addRow(rowVector);
+							break;
+						}
+					}
 
 				}
-				model = new DefaultTableModel(data, columns);
-				tableProprietaire.setModel(model);
+				tableProprietaire.setModel(currtableModel);
 
 			}
 		});

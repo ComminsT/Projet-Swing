@@ -144,7 +144,7 @@ public class Vue_ContratDetails {
 		
 		GarantDAO garantDAO = new GarantDAO();
 		ArrayList<Garant>garants=garantDAO.getAllByContratId(contrat.getId());
-		String columns[]= {"ID","Nom","Prenom","Adresse","Code postale","Ville","Pays","Téléphone","Mail"};
+		String columns[]= {"ID","Nom","Prenom","Adresse","Code postal","Ville","Pays","Téléphone","Mail"};
 		String data[][]=new String[garants.size()][columns.length];
 		int i=0;
 		for(Garant g : garants) {

@@ -304,6 +304,7 @@ public class Vue_AccueilAgent {
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JButton btnContrats = new JButton("Contrats");
+		btnContrats.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/contract.png")));
 		btnContrats.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnContrats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

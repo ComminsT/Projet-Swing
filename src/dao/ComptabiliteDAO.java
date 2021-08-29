@@ -121,6 +121,49 @@ public class ComptabiliteDAO {
 		}
 	}
 
+	public ArrayList<Comptabilite> getAllByLocataireId(int id){
+		ArrayList<Comptabilite>compta = new ArrayList<Comptabilite>();
+		try {
+
+			PreparedStatement ps = Database.connexion.prepareStatement(
+					"SELECT * FROM comptabilite WHERE id_contratl IN(SELECT id FROM contratl WHERE id_locataire=?) ");
+			ps.setInt(1, id);
+			ResultSet resultat = ps.executeQuery();
+
+			while (resultat.next()) {
+				Comptabilite c = new Comptabilite();
+				c.setId(resultat.getInt("id"));
+				c.setDatedue(resultat.getString("datedue"));
+				c.setDatepaye(resultat.getString("datepaye"));
+				c.setCategorie(resultat.getString("categorie"));
+				c.setMontantdu(resultat.getDouble("montantdu"));
+				c.setMontantpaye(resultat.getDouble("montantpaye"));
+				c.setId_contratl(resultat.getInt("id_contratl"));
+				compta.add(c);
+			}
+
+			return compta;
+
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return null;
+		}
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	public ArrayList<Comptabilite> getAllByIdAgentNOTPAID(int id) {
 		ArrayList<Comptabilite> comptabilites = new ArrayList<Comptabilite>();
 		try {
@@ -236,5 +279,7 @@ public class ComptabiliteDAO {
 		
 		
 	}
+	
+	
 
 }

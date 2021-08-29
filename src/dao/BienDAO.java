@@ -144,7 +144,6 @@ public void deleteById(int id) {
 }
 
 
-
 public ArrayList<Bien> getAllByIdAgent(int id) {
 	ArrayList<Bien> biens = new ArrayList<Bien>();
 	try {

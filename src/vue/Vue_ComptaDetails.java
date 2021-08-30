@@ -168,7 +168,7 @@ public class Vue_ComptaDetails {
 		
 		JLabel lblLocataireConcern = new JLabel("Locataire concerné :");
 		lblLocataireConcern.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLocataireConcern.setBounds(10, 260, 121, 25);
+		lblLocataireConcern.setBounds(10, 260, 144, 25);
 		frame.getContentPane().add(lblLocataireConcern);
 		
 		JLabel txtType = new JLabel("New label");
@@ -188,7 +188,7 @@ public class Vue_ComptaDetails {
 		frame.getContentPane().add(txtBien);
 		
 		JLabel txtLocataire = new JLabel("New label");
-		txtLocataire.setBounds(145, 265, 195, 14);
+		txtLocataire.setBounds(186, 265, 195, 14);
 		frame.getContentPane().add(txtLocataire);
 		
 		JLabel txtDateDu = new JLabel("New label");

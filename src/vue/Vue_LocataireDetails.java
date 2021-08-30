@@ -27,9 +27,13 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 
+import dao.BienDAO;
 import dao.ComptabiliteDAO;
+import dao.ContratlDAO;
 import entite.Agent;
+import entite.Bien;
 import entite.Comptabilite;
+import entite.Contratl;
 import entite.Locataire;
 
 public class Vue_LocataireDetails {
@@ -56,7 +60,6 @@ public class Vue_LocataireDetails {
 	private JLabel txtAdresseMail;
 	private JLabel txtNom;
 	private JLayeredPane layeredPane;
-
 	private JLabel txtPrenom;
 	private JLabel lblPays;
 	private JLabel txtAdresse;
@@ -66,6 +69,7 @@ public class Vue_LocataireDetails {
 	private Locataire locataire;
 	private Agent agent;
 	private JTable table;
+	private JTable table_1;
 
 	/**
 	 * Create the application.
@@ -273,14 +277,6 @@ public class Vue_LocataireDetails {
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
-		JPanel panelHistorique = new JPanel();
-		layeredPane.add(panelHistorique, "name_429172689935300");
-		panelHistorique.setLayout(null);
-
-		JLabel lblNewLabel_1 = new JLabel("panelHistorique");
-		lblNewLabel_1.setBounds(20, 21, 121, 14);
-		panelHistorique.add(lblNewLabel_1);
-
 		JPanel panelContrats = new JPanel();
 		layeredPane.add(panelContrats, "name_429176002358400");
 		panelContrats.setLayout(null);
@@ -288,6 +284,14 @@ public class Vue_LocataireDetails {
 		JLabel lblNewLabel_3 = new JLabel("panelContrats");
 		lblNewLabel_3.setBounds(10, 11, 104, 14);
 		panelContrats.add(lblNewLabel_3);
+
+		JPanel panelHistorique = new JPanel();
+		layeredPane.add(panelHistorique, "name_429172689935300");
+		panelHistorique.setLayout(null);
+
+		JLabel lblNewLabel_1 = new JLabel("panelHistorique");
+		lblNewLabel_1.setBounds(20, 21, 121, 14);
+		panelHistorique.add(lblNewLabel_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		layeredPane.add(scrollPane, "name_68207472195916");
@@ -304,9 +308,37 @@ public class Vue_LocataireDetails {
 			data[i][2] = c.getDatepaye();
 			i++;
 		}
-		DefaultTableModel model = new DefaultTableModel(data,columns);
+		DefaultTableModel model = new DefaultTableModel(data, columns);
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
+
+		JScrollPane scrollPane_1 = new JScrollPane();
+		layeredPane.add(scrollPane_1, "name_100872588406875");
+		ContratlDAO contratDAO = new ContratlDAO();
+		ArrayList<Contratl> contrats = contratDAO.getAllByLocataireId(locataire.getId());
+		String[] columns2 = { "ID", "Bien concerné", "Date début", "Date fin" };
+		String[][] data2 = new String[contrats.size()][columns2.length];
+		i = 0;
+		for (Contratl c : contrats) {
+			String datefin = "";
+			BienDAO bienDAO = new BienDAO();
+			Bien bien = bienDAO.getById(c.getId_bien());
+			if (c.getDatefin() != null) {
+				datefin = c.getDatefin() + "";
+			} else {
+				datefin = "Non terminé";
+			}
+			data2[i][0] = c.getId() + "";
+			data2[i][1] = bien.toString();
+			data2[i][2] = c.getDate();
+			data2[i][3] = datefin;
+			i++;
+
+		}
+		DefaultTableModel model2 = new DefaultTableModel(data2, columns2);
+
+		table_1 = new JTable(model2);
+		scrollPane_1.setViewportView(table_1);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -316,8 +348,6 @@ public class Vue_LocataireDetails {
 			}
 
 		});
-		
-		
 
 		btnInformations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -332,7 +362,7 @@ public class Vue_LocataireDetails {
 		});
 		btnContrats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelContrats);
+				switchScrollPane(scrollPane_1);
 			}
 		});
 	}
@@ -343,15 +373,13 @@ public class Vue_LocataireDetails {
 		layeredPane.repaint();
 		layeredPane.revalidate();
 	}
-	
+
 	public void switchScrollPane(JScrollPane panel) {
 		layeredPane.removeAll();
 		layeredPane.add(panel);
 		layeredPane.repaint();
 		layeredPane.revalidate();
 	}
-	
-	
 
 	private void printRecord(JFrame frametoprint) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();

@@ -36,7 +36,7 @@ public class LocataireDAO {
 				ps.executeUpdate();
 			} else {
 				PreparedStatement ps = Database.connexion.prepareStatement(
-						"INSERT INTO locataire (nom,prenom,adresse,ville,cp,pays,tel,naissance,statut,situation,mail) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+						"INSERT INTO locataire (nom,prenom,adresse,ville,cp,pays,tel,naissance,statut,situation,mail,id_agent) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
 				ps.setString(1, locataire.getNom());
 				ps.setString(2, locataire.getPrenom());
 				ps.setString(3, locataire.getAdresse());

@@ -16,8 +16,10 @@ import javax.swing.SwingConstants;
 
 import com.toedter.calendar.JCalendar;
 
+import dao.BienDAO;
 import dao.ContratlDAO;
 import entite.Agent;
+import entite.Bien;
 import entite.Contratl;
 import entite.Database;
 
@@ -112,6 +114,10 @@ public class Vue_ContratFin {
 				String annee = String.valueOf(calendar.getYearChooser().getYear());
 				String date = annee + "-" + mois + "-" + jour;
 				contrat.setDatefin(date);
+				BienDAO bienDAO = new BienDAO();
+				Bien bien= bienDAO.getById(contrat.getId_bien());
+				bien.setStatut("En recherche de locataire");
+				bienDAO.save(bien);
 				ContratlDAO contratDAO = new ContratlDAO();
 				contratDAO.save(contrat);
 				frame.dispose();

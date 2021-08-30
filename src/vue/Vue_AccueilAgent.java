@@ -76,6 +76,7 @@ public class Vue_AccueilAgent {
 		frame.setLocationRelativeTo(null);
 
 		JButton btnLocataires = new JButton("Locataires");
+		btnLocataires.setBorderPainted(false);
 		btnLocataires.setOpaque(false);
 		btnLocataires.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/locataires.png")));
 		btnLocataires.addMouseListener(new MouseAdapter() {
@@ -97,12 +98,8 @@ public class Vue_AccueilAgent {
 			}
 		});
 
-		JLabel lblNewLabel = new JLabel("Vos visites aujourd'hui");
-		lblNewLabel.setBounds(89, 194, 145, 16);
-		frame.getContentPane().add(lblNewLabel);
-
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(20, 210, 305, 375);
+		scrollPane.setBounds(6, 198, 305, 133);
 		frame.getContentPane().add(scrollPane);
 
 		VisiteDAO visiteDAO = new VisiteDAO();
@@ -125,7 +122,7 @@ public class Vue_AccueilAgent {
 		table = new JTable(model);
 		table.setAutoCreateRowSorter(true);
 		scrollPane.setViewportView(table);
-		btnLocataires.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnLocataires.setBorder(null);
 		btnLocataires.setBackground(Color.LIGHT_GRAY);
 		btnLocataires.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnLocataires.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -137,6 +134,7 @@ public class Vue_AccueilAgent {
 
 
 		JButton btnProprietaires = new JButton("Proprietaires");
+		btnProprietaires.setBorderPainted(false);
 		btnProprietaires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -158,13 +156,14 @@ public class Vue_AccueilAgent {
 		btnProprietaires.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnProprietaires.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnProprietaires.setHorizontalAlignment(SwingConstants.CENTER);
-		btnProprietaires.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnProprietaires.setBorder(null);
 		btnProprietaires.setBackground(Color.LIGHT_GRAY);
 		btnProprietaires.setBounds(153, 21, 121, 84);
 		frame.getContentPane().add(btnProprietaires);
 		btnProprietaires.setOpaque(false);
 
 		JButton btnBiens = new JButton("Biens");
+		btnBiens.setBorderPainted(false);
 		btnBiens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Vue_BiensList(agent).getFrame().setVisible(true);
@@ -186,13 +185,14 @@ public class Vue_AccueilAgent {
 		btnBiens.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnBiens.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnBiens.setHorizontalAlignment(SwingConstants.CENTER);
-		btnBiens.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnBiens.setBorder(null);
 		btnBiens.setBackground(Color.LIGHT_GRAY);
 		btnBiens.setBounds(286, 21, 121, 84);
 		frame.getContentPane().add(btnBiens);
 		btnBiens.setOpaque(false);
 
 		JButton btnVisites = new JButton("Visites");
+		btnVisites.setBorderPainted(false);
 		btnVisites.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -214,13 +214,14 @@ public class Vue_AccueilAgent {
 		btnVisites.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnVisites.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnVisites.setHorizontalAlignment(SwingConstants.CENTER);
-		btnVisites.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnVisites.setBorder(null);
 		btnVisites.setBackground(Color.LIGHT_GRAY);
 		btnVisites.setBounds(419, 21, 121, 84);
 		frame.getContentPane().add(btnVisites);
 		btnVisites.setOpaque(false);
 
 		JButton btnComptabilite = new JButton("Comptabilité");
+		btnComptabilite.setBorderPainted(false);
 		btnComptabilite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -242,7 +243,7 @@ public class Vue_AccueilAgent {
 		btnComptabilite.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnComptabilite.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnComptabilite.setHorizontalAlignment(SwingConstants.CENTER);
-		btnComptabilite.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnComptabilite.setBorder(null);
 		btnComptabilite.setBackground(Color.LIGHT_GRAY);
 		btnComptabilite.setBounds(552, 21, 121, 84);
 		frame.getContentPane().add(btnComptabilite);
@@ -300,10 +301,11 @@ public class Vue_AccueilAgent {
 
 		JLabel lblNewLabel_1 = new JLabel("Bienvenue " + agent.getPrenom());
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(20, 130, 254, 58);
+		lblNewLabel_1.setBounds(20, 128, 254, 58);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JButton btnContrats = new JButton("Contrats");
+		btnContrats.setBorderPainted(false);
 		btnContrats.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/contract.png")));
 		btnContrats.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnContrats.addActionListener(new ActionListener() {
@@ -318,7 +320,7 @@ public class Vue_AccueilAgent {
 		btnContrats.setOpaque(false);
 		btnContrats.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnContrats.setHorizontalAlignment(SwingConstants.CENTER);
-		btnContrats.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnContrats.setBorder(null);
 		btnContrats.setBackground(Color.LIGHT_GRAY);
 		btnContrats.setBounds(685, 21, 121, 84);
 		frame.getContentPane().add(btnContrats);

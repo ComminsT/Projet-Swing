@@ -94,19 +94,19 @@ Database.Connect();
 
 		JButton btnNewButton = new JButton("Confirmer");
 
-		btnNewButton.setBounds(390, 586, 113, 53);
+		btnNewButton.setBounds(415, 6, 113, 53);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom du bien immobilier");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel.setBounds(115, 96, 46, 14);
+		lblNewLabel.setBounds(115, 96, 210, 14);
 		frame.getContentPane().add(lblNewLabel);
 
 		txtNom = new JTextField();
 		txtNom.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if (txtNom.getText().equals("Nom du bien immobilier")) {
+				if (txtNom.getText().equals("Nom")) {
 					txtNom.setText("");
 					txtNom.setForeground(Color.black);
 				}
@@ -115,7 +115,7 @@ Database.Connect();
 			@Override
 			public void focusLost(FocusEvent e) {
 				if (txtNom.getText().equals("")) {
-					txtNom.setText("Nom du bien immobilier");
+					txtNom.setText("Nom");
 					txtNom.setForeground(Color.LIGHT_GRAY);
 				}
 			}
@@ -360,6 +360,16 @@ Database.Connect();
 		comboboxProprietaire.setBounds(115, 533, 296, 22);
 		frame.getContentPane().add(comboboxProprietaire);
 		
+		JButton btnRetour = new JButton("Retour");
+		btnRetour.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			frame.dispose();
+			new Vue_BiensList(agent).getFrame().setVisible(true);
+			}
+		});
+		btnRetour.setBounds(6, 6, 113, 53);
+		frame.getContentPane().add(btnRetour);
+		
 
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
@@ -378,7 +388,7 @@ Database.Connect();
 				int id_agent=agent.getId();
 				String statut = comboboxStatut.getSelectedItem().toString();
 
-				 if (nom.equals("Nom du bien immobilier")) {
+				 if (nom.equals("Nom")) {
 					txtNom.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
 				}  else if (adresse.equals("Adresse")) {

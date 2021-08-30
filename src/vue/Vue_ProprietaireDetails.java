@@ -12,6 +12,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -19,11 +20,16 @@ import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
+import dao.BienDAO;
 import entite.Agent;
+import entite.Bien;
 import entite.Proprietaire;
 
 public class Vue_ProprietaireDetails {
@@ -59,6 +65,7 @@ public class Vue_ProprietaireDetails {
 	private JLabel lblVille_1;
 	private Agent agent;
 	private Proprietaire proprietaire;
+	private JTable table;
 
 	/**
 	 * Create the application.
@@ -126,7 +133,7 @@ public class Vue_ProprietaireDetails {
 		frame.getContentPane().add(btnContrats);
 
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(502, 82, 479, 519);
+		layeredPane.setBounds(502, 82, 473, 514);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 
@@ -223,7 +230,6 @@ public class Vue_ProprietaireDetails {
 		panelInfos.add(txtPays);
 		txtPays.setText(proprietaire.getPays());
 
-
 		JLabel txtTelephone = new JLabel("New label");
 		txtTelephone.setBounds(123, 203, 89, 14);
 		panelInfos.add(txtTelephone);
@@ -248,20 +254,29 @@ public class Vue_ProprietaireDetails {
 		lblNewLabel_1.setBounds(20, 21, 121, 14);
 		panelHistorique.add(lblNewLabel_1);
 
-		JPanel panelContrats = new JPanel();
-		layeredPane.add(panelContrats, "name_429176002358400");
-		panelContrats.setLayout(null);
+		JScrollPane scrollPane = new JScrollPane();
+		layeredPane.add(scrollPane, "name_102472273351875");
 
-		JLabel lblNewLabel_3 = new JLabel("panelContrats");
-		lblNewLabel_3.setBounds(10, 11, 104, 14);
-		panelContrats.add(lblNewLabel_3);
+		BienDAO bienDAO = new BienDAO();
+		ArrayList<Bien> biens = bienDAO.getAllByProprietaireId(proprietaire.getId());
+		String[] columns = { "ID", "Nom", "Ville" };
+		String[][] data = new String[biens.size()][columns.length];
+		int i = 0;
+		for (Bien b : biens) {
+			data[i][0] = b.getId() + "";
+			data[i][1] = b.getNom();
+			data[i][2] = b.getVille();
+			i++;
+		}
+		DefaultTableModel model = new DefaultTableModel(data, columns);
+		table = new JTable(model);
+		scrollPane.setViewportView(table);
 
 		btnNewButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				printRecord(frame);
-								
-				
+
 			}
 
 		});
@@ -274,7 +289,8 @@ public class Vue_ProprietaireDetails {
 		});
 		btnContrats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelContrats);
+				switchScrollPane(scrollPane);
+
 			}
 		});
 	}
@@ -285,47 +301,53 @@ public class Vue_ProprietaireDetails {
 		layeredPane.repaint();
 		layeredPane.revalidate();
 	}
-	
-	
+
+	public void switchScrollPane(JScrollPane panel) {
+		layeredPane.removeAll();
+		layeredPane.add(panel);
+		layeredPane.repaint();
+		layeredPane.revalidate();
+	}
 
 	private void printRecord(JFrame frametoprint) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 		printerJob.setJobName("Print Record");
 		printerJob.setPrintable(new Printable() {
-            @Override
-            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-                // Check If No Printable Content
-                if(pageIndex > 0){
-                    return Printable.NO_SUCH_PAGE;
-                }
-                
-                // Make 2D Graphics to map content
-                Graphics2D graphics2D = (Graphics2D)graphics;
-                // Set Graphics Translations
-                // A Little Correction here Multiplication was not working so I replaced with addition
-                graphics2D.translate(pageFormat.getImageableX()+10, pageFormat.getImageableY()+10);
-                // This is a page scale. Default should be 0.3 I am using 0.5
-                graphics2D.scale(0.5, 0.5);
-                
-                // Now paint panel as graphics2D
-                frametoprint.paint(graphics2D);
-                
-                // return if page exists
-                return Printable.PAGE_EXISTS;
-            }
-        });
-		 boolean returningResult = printerJob.printDialog();
-	        // check if dialog is showing
-	        if(returningResult){
-	            // Use try catch exeption for failure
-	            try{
-	                // Now call print method inside printerJob to print
-	                printerJob.print();
-	            }catch (PrinterException printerException){
-	                JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
-	            }
-	        }
-		
+			@Override
+			public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+				// Check If No Printable Content
+				if (pageIndex > 0) {
+					return Printable.NO_SUCH_PAGE;
+				}
+
+				// Make 2D Graphics to map content
+				Graphics2D graphics2D = (Graphics2D) graphics;
+				// Set Graphics Translations
+				// A Little Correction here Multiplication was not working so I replaced with
+				// addition
+				graphics2D.translate(pageFormat.getImageableX() + 10, pageFormat.getImageableY() + 10);
+				// This is a page scale. Default should be 0.3 I am using 0.5
+				graphics2D.scale(0.5, 0.5);
+
+				// Now paint panel as graphics2D
+				frametoprint.paint(graphics2D);
+
+				// return if page exists
+				return Printable.PAGE_EXISTS;
+			}
+		});
+		boolean returningResult = printerJob.printDialog();
+		// check if dialog is showing
+		if (returningResult) {
+			// Use try catch exeption for failure
+			try {
+				// Now call print method inside printerJob to print
+				printerJob.print();
+			} catch (PrinterException printerException) {
+				JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
+			}
+		}
+
 	}
 
 	public JFrame getFrame() {

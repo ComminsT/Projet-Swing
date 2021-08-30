@@ -74,6 +74,27 @@ public class Vue_VisitesList {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
+		
+		JButton btnModification = new JButton("Modification");
+		btnModification.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnModification.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
+				int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+				VisiteDAO visiteDAO = new VisiteDAO();
+				Visite visite = visiteDAO.getById(selectedId);
+			frame.dispose();
+			new Vue_VisiteModif(visite,agent).getFrame().setVisible(true);
+			}
+		});
+		btnModification.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnModification.setOpaque(false);
+		btnModification.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnModification.setHorizontalAlignment(SwingConstants.CENTER);
+		btnModification.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnModification.setBackground(Color.LIGHT_GRAY);
+		btnModification.setBounds(667, 11, 121, 84);
+		frame.getContentPane().add(btnModification);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 106, 945, 474);
@@ -121,7 +142,7 @@ public class Vue_VisitesList {
 		btnNouvelleVisite.setBounds(141, 11, 121, 84);
 		frame.getContentPane().add(btnNouvelleVisite);
 
-		JButton btnTerminerUneVisite = new JButton("Terminer une visite");
+		JButton btnTerminerUneVisite = new JButton("Terminer");
 		btnTerminerUneVisite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnTerminerUneVisite.setOpaque(false);
 		btnTerminerUneVisite.addActionListener(new ActionListener() {
@@ -184,7 +205,7 @@ public class Vue_VisitesList {
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		btnSearch.setOpaque(false);
-		btnSearch.setBounds(667, 75, 105, 20);
+		btnSearch.setBounds(669, 94, 105, 20);
 		frame.getContentPane().add(btnSearch);
 
 		txtSearch = new JTextField();
@@ -194,7 +215,7 @@ public class Vue_VisitesList {
 			}
 		});
 		txtSearch.setColumns(10);
-		txtSearch.setBounds(784, 75, 171, 20);
+		txtSearch.setBounds(784, 95, 171, 20);
 		frame.getContentPane().add(txtSearch);
 		VisiteDAO visiteDAO = new VisiteDAO();
 		ArrayList<Visite> visites = visiteDAO.getAllByIdAgent(agent.getId());
@@ -227,7 +248,7 @@ public class Vue_VisitesList {
 		}
 		model2 = new DefaultTableModel(data2, columns);
 		table_VisitesFinis = new JTable(model2);
-		originalTableModel = (Vector) ((DefaultTableModel) table_VisitesFinis.getModel()).getDataVector().clone();
+		originalTableModel2 = (Vector) ((DefaultTableModel) table_VisitesFinis.getModel()).getDataVector().clone();
 
 		scrollPane_1.setViewportView(table_VisitesFinis);
 
@@ -294,6 +315,7 @@ public class Vue_VisitesList {
 					}
 
 				}
+				
 				for (Object rows : originalTableModel2) {
 					Vector rowVector = (Vector) rows;
 					for (Object column : rowVector) {

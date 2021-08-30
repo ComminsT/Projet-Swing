@@ -123,7 +123,7 @@ public class Vue_ComptaModif {
 
 		JLabel lblNewLabel = new JLabel("Type de facture :");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(-7, 132, 104, 25);
+		lblNewLabel.setBounds(26, 132, 121, 25);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblDateD = new JLabel("Date dû :");
@@ -133,12 +133,12 @@ public class Vue_ComptaModif {
 
 		JLabel lblMontantD = new JLabel("Montant dû :");
 		lblMontantD.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontantD.setBounds(-33, 154, 104, 25);
+		lblMontantD.setBounds(0, 154, 104, 25);
 		frame.getContentPane().add(lblMontantD);
 
 		JLabel lblMontantPay = new JLabel("Montant payé :");
 		lblMontantPay.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontantPay.setBounds(-21, 177, 104, 25);
+		lblMontantPay.setBounds(12, 177, 104, 25);
 		frame.getContentPane().add(lblMontantPay);
 
 		JLabel lblDatePay = new JLabel("Date payé :");
@@ -147,7 +147,7 @@ public class Vue_ComptaModif {
 		frame.getContentPane().add(lblDatePay);
 
 		txtType = new JTextField();
-		txtType.setBounds(101, 134, 157, 20);
+		txtType.setBounds(174, 134, 157, 20);
 		frame.getContentPane().add(txtType);
 		txtType.setColumns(10);
 
@@ -162,7 +162,7 @@ public class Vue_ComptaModif {
 			}
 		});
 		txtEuros.setColumns(10);
-		txtEuros.setBounds(88, 156, 157, 20);
+		txtEuros.setBounds(121, 156, 157, 20);
 		frame.getContentPane().add(txtEuros);
 
 		txtEurop = new JTextField();
@@ -177,7 +177,7 @@ public class Vue_ComptaModif {
 
 		});
 		txtEurop.setColumns(10);
-		txtEurop.setBounds(88, 179, 157, 20);
+		txtEurop.setBounds(121, 179, 157, 20);
 		frame.getContentPane().add(txtEurop);
 		JCalendar calendar = new JCalendar();
 		try {
@@ -221,7 +221,7 @@ public class Vue_ComptaModif {
 
 		});
 		txtCents.setColumns(10);
-		txtCents.setBounds(256, 156, 157, 20);
+		txtCents.setBounds(289, 156, 157, 20);
 		frame.getContentPane().add(txtCents);
 
 		txtCentsp = new JTextField();
@@ -235,25 +235,25 @@ public class Vue_ComptaModif {
 			}
 		});
 		txtCentsp.setColumns(10);
-		txtCentsp.setBounds(257, 179, 157, 20);
+		txtCentsp.setBounds(290, 179, 157, 20);
 		frame.getContentPane().add(txtCentsp);
 
 		JLabel lblNewLabel_1 = new JLabel(".");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(248, 157, 3, 16);
+		lblNewLabel_1.setBounds(281, 157, 3, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JLabel lblNewLabel_1_1 = new JLabel(".");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1_1.setBounds(249, 179, 3, 16);
+		lblNewLabel_1_1.setBounds(282, 179, 3, 16);
 		frame.getContentPane().add(lblNewLabel_1_1);
 
 		JLabel lblNewLabel_2 = new JLabel("€");
-		lblNewLabel_2.setBounds(419, 158, 38, 16);
+		lblNewLabel_2.setBounds(452, 158, 38, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("€");
-		lblNewLabel_2_1.setBounds(420, 181, 32, 16);
+		lblNewLabel_2_1.setBounds(453, 181, 32, 16);
 		frame.getContentPane().add(lblNewLabel_2_1);
 
 		JSeparator separator = new JSeparator();

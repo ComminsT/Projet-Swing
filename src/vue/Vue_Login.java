@@ -63,7 +63,7 @@ public class Vue_Login {
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
 		lblMotDePasse.setBounds(31, 54, 86, 14);
 		frame.getContentPane().add(lblMotDePasse);
-
+		
 		// bouton valider
 		JButton btnsubmit = new JButton("Valider");
 		btnsubmit.addActionListener(new ActionListener() {

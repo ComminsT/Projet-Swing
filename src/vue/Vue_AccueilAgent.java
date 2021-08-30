@@ -265,7 +265,7 @@ public class Vue_AccueilAgent {
 		btnEspacePersonnelle.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnEspacePersonnelle.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnEspacePersonnelle.setHorizontalAlignment(SwingConstants.CENTER);
-		btnEspacePersonnelle.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnEspacePersonnelle.setBorder(null);
 		btnEspacePersonnelle.setBackground(Color.LIGHT_GRAY);
 		btnEspacePersonnelle.setBounds(715, 501, 121, 84);
 		frame.getContentPane().add(btnEspacePersonnelle);
@@ -293,7 +293,7 @@ public class Vue_AccueilAgent {
 		btnDeconnexion.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDeconnexion.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnDeconnexion.setHorizontalAlignment(SwingConstants.CENTER);
-		btnDeconnexion.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnDeconnexion.setBorder(null);
 		btnDeconnexion.setBackground(Color.LIGHT_GRAY);
 		btnDeconnexion.setBounds(838, 501, 121, 84);
 		frame.getContentPane().add(btnDeconnexion);

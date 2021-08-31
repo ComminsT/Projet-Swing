@@ -49,6 +49,9 @@ import javax.swing.JLayeredPane;
 import java.awt.CardLayout;
 import javax.swing.JPanel;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Vue_BienModif {
 
@@ -118,12 +121,14 @@ public class Vue_BienModif {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnNewButton = new JButton("Confirmer");
+		JLabel btnNewButton = new JLabel("Confirmer");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(852, 11, 113, 68);
+		btnNewButton.setBounds(892, 11, 73, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
@@ -420,26 +425,30 @@ public class Vue_BienModif {
 		frame.getContentPane().add(lblVille_2_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Modification biens immobiliers");
-		lblNewLabel_1.setBounds(291, 28, 296, 34);
+		lblNewLabel_1.setBounds(406, 25, 296, 34);
 		frame.getContentPane().add(lblNewLabel_1);
 
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_BiensList(agent).getFrame().setVisible(true);
 			}
 		});
-		btnRetour.setBounds(10, 11, 113, 69);
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/back.png")));
+		btnRetour.setBounds(10, 11, 61, 69);
 		frame.getContentPane().add(btnRetour);
 
-		JButton btnAjouterDesPhotos = new JButton("Ajouter des photos");
-		btnAjouterDesPhotos.setFont(new Font("Dialog", Font.BOLD, 10));
-		btnAjouterDesPhotos.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnAjouterDesPhotos.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnAjouterDesPhotos.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/photo.png")));
-		btnAjouterDesPhotos.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnAjouterDesPhotos = new JLabel("Ajouter des photos");
+		btnAjouterDesPhotos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAjouterDesPhotos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG", "jpg", "png");
 				Path pathtoimg_appart = Paths
 						.get("C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId() + "\\");
@@ -475,34 +484,54 @@ public class Vue_BienModif {
 					}
 
 				}
+
 			}
 		});
-		btnAjouterDesPhotos.setBounds(133, 11, 148, 68);
+		btnAjouterDesPhotos.setFont(new Font("Dialog", Font.BOLD, 10));
+		btnAjouterDesPhotos.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnAjouterDesPhotos.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnAjouterDesPhotos.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/photo.png")));
+		btnAjouterDesPhotos.setBounds(101, 12, 113, 68);
 		frame.getContentPane().add(btnAjouterDesPhotos);
 
 		JLayeredPane layeredPane = new JLayeredPane();
-		layeredPane.setBounds(434, 90, 531, 500);
+		layeredPane.setBounds(434, 90, 531, 489);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		JPanel panel = new JPanel();
 		layeredPane.add(panel, "name_463069160670000");
 		panel.setLayout(null);
 
-		JButton btnSuivant = new JButton("Suivant");
+		JLabel btnSuivant = new JLabel("Suivant");
+		btnSuivant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		btnSuivant.setBounds(442, 241, 89, 23);
+		btnSuivant.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnSuivant.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnSuivant.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/next.png")));
+
+		btnSuivant.setBounds(471, 241, 48, 69);
 		panel.add(btnSuivant);
 
-		JButton btnPrecedent = new JButton("Precedent");
+		JLabel btnPrecedent = new JLabel("Precedent");
+		btnPrecedent.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		btnPrecedent.setBounds(0, 241, 89, 23);
+		btnPrecedent.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnPrecedent.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnPrecedent.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/back.png")));
+
+		btnPrecedent.setBounds(12, 241, 60, 77);
 		panel.add(btnPrecedent);
 
 		JLabel lblNewLabel_2 = new JLabel("");
-		
 
 		lblNewLabel_2.setBounds(0, 0, 531, 500);
 		panel.add(lblNewLabel_2);
+
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 
 		File pathtoimg_appart_file = new File(
 				"C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
@@ -512,8 +541,6 @@ public class Vue_BienModif {
 			imgpaths.add(f.getAbsolutePath());
 		}
 		int fileCount = pathtoimg_appart_file.list().length;
-		btnPrecedent.setVisible(false);
-		btnSuivant.setVisible(false);
 		if (fileCount > 0) {
 			btnPrecedent.setVisible(true);
 			btnSuivant.setVisible(true);
@@ -521,28 +548,14 @@ public class Vue_BienModif {
 					.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
 
 		} else {
-			lblNewLabel_2.setIcon(new ImageIcon(
-					new ImageIcon(Vue_BienModif.class.getResource("/img/no_pics.jpg"))
-							.getImage().getScaledInstance(470, 414, Image.SCALE_DEFAULT)));
+			lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/no_pics.jpg"))
+					.getImage().getScaledInstance(470, 414, Image.SCALE_DEFAULT)));
 
 		}
-		btnSuivant.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (photoDisplayed != fileCount) {
-					photoDisplayed++;
-					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
-				} else {
-					photoDisplayed = 1;
-					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
-				}
 
-			}
-		});
-
-		btnPrecedent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnPrecedent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if (photoDisplayed == 1) {
 					photoDisplayed = fileCount;
 					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
@@ -552,13 +565,26 @@ public class Vue_BienModif {
 					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
 							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
 				}
-
+			}
+		});
+		btnSuivant.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (photoDisplayed != fileCount) {
+					photoDisplayed++;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
+				} else {
+					photoDisplayed = 1;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(531, 500, Image.SCALE_DEFAULT)));
+				}
 			}
 		});
 
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				Database.Connect();
 				String nom = txtNom.getText();
 				String adresse = txtAdresse.getText();
@@ -613,6 +639,7 @@ public class Vue_BienModif {
 					frame.dispose();
 					new Vue_BiensList(agent).getFrame().setVisible(true);
 				}
+
 			}
 		});
 

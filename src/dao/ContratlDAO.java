@@ -181,5 +181,29 @@ public ArrayList<Contratl> getAllByIdAgentFINISHED(int id) {
 
 }
 
+public ArrayList<Contratl> getAllByBienId(int id) {
+	ArrayList<Contratl> contrats = new ArrayList<Contratl>();
+	try {
+		PreparedStatement ps = Database.connexion.prepareStatement(
+				"SELECT * FROM contratl WHERE id_bien=? ");
+		ps.setInt(1, id);
+		ResultSet resultat = ps.executeQuery();
+		while (resultat.next()) {
+			Contratl cl = new Contratl();
+			cl.setId(resultat.getInt( "id" ));
+			cl.setDate(resultat.getString( "date" ));
+			cl.setDatefin(resultat.getString("datefin"));
+			cl.setId_locataire(resultat.getInt( "id_locataire" ));
+			cl.setId_bien(resultat.getInt( "id_bien" ));
+			cl.setDatefin(resultat.getString("datefin"));
+			contrats.add(cl);
+		}
+		return contrats;
+	} catch (Exception ex) {
+		ex.printStackTrace();
+		return null;
+	}
+
+}
 
 }

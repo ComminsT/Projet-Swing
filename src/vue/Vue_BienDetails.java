@@ -2,13 +2,14 @@ package vue;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
@@ -17,7 +18,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
@@ -25,18 +25,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
+import javax.swing.table.DefaultTableModel;
 
+import dao.ContratlDAO;
+import dao.LocataireDAO;
 import dao.ProprietaireDAO;
+import dao.VisiteDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Contratl;
 import entite.Database;
+import entite.Locataire;
 import entite.Proprietaire;
-import java.awt.Cursor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JTable;
+import entite.Visite;
 
 public class Vue_BienDetails {
 
@@ -71,8 +75,8 @@ public class Vue_BienDetails {
 	private Bien bien;
 	private int photoDisplayed = 1;
 	private JLayeredPane layeredPane;
-	private JTable table;
-	private JTable table_1;
+	private JTable table_Contrats;
+	private JTable table_Visites;
 
 	/**
 	 * Create the application.
@@ -131,15 +135,21 @@ public class Vue_BienDetails {
 				btnContrats.setBounds(10, 285, 123, 86);
 				frmModificationDeBien.getContentPane().add(btnContrats);
 
-		JButton btnNewButton = new JButton("Imprimer");
-		btnNewButton.setOpaque(false);
-		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNewButton.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/print.png")));
-		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		JLabel btnImprimer = new JLabel("Imprimer");
+		btnImprimer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				printRecord(frmModificationDeBien);}
+		});
+		btnImprimer.setHorizontalAlignment(SwingConstants.CENTER);
+		btnImprimer.setOpaque(false);
+		btnImprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnImprimer.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnImprimer.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/print.png")));
+		btnImprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		btnNewButton.setBounds(852, 11, 113, 68);
-		frmModificationDeBien.getContentPane().add(btnNewButton);
+		btnImprimer.setBounds(884, 11, 81, 68);
+		frmModificationDeBien.getContentPane().add(btnImprimer);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
@@ -151,24 +161,25 @@ public class Vue_BienDetails {
 		lblNewLabel_1.setBounds(291, 28, 214, 34);
 		frmModificationDeBien.getContentPane().add(lblNewLabel_1);
 
-		JButton btnRetour = new JButton("Retour");
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frmModificationDeBien.dispose();
+				new Vue_BiensList(agent).getFrame().setVisible(true);
+			}
+		});
 		btnRetour.setOpaque(false);
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/back.png")));
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frmModificationDeBien.dispose();
-				new Vue_BiensList(agent).getFrame().setVisible(true);
-			}
-		});
-		btnRetour.setBounds(10, 11, 113, 69);
+		btnRetour.setBounds(10, 11, 62, 69);
 		frmModificationDeBien.getContentPane().add(btnRetour);
 
 		layeredPane = new JLayeredPane();
 		layeredPane.setOpaque(true);
-		layeredPane.setBounds(133, 90, 765, 500);
+		layeredPane.setBounds(133, 91, 765, 500);
 		frmModificationDeBien.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		JPanel panel_photos = new JPanel();
@@ -176,18 +187,26 @@ public class Vue_BienDetails {
 		panel_photos.setLayout(null);
 		panel_photos.setVisible(false);
 
-		JButton btnSuivant = new JButton("Suivant");
+		JLabel btnSuivant = new JLabel("Suivant");
+		
+		btnSuivant.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnSuivant.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnSuivant.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/next.png")));
 		btnSuivant.setOpaque(false);
 		btnSuivant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		btnSuivant.setBounds(666, 241, 89, 23);
+		btnSuivant.setBounds(700, 224, 65, 69);
 		panel_photos.add(btnSuivant);
 
-		JButton btnPrecedent = new JButton("Precedent");
+		JLabel btnPrecedent = new JLabel("Precedent");
+		
+		btnPrecedent.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnPrecedent.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnPrecedent.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/back.png")));
 		btnPrecedent.setOpaque(false);
 		btnPrecedent.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		btnPrecedent.setBounds(0, 241, 89, 23);
+		btnPrecedent.setBounds(12, 224, 65, 69);
 		panel_photos.add(btnPrecedent);
 
 		JLabel lblNewLabel_2 = new JLabel("");
@@ -327,18 +346,48 @@ public class Vue_BienDetails {
 		lblAnnee.setBounds(192, 159, 73, 14);
 		panel_info.add(lblAnnee);
 		lblAnnee.setText(String.valueOf(bien.getAnnee()));
-		
+					
 		JScrollPane scroll_Contrats = new JScrollPane();
 		layeredPane.add(scroll_Contrats, "name_989719240449800");
 		
-		table = new JTable();
-		scroll_Contrats.setViewportView(table);
+		ContratlDAO contratDAO = new ContratlDAO();
+		ArrayList<Contratl>contrats = contratDAO.getAllByBienId(bien.getId());
+		String[] columns= {"ID","Locoataire","Date de début","Date de fin"};
+		String[][]data2=new String[contrats.size()][columns.length];
+		int i=0;
+		for(Contratl c : contrats) {
+			LocataireDAO locataireDAO = new LocataireDAO();
+			Locataire locataire = locataireDAO.getById(c.getId_locataire());
+			data2[i][0]=c.getId()+"";
+			data2[i][1]=locataire.toString();
+			data2[i][2]=c.getDate();
+			data2[i][3]=c.getDatefin();
+			i++;
+		}
+		DefaultTableModel model2 = new DefaultTableModel(data2,columns);
+		
+		
+		table_Contrats = new JTable(model2);
+		scroll_Contrats.setViewportView(table_Contrats);
 		
 		JScrollPane scroll_Visites = new JScrollPane();
 		layeredPane.add(scroll_Visites, "name_989722156527600");
 		
-		table_1 = new JTable();
-		scroll_Visites.setViewportView(table_1);
+		VisiteDAO visiteDAO = new VisiteDAO();
+		ArrayList<Visite>visites = visiteDAO.getAllByBienId(bien.getId());
+		
+		String[] column = {"ID","Date","Visiteur"};
+		String[][] data=new String[visites.size()][column.length];
+		i=0;
+		for(Visite v : visites) {
+			data[i][0]=v.getId()+"";
+			data[i][1]=v.getDate();
+			data[i][2]=v.getNom();
+			i++;
+		}
+		DefaultTableModel model1=new DefaultTableModel(data,column);
+		table_Visites = new JTable(model1);
+		scroll_Visites.setViewportView(table_Visites);
 		JLabel btnInfos = new JLabel("Informations");
 		btnInfos.addMouseListener(new MouseAdapter() {
 			@Override
@@ -366,11 +415,11 @@ public class Vue_BienDetails {
 		btnPhotos.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/photos.png")));
 		btnPhotos.setBounds(10, 188, 123, 86);
 		frmModificationDeBien.getContentPane().add(btnPhotos);
-		JLabel lblNewLabel_21 = new JLabel("");
-		lblNewLabel_21.setOpaque(true);
-		lblNewLabel_21.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
-		lblNewLabel_21.setBounds(-16, 0, 1000, 591);
-		frmModificationDeBien.getContentPane().add(lblNewLabel_21);
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frmModificationDeBien.getContentPane().add(lblBG);
 
 		File pathtoimg_appart_file = new File(
 				"C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
@@ -380,8 +429,6 @@ public class Vue_BienDetails {
 			imgpaths.add(f.getAbsolutePath());
 		}
 		int fileCount = pathtoimg_appart_file.list().length;
-		btnPrecedent.setVisible(false);
-		btnSuivant.setVisible(false);
 		if (fileCount > 0) {
 			btnPrecedent.setVisible(true);
 			btnSuivant.setVisible(true);
@@ -393,36 +440,37 @@ public class Vue_BienDetails {
 					.getImage().getScaledInstance(832, 414, Image.SCALE_DEFAULT)));
 
 		}
-		btnSuivant.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		
+		btnPrecedent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 if (photoDisplayed == 1) {
+			            photoDisplayed = fileCount;
+			            lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+			                    .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+			        } else {
+			            photoDisplayed--;
+			            lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+			                    .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+			        }
+			}
+		});
+		
+		btnSuivant.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if (photoDisplayed != fileCount) {
-					photoDisplayed++;
-					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+				    photoDisplayed++;
+				    lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+				            .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
 				} else {
-					photoDisplayed = 1;
-					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+				    photoDisplayed = 1;
+				    lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+				            .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
 				}
-
 			}
 		});
 		layeredPane.setBackground(new Color(0,0,0,0));
-
-		btnPrecedent.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (photoDisplayed == 1) {
-					photoDisplayed = fileCount;
-					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
-				} else {
-					photoDisplayed--;
-					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
-				}
-
-			}
-		});
 		
 		btnVisites.addMouseListener(new MouseAdapter() {
 			@Override
@@ -437,16 +485,6 @@ public class Vue_BienDetails {
 			public void mouseClicked(MouseEvent e) {
 				switchScrollPane(scroll_Contrats);
 			}
-		});
-		
-		
-
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				printRecord(frmModificationDeBien);
-				
-				}
 		});
 		
 		

@@ -33,6 +33,7 @@ import java.awt.Component;
 import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 
 public class Vue_ComptaDetails {
 
@@ -218,6 +219,7 @@ public class Vue_ComptaDetails {
 		txtDatePaye.setVisible(false);
 
 		JLabel lblBG = new JLabel("");
+		lblBG.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);

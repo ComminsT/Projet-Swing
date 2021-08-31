@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -22,6 +23,8 @@ import dao.BienDAO;
 import entite.Agent;
 import entite.Bien;
 import entite.Locataire;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_ContratBienSelect {
 
@@ -84,24 +87,49 @@ public class Vue_ContratBienSelect {
 		separator.setBounds(0, 88, 420, 2);
 		frame.getContentPane().add(separator);
 
-		JButton btnNewButton = new JButton("Retour");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewButton = new JLabel("Retour");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_CreationContrat(agent).getFrame().setVisible(true);
+			
 			}
 		});
-		btnNewButton.setBounds(10, 11, 109, 66);
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_ContratBienSelect.class.getResource("/img/back.png")));
+		btnNewButton.setBounds(10, 11, 48, 68);
 		frame.getContentPane().add(btnNewButton);
 
-		JButton btnNext = new JButton("Suivant");
+		JLabel btnNext = new JLabel("Suivant");
+		btnNext.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (table_proprietaire.getSelectedRow() != -1) {
+					int row = table_proprietaire.convertRowIndexToModel(table_proprietaire.getSelectedRow());
+					int selectedId = Integer.parseInt(modelbiens.getValueAt(row, 0).toString());
+					BienDAO bienDAO = new BienDAO();
+					Bien bien = bienDAO.getById(selectedId);
+					frame.dispose();
+					new Vue_ContratConfirmation(bien, locataire, agent).getFrame().setVisible(true);
+				} else {
+					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+				}
 
-		btnNext.setBounds(285, 479, 125, 66);
+			
+			}
+		});
+		btnNext.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNext.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNext.setIcon(new ImageIcon(Vue_ContratBienSelect.class.getResource("/img/next.png")));
+
+		btnNext.setBounds(371, 11, 48, 68);
 		frame.getContentPane().add(btnNext);
 
 		JLabel lblNewLabel = new JLabel("Nouveau contrat de location");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(129, 11, 281, 66);
+		lblNewLabel.setBounds(78, 10, 281, 66);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez un bien");
@@ -168,22 +196,11 @@ public class Vue_ContratBienSelect {
 				btnSearch.doClick();
 			}
 		});
-
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (table_proprietaire.getSelectedRow() != -1) {
-					int row = table_proprietaire.convertRowIndexToModel(table_proprietaire.getSelectedRow());
-					int selectedId = Integer.parseInt(modelbiens.getValueAt(row, 0).toString());
-					BienDAO bienDAO = new BienDAO();
-					Bien bien = bienDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_ContratConfirmation(bien, locataire, agent).getFrame().setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-
-			}
-		});
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-133, 0, 1117, 609);
+		frame.getContentPane().add(lblBG);
 	}
 
 }

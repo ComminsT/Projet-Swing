@@ -30,6 +30,7 @@ import entite.Comptabilite;
 import entite.Locataire;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.JEditorPane;
 
 public class Vue_ComptaList {
 
@@ -208,7 +209,7 @@ public class Vue_ComptaList {
 		btnModifier.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnModifier.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnModifier.setHorizontalAlignment(SwingConstants.CENTER);
-		btnModifier.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnModifier.setBorder(null);
 		btnModifier.setBackground(Color.LIGHT_GRAY);
 		btnModifier.setBounds(224, 24, 54, 70);
 		frame.getContentPane().add(btnModifier);
@@ -247,7 +248,7 @@ public class Vue_ComptaList {
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnDetails.setHorizontalAlignment(SwingConstants.CENTER);
-		btnDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnDetails.setBorder(null);
 		btnDetails.setBackground(Color.LIGHT_GRAY);
 		btnDetails.setBounds(290, 24, 50, 70);
 		frame.getContentPane().add(btnDetails);

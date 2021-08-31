@@ -32,6 +32,9 @@ import entite.Bien;
 import entite.Comptabilite;
 import entite.Database;
 import entite.Locataire;
+import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_ComptaModif {
 
@@ -104,20 +107,22 @@ public class Vue_ComptaModif {
 		}
 		model = new DefaultTableModel(data, columns);
 
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_ComptaList(agent).getFrame().setVisible(true);
 			}
 		});
+		btnRetour.setIcon(new ImageIcon(Vue_ComptaModif.class.getResource("/img/back.png")));
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
 		btnRetour.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnRetour.setBackground(Color.LIGHT_GRAY);
-		btnRetour.setBounds(10, 11, 121, 84);
+		btnRetour.setBounds(10, 11, 50, 69);
 		frame.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 
@@ -198,7 +203,52 @@ public class Vue_ComptaModif {
 		calendar_1.setBounds(368, 313, 302, 198);
 		frame.getContentPane().add(calendar_1);
 
-		JButton btnConfirmer = new JButton("Confirmer");
+		JLabel btnConfirmer = new JLabel("Confirmer");
+		btnConfirmer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if (txtType.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Veuillez remplir le champ catégorie");
+				} else if (txtEuros.getText().equals("")) {
+					JOptionPane.showMessageDialog(null, "Veuillez remplir le champ montant dû");
+				} else {
+					Database.Connect();
+					compta.setCategorie(txtType.getText());
+					if (txtEurop.getText() != null) {
+						String mois = String.valueOf(calendar_1.getMonthChooser().getMonth() + 1);
+						String jour = String.valueOf(calendar_1.getDayChooser().getDay());
+						String annee = String.valueOf(calendar_1.getYearChooser().getYear());
+						String date = annee + "-" + mois + "-" + jour;
+						compta.setDatepaye(date);
+						String montantpaye2 = txtEurop.getText();
+						if (txtCentsp.getText() != null) {
+							montantpaye2 += "." + txtCentsp.getText();
+						}
+						Double montantpaye = Double.parseDouble(montantpaye2);
+						compta.setMontantpaye(montantpaye);
+					}
+					String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
+					String jour = String.valueOf(calendar.getDayChooser().getDay());
+					String annee = String.valueOf(calendar.getYearChooser().getYear());
+					String date = annee + "-" + mois + "-" + jour;
+					compta.setDatedue(date);
+					String montantdue = txtEuros.getText();
+					if (txtCents.getText() != null) {
+						montantdue += "." + txtCents.getText();
+					}
+					Double dbmontantdue = Double.parseDouble(montantdue);
+					compta.setMontantdu(dbmontantdue);
+					ComptabiliteDAO comptaDAO = new ComptabiliteDAO();
+					comptaDAO.save(compta);
+					frame.dispose();
+					new Vue_ComptaList(agent).getFrame().setVisible(true);
+				}
+
+			
+			}
+		});
+		btnConfirmer.setIcon(new ImageIcon(Vue_ComptaModif.class.getResource("/img/valider.png")));
 
 		btnConfirmer.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnConfirmer.setOpaque(false);
@@ -206,7 +256,7 @@ public class Vue_ComptaModif {
 		btnConfirmer.setHorizontalAlignment(SwingConstants.CENTER);
 		btnConfirmer.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnConfirmer.setBackground(Color.LIGHT_GRAY);
-		btnConfirmer.setBounds(834, 11, 121, 84);
+		btnConfirmer.setBounds(900, 11, 65, 69);
 		frame.getContentPane().add(btnConfirmer);
 
 		txtCents = new JTextField();
@@ -271,6 +321,11 @@ public class Vue_ComptaModif {
 		String[] strmontantdusorted = strmontantdu.split("\\.");
 		txtEuros.setText(strmontantdusorted[0]);
 		txtCents.setText(strmontantdusorted[1]);
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 
 		if (compta.getMontantpaye() != null) {
 			Double montantpaye = compta.getMontantpaye();
@@ -279,47 +334,6 @@ public class Vue_ComptaModif {
 			txtEurop.setText(strmontapayesorted[0]);
 			txtCentsp.setText(strmontapayesorted[1]);
 		}
-		btnConfirmer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (txtType.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Veuillez remplir le champ catégorie");
-				} else if (txtEuros.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Veuillez remplir le champ montant dû");
-				} else {
-					Database.Connect();
-					compta.setCategorie(txtType.getText());
-					if (txtEurop.getText() != null) {
-						String mois = String.valueOf(calendar_1.getMonthChooser().getMonth() + 1);
-						String jour = String.valueOf(calendar_1.getDayChooser().getDay());
-						String annee = String.valueOf(calendar_1.getYearChooser().getYear());
-						String date = annee + "-" + mois + "-" + jour;
-						compta.setDatepaye(date);
-						String montantpaye2 = txtEurop.getText();
-						if (txtCentsp.getText() != null) {
-							montantpaye2 += "." + txtCentsp.getText();
-						}
-						Double montantpaye = Double.parseDouble(montantpaye2);
-						compta.setMontantpaye(montantpaye);
-					}
-					String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
-					String jour = String.valueOf(calendar.getDayChooser().getDay());
-					String annee = String.valueOf(calendar.getYearChooser().getYear());
-					String date = annee + "-" + mois + "-" + jour;
-					compta.setDatedue(date);
-					String montantdue = txtEuros.getText();
-					if (txtCents.getText() != null) {
-						montantdue += "." + txtCents.getText();
-					}
-					Double dbmontantdue = Double.parseDouble(montantdue);
-					compta.setMontantdu(dbmontantdue);
-					ComptabiliteDAO comptaDAO = new ComptabiliteDAO();
-					comptaDAO.save(compta);
-					frame.dispose();
-					new Vue_ComptaList(agent).getFrame().setVisible(true);
-				}
-
-			}
-		});
 	}
 
 	public JFrame getFrame() {

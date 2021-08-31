@@ -27,6 +27,10 @@ import entite.Contratl;
 import entite.Database;
 import entite.Garant;
 import entite.Locataire;
+import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Vue_ContratConfirmation {
 
@@ -95,14 +99,19 @@ public class Vue_ContratConfirmation {
 		calendar.setBounds(41, 586, 232, 154);
 		frame.getContentPane().add(calendar);
 
-		JButton btnNewButton = new JButton("Retour");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewButton = new JLabel("Retour");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_ContratBienSelect(locataire,agent).getFrame().setVisible(true);	
+			
 			}
 		});
-		btnNewButton.setBounds(10, 11, 116, 66);
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/back.png")));
+		btnNewButton.setBounds(10, 11, 48, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Locataire :");
@@ -131,7 +140,7 @@ public class Vue_ContratConfirmation {
 				new Vue_CreationGarant().getFrame().setVisible(true);
 			}
 		});
-		btnAjouterDesGarants.setBounds(85, 167, 188, 25);
+		btnAjouterDesGarants.setBounds(95, 168, 167, 29);
 		frame.getContentPane().add(btnAjouterDesGarants);
 
 		JButton btnAjouterDesAssurances = new JButton("Ajouter des assurances");
@@ -141,16 +150,16 @@ public class Vue_ContratConfirmation {
 
 			}
 		});
-		btnAjouterDesAssurances.setBounds(85, 358, 188, 25);
+		btnAjouterDesAssurances.setBounds(95, 358, 190, 29);
 		frame.getContentPane().add(btnAjouterDesAssurances);
 
 		JLabel lblNewLabel_2 = new JLabel("Garants :");
-		lblNewLabel_2.setBounds(29, 173, 46, 14);
+		lblNewLabel_2.setBounds(34, 174, 56, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Assurances :");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_2_1.setBounds(0, 363, 75, 14);
+		lblNewLabel_2_1.setBounds(10, 363, 80, 16);
 		frame.getContentPane().add(lblNewLabel_2_1);
 
 		listgarant = new List();
@@ -161,9 +170,11 @@ public class Vue_ContratConfirmation {
 		listassurance.setBounds(85, 389, 188, 154);
 		frame.getContentPane().add(listassurance);
 
-		JButton btnNewButton_1 = new JButton("Confirmer");
-		btnNewButton_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewButton_1 = new JLabel("Confirmer");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
 				Database.Connect();
 				String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
 				String jour = String.valueOf(calendar.getDayChooser().getDay());
@@ -194,9 +205,14 @@ public class Vue_ContratConfirmation {
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 				
 
+			
 			}
 		});
-		btnNewButton_1.setBounds(348, 707, 135, 69);
+		btnNewButton_1.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton_1.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton_1.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/valider.png")));
+		btnNewButton_1.setBounds(458, 11, 63, 68);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		

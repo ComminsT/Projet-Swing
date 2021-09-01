@@ -105,8 +105,8 @@ public class AdminDAO {
 		ArrayList<Admin> admins = new ArrayList<Admin>();
 		try {
 				PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM admin WHERE identifiant = ? AND mdp=? ");
-				ps.setString(0, identifiant);
-				ps.setString(1, mdp);
+				ps.setString(1, identifiant);
+				ps.setString(2, mdp);
 				ResultSet resultat=ps.executeQuery();
 				while(resultat.next()) {
 					Admin a = new Admin();

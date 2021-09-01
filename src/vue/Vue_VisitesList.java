@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import dao.VisiteDAO;
 import entite.Agent;
 import entite.Visite;
+import javax.swing.JPanel;
 
 public class Vue_VisitesList {
 
@@ -75,7 +76,15 @@ public class Vue_VisitesList {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 		
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(10, 19, 731, 75);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
 		JButton btnModification = new JButton("Modification");
+		btnModification.setBounds(608, 0, 66, 66);
+		panel.add(btnModification);
 		btnModification.setVerticalAlignment(SwingConstants.BOTTOM);
 		btnModification.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/modify.png")));
 		btnModification.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -86,8 +95,154 @@ public class Vue_VisitesList {
 		btnModification.setHorizontalAlignment(SwingConstants.CENTER);
 		btnModification.setBorder(null);
 		btnModification.setBackground(Color.LIGHT_GRAY);
-		btnModification.setBounds(675, 2, 121, 84);
-		frame.getContentPane().add(btnModification);
+		
+				JButton btnRetour = new JButton("Retour");
+				btnRetour.setBounds(55, 0, 48, 66);
+				panel.add(btnRetour);
+				btnRetour.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/back.png")));
+				btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnRetour.setOpaque(false);
+				btnRetour.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						frame.dispose();
+						new Vue_AccueilAgent(agent).getFrame().setVisible(true);
+					}
+				});
+				btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+				btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+				btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
+				btnRetour.setBorder(null);
+				btnRetour.setBackground(Color.LIGHT_GRAY);
+				
+						JButton btnNouvelleVisite = new JButton("Nouvelle visite");
+						btnNouvelleVisite.setBounds(158, 0, 77, 66);
+						panel.add(btnNouvelleVisite);
+						btnNouvelleVisite.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/calendar.png")));
+						btnNouvelleVisite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+						btnNouvelleVisite.setOpaque(false);
+						btnNouvelleVisite.addActionListener(new ActionListener() {
+							public void actionPerformed(ActionEvent e) {
+								frame.dispose();
+								new Vue_CreationVisite(agent).getFrame().setVisible(true);
+							}
+						});
+						btnNouvelleVisite.setVerticalTextPosition(SwingConstants.BOTTOM);
+						btnNouvelleVisite.setHorizontalTextPosition(SwingConstants.CENTER);
+						btnNouvelleVisite.setHorizontalAlignment(SwingConstants.CENTER);
+						btnNouvelleVisite.setBorder(null);
+						btnNouvelleVisite.setBackground(Color.LIGHT_GRAY);
+						
+								JButton btnTerminerUneVisite = new JButton("Terminer");
+								btnTerminerUneVisite.setBounds(290, 0, 49, 66);
+								panel.add(btnTerminerUneVisite);
+								btnTerminerUneVisite.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/terminer.png")));
+								btnTerminerUneVisite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+								btnTerminerUneVisite.setOpaque(false);
+								btnTerminerUneVisite.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										if (table_VisiteEnCours.getSelectedRow() != -1) {
+											int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
+											int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+											VisiteDAO visiteDAO = new VisiteDAO();
+											Visite visite = visiteDAO.getById(selectedId);
+											frame.dispose();
+											new Vue_VisiteFin(visite, agent).getFrame().setVisible(true);
+										} else if (table_VisitesFinis.getSelectedRow() != -1) {
+											JOptionPane.showMessageDialog(null, "Cette visite est déjà terminée");
+										} else {
+											JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+										}
+
+									}
+								});
+								btnTerminerUneVisite.setVerticalTextPosition(SwingConstants.BOTTOM);
+								btnTerminerUneVisite.setHorizontalTextPosition(SwingConstants.CENTER);
+								btnTerminerUneVisite.setHorizontalAlignment(SwingConstants.CENTER);
+								btnTerminerUneVisite.setBorder(null);
+								btnTerminerUneVisite.setBackground(Color.LIGHT_GRAY);
+								
+										JButton btnDetails = new JButton("Détails");
+										btnDetails.setBounds(394, 0, 48, 66);
+										panel.add(btnDetails);
+										btnDetails.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/search.png")));
+										btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+										btnDetails.setOpaque(false);
+										btnDetails.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+												if (table_VisiteEnCours.getSelectedRow() != -1) {
+													int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
+													int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+													VisiteDAO visiteDAO = new VisiteDAO();
+													Visite visite = visiteDAO.getById(selectedId);
+													new Vue_VisiteDetails(visite, agent).getFrame().setVisible(true);
+												} else if (table_VisitesFinis.getSelectedRow() != -1) {
+													int row = table_VisitesFinis.convertRowIndexToModel(table_VisitesFinis.getSelectedRow());
+													int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
+													VisiteDAO visiteDAO = new VisiteDAO();
+													Visite visite = visiteDAO.getById(selectedId);
+													new Vue_VisiteDetails(visite, agent).getFrame().setVisible(true);
+												} else {
+													JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+												}
+											}
+										});
+										btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
+										btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
+										btnDetails.setHorizontalAlignment(SwingConstants.CENTER);
+										btnDetails.setBorder(null);
+										btnDetails.setBackground(Color.LIGHT_GRAY);
+										
+												JButton btnSupprimer = new JButton("Supprimer");
+												btnSupprimer.setBounds(497, 0, 56, 66);
+												panel.add(btnSupprimer);
+												btnSupprimer.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/abort.png")));
+												btnSupprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+												btnSupprimer.setOpaque(false);
+												btnSupprimer.addActionListener(new ActionListener() {
+													public void actionPerformed(ActionEvent e) {
+														if (table_VisiteEnCours.getSelectedRow() != -1) {
+															int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
+															int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+															VisiteDAO visiteDAO = new VisiteDAO();
+															Visite visite = visiteDAO.getById(selectedId);
+															int input = JOptionPane.showConfirmDialog(null,
+																	"Êtes-vous sur de vouloir supprimer cette visite ?");
+															if (input == 0) {
+																visiteDAO.deleteById(visite.getId());
+																model.removeRow(row);
+															}
+														} else if (table_VisitesFinis.getSelectedRow() != -1) {
+															int row = table_VisitesFinis.convertRowIndexToModel(table_VisitesFinis.getSelectedRow());
+															int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
+															VisiteDAO visiteDAO = new VisiteDAO();
+															Visite visite = visiteDAO.getById(selectedId);
+															int input = JOptionPane.showConfirmDialog(null,
+																	"Êtes-vous sur de vouloir supprimer cette visite ?");
+															if (input == 0) {
+																visiteDAO.deleteById(visite.getId());
+																model.removeRow(row);
+															}
+														} else {
+															JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+														}
+
+													}
+												});
+												btnSupprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
+												btnSupprimer.setHorizontalTextPosition(SwingConstants.CENTER);
+												btnSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
+												btnSupprimer.setBorder(null);
+												btnSupprimer.setBackground(Color.LIGHT_GRAY);
+		btnModification.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
+				int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+				VisiteDAO visiteDAO = new VisiteDAO();
+				Visite visite = visiteDAO.getById(selectedId);
+			frame.dispose();
+			new Vue_VisiteModif(visite,agent).getFrame().setVisible(true);
+			}
+		});
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 106, 945, 474);
@@ -98,102 +253,6 @@ public class Vue_VisitesList {
 
 		JScrollPane scrollPane_1 = new JScrollPane();
 		tabbedPane.addTab("Visite terminées", null, scrollPane_1, null);
-
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/back.png")));
-		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRetour.setOpaque(false);
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
-			}
-		});
-		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
-		btnRetour.setBorder(null);
-		btnRetour.setBackground(Color.LIGHT_GRAY);
-		btnRetour.setBounds(10, 11, 121, 84);
-		frame.getContentPane().add(btnRetour);
-
-		JButton btnNouvelleVisite = new JButton("Nouvelle visite");
-		btnNouvelleVisite.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/calendar.png")));
-		btnNouvelleVisite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNouvelleVisite.setOpaque(false);
-		btnNouvelleVisite.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				new Vue_CreationVisite(agent).getFrame().setVisible(true);
-			}
-		});
-		btnNouvelleVisite.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnNouvelleVisite.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnNouvelleVisite.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNouvelleVisite.setBorder(null);
-		btnNouvelleVisite.setBackground(Color.LIGHT_GRAY);
-		btnNouvelleVisite.setBounds(141, 11, 121, 84);
-		frame.getContentPane().add(btnNouvelleVisite);
-
-		JButton btnTerminerUneVisite = new JButton("Terminer");
-		btnTerminerUneVisite.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/terminer.png")));
-		btnTerminerUneVisite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnTerminerUneVisite.setOpaque(false);
-		btnTerminerUneVisite.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (table_VisiteEnCours.getSelectedRow() != -1) {
-					int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					VisiteDAO visiteDAO = new VisiteDAO();
-					Visite visite = visiteDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_VisiteFin(visite, agent).getFrame().setVisible(true);
-				} else if (table_VisitesFinis.getSelectedRow() != -1) {
-					JOptionPane.showMessageDialog(null, "Cette visite est déjà terminée");
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-
-			}
-		});
-		btnTerminerUneVisite.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnTerminerUneVisite.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnTerminerUneVisite.setHorizontalAlignment(SwingConstants.CENTER);
-		btnTerminerUneVisite.setBorder(null);
-		btnTerminerUneVisite.setBackground(Color.LIGHT_GRAY);
-		btnTerminerUneVisite.setBounds(272, 11, 121, 84);
-		frame.getContentPane().add(btnTerminerUneVisite);
-
-		JButton btnDetails = new JButton("Détails");
-		btnDetails.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/search.png")));
-		btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDetails.setOpaque(false);
-		btnDetails.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (table_VisiteEnCours.getSelectedRow() != -1) {
-					int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					VisiteDAO visiteDAO = new VisiteDAO();
-					Visite visite = visiteDAO.getById(selectedId);
-					new Vue_VisiteDetails(visite, agent).getFrame().setVisible(true);
-				} else if (table_VisitesFinis.getSelectedRow() != -1) {
-					int row = table_VisitesFinis.convertRowIndexToModel(table_VisitesFinis.getSelectedRow());
-					int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
-					VisiteDAO visiteDAO = new VisiteDAO();
-					Visite visite = visiteDAO.getById(selectedId);
-					new Vue_VisiteDetails(visite, agent).getFrame().setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-			}
-		});
-		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnDetails.setHorizontalAlignment(SwingConstants.CENTER);
-		btnDetails.setBorder(null);
-		btnDetails.setBackground(Color.LIGHT_GRAY);
-		btnDetails.setBounds(403, 11, 121, 84);
-		frame.getContentPane().add(btnDetails);
 
 		JButton btnSearch = new JButton("Recherche");
 		btnSearch.setOpaque(false);
@@ -245,48 +304,6 @@ public class Vue_VisitesList {
 		originalTableModel2 = (Vector) ((DefaultTableModel) table_VisitesFinis.getModel()).getDataVector().clone();
 
 		scrollPane_1.setViewportView(table_VisitesFinis);
-
-		JButton btnSupprimer = new JButton("Supprimer");
-		btnSupprimer.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/abort.png")));
-		btnSupprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSupprimer.setOpaque(false);
-		btnSupprimer.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (table_VisiteEnCours.getSelectedRow() != -1) {
-					int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					VisiteDAO visiteDAO = new VisiteDAO();
-					Visite visite = visiteDAO.getById(selectedId);
-					int input = JOptionPane.showConfirmDialog(null,
-							"Êtes-vous sur de vouloir supprimer cette visite ?");
-					if (input == 0) {
-						visiteDAO.deleteById(visite.getId());
-						model.removeRow(row);
-					}
-				} else if (table_VisitesFinis.getSelectedRow() != -1) {
-					int row = table_VisitesFinis.convertRowIndexToModel(table_VisitesFinis.getSelectedRow());
-					int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
-					VisiteDAO visiteDAO = new VisiteDAO();
-					Visite visite = visiteDAO.getById(selectedId);
-					int input = JOptionPane.showConfirmDialog(null,
-							"Êtes-vous sur de vouloir supprimer cette visite ?");
-					if (input == 0) {
-						visiteDAO.deleteById(visite.getId());
-						model.removeRow(row);
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-
-			}
-		});
-		btnSupprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
-		btnSupprimer.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		btnSupprimer.setBorder(null);
-		btnSupprimer.setBackground(Color.LIGHT_GRAY);
-		btnSupprimer.setBounds(536, 11, 121, 84);
-		frame.getContentPane().add(btnSupprimer);
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel_2.setBounds(-16, 0, 1000, 591);
@@ -323,16 +340,6 @@ public class Vue_VisitesList {
 				table_VisiteEnCours.setModel(currtableModel);
 				table_VisitesFinis.setModel(currtableModel2);
 
-			}
-		});
-		btnModification.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
-				int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-				VisiteDAO visiteDAO = new VisiteDAO();
-				Visite visite = visiteDAO.getById(selectedId);
-			frame.dispose();
-			new Vue_VisiteModif(visite,agent).getFrame().setVisible(true);
 			}
 		});
 	}

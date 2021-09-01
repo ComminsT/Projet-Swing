@@ -105,22 +105,21 @@ public class Vue_Login {
 				Database.Connect();
 				String identifiant = tidentifiant.getText();
 				String mdp = tmdp.getText();
-				
+
 				AgentDAO agentDAO = new AgentDAO();
 				ArrayList<Agent> agents = agentDAO.getByIdentifiant(identifiant, mdp);
 				AdminDAO adminDAO = new AdminDAO();
-				ArrayList<Admin> admins=adminDAO.getByIdentifiant(identifiant, mdp);
+				ArrayList<Admin> admins = adminDAO.getByIdentifiant(identifiant, mdp);
 				if (agents.size() > 0) {
 					Agent agent = agents.get(0);
 					new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 					frame.dispose();
-				} else if(admins.size()>0){
-					Admin admin = admins.get(0);
+				} else if (admins.size() > 0) {
+					frame.dispose();
 					new Vue_AccueilAdmin().getFrame().setVisible(true);
-				}else {
-					JOptionPane.showMessageDialog(null, "Identifiant ou mot de passe non valide");	
+				} else {
+					JOptionPane.showMessageDialog(null, "Identifiant ou mot de passe non valide");
 				}
-				
 
 			}
 		});

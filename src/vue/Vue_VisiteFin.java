@@ -90,7 +90,7 @@ public class Vue_VisiteFin {
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Nom du visiteur :");
 		lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1_1.setBounds(-19, 180, 119, 16);
+		lblNewLabel_1_1_1_1.setBounds(-2, 180, 119, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Remarques :");
@@ -103,19 +103,19 @@ public class Vue_VisiteFin {
 		frame.getContentPane().add(txtRemarques);
 		
 		JLabel lblId = new JLabel("New label");
-		lblId.setBounds(110, 101, 55, 16);
+		lblId.setBounds(129, 102, 8, 15);
 		frame.getContentPane().add(lblId);
 		
 		JLabel lblDate = new JLabel("New label");
-		lblDate.setBounds(110, 128, 298, 16);
+		lblDate.setBounds(129, 129, 246, 15);
 		frame.getContentPane().add(lblDate);
 		
 		JLabel lblHeure = new JLabel("New label");
-		lblHeure.setBounds(110, 153, 102, 16);
+		lblHeure.setBounds(129, 154, 72, 15);
 		frame.getContentPane().add(lblHeure);
 		
 		JLabel lblNom = new JLabel("New label");
-		lblNom.setBounds(110, 180, 300, 16);
+		lblNom.setBounds(129, 181, 72, 15);
 		frame.getContentPane().add(lblNom);
 	
 		JLabel lblNewLabel_1_1_1_1_2 = new JLabel("Bien concerné :");
@@ -124,7 +124,7 @@ public class Vue_VisiteFin {
 		frame.getContentPane().add(lblNewLabel_1_1_1_1_2);
 		
 		JLabel lblBien = new JLabel((String) null);
-		lblBien.setBounds(110, 205, 298, 16);
+		lblBien.setBounds(129, 206, 24, 15);
 		frame.getContentPane().add(lblBien);
 		BienDAO bienDAO = new BienDAO();
 		Bien bien = bienDAO.getById(visite.getId_bien());
@@ -150,7 +150,7 @@ public class Vue_VisiteFin {
 		btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnValider.setIcon(new ImageIcon(Vue_VisiteFin.class.getResource("/img/valider.png")));
-		btnValider.setBounds(364, 17, 48, 66);
+		btnValider.setBounds(372, 14, 48, 66);
 		frame.getContentPane().add(btnValider);
 		
 		JLabel btnRetour = new JLabel("Retour");
@@ -165,13 +165,19 @@ public class Vue_VisiteFin {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setIcon(new ImageIcon(Vue_VisiteFin.class.getResource("/img/back.png")));
-		btnRetour.setBounds(10, 13, 81, 75);
+		btnRetour.setBounds(10, 13, 48, 68);
 		frame.getContentPane().add(btnRetour);
 		if(visite.getRemarque()==null) {
 			txtRemarques.setText("Pas de remarque pour l'instant");
 		}else {
 			txtRemarques.setText(visite.getRemarque());
 		}
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 		
 		
 		

@@ -33,6 +33,8 @@ import entite.Bien;
 import entite.Proprietaire;
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_ProprietaireDetails {
 
@@ -101,11 +103,17 @@ public class Vue_ProprietaireDetails {
 		frame.getContentPane().add(separator_1);
 
 		JLabel btnNewButton = new JLabel("Imprimer");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				printRecord(frame);
+			}
+		});
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ProprietaireDetails.class.getResource("/img/print.png")));
 
-		btnNewButton.setBounds(899, 7, 48, 66);
+		btnNewButton.setBounds(918, 10, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		separator = new JSeparator();
@@ -114,10 +122,17 @@ public class Vue_ProprietaireDetails {
 		frame.getContentPane().add(separator);
 
 		JLabel lblNewLabel_2 = new JLabel("Détails propriétaire");
-		lblNewLabel_2.setBounds(277, 26, 293, 14);
+		lblNewLabel_2.setBounds(430, 26, 121, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel btnAnnuler = new JLabel("Retour");
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
+			}
+		});
 		btnAnnuler.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);

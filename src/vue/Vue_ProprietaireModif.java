@@ -100,11 +100,7 @@ public class Vue_ProprietaireModif {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-			}
-		});
+		
 		btnNewButton.setIcon(new ImageIcon(Vue_ProprietaireModif.class.getResource("/img/valider.png")));
 
 		btnNewButton.setBounds(852, 7, 103, 77);
@@ -475,6 +471,75 @@ public class Vue_ProprietaireModif {
 		lblbackground.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblbackground.setBounds(-26, -19, 1023, 636);
 		frame.getContentPane().add(lblbackground);
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Database.Connect();
+				lblMailError.setVisible(false);
+				lblPhoneError.setVisible(false);
+				String nom = txtNom.getText();
+				String prenom = txtPrenom.getText();
+				String adresse = txtAdresse.getText();
+				String ville = txtVille.getText();
+				String cp = txtCodePostale.getText();
+				String pays = comboboxPays.getSelectedItem().toString();
+				String tel = Checker
+						.phonenumber(comboboxidentifiant.getSelectedItem().toString() + txtNumero.getText());
+				String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
+				String jour = String.valueOf(calendar.getDayChooser().getDay());
+				String annee = String.valueOf(calendar.getYearChooser().getYear());
+				String datedenaissance = annee + "-" + mois + "-" + jour;
+				String mail = txtAdresseMail.getText() + "@" + txtDomaine.getText();
+
+				if (prenom.equals("Prénom")) {
+					txtPrenom.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (nom.equals("Nom")) {
+					txtNom.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (txtAdresseMail.getText().equals("Adresse Mail")) {
+					txtAdresseMail.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (txtDomaine.getText().equals("Domaine")) {
+					txtDomaine.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (adresse.equals("Adresse")) {
+					txtAdresse.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (ville.equals("Ville")) {
+					txtVille.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (cp.equals("Code Postal")) {
+					txtCodePostale.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (txtNumero.getText().equals("Numero")) {
+					txtNumero.setForeground(Color.red);
+					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
+				} else if (!Checker.mailmodifierp(mail,proprietaire)) {
+					lblMailError.setVisible(true);
+					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
+				} else if (!Checker.phonemodifierp(tel,proprietaire)) {
+					lblPhoneError.setVisible(true);
+					JOptionPane.showMessageDialog(null, "Numéro de telephone invalide ou déjà utilisé");
+				} else {
+					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
+					proprietaire.setAdresse(adresse);
+					proprietaire.setCp(cp);
+					proprietaire.setMail(mail);
+					proprietaire.setNaissance(datedenaissance);
+					proprietaire.setNom(nom);
+					proprietaire.setPrenom(prenom);
+					proprietaire.setTel(tel);
+					proprietaire.setVille(ville);
+					proprietaire.setPays(pays);
+					proprietaireDAO.save(proprietaire);
+						frame.dispose();
+						new Vue_ProprietairesList(agent).getFrame().setVisible(true);
+				}
+				
+				
+			}
+		});
 	}
 
 	public JFrame getFrame() {

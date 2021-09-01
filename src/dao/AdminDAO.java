@@ -4,8 +4,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-import entite.Database;
 import entite.Admin;
+import entite.Database;
 
 public class AdminDAO {
 	public AdminDAO() {
@@ -99,6 +99,29 @@ public class AdminDAO {
 		} catch (Exception ex) {
         	ex.printStackTrace();
         	System.out.println("DELETED NO");
+        }
+	}
+	public ArrayList<Admin> getByIdentifiant(String identifiant, String mdp) {
+		ArrayList<Admin> admins = new ArrayList<Admin>();
+		try {
+				PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM admin WHERE identifiant = ? AND mdp=? ");
+				ps.setString(0, identifiant);
+				ps.setString(1, mdp);
+				ResultSet resultat=ps.executeQuery();
+				while(resultat.next()) {
+					Admin a = new Admin();
+					a.setId(resultat.getInt( "id" ));
+					a.setIdentifiant(resultat.getString( "identifiant" ));
+					a.setMdp(resultat.getString( "mdp" ));
+					admins.add(a);
+				}
+				
+				
+				return admins;
+			
+		} catch (Exception ex) {
+        	ex.printStackTrace();
+        	return null;
         }
 	}
 

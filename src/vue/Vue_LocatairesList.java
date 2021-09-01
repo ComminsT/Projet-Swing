@@ -76,7 +76,7 @@ public class Vue_LocatairesList {
 
 		txtSearch = new JTextField();
 
-		txtSearch.setBounds(434, 76, 301, 20);
+		txtSearch.setBounds(436, 75, 301, 20);
 		frame.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
@@ -192,7 +192,7 @@ public class Vue_LocatairesList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(327, 76, 110, 20);
+		btnSearch.setBounds(315, 72, 120, 29);
 		frame.getContentPane().add(btnSearch);
 		btnSearch.setOpaque(false);
 

@@ -34,6 +34,7 @@ import javax.swing.Box;
 import javax.swing.JSeparator;
 import javax.swing.ImageIcon;
 import javax.swing.JCheckBox;
+import javax.swing.JPanel;
 
 public class Vue_ComptaDetails {
 
@@ -75,31 +76,11 @@ public class Vue_ComptaDetails {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-
 		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
+		frame.setBounds(100, 100, 981, 619);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
-
-		ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
-		ArrayList<Comptabilite> comptabilites = comptabiliteDAO.getAllByIdAgentNOTPAID(agent.getId());
-		String columns[] = { "ID", "Date-due", "Montant dû", "Locataire", "Bien" };
-		String data[][] = new String[comptabilites.size()][columns.length];
-		int i = 0;
-		for (Comptabilite c : comptabilites) {
-			LocataireDAO locataireDAO = new LocataireDAO();
-			Locataire locataire = locataireDAO.getByIdComptabilite(c.getId());
-			BienDAO bienDAO = new BienDAO();
-			Bien bien = bienDAO.getByIdComptabilite(c.getId());
-			data[i][0] = c.getId() + "";
-			data[i][1] = c.getDatedue();
-			data[i][2] = c.getMontantdu() + "";
-			data[i][3] = locataire + "";
-			data[i][4] = bien + "";
-			i++;
-		}
-		model = new DefaultTableModel(data, columns);
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
@@ -108,42 +89,29 @@ public class Vue_ComptaDetails {
 				new Vue_ComptaList(agent).getFrame().setVisible(true);
 			}
 		});
+		
+				JSeparator separator = new JSeparator();
+				separator.setBounds(0, 116, 1000, 4);
+				frame.getContentPane().add(separator);
 		btnRetour.setIcon(new ImageIcon(Vue_ComptaDetails.class.getResource("/img/back.png")));
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
-		btnRetour.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(10, 11, 50, 68);
 		frame.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
+		
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(10, 143, 330, 348);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 
-		JLabel lblNewLabel = new JLabel("Type de facture :");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(31, 143, 105, 16);
-		frame.getContentPane().add(lblNewLabel);
-
-		JLabel lblDateD = new JLabel("Date dû :");
-		lblDateD.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDateD.setBounds(79, 291, 57, 16);
-		frame.getContentPane().add(lblDateD);
-
-		JLabel lblMontantD = new JLabel("Montant dû :");
-		lblMontantD.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontantD.setBounds(56, 167, 80, 16);
-		frame.getContentPane().add(lblMontantD);
-
-		JLabel lblMontantPay = new JLabel("Montant payé :");
-		lblMontantPay.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMontantPay.setBounds(43, 197, 93, 16);
-		frame.getContentPane().add(lblMontantPay);
-
-		JLabel lblDatePaye = new JLabel("Date payé :");
-		lblDatePaye.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblDatePaye.setBounds(66, 324, 70, 16);
-		frame.getContentPane().add(lblDatePaye);
-		lblDatePaye.setVisible(false);
+		
+		
 
 		JLabel btnConfirmer = new JLabel("Imprimer");
 		btnConfirmer.setIcon(new ImageIcon(Vue_ComptaDetails.class.getResource("/img/print.png")));
@@ -151,72 +119,94 @@ public class Vue_ComptaDetails {
 		btnConfirmer.setOpaque(false);
 		btnConfirmer.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnConfirmer.setHorizontalAlignment(SwingConstants.CENTER);
-		btnConfirmer.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnConfirmer.setBorder(null);
 		btnConfirmer.setBackground(Color.LIGHT_GRAY);
 		btnConfirmer.setBounds(914, 10, 59, 70);
 		frame.getContentPane().add(btnConfirmer);
-
-		JSeparator separator = new JSeparator();
-		separator.setBounds(0, 118, 965, 2);
-		frame.getContentPane().add(separator);
-
-		JLabel lblBienConcern = new JLabel("Bien concerné :");
-		lblBienConcern.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblBienConcern.setBounds(41, 227, 95, 16);
-		frame.getContentPane().add(lblBienConcern);
-
-		JLabel lblLocataireConcern = new JLabel("Locataire concerné :");
-		lblLocataireConcern.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblLocataireConcern.setBounds(10, 260, 126, 16);
-		frame.getContentPane().add(lblLocataireConcern);
-
-		JLabel txtType = new JLabel("New label");
-		txtType.setBounds(148, 144, 195, 14);
-		frame.getContentPane().add(txtType);
-
-		JLabel txtMontantDu = new JLabel("New label");
-		txtMontantDu.setBounds(148, 168, 195, 14);
-		frame.getContentPane().add(txtMontantDu);
-
-		JLabel txtMontantPaye = new JLabel("New label");
-		txtMontantPaye.setBounds(148, 198, 195, 14);
-		frame.getContentPane().add(txtMontantPaye);
-
-		JLabel txtBien = new JLabel("New label");
-		txtBien.setBounds(148, 228, 195, 14);
-		frame.getContentPane().add(txtBien);
-
-		JLabel txtLocataire = new JLabel("New label");
-		txtLocataire.setBounds(148, 261, 195, 14);
-		frame.getContentPane().add(txtLocataire);
-
-		JLabel txtDateDu = new JLabel("New label");
-		txtDateDu.setBounds(145, 292, 195, 14);
-		frame.getContentPane().add(txtDateDu);
-
-		JLabel txtDatePaye = new JLabel("New label");
-		txtDatePaye.setBounds(145, 325, 195, 14);
-		frame.getContentPane().add(txtDatePaye);
 
 		LocataireDAO locataireDAO = new LocataireDAO();
 		Locataire locataire = locataireDAO.getByIdComptabilite(compta.getId());
 		BienDAO bienDAO = new BienDAO();
 		Bien bien = bienDAO.getByIdComptabilite(compta.getId());
 		String[] datedu = compta.getDatedue().split("-");
-		if (compta.getDatepaye() != null) {
-			String[] datepaye = compta.getDatepaye().split("-");
-			txtDatePaye.setText(datepaye[2] + "/" + datepaye[1] + "/" + datepaye[0]);
-			lblDatePaye.setVisible(true);
-			txtDatePaye.setVisible(true);
-		}
+		
+		JLabel lblNewLabel = new JLabel("Type de facture :");
+		lblNewLabel.setBounds(21, 29, 105, 16);
+		panel.add(lblNewLabel);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		txtType.setText(compta.getCategorie());
-		txtMontantDu.setText(compta.getMontantdu() + " €");
-		txtMontantPaye.setText(compta.getMontantpaye() + "  €");
-		txtBien.setText(bien + "");
-		txtLocataire.setText(locataire + "");
-		txtDateDu.setText(datedu[2] + "/" + datedu[1] + "/" + datedu[0]);
-		txtDatePaye.setVisible(false);
+		JLabel lblDateD = new JLabel("Date dû :");
+		lblDateD.setBounds(69, 254, 57, 16);
+		panel.add(lblDateD);
+		lblDateD.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		JLabel lblMontantD = new JLabel("Montant dû :");
+		lblMontantD.setBounds(46, 74, 80, 16);
+		panel.add(lblMontantD);
+		lblMontantD.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		JLabel lblMontantPay = new JLabel("Montant payé :");
+		lblMontantPay.setBounds(33, 119, 93, 16);
+		panel.add(lblMontantPay);
+		lblMontantPay.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		JLabel lblDatePaye = new JLabel("Date payé :");
+		lblDatePaye.setBounds(56, 299, 70, 16);
+		panel.add(lblDatePaye);
+		lblDatePaye.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+				JLabel lblBienConcern = new JLabel("Bien concerné :");
+				lblBienConcern.setBounds(31, 164, 95, 16);
+				panel.add(lblBienConcern);
+				lblBienConcern.setHorizontalAlignment(SwingConstants.RIGHT);
+				
+						JLabel lblLocataireConcern = new JLabel("Locataire concerné :");
+						lblLocataireConcern.setBounds(0, 209, 126, 16);
+						panel.add(lblLocataireConcern);
+						lblLocataireConcern.setHorizontalAlignment(SwingConstants.RIGHT);
+						
+								JLabel txtType = new JLabel("New label");
+								txtType.setBounds(135, 31, 195, 14);
+								panel.add(txtType);
+								
+										txtType.setText(compta.getCategorie());
+										
+												JLabel txtMontantDu = new JLabel("New label");
+												txtMontantDu.setBounds(135, 76, 195, 14);
+												panel.add(txtMontantDu);
+												txtMontantDu.setText(compta.getMontantdu() + " €");
+												
+														JLabel txtMontantPaye = new JLabel("New label");
+														txtMontantPaye.setBounds(135, 121, 195, 14);
+														panel.add(txtMontantPaye);
+														txtMontantPaye.setText(compta.getMontantpaye() + "  €");
+														
+																JLabel txtBien = new JLabel("New label");
+																txtBien.setBounds(135, 166, 195, 14);
+																panel.add(txtBien);
+																txtBien.setText(bien + "");
+																
+																		JLabel txtLocataire = new JLabel("New label");
+																		txtLocataire.setBounds(135, 211, 195, 14);
+																		panel.add(txtLocataire);
+																		txtLocataire.setText(locataire + "");
+																		
+																				JLabel txtDateDu = new JLabel("New label");
+																				txtDateDu.setBounds(135, 256, 195, 14);
+																				panel.add(txtDateDu);
+																				txtDateDu.setText(datedu[2] + "/" + datedu[1] + "/" + datedu[0]);
+																				
+																						JLabel txtDatePaye = new JLabel("New label");
+																						txtDatePaye.setBounds(135, 301, 195, 14);
+																						panel.add(txtDatePaye);
+																						lblDatePaye.setVisible(false);
+																						txtDatePaye.setVisible(false);
+																						if (compta.getDatepaye() != null) {
+																							String[] datepaye = compta.getDatepaye().split("-");
+																							txtDatePaye.setText(datepaye[2] + "/" + datepaye[1] + "/" + datepaye[0]);
+																							lblDatePaye.setVisible(true);
+																							txtDatePaye.setVisible(true);
+																						}
 
 		JLabel lblBG = new JLabel("");
 		lblBG.setHorizontalTextPosition(SwingConstants.CENTER);

@@ -128,7 +128,7 @@ public class Vue_BienModif {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(892, 11, 73, 68);
+		btnNewButton.setBounds(892, 12, 73, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
@@ -279,7 +279,7 @@ public class Vue_BienModif {
 		lblVille_1 = new JLabel("Année de construction :");
 		lblVille_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(10, 235, 167, 17);
+		lblVille_1.setBounds(-49, 235, 167, 17);
 		frame.getContentPane().add(lblVille_1);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Type :");

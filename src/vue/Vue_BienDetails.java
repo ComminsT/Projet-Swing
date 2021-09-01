@@ -108,7 +108,7 @@ public class Vue_BienDetails {
 		Database.Connect();
 		frmModificationDeBien = new JFrame();
 		frmModificationDeBien.setTitle("Modification de bien immobilier");
-		frmModificationDeBien.setBounds(100, 100, 981, 630);
+		frmModificationDeBien.setBounds(100, 100, 981, 619);
 		frmModificationDeBien.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frmModificationDeBien.getContentPane().setLayout(null);
 		frmModificationDeBien.setResizable(false);
@@ -130,9 +130,9 @@ public class Vue_BienDetails {
 				btnVisites.setBorder(null);
 				btnVisites.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/visits.png")));
 				
-				btnVisites.setBounds(0, 273, 86, 40);
+				btnVisites.setBounds(0, 476, 86, 40);
 				frmModificationDeBien.getContentPane().add(btnVisites);
-				btnContrats.setBounds(0, 208, 106, 48);
+				btnContrats.setBounds(0, 343, 106, 48);
 				frmModificationDeBien.getContentPane().add(btnContrats);
 
 		JLabel btnImprimer = new JLabel("Imprimer");
@@ -158,7 +158,7 @@ public class Vue_BienDetails {
 
 		JLabel lblNewLabel_1 = new JLabel("Modification biens immobilier");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(291, 28, 214, 34);
+		lblNewLabel_1.setBounds(383, 28, 214, 34);
 		frmModificationDeBien.getContentPane().add(lblNewLabel_1);
 
 		JLabel btnRetour = new JLabel("Retour");
@@ -174,7 +174,7 @@ public class Vue_BienDetails {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/back.png")));
-		btnRetour.setBounds(10, 11, 62, 69);
+		btnRetour.setBounds(10, 10, 62, 69);
 		frmModificationDeBien.getContentPane().add(btnRetour);
 
 		layeredPane = new JLayeredPane();
@@ -401,7 +401,7 @@ public class Vue_BienDetails {
 		btnInfos.setBorder(null);
 		btnInfos.setOpaque(false);
 		btnInfos.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/personal.png")));
-		btnInfos.setBounds(0, 96, 125, 40);
+		btnInfos.setBounds(0, 85, 125, 40);
 		frmModificationDeBien.getContentPane().add(btnInfos);
 
 		JLabel btnPhotos = new JLabel("Photos");
@@ -415,7 +415,7 @@ public class Vue_BienDetails {
 		btnPhotos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnPhotos.setBorder(null);
 		btnPhotos.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/photos.png")));
-		btnPhotos.setBounds(4, 148, 95, 48);
+		btnPhotos.setBounds(0, 210, 95, 48);
 		frmModificationDeBien.getContentPane().add(btnPhotos);
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);

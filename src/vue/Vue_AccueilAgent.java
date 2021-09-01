@@ -29,6 +29,7 @@ import dao.VisiteDAO;
 import entite.Agent;
 import entite.Bien;
 import entite.Visite;
+import javax.swing.JPanel;
 
 public class Vue_AccueilAgent {
 
@@ -127,7 +128,7 @@ public class Vue_AccueilAgent {
 		btnLocataires.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnLocataires.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnLocataires.setHorizontalAlignment(SwingConstants.CENTER);
-		btnLocataires.setBounds(20, 21, 121, 84);
+		btnLocataires.setBounds(36, 21, 121, 84);
 		frame.getContentPane().add(btnLocataires);
 	
 
@@ -158,7 +159,7 @@ public class Vue_AccueilAgent {
 		btnProprietaires.setHorizontalAlignment(SwingConstants.CENTER);
 		btnProprietaires.setBorder(null);
 		btnProprietaires.setBackground(Color.LIGHT_GRAY);
-		btnProprietaires.setBounds(153, 21, 121, 84);
+		btnProprietaires.setBounds(193, 21, 121, 84);
 		frame.getContentPane().add(btnProprietaires);
 		btnProprietaires.setOpaque(false);
 
@@ -187,7 +188,7 @@ public class Vue_AccueilAgent {
 		btnBiens.setHorizontalAlignment(SwingConstants.CENTER);
 		btnBiens.setBorder(null);
 		btnBiens.setBackground(Color.LIGHT_GRAY);
-		btnBiens.setBounds(286, 21, 121, 84);
+		btnBiens.setBounds(350, 21, 121, 84);
 		frame.getContentPane().add(btnBiens);
 		btnBiens.setOpaque(false);
 
@@ -216,7 +217,7 @@ public class Vue_AccueilAgent {
 		btnVisites.setHorizontalAlignment(SwingConstants.CENTER);
 		btnVisites.setBorder(null);
 		btnVisites.setBackground(Color.LIGHT_GRAY);
-		btnVisites.setBounds(419, 21, 121, 84);
+		btnVisites.setBounds(507, 21, 121, 84);
 		frame.getContentPane().add(btnVisites);
 		btnVisites.setOpaque(false);
 
@@ -245,33 +246,41 @@ public class Vue_AccueilAgent {
 		btnComptabilite.setHorizontalAlignment(SwingConstants.CENTER);
 		btnComptabilite.setBorder(null);
 		btnComptabilite.setBackground(Color.LIGHT_GRAY);
-		btnComptabilite.setBounds(552, 21, 121, 84);
+		btnComptabilite.setBounds(664, 21, 121, 84);
 		frame.getContentPane().add(btnComptabilite);
 		btnComptabilite.setOpaque(false);
+		
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(715, 501, 260, 84);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+				JButton btnEspacePersonnelle = new JButton("Espace personnel");
+				btnEspacePersonnelle.setBounds(0, 0, 121, 84);
+				panel.add(btnEspacePersonnelle);
+				btnEspacePersonnelle.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/personal.png")));
+				btnEspacePersonnelle.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseEntered(MouseEvent e) {
+						frame.setCursor(Cursor.HAND_CURSOR);
+					}
 
-		JButton btnEspacePersonnelle = new JButton("Espace personnel");
-		btnEspacePersonnelle.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/personal.png")));
-		btnEspacePersonnelle.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				frame.setCursor(Cursor.HAND_CURSOR);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				frame.setCursor(Cursor.DEFAULT_CURSOR);
-			}
-		});
+					@Override
+					public void mouseExited(MouseEvent e) {
+						frame.setCursor(Cursor.DEFAULT_CURSOR);
+					}
+				});
 		btnEspacePersonnelle.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnEspacePersonnelle.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnEspacePersonnelle.setHorizontalAlignment(SwingConstants.CENTER);
 		btnEspacePersonnelle.setBorder(null);
 		btnEspacePersonnelle.setBackground(Color.LIGHT_GRAY);
-		btnEspacePersonnelle.setBounds(715, 501, 121, 84);
-		frame.getContentPane().add(btnEspacePersonnelle);
 		btnEspacePersonnelle.setOpaque(false);
 
 		JButton btnDeconnexion = new JButton("Déconnexion");
+		btnDeconnexion.setBounds(121, 0, 121, 84);
+		panel.add(btnDeconnexion);
 		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -295,8 +304,6 @@ public class Vue_AccueilAgent {
 		btnDeconnexion.setHorizontalAlignment(SwingConstants.CENTER);
 		btnDeconnexion.setBorder(null);
 		btnDeconnexion.setBackground(Color.LIGHT_GRAY);
-		btnDeconnexion.setBounds(838, 501, 121, 84);
-		frame.getContentPane().add(btnDeconnexion);
 		btnDeconnexion.setOpaque(false);
 
 		JLabel lblNewLabel_1 = new JLabel("Bienvenue " + agent.getPrenom());
@@ -322,7 +329,7 @@ public class Vue_AccueilAgent {
 		btnContrats.setHorizontalAlignment(SwingConstants.CENTER);
 		btnContrats.setBorder(null);
 		btnContrats.setBackground(Color.LIGHT_GRAY);
-		btnContrats.setBounds(685, 21, 121, 84);
+		btnContrats.setBounds(821, 21, 121, 84);
 		frame.getContentPane().add(btnContrats);
 
 		JLabel lblNewLabel_2 = new JLabel("");

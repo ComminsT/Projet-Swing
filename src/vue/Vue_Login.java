@@ -10,10 +10,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import dao.AdminDAO;
 import dao.AgentDAO;
+import entite.Admin;
 import entite.Agent;
 import entite.Database;
 
@@ -57,57 +60,70 @@ public class Vue_Login {
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(407, 241, 167, 110);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+
 		JLabel lblNewLabel = new JLabel("Identifiant");
-		lblNewLabel.setBounds(426, 222, 86, 14);
-		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setBounds(0, 3, 86, 14);
+		panel.add(lblNewLabel);
 
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
-		lblMotDePasse.setBounds(426, 265, 86, 14);
-		frame.getContentPane().add(lblMotDePasse);
-		
+		lblMotDePasse.setBounds(0, 43, 86, 14);
+		panel.add(lblMotDePasse);
+
 		// bouton valider
 		JButton btnsubmit = new JButton("Valider");
-		btnsubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Database.Connect();
-				String identifiant = tidentifiant.getText();
-				String mdp = tmdp.getText();
-				AgentDAO agentDAO = new AgentDAO();
-				ArrayList<Agent> agents = agentDAO.getByIdentifiant(identifiant, mdp);
-				if (agents.size() > 0) {
-					Agent agent = agents.get(0);
-					new Vue_AccueilAgent(agent).getFrame().setVisible(true);
-					frame.dispose();
-				} else {
-					JOptionPane.showMessageDialog(null, "Identifiant ou mot de passe non valide");
-				}
-
-			}
-		});
-		btnsubmit.setBounds(504, 309, 89, 23);
-		frame.getContentPane().add(btnsubmit);
+		btnsubmit.setBounds(78, 83, 89, 23);
+		panel.add(btnsubmit);
 
 		// champ mdp
 		tmdp = new JPasswordField();
+		tmdp.setBounds(0, 60, 167, 20);
+		panel.add(tmdp);
 		tmdp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnsubmit.doClick();
 			}
 		});
-		tmdp.setBounds(426, 278, 167, 20);
-		frame.getContentPane().add(tmdp);
 		tmdp.setColumns(10);
 
 		// champ identifiant
 		tidentifiant = new JTextField();
+		tidentifiant.setBounds(0, 20, 167, 20);
+		panel.add(tidentifiant);
 		tidentifiant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				btnsubmit.doClick();
 			}
 		});
-		tidentifiant.setBounds(426, 234, 167, 20);
-		frame.getContentPane().add(tidentifiant);
 		tidentifiant.setColumns(10);
+		btnsubmit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Database.Connect();
+				String identifiant = tidentifiant.getText();
+				String mdp = tmdp.getText();
+				
+				AgentDAO agentDAO = new AgentDAO();
+				ArrayList<Agent> agents = agentDAO.getByIdentifiant(identifiant, mdp);
+				AdminDAO adminDAO = new AdminDAO();
+				ArrayList<Admin> admins=adminDAO.getByIdentifiant(identifiant, mdp);
+				if (agents.size() > 0) {
+					Agent agent = agents.get(0);
+					new Vue_AccueilAgent(agent).getFrame().setVisible(true);
+					frame.dispose();
+				} else if(admins.size()>0){
+					Admin admin = admins.get(0);
+					new Vue_AccueilAdmin().getFrame().setVisible(true);
+				}else {
+					JOptionPane.showMessageDialog(null, "Identifiant ou mot de passe non valide");	
+				}
+				
+
+			}
+		});
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));

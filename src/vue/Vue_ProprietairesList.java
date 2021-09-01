@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Proprietaire;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_ProprietairesList {
 
@@ -101,92 +103,61 @@ public class Vue_ProprietairesList {
 		scrollPane.setViewportView(tableProprietaire);
 		tableProprietaire.setAutoCreateRowSorter(true);
 
-		JButton btnNewLandlord = new JButton("Nouveau propriétaire");
+		JLabel btnNewLandlord = new JLabel("Nouveau propriétaire");
 		btnNewLandlord.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewLandlord.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				new Vue_CreationProprietaire(agent).getFrame().setVisible(true);
-			}
-		});
 		btnNewLandlord.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/peopleAdd.png")));
 		btnNewLandlord.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewLandlord.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewLandlord.setHorizontalAlignment(SwingConstants.CENTER);
 		btnNewLandlord.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnNewLandlord.setBackground(Color.LIGHT_GRAY);
-		btnNewLandlord.setBounds(141, 11, 121, 84);
+		btnNewLandlord.setBounds(141, 11, 117, 69);
 		frame.getContentPane().add(btnNewLandlord);
 		btnNewLandlord.setOpaque(false);
 
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			}
 		});
+		btnRetour.setIcon(new ImageIcon(Vue_ProprietairesList.class.getResource("/img/back.png")));
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
 		btnRetour.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnRetour.setBackground(Color.LIGHT_GRAY);
-		btnRetour.setBounds(10, 11, 121, 84);
+		btnRetour.setBounds(10, 11, 51, 69);
 		frame.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 
-		JButton btnModifier = new JButton("Modifier");
-		btnModifier.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnModifier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tableProprietaire.getSelectedRow() != -1) {
-					int row = tableProprietaire.convertRowIndexToModel(tableProprietaire.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
-					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_ProprietaireModif(proprietaire, agent).getFrame().setVisible(true);
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-
+		JLabel btnModifier = new JLabel("Modifier");
+		btnModifier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			}
 		});
+		btnModifier.setIcon(new ImageIcon(Vue_ProprietairesList.class.getResource("/img/modify.png")));
+		btnModifier.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnModifier.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnModifier.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnModifier.setHorizontalAlignment(SwingConstants.CENTER);
 		btnModifier.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnModifier.setBackground(Color.LIGHT_GRAY);
-		btnModifier.setBounds(272, 11, 121, 84);
+		btnModifier.setBounds(272, 11, 51, 69);
 		frame.getContentPane().add(btnModifier);
 		btnModifier.setOpaque(false);
 
-		JButton btnDetails = new JButton("Détails");
+		JLabel btnDetails = new JLabel("Détails");
+		btnDetails.setIcon(new ImageIcon(Vue_ProprietairesList.class.getResource("/img/details.png")));
 		btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDetails.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tableProprietaire.getSelectedRow() != -1) {
-					int row = tableProprietaire.convertRowIndexToModel(tableProprietaire.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
-					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_ProprietaireDetails(proprietaire, agent).getFrame().setVisible(true);
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-			}
-
-		});
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnDetails.setHorizontalAlignment(SwingConstants.CENTER);
 		btnDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnDetails.setBackground(Color.LIGHT_GRAY);
-		btnDetails.setBounds(403, 11, 121, 84);
+		btnDetails.setBounds(403, 11, 51, 69);
 		frame.getContentPane().add(btnDetails);
 		btnDetails.setOpaque(false);
 
@@ -224,6 +195,7 @@ public class Vue_ProprietairesList {
 		});
 
 		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setBorder(null);
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
 		frame.getContentPane().add(lblNewLabel);

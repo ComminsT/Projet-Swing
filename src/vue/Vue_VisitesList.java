@@ -76,24 +76,17 @@ public class Vue_VisitesList {
 		frame.setLocationRelativeTo(null);
 		
 		JButton btnModification = new JButton("Modification");
+		btnModification.setVerticalAlignment(SwingConstants.BOTTOM);
+		btnModification.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/modify.png")));
 		btnModification.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnModification.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
-				int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-				VisiteDAO visiteDAO = new VisiteDAO();
-				Visite visite = visiteDAO.getById(selectedId);
-			frame.dispose();
-			new Vue_VisiteModif(visite,agent).getFrame().setVisible(true);
-			}
-		});
+		
 		btnModification.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnModification.setOpaque(false);
 		btnModification.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnModification.setHorizontalAlignment(SwingConstants.CENTER);
-		btnModification.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnModification.setBorder(null);
 		btnModification.setBackground(Color.LIGHT_GRAY);
-		btnModification.setBounds(667, 11, 121, 84);
+		btnModification.setBounds(675, 2, 121, 84);
 		frame.getContentPane().add(btnModification);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -119,7 +112,7 @@ public class Vue_VisitesList {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
-		btnRetour.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(10, 11, 121, 84);
 		frame.getContentPane().add(btnRetour);
@@ -137,12 +130,13 @@ public class Vue_VisitesList {
 		btnNouvelleVisite.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNouvelleVisite.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNouvelleVisite.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNouvelleVisite.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnNouvelleVisite.setBorder(null);
 		btnNouvelleVisite.setBackground(Color.LIGHT_GRAY);
 		btnNouvelleVisite.setBounds(141, 11, 121, 84);
 		frame.getContentPane().add(btnNouvelleVisite);
 
 		JButton btnTerminerUneVisite = new JButton("Terminer");
+		btnTerminerUneVisite.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/terminer.png")));
 		btnTerminerUneVisite.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnTerminerUneVisite.setOpaque(false);
 		btnTerminerUneVisite.addActionListener(new ActionListener() {
@@ -165,7 +159,7 @@ public class Vue_VisitesList {
 		btnTerminerUneVisite.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnTerminerUneVisite.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnTerminerUneVisite.setHorizontalAlignment(SwingConstants.CENTER);
-		btnTerminerUneVisite.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnTerminerUneVisite.setBorder(null);
 		btnTerminerUneVisite.setBackground(Color.LIGHT_GRAY);
 		btnTerminerUneVisite.setBounds(272, 11, 121, 84);
 		frame.getContentPane().add(btnTerminerUneVisite);
@@ -196,16 +190,16 @@ public class Vue_VisitesList {
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnDetails.setHorizontalAlignment(SwingConstants.CENTER);
-		btnDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnDetails.setBorder(null);
 		btnDetails.setBackground(Color.LIGHT_GRAY);
 		btnDetails.setBounds(403, 11, 121, 84);
 		frame.getContentPane().add(btnDetails);
 
 		JButton btnSearch = new JButton("Recherche");
-		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
 		btnSearch.setOpaque(false);
-		btnSearch.setBounds(669, 94, 105, 20);
+		btnSearch.setBorder(null);
+		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSearch.setBounds(823, 69, 105, 20);
 		frame.getContentPane().add(btnSearch);
 
 		txtSearch = new JTextField();
@@ -289,7 +283,7 @@ public class Vue_VisitesList {
 		btnSupprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnSupprimer.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSupprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		btnSupprimer.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnSupprimer.setBorder(null);
 		btnSupprimer.setBackground(Color.LIGHT_GRAY);
 		btnSupprimer.setBounds(536, 11, 121, 84);
 		frame.getContentPane().add(btnSupprimer);
@@ -329,6 +323,16 @@ public class Vue_VisitesList {
 				table_VisiteEnCours.setModel(currtableModel);
 				table_VisitesFinis.setModel(currtableModel2);
 
+			}
+		});
+		btnModification.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = table_VisiteEnCours.convertRowIndexToModel(table_VisiteEnCours.getSelectedRow());
+				int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+				VisiteDAO visiteDAO = new VisiteDAO();
+				Visite visite = visiteDAO.getById(selectedId);
+			frame.dispose();
+			new Vue_VisiteModif(visite,agent).getFrame().setVisible(true);
 			}
 		});
 	}

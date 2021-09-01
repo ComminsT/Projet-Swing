@@ -17,6 +17,10 @@ import entite.Visite;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Vue_VisiteFin {
 
@@ -131,27 +135,37 @@ public class Vue_VisiteFin {
 		lblId.setText(String.valueOf(visite.getId()));
 		lblBien.setText(bien+"");
 		
-		JButton btnValider = new JButton("Valider");
-		btnValider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnValider = new JLabel("Valider");
+		btnValider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnValider.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				visite.setRemarque(txtRemarques.getText());
-				VisiteDAO visiteDAO = new VisiteDAO();
-				visiteDAO.save(visite);
-				frame.dispose();
-				new Vue_VisitesList(agent).getFrame().setVisible(true);
+                VisiteDAO visiteDAO = new VisiteDAO();
+                visiteDAO.save(visite);
+                frame.dispose();
+                new Vue_VisitesList(agent).getFrame().setVisible(true);
 			}
 		});
-		btnValider.setBounds(272, 13, 119, 55);
+		btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnValider.setIcon(new ImageIcon(Vue_VisiteFin.class.getResource("/img/valider.png")));
+		btnValider.setBounds(364, 17, 48, 66);
 		frame.getContentPane().add(btnValider);
 		
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_VisitesList(agent).getFrame().setVisible(true);
 			}
 		});
-		btnRetour.setBounds(10, 13, 119, 55);
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setIcon(new ImageIcon(Vue_VisiteFin.class.getResource("/img/back.png")));
+		btnRetour.setBounds(10, 13, 81, 75);
 		frame.getContentPane().add(btnRetour);
 		if(visite.getRemarque()==null) {
 			txtRemarques.setText("Pas de remarque pour l'instant");

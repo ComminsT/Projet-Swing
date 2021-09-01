@@ -31,6 +31,8 @@ import dao.BienDAO;
 import entite.Agent;
 import entite.Bien;
 import entite.Proprietaire;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
 
 public class Vue_ProprietaireDetails {
 
@@ -98,9 +100,12 @@ public class Vue_ProprietaireDetails {
 		separator_1.setBounds(502, 82, 2, 519);
 		frame.getContentPane().add(separator_1);
 
-		JButton btnNewButton = new JButton("Imprimer");
+		JLabel btnNewButton = new JLabel("Imprimer");
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_ProprietaireDetails.class.getResource("/img/print.png")));
 
-		btnNewButton.setBounds(852, 7, 113, 53);
+		btnNewButton.setBounds(899, 7, 48, 66);
 		frame.getContentPane().add(btnNewButton);
 
 		separator = new JSeparator();
@@ -112,14 +117,12 @@ public class Vue_ProprietaireDetails {
 		lblNewLabel_2.setBounds(277, 26, 293, 14);
 		frame.getContentPane().add(lblNewLabel_2);
 
-		JButton btnAnnuler = new JButton("Retour");
-		btnAnnuler.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
-			}
-		});
-		btnAnnuler.setBounds(24, 7, 113, 53);
+		JLabel btnAnnuler = new JLabel("Retour");
+		btnAnnuler.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnAnnuler.setIcon(new ImageIcon(Vue_ProprietaireDetails.class.getResource("/img/back.png")));
+		btnAnnuler.setBounds(24, 7, 81, 75);
 		frame.getContentPane().add(btnAnnuler);
 		String[] birth = proprietaire.getNaissance().split("-");
 
@@ -271,15 +274,6 @@ public class Vue_ProprietaireDetails {
 		DefaultTableModel model = new DefaultTableModel(data, columns);
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
-
-		btnNewButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				printRecord(frame);
-
-			}
-
-		});
 
 		btnInformations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

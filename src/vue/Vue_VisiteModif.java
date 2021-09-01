@@ -31,6 +31,11 @@ import entite.Agent;
 import entite.Bien;
 import entite.Database;
 import entite.Visite;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Vue_VisiteModif {
 
@@ -180,39 +185,17 @@ public class Vue_VisiteModif {
 		scrollPane.setViewportView(table_biens);
 		table_biens.setRowSelectionInterval(memo, memo);
 
-		JButton btnNewButton = new JButton("Confirmer");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Database.Connect();
-				if (txtNom.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Veuillez remplir le nom du visiteur");
-				} else if (table_biens.getSelectedRow() == -1) {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir un bien");
-				} else {
-					int row = table_biens.convertRowIndexToModel(table_biens.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					BienDAO bienDAO = new BienDAO();
-					Bien bien = bienDAO.getById(selectedId);
-					String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
-					String jour = String.valueOf(calendar.getDayChooser().getDay());
-					String annee = String.valueOf(calendar.getYearChooser().getYear());
-					String date = annee + "-" + mois + "-" + jour;
-					String heure = comboboxHeure.getSelectedItem() + ":" + comboboxMinute.getSelectedItem();
-
-					visite.setDate(date);
-					visite.setHeure(heure);
-					visite.setId_bien(bien.getId());
-					visite.setNom(txtNom.getText());
-					VisiteDAO visiteDAO = new VisiteDAO();
-					visiteDAO.save(visite);
-
-					frame.dispose();
-					new Vue_VisitesList(agent).getFrame().setVisible(true);
-
-				}
+		JLabel btnNewButton = new JLabel("Confirmer");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 			}
 		});
-		btnNewButton.setBounds(293, 11, 127, 51);
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_VisiteModif.class.getResource("/img/valider.png")));
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setBounds(361, 15, 81, 75);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnSearch = new JButton("Recherche");
@@ -248,14 +231,21 @@ public class Vue_VisiteModif {
 		txtSearch.setBounds(129, 430, 281, 20);
 		frame.getContentPane().add(txtSearch);
 
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
-				new Vue_VisitesList(agent).getFrame().setVisible(true);
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+					frame.dispose();
+					new Vue_VisitesList(agent).getFrame().setVisible(true);
+				
 			}
 		});
-		btnRetour.setBounds(12, 13, 127, 51);
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setIcon(new ImageIcon(Vue_VisiteModif.class.getResource("/img/back.png")));
+		btnRetour.setBounds(12, 13, 81, 75);
 		frame.getContentPane().add(btnRetour);
 
 	}

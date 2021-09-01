@@ -67,27 +67,27 @@ public class Vue_VisiteDetails {
 		
 		JLabel lblNewLabel_1 = new JLabel("Id : ");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(32, 101, 68, 16);
+		lblNewLabel_1.setBounds(33, 99, 21, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Date :");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1.setBounds(32, 128, 68, 16);
+		lblNewLabel_1_1.setBounds(20, 126, 37, 16);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Heure :");
 		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1.setBounds(32, 153, 68, 16);
+		lblNewLabel_1_1_1.setBounds(30, 153, 37, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Nom du visiteur :");
 		lblNewLabel_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1_1.setBounds(-19, 180, 119, 16);
+		lblNewLabel_1_1_1_1.setBounds(10, 180, 102, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Remarques :");
 		lblNewLabel_1_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1_1_1.setBounds(-19, 233, 119, 16);
+		lblNewLabel_1_1_1_1_1.setBounds(20, 233, 80, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1_1_1);
 		
 		JTextPane txtRemarques = new JTextPane();
@@ -96,28 +96,28 @@ public class Vue_VisiteDetails {
 		frame.getContentPane().add(txtRemarques);
 		
 		JLabel lblId = new JLabel("New label");
-		lblId.setBounds(110, 101, 55, 16);
+		lblId.setBounds(196, 99, 55, 16);
 		frame.getContentPane().add(lblId);
 		
 		JLabel lblDate = new JLabel("New label");
-		lblDate.setBounds(110, 128, 298, 16);
+		lblDate.setBounds(196, 126, 255, 16);
 		frame.getContentPane().add(lblDate);
 		
 		JLabel lblHeure = new JLabel("New label");
-		lblHeure.setBounds(110, 153, 102, 16);
+		lblHeure.setBounds(196, 153, 90, 16);
 		frame.getContentPane().add(lblHeure);
 		
 		JLabel lblNom = new JLabel("New label");
-		lblNom.setBounds(110, 180, 300, 16);
+		lblNom.setBounds(196, 180, 151, 16);
 		frame.getContentPane().add(lblNom);
 	
 		JLabel lblNewLabel_1_1_1_1_2 = new JLabel("Bien concerné :");
 		lblNewLabel_1_1_1_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1_1_2.setBounds(-19, 205, 119, 16);
+		lblNewLabel_1_1_1_1_2.setBounds(20, 207, 102, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1_1_2);
 		
 		JLabel lblBien = new JLabel((String) null);
-		lblBien.setBounds(110, 205, 298, 16);
+		lblBien.setBounds(196, 206, 253, 16);
 		frame.getContentPane().add(lblBien);
 		BienDAO bienDAO = new BienDAO();
 		Bien bien = bienDAO.getById(visite.getId_bien());

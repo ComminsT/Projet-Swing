@@ -27,6 +27,11 @@ import entite.Comptabilite;
 import entite.Contratl;
 import entite.Database;
 import entite.Locataire;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_CreationCompta2 {
 
@@ -85,9 +90,14 @@ Database.Connect();
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnSuivant = new JButton("Suivant");
+		JLabel btnSuivant = new JLabel("Suivant");
+		
+		btnSuivant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSuivant.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnSuivant.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnSuivant.setIcon(new ImageIcon(Vue_CreationCompta2.class.getResource("/img/next.png")));
 
-		btnSuivant.setBounds(403, 11, 113, 53);
+		btnSuivant.setBounds(468, 11, 48, 68);
 		frame.getContentPane().add(btnSuivant);
 
 		separator = new JSeparator();
@@ -100,14 +110,21 @@ Database.Connect();
 		frame.getContentPane().add(lblNewLabel);
 		Date date=new Date();
 		
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
 				frame.dispose();
 				new Vue_CreationCompta(agent).getFrame().setVisible(true);
+			
 			}
 		});
-		btnRetour.setBounds(11, 11, 113, 53);
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setIcon(new ImageIcon(Vue_CreationCompta2.class.getResource("/img/back.png")));
+		btnRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnRetour);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez le contrat correspondant :");
@@ -136,10 +153,9 @@ Database.Connect();
 		model = new DefaultTableModel(data, columns);
 		table = new JTable(model);
 		scrollPane.setViewportView(table);
-		
-		btnSuivant.addActionListener(new ActionListener() {
+		btnSuivant.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				if(table.getSelectedRow()==-1) {
 					JOptionPane.showMessageDialog(null, "Veuillez sélectionnez un contrat de la liste");
 				}else {
@@ -159,9 +175,14 @@ Database.Connect();
 				
 				
 				
-				}
-			
+				
+			}
 		});
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 
 	}
 }

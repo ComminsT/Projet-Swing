@@ -27,6 +27,8 @@ import entite.Bien;
 import entite.Contratl;
 import entite.Locataire;
 import javax.swing.table.TableModel;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_ContratList {
 
@@ -94,25 +96,29 @@ public class Vue_ContratList {
 		}
 		model = new DefaultTableModel(data, columns);
 
-		JButton btnNewContract = new JButton("Nouveau Contrat");
-		btnNewContract.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewContract.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewContract = new JLabel("Nouveau Contrat");
+		btnNewContract.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_CreationContrat(agent).getFrame().setVisible(true);
+			
 			}
 		});
+		btnNewContract.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		JButton btnDetails = new JButton("Détails");
+		JLabel btnDetails = new JLabel("Détails");
+		
+		btnDetails.setIcon(new ImageIcon(Vue_ContratList.class.getResource("/img/details.png")));
 		btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setOpaque(false);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnDetails.setHorizontalAlignment(SwingConstants.CENTER);
-		btnDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnDetails.setBorder(null);
 		btnDetails.setBackground(Color.LIGHT_GRAY);
-		btnDetails.setBounds(403, 11, 121, 84);
+		btnDetails.setBounds(293, 17, 50, 70);
 		frame.getContentPane().add(btnDetails);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -146,37 +152,40 @@ public class Vue_ContratList {
 		tableContratFini = new JTable(model2);
 		scrollPane_1.setViewportView(tableContratFini);
 
-		btnNewContract.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/peopleAdd.png")));
+		btnNewContract.setIcon(new ImageIcon(Vue_ContratList.class.getResource("/img/newcontrat.png")));
 		btnNewContract.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewContract.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewContract.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNewContract.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnNewContract.setBorder(null);
 		btnNewContract.setBackground(Color.LIGHT_GRAY);
-		btnNewContract.setBounds(141, 11, 121, 84);
+		btnNewContract.setBounds(72, 17, 108, 70);
 		frame.getContentPane().add(btnNewContract);
 		btnNewContract.setOpaque(false);
 
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
+			
 			}
 		});
+		btnRetour.setIcon(new ImageIcon(Vue_ContratList.class.getResource("/img/back.png")));
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
-		btnRetour.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
-		btnRetour.setBounds(10, 11, 121, 84);
+		btnRetour.setBounds(10, 17, 50, 70);
 		frame.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 
-		JButton btnFin = new JButton("Fin de contrat");
-		btnFin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnFin.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnFin = new JLabel("Fin de contrat");
+		btnFin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if (tableContratEnCours.getSelectedRow() != -1) {
 					int row = tableContratEnCours.convertRowIndexToModel(tableContratEnCours.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
@@ -190,24 +199,28 @@ public class Vue_ContratList {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
 
+			
 			}
 		});
+		btnFin.setIcon(new ImageIcon(Vue_ContratList.class.getResource("/img/endcontrat.png")));
+		btnFin.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnFin.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnFin.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnFin.setHorizontalAlignment(SwingConstants.CENTER);
-		btnFin.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnFin.setBorder(null);
 		btnFin.setBackground(Color.LIGHT_GRAY);
-		btnFin.setBounds(272, 11, 121, 84);
+		btnFin.setBounds(192, 17, 89, 70);
 		frame.getContentPane().add(btnFin);
 		btnFin.setOpaque(false);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
-		lblNewLabel.setBounds(-26, -19, 1023, 636);
+		lblNewLabel.setBounds(-16, -19, 1023, 636);
 		frame.getContentPane().add(lblNewLabel);
-
-		btnDetails.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		
+		btnDetails.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if (tableContratEnCours.getSelectedRow() != -1) {
 					int row = tableContratEnCours.convertRowIndexToModel(tableContratEnCours.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
@@ -224,6 +237,7 @@ public class Vue_ContratList {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
 
+			
 			}
 		});
 	}

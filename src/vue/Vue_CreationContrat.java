@@ -21,6 +21,10 @@ import javax.swing.table.DefaultTableModel;
 import dao.LocataireDAO;
 import entite.Agent;
 import entite.Locataire;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_CreationContrat {
 
@@ -75,30 +79,40 @@ public class Vue_CreationContrat {
 		frame.setBounds(100, 100, 436, 595);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBounds(10, 88, 420, 2);
+		frame.getContentPane().add(separator_1);
 
-		JSeparator separator = new JSeparator();
-		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 88, 420, 2);
-		frame.getContentPane().add(separator);
+		JLabel btnNewButton = new JLabel("Retour");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 
-		JButton btnNewButton = new JButton("Retour");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
+			
 			}
 		});
-		btnNewButton.setBounds(10, 11, 109, 66);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_CreationContrat.class.getResource("/img/back.png")));
+		btnNewButton.setBounds(10, 11, 48, 68);
 		frame.getContentPane().add(btnNewButton);
 
-		JButton btnNext = new JButton("Suivant");
+		JLabel btnNext = new JLabel("Suivant");
+		
+		btnNext.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNext.setIcon(new ImageIcon(Vue_CreationContrat.class.getResource("/img/next.png")));
+		btnNext.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		btnNext.setBounds(285, 479, 125, 66);
+		btnNext.setBounds(372, 8, 48, 68);
 		frame.getContentPane().add(btnNext);
 
 		JLabel lblNewLabel = new JLabel("Nouveau contrat de location");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(129, 11, 281, 66);
+		lblNewLabel.setBounds(110, 29, 178, 16);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez un locataire ");
@@ -169,9 +183,9 @@ public class Vue_CreationContrat {
 
 		btnSearch.setBounds(10, 119, 109, 23);
 		frame.getContentPane().add(btnSearch);
-
-		btnNext.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnNext.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if (table.getSelectedRow() != -1) {
 					int row = table.convertRowIndexToModel(table.getSelectedRow());
 					int selectedId = Integer.parseInt(modelLocataire.getValueAt(row, 0).toString());
@@ -183,7 +197,13 @@ public class Vue_CreationContrat {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
 
+			
 			}
 		});
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 	}
 }

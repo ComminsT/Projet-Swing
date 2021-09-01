@@ -28,6 +28,10 @@ import entite.Checker;
 import entite.Database;
 import entite.Proprietaire;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Vue_CreationProprietaire {
 
@@ -97,10 +101,15 @@ public class Vue_CreationProprietaire {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnNewButton = new JButton("Confirmer");
+		JLabel btnNewButton = new JLabel("Confirmer");
+		
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_CreationProprietaire.class.getResource("/img/valider.png")));
 		btnNewButton.setOpaque(false);
 
-		btnNewButton.setBounds(403, 12, 113, 53);
+		btnNewButton.setBounds(465, 12, 63, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -272,7 +281,7 @@ public class Vue_CreationProprietaire {
 
 		JLabel lblVille_2 = new JLabel("Ville");
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_2.setBounds(115, 337, 27, 17);
+		lblVille_2.setBounds(115, 337, 29, 17);
 		frame.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
@@ -335,7 +344,7 @@ public class Vue_CreationProprietaire {
 
 		lblVille_1 = new JLabel("Date de naissance");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(115, 397, 123, 17);
+		lblVille_1.setBounds(115, 397, 125, 17);
 		frame.getContentPane().add(lblVille_1);
 
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
@@ -387,7 +396,7 @@ public class Vue_CreationProprietaire {
 		frame.getContentPane().add(lblNewLabel_4);
 
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(117, 421, 221, 167);
+		calendar.setBounds(117, 421, 296, 167);
 		frame.getContentPane().add(calendar);
 
 		JLabel lblPhoneError = new JLabel("Numéro de téléphone déjà enregistré ou invalide");
@@ -396,15 +405,20 @@ public class Vue_CreationProprietaire {
 		lblPhoneError.setBounds(115, 647, 221, 16);
 		frame.getContentPane().add(lblPhoneError);
 		
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
+			
 			}
 		});
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setIcon(new ImageIcon(Vue_CreationProprietaire.class.getResource("/img/back.png")));
 		btnRetour.setOpaque(false);
-		btnRetour.setBounds(12, 12, 113, 53);
+		btnRetour.setBounds(12, 12, 48, 68);
 		frame.getContentPane().add(btnRetour);
 		
 		JLabel lblNewLabel_1 = new JLabel("Création nouveau proprietaire");
@@ -415,10 +429,10 @@ public class Vue_CreationProprietaire {
 		
 
 		lblMailError.setVisible(false);
-
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
+
 				Database.Connect();
 				lblMailError.setVisible(false);
 				lblPhoneError.setVisible(false);
@@ -491,9 +505,14 @@ public class Vue_CreationProprietaire {
 
 				}
 
+			
 			}
-
 		});
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 
 	}
 }

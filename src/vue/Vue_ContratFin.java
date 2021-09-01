@@ -22,6 +22,10 @@ import entite.Agent;
 import entite.Bien;
 import entite.Contratl;
 import entite.Database;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_ContratFin {
 
@@ -68,7 +72,7 @@ public class Vue_ContratFin {
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 88, 518, 2);
+		separator.setBounds(0, 91, 535, 2);
 		frame.getContentPane().add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Fin de contrat");
@@ -95,19 +99,25 @@ public class Vue_ContratFin {
 		lblNewLabel_1.setBounds(104, 101, 276, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JButton btnNewButton = new JButton("Retour");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewButton = new JLabel("Retour");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 			}
 		});
-		btnNewButton.setBounds(0, 11, 145, 69);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_ContratFin.class.getResource("/img/back.png")));
+		btnNewButton.setBounds(17, 11, 48, 68);
 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnValider = new JButton("Valider");
-		btnValider.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnValider = new JLabel("Valider");
+		btnValider.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				Database.Connect();
 				String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
 				String jour = String.valueOf(calendar.getDayChooser().getDay());
@@ -122,10 +132,21 @@ public class Vue_ContratFin {
 				contratDAO.save(contrat);
 				frame.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
+			
 			}
 		});
-		btnValider.setBounds(362, 11, 145, 69);
+		btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnValider.setIcon(new ImageIcon(Vue_ContratFin.class.getResource("/img/valider.png")));
+		btnValider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnValider.setBounds(470, 11, 48, 67);
 		frame.getContentPane().add(btnValider);
+		
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-300, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 	}
 
 	public JFrame getFrame() {

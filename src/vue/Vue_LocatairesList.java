@@ -23,6 +23,8 @@ import javax.swing.table.DefaultTableModel;
 import dao.LocataireDAO;
 import entite.Agent;
 import entite.Locataire;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_LocatairesList {
 
@@ -74,7 +76,7 @@ public class Vue_LocatairesList {
 
 		txtSearch = new JTextField();
 
-		txtSearch.setBounds(654, 75, 301, 20);
+		txtSearch.setBounds(434, 76, 301, 20);
 		frame.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
@@ -102,92 +104,69 @@ public class Vue_LocatairesList {
 		scrollPane.setViewportView(tableLocataires);
 		tableLocataires.setAutoCreateRowSorter(true);
 
-		JButton btnNewTenant = new JButton("Nouveau locataire");
-		btnNewTenant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewTenant.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewTenant = new JLabel("Nouveau locataire");
+		btnNewTenant.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
 				frame.dispose();
 				new Vue_CreationLocataire(agent).getFrame().setVisible(true);
+
 			}
 		});
+		btnNewTenant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewTenant.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/peopleAdd.png")));
 		btnNewTenant.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewTenant.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewTenant.setHorizontalAlignment(SwingConstants.CENTER);
-		btnNewTenant.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnNewTenant.setBorder(null);
 		btnNewTenant.setBackground(Color.LIGHT_GRAY);
-		btnNewTenant.setBounds(141, 11, 121, 84);
+		btnNewTenant.setBounds(72, 24, 115, 70);
 		frame.getContentPane().add(btnNewTenant);
 		btnNewTenant.setOpaque(false);
 
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
+		btnRetour.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/back.png")));
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setHorizontalAlignment(SwingConstants.CENTER);
-		btnRetour.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
-		btnRetour.setBounds(10, 11, 121, 84);
+		btnRetour.setBounds(10, 25, 50, 70);
 		frame.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 
-		JButton btnModifier = new JButton("Modifier");
+		JLabel btnModifier = new JLabel("Modifier");
+		
+		btnModifier.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/modify.png")));
 		btnModifier.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnModifier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tableLocataires.getSelectedRow() != -1) {
-					int row = tableLocataires.convertRowIndexToModel(tableLocataires.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					LocataireDAO locataireDAO = new LocataireDAO();
-					Locataire locataire = locataireDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_LocataireModif(locataire, agent).getFrame().setVisible(true);
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-
-			}
-		});
 		btnModifier.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnModifier.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnModifier.setHorizontalAlignment(SwingConstants.CENTER);
-		btnModifier.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnModifier.setBorder(null);
 		btnModifier.setBackground(Color.LIGHT_GRAY);
-		btnModifier.setBounds(272, 11, 121, 84);
+		btnModifier.setBounds(199, 24, 54, 70);
 		frame.getContentPane().add(btnModifier);
 		btnModifier.setOpaque(false);
 
-		JButton btnDetails = new JButton("Détails");
+		JLabel btnDetails = new JLabel("Détails");
+		
+		btnDetails.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/details.png")));
 		btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnDetails.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if (tableLocataires.getSelectedRow() != -1) {
-					int row = tableLocataires.convertRowIndexToModel(tableLocataires.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					LocataireDAO locataireDAO = new LocataireDAO();
-					Locataire locataire = locataireDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_LocataireDetails(locataire, agent).getFrame().setVisible(true);
-
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-				}
-			}
-
-		});
 		btnDetails.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnDetails.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnDetails.setHorizontalAlignment(SwingConstants.CENTER);
-		btnDetails.setBorder(new LineBorder(new Color(0, 0, 0)));
+		btnDetails.setBorder(null);
 		btnDetails.setBackground(Color.LIGHT_GRAY);
-		btnDetails.setBounds(403, 11, 121, 84);
+		btnDetails.setBounds(265, 24, 50, 70);
 		frame.getContentPane().add(btnDetails);
 		btnDetails.setOpaque(false);
 
@@ -213,7 +192,7 @@ public class Vue_LocatairesList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(534, 75, 110, 20);
+		btnSearch.setBounds(327, 76, 110, 20);
 		frame.getContentPane().add(btnSearch);
 		btnSearch.setOpaque(false);
 
@@ -228,6 +207,43 @@ public class Vue_LocatairesList {
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
 		frame.getContentPane().add(lblNewLabel);
+		btnModifier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if (tableLocataires.getSelectedRow() != -1) {
+					int row = tableLocataires.convertRowIndexToModel(tableLocataires.getSelectedRow());
+					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+					LocataireDAO locataireDAO = new LocataireDAO();
+					Locataire locataire = locataireDAO.getById(selectedId);
+					frame.dispose();
+					new Vue_LocataireModif(locataire, agent).getFrame().setVisible(true);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+				}
+
+			
+			}
+		});
+		btnDetails.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
+				if (tableLocataires.getSelectedRow() != -1) {
+					int row = tableLocataires.convertRowIndexToModel(tableLocataires.getSelectedRow());
+					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+					LocataireDAO locataireDAO = new LocataireDAO();
+					Locataire locataire = locataireDAO.getById(selectedId);
+					frame.dispose();
+					new Vue_LocataireDetails(locataire, agent).getFrame().setVisible(true);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+				}
+			
+			}
+		});
 	}
 
 	public JFrame getFrame() {

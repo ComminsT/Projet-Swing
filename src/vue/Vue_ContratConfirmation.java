@@ -221,6 +221,8 @@ public class Vue_ContratConfirmation {
 		lblNewLabel_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel_2_1_1.setBounds(10, 561, 264, 14);
 		frame.getContentPane().add(lblNewLabel_2_1_1);
+		
+		
 
 	}
 

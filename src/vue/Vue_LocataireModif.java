@@ -29,6 +29,9 @@ import entite.Agent;
 import entite.Checker;
 import entite.Database;
 import entite.Locataire;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Vue_LocataireModif {
 
@@ -86,15 +89,20 @@ public class Vue_LocataireModif {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
+		frame.setBounds(100, 100, 974, 630);
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnNewButton = new JButton("Confirmer");
+		JLabel btnNewButton = new JLabel("Confirmer");
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		
+		btnNewButton.setIcon(new ImageIcon(Vue_LocataireModif.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(852, 7, 113, 53);
+		btnNewButton.setBounds(899, 7, 63, 67);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
@@ -337,7 +345,7 @@ public class Vue_LocataireModif {
 
 		lblVille_1 = new JLabel("Date de naissance");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(10, 419, 123, 17);
+		lblVille_1.setBounds(10, 419, 125, 17);
 		frame.getContentPane().add(lblVille_1);
 		String phone2 = locataire.getTel().substring(locataire.getTel().length()-9,locataire.getTel().length());
 		String phoneid=locataire.getTel().substring(0,locataire.getTel().length()-9);
@@ -346,7 +354,7 @@ public class Vue_LocataireModif {
 				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
 				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44" }));
-		comboboxidentifiant.setBounds(10, 380, 73, 22);
+		comboboxidentifiant.setBounds(10, 380, 90, 24);
 		String[] id=new String[] {"AT +43", "BE +32", "BG +359", "CY +357",
 				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
@@ -395,7 +403,7 @@ public class Vue_LocataireModif {
 		txtNumero.setText(phone2);
 		txtNumero.setForeground(Color.BLACK);
 		txtNumero.setColumns(10);
-		txtNumero.setBounds(93, 380, 139, 22);
+		txtNumero.setBounds(118, 380, 139, 22);
 		frame.getContentPane().add(txtNumero);
 
 		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone :");
@@ -434,7 +442,7 @@ public class Vue_LocataireModif {
 		int jour=Integer.parseInt(date[2]);
 		
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(27, 437, 205, 153);
+		calendar.setBounds(27, 437, 246, 159);
 		frame.getContentPane().add(calendar);
 		calendar.getYearChooser().setYear(annee);
 		calendar.getMonthChooser().setMonth(mois-1);
@@ -463,22 +471,33 @@ public class Vue_LocataireModif {
 		lblVille_2_1.setBounds(0, 283, 113, 17);
 		frame.getContentPane().add(lblVille_2_1);
 
-		JButton btnAnnuler = new JButton("Annuler");
-		btnAnnuler.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnAnnuler = new JLabel("Retour");
+		btnAnnuler.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
 				frame.dispose();
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
+			
 			}
 		});
-		btnAnnuler.setBounds(24, 7, 113, 53);
+		btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnAnnuler.setIcon(new ImageIcon(Vue_LocataireModif.class.getResource("/img/back.png")));
+		btnAnnuler.setBounds(10, 7, 48, 67);
 		frame.getContentPane().add(btnAnnuler);
 
 		lblMailError.setVisible(false);
 		lblPhoneError.setVisible(false);
-
-		btnNewButton.addActionListener(new ActionListener() {
+		JLabel lblbackground = new JLabel("");
+		lblbackground.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
+		lblbackground.setBounds(-26, -19, 1023, 636);
+		frame.getContentPane().add(lblbackground);
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
+
 				Database.Connect();
 				lblMailError.setVisible(false);
 				lblPhoneError.setVisible(false);
@@ -545,12 +564,9 @@ public class Vue_LocataireModif {
 						frame.dispose();
 						new Vue_LocatairesList(agent).getFrame().setVisible(true);
 				}
+			
 			}
 		});
-		JLabel lblbackground = new JLabel("");
-		lblbackground.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
-		lblbackground.setBounds(-26, -19, 1023, 636);
-		frame.getContentPane().add(lblbackground);
 	}
 
 	public JFrame getFrame() {

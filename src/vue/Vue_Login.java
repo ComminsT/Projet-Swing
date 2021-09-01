@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -51,17 +52,17 @@ public class Vue_Login {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 240, 177);
+		frame.setBounds(100, 100, 981, 620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setLocationRelativeTo(null);
 
 		JLabel lblNewLabel = new JLabel("Identifiant");
-		lblNewLabel.setBounds(31, 11, 86, 14);
+		lblNewLabel.setBounds(426, 222, 86, 14);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
-		lblMotDePasse.setBounds(31, 54, 86, 14);
+		lblMotDePasse.setBounds(426, 265, 86, 14);
 		frame.getContentPane().add(lblMotDePasse);
 		
 		// bouton valider
@@ -83,7 +84,7 @@ public class Vue_Login {
 
 			}
 		});
-		btnsubmit.setBounds(109, 98, 89, 23);
+		btnsubmit.setBounds(504, 309, 89, 23);
 		frame.getContentPane().add(btnsubmit);
 
 		// champ mdp
@@ -93,7 +94,7 @@ public class Vue_Login {
 				btnsubmit.doClick();
 			}
 		});
-		tmdp.setBounds(31, 67, 167, 20);
+		tmdp.setBounds(426, 278, 167, 20);
 		frame.getContentPane().add(tmdp);
 		tmdp.setColumns(10);
 
@@ -104,9 +105,14 @@ public class Vue_Login {
 				btnsubmit.doClick();
 			}
 		});
-		tidentifiant.setBounds(31, 23, 167, 20);
+		tidentifiant.setBounds(426, 234, 167, 20);
 		frame.getContentPane().add(tidentifiant);
 		tidentifiant.setColumns(10);
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 
 	}
 

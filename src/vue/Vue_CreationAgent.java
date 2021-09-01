@@ -27,6 +27,11 @@ import entite.Database;
 import com.cemiltokatli.passwordgenerate.Password;
 import com.cemiltokatli.passwordgenerate.PasswordType;
 import com.toedter.calendar.JCalendar;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_CreationAgent {
 
@@ -79,9 +84,14 @@ public class Vue_CreationAgent {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnNewButton = new JButton("Confirmer");
+		JLabel btnNewButton = new JLabel("Confirmer");
+		
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_CreationAgent.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(390, 586, 113, 53);
+		btnNewButton.setBounds(465, 10, 63, 67);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -240,7 +250,7 @@ public class Vue_CreationAgent {
 
 		JLabel lblVille_2 = new JLabel("Ville");
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_2.setBounds(115, 267, 27, 17);
+		lblVille_2.setBounds(115, 267, 29, 17);
 		frame.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
@@ -352,7 +362,7 @@ public class Vue_CreationAgent {
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(115, 355, 205, 153);
+		calendar.setBounds(115, 355, 296, 159);
 		frame.getContentPane().add(calendar);
 		
 		JLabel lblPhoneError = new JLabel("Numéro de téléphone déjà enregistré ou invalide");
@@ -360,13 +370,26 @@ public class Vue_CreationAgent {
 		lblPhoneError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblPhoneError.setBounds(115, 566, 232, 14);
 		frame.getContentPane().add(lblPhoneError);
+		
+		JLabel lblRetour = new JLabel("Retour");
+		lblRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+			}
+		});
+		lblRetour.setIcon(new ImageIcon(Vue_CreationAgent.class.getResource("/img/back.png")));
+		lblRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		lblRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		lblRetour.setBounds(12, 10, 48, 67);
+		frame.getContentPane().add(lblRetour);
 		lblPhoneError.setVisible(false);
 
 		lblMailError.setVisible(false);
-
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
+
 				Database.Connect();
 				lblMailError.setVisible(false);
 				lblPhoneError.setVisible(false);
@@ -436,7 +459,8 @@ public class Vue_CreationAgent {
 									+ "MDP : "+mdp);
 					
 					}
-				}
+				
+			}
 		});
 
 	}

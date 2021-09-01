@@ -25,6 +25,10 @@ import entite.Agent;
 import entite.Checker;
 import entite.Database;
 import entite.Garant;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_CreationGarant {
 
@@ -83,9 +87,13 @@ public class Vue_CreationGarant {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnNewButton = new JButton("Confirmer");
+		JLabel btnNewButton = new JLabel("Confirmer");
+		
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_CreationGarant.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(307, 502, 113, 53);
+		btnNewButton.setBounds(367, 13, 63, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -258,7 +266,7 @@ public class Vue_CreationGarant {
 
 		JLabel lblVille_2 = new JLabel("Ville");
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_2.setBounds(10, 337, 27, 17);
+		lblVille_2.setBounds(10, 337, 29, 17);
 		frame.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
@@ -324,7 +332,7 @@ public class Vue_CreationGarant {
 				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
 				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44" }));
-		comboboxidentifiant.setBounds(10, 421, 73, 22);
+		comboboxidentifiant.setBounds(10, 421, 118, 27);
 		frame.getContentPane().add(comboboxidentifiant);
 
 		txtNumero = new JTextField();
@@ -359,7 +367,7 @@ public class Vue_CreationGarant {
 		txtNumero.setText("Numero");
 		txtNumero.setForeground(Color.LIGHT_GRAY);
 		txtNumero.setColumns(10);
-		txtNumero.setBounds(86, 421, 139, 22);
+		txtNumero.setBounds(140, 422, 139, 22);
 		frame.getContentPane().add(txtNumero);
 
 		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone");
@@ -367,15 +375,15 @@ public class Vue_CreationGarant {
 		lblNewLabel_4.setBounds(10, 396, 192, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_2 = new JLabel("Ajout garant");
-		lblNewLabel_2.setBounds(159, 30, 73, 14);
+		JLabel lblNewLabel_2 = new JLabel("Ajout de nouveau garant");
+		lblNewLabel_2.setBounds(159, 30, 154, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		lblMailError.setVisible(false);
-
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
+
 				Database.Connect();
 				lblMailError.setVisible(false);
 				String nom = txtNom.getText();
@@ -430,8 +438,14 @@ public class Vue_CreationGarant {
 					Vue_ContratConfirmation.addToList(garant.toString(),garant);
 					
 				}
+			
 			}
 		});
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 
 	}
 

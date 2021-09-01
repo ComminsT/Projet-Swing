@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.print.PageFormat;
@@ -14,6 +15,7 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -35,6 +37,9 @@ import entite.Bien;
 import entite.Comptabilite;
 import entite.Contratl;
 import entite.Locataire;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_LocataireDetails {
 
@@ -91,7 +96,7 @@ public class Vue_LocataireDetails {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
+		frame.setBounds(100, 100, 981, 620);
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -102,9 +107,18 @@ public class Vue_LocataireDetails {
 		separator_1.setBounds(502, 82, 2, 519);
 		frame.getContentPane().add(separator_1);
 
-		JButton btnNewButton = new JButton("Imprimer");
+		JLabel btnNewButton = new JLabel("Imprimer");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				printRecord(frame);
+			}
+		});
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/print.png")));
 
-		btnNewButton.setBounds(852, 7, 113, 53);
+		btnNewButton.setBounds(908, 7, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		separator = new JSeparator();
@@ -113,40 +127,59 @@ public class Vue_LocataireDetails {
 		frame.getContentPane().add(separator);
 
 		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du locataire");
-		lblNewLabel_2.setBounds(277, 26, 226, 14);
+		lblNewLabel_2.setBounds(277, 26, 275, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
-		JButton btnAnnuler = new JButton("Retour");
-		btnAnnuler.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnAnnuler = new JLabel("Retour");
+		btnAnnuler.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
+
 			}
 		});
-		btnAnnuler.setBounds(24, 7, 113, 53);
+		btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnAnnuler.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/back.png")));
+		btnAnnuler.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAnnuler.setBounds(24, 7, 48, 68);
 		frame.getContentPane().add(btnAnnuler);
 		String[] birth = locataire.getNaissance().split("-");
 
-		JButton btnInformations = new JButton("Informations personnel");
+		JLabel btnInformations = new JLabel("Informations personnel");
+		
+		btnInformations.setBackground(Color.WHITE);
+		btnInformations.setBorder(null);
+		btnInformations.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/personal.png")));
 
-		btnInformations.setBounds(0, 82, 492, 86);
+		btnInformations.setBounds(0, 82, 191, 40);
 		frame.getContentPane().add(btnInformations);
 
-		JButton btnHistorique = new JButton("Historique de paiement");
+		JLabel btnHistorique = new JLabel("Historique de paiement");
 
-		btnHistorique.setBounds(0, 175, 492, 86);
+		btnHistorique.setBackground(Color.WHITE);
+		btnHistorique.setBorder(null);
+		btnHistorique.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/compta.png")));
+
+		btnHistorique.setBounds(0, 146, 199, 48);
 		frame.getContentPane().add(btnHistorique);
 
-		JButton btnContrats = new JButton("Contrats");
-		btnContrats.setBounds(0, 272, 492, 86);
+		JLabel btnContrats = new JLabel("Contrats");
+
+		btnContrats.setBackground(Color.WHITE);
+		btnContrats.setBorder(null);
+		btnContrats.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/contract.png")));
+		btnContrats.setBounds(0, 218, 115, 60);
 		frame.getContentPane().add(btnContrats);
 
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(502, 82, 479, 519);
+		layeredPane.setBounds(236, 82, 745, 519);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 
 		JPanel panelInfos = new JPanel();
+		panelInfos.setOpaque(false);
 		layeredPane.add(panelInfos, "name_429148076291500");
 		panelInfos.setLayout(null);
 
@@ -277,22 +310,6 @@ public class Vue_LocataireDetails {
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
-		JPanel panelContrats = new JPanel();
-		layeredPane.add(panelContrats, "name_429176002358400");
-		panelContrats.setLayout(null);
-
-		JLabel lblNewLabel_3 = new JLabel("panelContrats");
-		lblNewLabel_3.setBounds(10, 11, 104, 14);
-		panelContrats.add(lblNewLabel_3);
-
-		JPanel panelHistorique = new JPanel();
-		layeredPane.add(panelHistorique, "name_429172689935300");
-		panelHistorique.setLayout(null);
-
-		JLabel lblNewLabel_1 = new JLabel("panelHistorique");
-		lblNewLabel_1.setBounds(20, 21, 121, 14);
-		panelHistorique.add(lblNewLabel_1);
-
 		JScrollPane scrollPane = new JScrollPane();
 		layeredPane.add(scrollPane, "name_68207472195916");
 
@@ -339,32 +356,29 @@ public class Vue_LocataireDetails {
 
 		table_1 = new JTable(model2);
 		scrollPane_1.setViewportView(table_1);
-
-		btnNewButton.addActionListener(new ActionListener() {
+		btnContrats.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				printRecord(frame);
-
-			}
-
-		});
-
-		btnInformations.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchPanels(panelInfos);
-			}
-
-		});
-		btnHistorique.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				switchScrollPane(scrollPane);
-			}
-		});
-		btnContrats.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				switchScrollPane(scrollPane_1);
 			}
 		});
+		btnHistorique.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchScrollPane(scrollPane);
+			}
+		});
+		btnInformations.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchPanels(panelInfos);
+			}
+		});
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 	}
 
 	public void switchPanels(JPanel panel) {

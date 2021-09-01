@@ -15,6 +15,10 @@ import javax.swing.JTextField;
 import dao.AssuranceDAO;
 import entite.Assurance;
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_CreationAssurance {
 
@@ -50,8 +54,8 @@ public class Vue_CreationAssurance {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 534, 310);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 534, 294);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JSeparator separator = new JSeparator();
@@ -84,9 +88,10 @@ public class Vue_CreationAssurance {
 		txtContrat.setBounds(178, 138, 144, 20);
 		frame.getContentPane().add(txtContrat);
 		
-		JButton btnNewButton = new JButton("Confirmer");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewButton = new JLabel("Confirmer");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				if(txtType.getText().equals("")) {
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
 				}else if (txtContrat.getText().equals("")){
@@ -99,10 +104,20 @@ public class Vue_CreationAssurance {
 					frame.dispose();
 					Vue_ContratConfirmation.addToAssurance(assurance.getType(),assurance);
 					}
-				}
+				
+			}
 		});
-		btnNewButton.setBounds(357, 201, 151, 59);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_CreationAssurance.class.getResource("/img/valider.png")));
+		btnNewButton.setBounds(455, 9, 63, 67);
 		frame.getContentPane().add(btnNewButton);
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-300, -20, 1000, 591);
+		frame.getContentPane().add(lblBG);
 	}
 
 	public JFrame getFrame() {

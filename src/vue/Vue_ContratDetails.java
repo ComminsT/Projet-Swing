@@ -2,13 +2,21 @@ package vue;
 
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSeparator;
@@ -27,6 +35,9 @@ import entite.Bien;
 import entite.Contratl;
 import entite.Garant;
 import entite.Locataire;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_ContratDetails {
 
@@ -82,12 +93,18 @@ public class Vue_ContratDetails {
 		lblNewLabel.setBounds(218, 26, 121, 30);
 		frame.getContentPane().add(lblNewLabel);
 		
-		JButton btnNewButton = new JButton("Imprimer");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnNewButton = new JLabel("Imprimer");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				 printRecord(frame);
 			}
 		});
-		btnNewButton.setBounds(379, 11, 104, 66);
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_ContratDetails.class.getResource("/img/print.png")));
+		btnNewButton.setBounds(426, 11, 57, 67);
 		frame.getContentPane().add(btnNewButton);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
@@ -212,10 +229,54 @@ public class Vue_ContratDetails {
 		lblDebut.setText(contrat.getDate());
 		lblFin.setText(contrat.getDatefin());
 		lblId_1.setText(bien+"");
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 		
 		
 		
 		
+		
+	}
+	private void printRecord(JFrame frametoprint) {
+		PrinterJob printerJob = PrinterJob.getPrinterJob();
+		printerJob.setJobName("Print Record");
+		printerJob.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                // Check If No Printable Content
+                if(pageIndex > 0){
+                    return Printable.NO_SUCH_PAGE;
+                }
+                
+                // Make 2D Graphics to map content
+                Graphics2D graphics2D = (Graphics2D)graphics;
+                // Set Graphics Translations
+                // A Little Correction here Multiplication was not working so I replaced with addition
+                graphics2D.translate(pageFormat.getImageableX()+10, pageFormat.getImageableY()+10);
+                // This is a page scale. Default should be 0.3 I am using 0.5
+                graphics2D.scale(0.5, 0.5);
+                
+                // Now paint panel as graphics2D
+                frametoprint.paint(graphics2D);
+                
+                // return if page exists
+                return Printable.PAGE_EXISTS;
+            }
+        });
+		 boolean returningResult = printerJob.printDialog();
+	        // check if dialog is showing
+	        if(returningResult){
+	            // Use try catch exeption for failure
+	            try{
+	                // Now call print method inside printerJob to print
+	                printerJob.print();
+	            }catch (PrinterException printerException){
+	                JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
+	            }
+	        }
 		
 	}
 

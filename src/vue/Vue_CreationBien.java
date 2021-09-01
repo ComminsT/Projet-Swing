@@ -30,6 +30,11 @@ import entite.Agent;
 import entite.Bien;
 import entite.Database;
 import entite.Proprietaire;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.Cursor;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Vue_CreationBien {
 
@@ -92,9 +97,14 @@ Database.Connect();
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnNewButton = new JButton("Confirmer");
+		JLabel btnNewButton = new JLabel("Confirmer");
+		
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_CreationBien.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(415, 6, 113, 53);
+		btnNewButton.setBounds(459, 6, 63, 67);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom du bien immobilier");
@@ -176,7 +186,7 @@ Database.Connect();
 
 		JLabel lblVille_2 = new JLabel("Ville");
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_2.setBounds(115, 273, 27, 17);
+		lblVille_2.setBounds(115, 273, 29, 17);
 		frame.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
@@ -264,7 +274,7 @@ Database.Connect();
 		frame.getContentPane().add(comboboxStatut);
 		
 		JYearChooser yearChooser = new JYearChooser();
-		yearChooser.setBounds(115, 357, 48, 20);
+		yearChooser.setBounds(115, 357, 53, 19);
 		frame.getContentPane().add(yearChooser);
 		yearChooser.setMaximum(2021);
 		
@@ -360,20 +370,25 @@ Database.Connect();
 		comboboxProprietaire.setBounds(115, 533, 296, 22);
 		frame.getContentPane().add(comboboxProprietaire);
 		
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			frame.dispose();
-			new Vue_BiensList(agent).getFrame().setVisible(true);
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+				new Vue_BiensList(agent).getFrame().setVisible(true);
+				
 			}
 		});
-		btnRetour.setBounds(6, 6, 113, 53);
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setIcon(new ImageIcon(Vue_CreationBien.class.getResource("/img/back.png")));
+		btnRetour.setBounds(6, 6, 48, 67);
 		frame.getContentPane().add(btnRetour);
-		
-
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
+
 				Database.Connect();
 				String nom = txtNom.getText();
 				String adresse = txtAdresse.getText();
@@ -449,6 +464,8 @@ Database.Connect();
 						new Vue_BiensList(agent).getFrame().setVisible(true);
 					}
 				}
+			
+				
 			}
 		});
 

@@ -130,9 +130,9 @@ public class Vue_BienDetails {
 				btnVisites.setBorder(null);
 				btnVisites.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/visits.png")));
 				
-				btnVisites.setBounds(10, 382, 123, 86);
+				btnVisites.setBounds(0, 273, 86, 40);
 				frmModificationDeBien.getContentPane().add(btnVisites);
-				btnContrats.setBounds(10, 285, 123, 86);
+				btnContrats.setBounds(0, 208, 106, 48);
 				frmModificationDeBien.getContentPane().add(btnContrats);
 
 		JLabel btnImprimer = new JLabel("Imprimer");
@@ -183,6 +183,7 @@ public class Vue_BienDetails {
 		frmModificationDeBien.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		JPanel panel_photos = new JPanel();
+		panel_photos.setOpaque(false);
 		layeredPane.add(panel_photos, "name_463069160670000");
 		panel_photos.setLayout(null);
 		panel_photos.setVisible(false);
@@ -211,10 +212,11 @@ public class Vue_BienDetails {
 
 		JLabel lblNewLabel_2 = new JLabel("");
 
-		lblNewLabel_2.setBounds(0, 0, 531, 500);
+		lblNewLabel_2.setBounds(0, 0, 765, 500);
 		panel_photos.add(lblNewLabel_2);
 
 		JPanel panel_info = new JPanel();
+		panel_info.setOpaque(false);
 		layeredPane.add(panel_info, "name_528310932692899");
 		panel_info.setLayout(null);
 
@@ -399,7 +401,7 @@ public class Vue_BienDetails {
 		btnInfos.setBorder(null);
 		btnInfos.setOpaque(false);
 		btnInfos.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/personal.png")));
-		btnInfos.setBounds(10, 95, 123, 86);
+		btnInfos.setBounds(0, 96, 125, 40);
 		frmModificationDeBien.getContentPane().add(btnInfos);
 
 		JLabel btnPhotos = new JLabel("Photos");
@@ -413,7 +415,7 @@ public class Vue_BienDetails {
 		btnPhotos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnPhotos.setBorder(null);
 		btnPhotos.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/photos.png")));
-		btnPhotos.setBounds(10, 188, 123, 86);
+		btnPhotos.setBounds(4, 148, 95, 48);
 		frmModificationDeBien.getContentPane().add(btnPhotos);
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);

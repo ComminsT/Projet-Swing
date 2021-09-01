@@ -27,6 +27,11 @@ import entite.Agent;
 import entite.Checker;
 import entite.Database;
 import entite.Locataire;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.Cursor;
 
 public class Vue_CreationLocataire {
 
@@ -80,15 +85,20 @@ public class Vue_CreationLocataire {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 534, 693);
+		frame.setBounds(100, 100, 534, 615);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JButton btnNewButton = new JButton("Confirmer");
+		JLabel btnNewButton = new JLabel("Confirmer");
+		
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnNewButton.setIcon(new ImageIcon(Vue_CreationLocataire.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(405, 11, 113, 53);
+		btnNewButton.setBounds(459, 11, 63, 67);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -324,7 +334,7 @@ public class Vue_CreationLocataire {
 
 		lblVille_1 = new JLabel("Date de naissance");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(24, 397, 123, 17);
+		lblVille_1.setBounds(24, 397, 125, 17);
 		frame.getContentPane().add(lblVille_1);
 
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
@@ -398,7 +408,7 @@ public class Vue_CreationLocataire {
 		frame.getContentPane().add(comboboxStatut);
 
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(24, 421, 205, 153);
+		calendar.setBounds(10, 421, 219, 153);
 		frame.getContentPane().add(calendar);
 
 		JLabel lblNewLabel_1 = new JLabel("Numéro de téléphone déjà enregistré ou invalide");
@@ -407,21 +417,27 @@ public class Vue_CreationLocataire {
 		lblNewLabel_1.setBounds(239, 442, 240, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		
-		JButton btnRetour = new JButton("Retour");
-		btnRetour.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnRetour.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
+			
 			}
 		});
-		btnRetour.setBounds(10, 11, 113, 53);
+		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnRetour.setIcon(new ImageIcon(Vue_CreationLocataire.class.getResource("/img/back.png")));
+		btnRetour.setBounds(10, 11, 48, 67);
 		frame.getContentPane().add(btnRetour);
 
 		lblMailError.setVisible(false);
-
-		btnNewButton.addActionListener(new ActionListener() {
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void mouseClicked(MouseEvent e) {
+
 				Database.Connect();
 				lblMailError.setVisible(false);
 				String nom = txtNom.getText();
@@ -496,8 +512,14 @@ public class Vue_CreationLocataire {
 						new Vue_LocatairesList(agent).getFrame().setVisible(true);
 					}
 				}
+			
 			}
 		});
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 
 	}
 

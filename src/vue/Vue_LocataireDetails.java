@@ -89,6 +89,10 @@ public class Vue_LocataireDetails {
 		this.agent = agent;
 		initialize();
 	}
+	public Vue_LocataireDetails(Locataire locataire) {
+		this.locataire = locataire;
+		initialize();
+	}
 
 	/**
 	 * Initialize the contents of the frame.

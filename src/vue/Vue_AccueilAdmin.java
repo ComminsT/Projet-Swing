@@ -20,13 +20,11 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 
 import dao.AgentDAO;
-import dao.LocataireDAO;
 import entite.Agent;
-import entite.Locataire;
+import entite.Database;
 
 public class Vue_AccueilAdmin {
 
@@ -64,13 +62,14 @@ public class Vue_AccueilAdmin {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		Database.Connect();
+		System.out.println(System.getProperty("user.dir"));
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 981, 630);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);
 		frame.getContentPane().setLayout(null);
-		UIManager.setInstalledLookAndFeels(null);
 
 		txtSearch = new JTextField();
 
@@ -180,10 +179,10 @@ public class Vue_AccueilAdmin {
 				if (tableAgent.getSelectedRow() != -1) {
 					int row = tableAgent.convertRowIndexToModel(tableAgent.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					LocataireDAO locataireDAO = new LocataireDAO();
-					Locataire locataire = locataireDAO.getById(selectedId);
+					AgentDAO agentDAO = new AgentDAO();
+					Agent agent = agentDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_LocataireDetails(locataire, agent).getFrame().setVisible(true);
+					new Vue_AgentDetails(agent).getFrame().setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -199,9 +198,9 @@ public class Vue_AccueilAdmin {
 					int row = tableAgent.convertRowIndexToModel(tableAgent.getSelectedRow());
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					AgentDAO agentDAO = new AgentDAO();
-					Agent Agent = agentDAO.getById(selectedId);
+					Agent agent = agentDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_AgentModif().getFrame().setVisible(true);
+					new Vue_AgentModif(agent).getFrame().setVisible(true);
 
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -211,6 +210,8 @@ public class Vue_AccueilAdmin {
 		});
 
 		JButton btnSearch = new JButton("Recherche : ");
+		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setBorder(null);
 		btnSearch.setOpaque(false);
 		btnSearch.setIcon(new ImageIcon(Vue_AccueilAdmin.class.getResource("/img/search20.png")));
 		btnSearch.addActionListener(new ActionListener() {
@@ -234,7 +235,7 @@ public class Vue_AccueilAdmin {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(469, 70, 131, 30);
+		btnSearch.setBounds(492, 74, 97, 20);
 		frame.getContentPane().add(btnSearch);
 
 		txtSearch.addActionListener(new ActionListener() {

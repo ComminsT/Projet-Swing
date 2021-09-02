@@ -13,12 +13,18 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import dao.AdminDAO;
 import dao.AgentDAO;
 import entite.Admin;
 import entite.Agent;
 import entite.Database;
+import java.awt.Color;
+import javax.swing.SwingConstants;
+
 
 public class Vue_Login {
 
@@ -58,30 +64,52 @@ public class Vue_Login {
 		frame.setBounds(100, 100, 981, 620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		String className = getLookAndFeelClassName("Metal");
+		try {
+			UIManager.setLookAndFeel(className);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (InstantiationException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (IllegalAccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (UnsupportedLookAndFeelException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} 
 		frame.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setBounds(407, 241, 167, 110);
+		panel.setBounds(304, 180, 372, 232);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Identifiant");
-		lblNewLabel.setBounds(0, 3, 86, 14);
+		lblNewLabel.setBounds(6, 31, 86, 14);
 		panel.add(lblNewLabel);
 
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
-		lblMotDePasse.setBounds(0, 43, 86, 14);
+		lblMotDePasse.setBounds(6, 97, 86, 14);
 		panel.add(lblMotDePasse);
 
 		// bouton valider
-		JButton btnsubmit = new JButton("Valider");
-		btnsubmit.setBounds(78, 83, 89, 23);
+		JButton btnsubmit = new JButton("Connexion");
+		btnsubmit.setHorizontalTextPosition(SwingConstants.CENTER);
+		btnsubmit.setVerticalTextPosition(SwingConstants.BOTTOM);
+		btnsubmit.setIcon(new ImageIcon(Vue_Login.class.getResource("/img/connexion.png")));
+		btnsubmit.setBackground(Color.WHITE);
+		btnsubmit.setBorder(null);
+		btnsubmit.setOpaque(false);
+		btnsubmit.setBounds(10, 151, 67, 67);
 		panel.add(btnsubmit);
 
 		// champ mdp
 		tmdp = new JPasswordField();
-		tmdp.setBounds(0, 60, 167, 20);
+		tmdp.setBounds(0, 120, 366, 19);
 		panel.add(tmdp);
 		tmdp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -92,7 +120,7 @@ public class Vue_Login {
 
 		// champ identifiant
 		tidentifiant = new JTextField();
-		tidentifiant.setBounds(0, 20, 167, 20);
+		tidentifiant.setBounds(0, 50, 366, 20);
 		panel.add(tidentifiant);
 		tidentifiant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -133,6 +161,15 @@ public class Vue_Login {
 
 	public JFrame getFrame() {
 		return frame;
+	}
+	public static String getLookAndFeelClassName(String nameSnippet) {
+	    LookAndFeelInfo[] plafs = UIManager.getInstalledLookAndFeels();
+	    for (LookAndFeelInfo info : plafs) {
+	        if (info.getName().contains(nameSnippet)) {
+	            return info.getClassName();
+	        }
+	    }
+	    return null;
 	}
 
 	public void setFrame(JFrame frame) {

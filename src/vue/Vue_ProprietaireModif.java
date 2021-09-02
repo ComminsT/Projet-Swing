@@ -89,7 +89,7 @@ public class Vue_ProprietaireModif {
 	private void initialize() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
+		frame.setBounds(100, 100, 973, 630);
 		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -346,7 +346,7 @@ public class Vue_ProprietaireModif {
 
 		lblVille_1 = new JLabel("Date de naissance");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(10, 372, 123, 17);
+		lblVille_1.setBounds(10, 372, 125, 17);
 		frame.getContentPane().add(lblVille_1);
 		String phone2 = proprietaire.getTel().substring(proprietaire.getTel().length()-9,proprietaire.getTel().length());
 		String phoneid=proprietaire.getTel().substring(0,proprietaire.getTel().length()-9);
@@ -420,7 +420,7 @@ public class Vue_ProprietaireModif {
 		int jour=Integer.parseInt(date[2]);
 		
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(27, 390, 205, 153);
+		calendar.setBounds(10, 401, 294, 165);
 		frame.getContentPane().add(calendar);
 		calendar.getYearChooser().setYear(annee);
 		calendar.getMonthChooser().setMonth(mois-1);

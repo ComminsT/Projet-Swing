@@ -106,4 +106,30 @@ public void deleteById(int id) {
     }
 }
 
+public ArrayList<Historique> getAllByAgentId(int id) {
+	ArrayList<Historique> historiques = new ArrayList<Historique>();
+	try {
+		
+			PreparedStatement ps  = Database.connexion.prepareStatement("SELECT * FROM historique WHERE id_agent=?");
+			ps.setInt(1, id);
+			
+			ResultSet resultat=ps.executeQuery();
+			while(resultat.next()) {
+				Historique h = new Historique();
+				h.setId(resultat.getInt( "id" ));
+				h.setDate(resultat.getString( "date" ));
+				h.setAction(resultat.getString( "action" ));
+				h.setId_agent(resultat.getInt( "id_agent" ));
+				historiques.add(h);
+			}
+			
+			
+			return historiques;
+		
+	} catch (Exception ex) {
+    	ex.printStackTrace();
+    	return null;
+    }
+}
+
 }

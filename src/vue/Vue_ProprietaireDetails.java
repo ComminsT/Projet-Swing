@@ -84,6 +84,10 @@ public class Vue_ProprietaireDetails {
 		this.agent = agent;
 		initialize();
 	}
+	public Vue_ProprietaireDetails(Proprietaire proprietaire) {
+		this.proprietaire = proprietaire;
+		initialize();
+	}
 
 	/**
 	 * Initialize the contents of the frame.

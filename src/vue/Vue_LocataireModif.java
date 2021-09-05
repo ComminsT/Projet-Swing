@@ -47,7 +47,7 @@ public class Vue_LocataireModif {
 			public void run() {
 				try {
 					Vue_LocataireModif window = new Vue_LocataireModif();
-					window.frame.setVisible(true);
+					window.frmModificationDesInformations.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,7 +55,7 @@ public class Vue_LocataireModif {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmModificationDesInformations;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
 	private JTextField txtDomaine;
@@ -91,12 +91,13 @@ public class Vue_LocataireModif {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 974, 630);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmModificationDesInformations = new JFrame();
+		frmModificationDesInformations.setTitle("Modification des informations du locataire");
+		frmModificationDesInformations.setBounds(100, 100, 974, 630);
+		frmModificationDesInformations.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frmModificationDesInformations.getContentPane().setLayout(null);
+		frmModificationDesInformations.setResizable(false);
+		frmModificationDesInformations.setLocationRelativeTo(null);
 
 		JLabel btnNewButton = new JLabel("Confirmer");
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -105,14 +106,14 @@ public class Vue_LocataireModif {
 		
 		btnNewButton.setIcon(new ImageIcon(Vue_LocataireModif.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(899, 7, 63, 67);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 63, 67);
+		frmModificationDesInformations.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(10, 95, 103, 14);
-		frame.getContentPane().add(lblNewLabel);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel);
 
 		txtPrenom = new JTextField();
 		txtPrenom.addFocusListener(new FocusAdapter() {
@@ -135,7 +136,7 @@ public class Vue_LocataireModif {
 		txtPrenom.setForeground(Color.BLACK);
 		txtPrenom.setText(locataire.getPrenom());
 		txtPrenom.setBounds(123, 126, 134, 20);
-		frame.getContentPane().add(txtPrenom);
+		frmModificationDesInformations.getContentPane().add(txtPrenom);
 		txtPrenom.setColumns(10);
 
 		txtNom = new JTextField();
@@ -160,18 +161,18 @@ public class Vue_LocataireModif {
 		txtNom.setText(locataire.getNom());
 		txtNom.setColumns(10);
 		txtNom.setBounds(123, 95, 134, 20);
-		frame.getContentPane().add(txtNom);
+		frmModificationDesInformations.getContentPane().add(txtNom);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmModificationDesInformations.getWidth(), 2);
+		frmModificationDesInformations.getContentPane().add(separator);
 
 		JLabel lblMail = new JLabel("Mail :");
 		lblMail.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMail.setBounds(24, 151, 89, 14);
-		frame.getContentPane().add(lblMail);
+		frmModificationDesInformations.getContentPane().add(lblMail);
 
 		txtAdresseMail = new JTextField();
 		txtAdresseMail.addFocusListener(new FocusAdapter() {
@@ -197,12 +198,12 @@ public class Vue_LocataireModif {
 		txtAdresseMail.setForeground(Color.BLACK);
 		txtAdresseMail.setColumns(10);
 		txtAdresseMail.setBounds(123, 151, 134, 20);
-		frame.getContentPane().add(txtAdresseMail);
+		frmModificationDesInformations.getContentPane().add(txtAdresseMail);
 
 		JLabel lblNewLabel_1_1 = new JLabel("@");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1_1.setBounds(260, 151, 13, 17);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel_1_1);
 
 		txtDomaine = new JTextField();
 		txtDomaine.addFocusListener(new FocusAdapter() {
@@ -228,19 +229,19 @@ public class Vue_LocataireModif {
 		txtDomaine.setForeground(Color.BLACK);
 		txtDomaine.setColumns(10);
 		txtDomaine.setBounds(279, 151, 134, 20);
-		frame.getContentPane().add(txtDomaine);
+		frmModificationDesInformations.getContentPane().add(txtDomaine);
 
 		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistrée");
 		lblMailError.setForeground(Color.RED);
 		lblMailError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblMailError.setBounds(123, 175, 252, 13);
-		frame.getContentPane().add(lblMailError);
+		frmModificationDesInformations.getContentPane().add(lblMailError);
 
 		lblPays = new JLabel("Pays :");
 		lblPays.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPays.setBounds(24, 199, 89, 17);
-		frame.getContentPane().add(lblPays);
+		frmModificationDesInformations.getContentPane().add(lblPays);
 
 		JComboBox<String> comboboxPays = new JComboBox<>();
 		comboboxPays.setModel(new DefaultComboBoxModel<>(new String[] { "Allemagne", "Autriche", "Belgique", "Bulgarie",
@@ -248,7 +249,7 @@ public class Vue_LocataireModif {
 				"Irlande", "Italie", "Lettonie", "Lituanie", "Luxembourg", "Malte", "Pays-Bas", "Pologne", "Portugal",
 				"Roumanie", "Slovaquie", "Slovénie", "Suède", "Tchéquie" }));
 		comboboxPays.setBounds(123, 199, 153, 22);
-		frame.getContentPane().add(comboboxPays);
+		frmModificationDesInformations.getContentPane().add(comboboxPays);
 		comboboxPays.setSelectedItem(locataire.getPays());
 
 		txtAdresse = new JTextField();
@@ -274,19 +275,19 @@ public class Vue_LocataireModif {
 		txtAdresse.setForeground(Color.BLACK);
 		txtAdresse.setColumns(10);
 		txtAdresse.setBounds(123, 228, 296, 20);
-		frame.getContentPane().add(txtAdresse);
+		frmModificationDesInformations.getContentPane().add(txtAdresse);
 
 		JLabel lblVille = new JLabel("Adresse :");
 		lblVille.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille.setBounds(24, 227, 89, 17);
-		frame.getContentPane().add(lblVille);
+		frmModificationDesInformations.getContentPane().add(lblVille);
 
 		JLabel lblVille_2 = new JLabel("Ville :");
 		lblVille_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2.setBounds(24, 255, 89, 17);
-		frame.getContentPane().add(lblVille_2);
+		frmModificationDesInformations.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
 		txtVille.addFocusListener(new FocusAdapter() {
@@ -311,7 +312,7 @@ public class Vue_LocataireModif {
 		txtVille.setForeground(Color.BLACK);
 		txtVille.setColumns(10);
 		txtVille.setBounds(123, 256, 181, 20);
-		frame.getContentPane().add(txtVille);
+		frmModificationDesInformations.getContentPane().add(txtVille);
 
 		txtCodePostale = new JTextField();
 		txtCodePostale.addKeyListener(new KeyAdapter() {
@@ -344,12 +345,12 @@ public class Vue_LocataireModif {
 		txtCodePostale.setForeground(Color.BLACK);
 		txtCodePostale.setColumns(10);
 		txtCodePostale.setBounds(123, 283, 105, 20);
-		frame.getContentPane().add(txtCodePostale);
+		frmModificationDesInformations.getContentPane().add(txtCodePostale);
 
-		lblVille_1 = new JLabel("Date de naissance");
+		lblVille_1 = new JLabel("Date de naissance :");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_1.setBounds(10, 419, 125, 17);
-		frame.getContentPane().add(lblVille_1);
+		frmModificationDesInformations.getContentPane().add(lblVille_1);
 		String phone2 = locataire.getTel().substring(locataire.getTel().length()-9,locataire.getTel().length());
 		String phoneid=locataire.getTel().substring(0,locataire.getTel().length()-9);
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
@@ -363,7 +364,7 @@ public class Vue_LocataireModif {
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
 				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44"	
 		};
-		frame.getContentPane().add(comboboxidentifiant);
+		frmModificationDesInformations.getContentPane().add(comboboxidentifiant);
 		int i=0;
 		int memo=-1;
 		for(String str: id ) {
@@ -407,37 +408,37 @@ public class Vue_LocataireModif {
 		txtNumero.setForeground(Color.BLACK);
 		txtNumero.setColumns(10);
 		txtNumero.setBounds(118, 380, 139, 22);
-		frame.getContentPane().add(txtNumero);
+		frmModificationDesInformations.getContentPane().add(txtNumero);
 
 		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(10, 361, 170, 14);
-		frame.getContentPane().add(lblNewLabel_4);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel_4);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Situation :");
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1.setBounds(13, 311, 100, 14);
-		frame.getContentPane().add(lblNewLabel_4_1);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel_4_1);
 
 		JComboBox<String> comboboxSituation = new JComboBox<String>();
 		comboboxSituation.setModel(new DefaultComboBoxModel<String>(new String[] { "Etudiant", "Employé CDI",
 				"Employé CDD", "Indépendant", "Retraité", "En recherche d'emploi", "Autre" }));
 		comboboxSituation.setBounds(123, 309, 100, 22);
-		frame.getContentPane().add(comboboxSituation);
+		frmModificationDesInformations.getContentPane().add(comboboxSituation);
 		comboboxSituation.setSelectedItem(locataire.getSituation());
 
 		JLabel lblNewLabel_4_1_1 = new JLabel("Statut :");
 		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_1.setBounds(23, 336, 90, 14);
-		frame.getContentPane().add(lblNewLabel_4_1_1);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel_4_1_1);
 
 		JComboBox<String> comboboxStatut = new JComboBox<String>();
 		comboboxStatut.setModel(
 				new DefaultComboBoxModel<String>(new String[] { "Locataire", "Ex-Locataire", "Expulsé", "Autre" }));
 		comboboxStatut.setBounds(123, 334, 100, 22);
-		frame.getContentPane().add(comboboxStatut);
+		frmModificationDesInformations.getContentPane().add(comboboxStatut);
 		comboboxStatut.setSelectedItem(locataire.getStatut());
 		String[]date=locataire.getNaissance().split("-");
 		int annee=Integer.parseInt(date[0]);
@@ -446,7 +447,7 @@ public class Vue_LocataireModif {
 		
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(27, 437, 246, 159);
-		frame.getContentPane().add(calendar);
+		frmModificationDesInformations.getContentPane().add(calendar);
 		calendar.getYearChooser().setYear(annee);
 		calendar.getMonthChooser().setMonth(mois-1);
 		calendar.getDayChooser().setDay(jour);
@@ -456,23 +457,23 @@ public class Vue_LocataireModif {
 		lblPhoneError.setForeground(Color.RED);
 		lblPhoneError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblPhoneError.setBounds(10, 405, 240, 14);
-		frame.getContentPane().add(lblPhoneError);
+		frmModificationDesInformations.getContentPane().add(lblPhoneError);
 
-		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du locataire");
+		JLabel lblNewLabel_2 = new JLabel("Modification des informations du locataire");
 		lblNewLabel_2.setBounds(361, 30, 245, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblPrnom = new JLabel("Prénom :");
 		lblPrnom.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPrnom.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPrnom.setBounds(10, 126, 103, 14);
-		frame.getContentPane().add(lblPrnom);
+		frmModificationDesInformations.getContentPane().add(lblPrnom);
 
 		JLabel lblVille_2_1 = new JLabel("Code postal :");
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2_1.setBounds(0, 283, 113, 17);
-		frame.getContentPane().add(lblVille_2_1);
+		frmModificationDesInformations.getContentPane().add(lblVille_2_1);
 
 		JLabel btnAnnuler = new JLabel("Retour");
 		btnAnnuler.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -480,7 +481,7 @@ public class Vue_LocataireModif {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				frame.dispose();
+				frmModificationDesInformations.dispose();
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
 			
 			}
@@ -488,15 +489,15 @@ public class Vue_LocataireModif {
 		btnAnnuler.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnAnnuler.setIcon(new ImageIcon(Vue_LocataireModif.class.getResource("/img/back.png")));
-		btnAnnuler.setBounds(10, 7, 48, 67);
-		frame.getContentPane().add(btnAnnuler);
+		btnAnnuler.setBounds(11, 11, 48, 67);
+		frmModificationDesInformations.getContentPane().add(btnAnnuler);
 
 		lblMailError.setVisible(false);
 		lblPhoneError.setVisible(false);
 		JLabel lblbackground = new JLabel("");
 		lblbackground.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblbackground.setBounds(-26, -19, 1023, 636);
-		frame.getContentPane().add(lblbackground);
+		frmModificationDesInformations.getContentPane().add(lblbackground);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -570,7 +571,7 @@ public class Vue_LocataireModif {
 						historique.setId_agent(agent.getId());
 						historique.setAction("Modification locataire id : "+locataire.getId());
 						historiqueDAO.save(historique);	
-						frame.dispose();
+						frmModificationDesInformations.dispose();
 						new Vue_LocatairesList(agent).getFrame().setVisible(true);
 				}
 			
@@ -579,10 +580,10 @@ public class Vue_LocataireModif {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmModificationDesInformations;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmModificationDesInformations = frame;
 	}
 }

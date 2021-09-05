@@ -52,7 +52,7 @@ public class Vue_LocataireDetails {
 			public void run() {
 				try {
 					Vue_LocataireDetails window = new Vue_LocataireDetails();
-					window.frame.setVisible(true);
+					window.frmModificationDesInformations.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,7 +60,7 @@ public class Vue_LocataireDetails {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmModificationDesInformations;
 	private JSeparator separator;
 	private JLabel txtAdresseMail;
 	private JLabel txtNom;
@@ -99,43 +99,44 @@ public class Vue_LocataireDetails {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 620);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmModificationDesInformations = new JFrame();
+		frmModificationDesInformations.setTitle("Détails des informations du locataire");
+		frmModificationDesInformations.setBounds(100, 100, 981, 620);
+		frmModificationDesInformations.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frmModificationDesInformations.getContentPane().setLayout(null);
+		frmModificationDesInformations.setResizable(false);
+		frmModificationDesInformations.setLocationRelativeTo(null);
 
 		JLabel btnNewButton = new JLabel("Imprimer");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				printRecord(frame);
+				printRecord(frmModificationDesInformations);
 			}
 		});
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/print.png")));
 
-		btnNewButton.setBounds(913, 11, 52, 68);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 52, 68);
+		frmModificationDesInformations.getContentPane().add(btnNewButton);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmModificationDesInformations.getWidth(), 2);
+		frmModificationDesInformations.getContentPane().add(separator);
 
-		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du locataire");
+		JLabel lblNewLabel_2 = new JLabel("Détails des informations du locataire");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(365, 30, 245, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(383, 30, 208, 16);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel_2);
 
 		JLabel btnAnnuler = new JLabel("Retour");
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmModificationDesInformations.dispose();
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
 
 			}
@@ -145,18 +146,18 @@ public class Vue_LocataireDetails {
 		btnAnnuler.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/back.png")));
 		btnAnnuler.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAnnuler.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnAnnuler);
+		frmModificationDesInformations.getContentPane().add(btnAnnuler);
 		String[] birth = locataire.getNaissance().split("-");
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(10, 95, 214, 446);
-		frame.getContentPane().add(panel);
+		frmModificationDesInformations.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel btnInformations = new JLabel("Informations personnel");
+		JLabel btnInformations = new JLabel("Informations personnelles");
 		btnInformations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnInformations.setBounds(0, 77, 176, 40);
+		btnInformations.setBounds(0, 77, 202, 40);
 		panel.add(btnInformations);
 		
 		btnInformations.setBackground(Color.WHITE);
@@ -186,7 +187,7 @@ public class Vue_LocataireDetails {
 
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(236, 96, 709, 480);
-		frame.getContentPane().add(layeredPane);
+		frmModificationDesInformations.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		layeredPane.setBackground(new Color(255,255,255,100));
 
@@ -391,7 +392,7 @@ public class Vue_LocataireDetails {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmModificationDesInformations.getContentPane().add(lblBG);
 		btnInformations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -468,10 +469,10 @@ public class Vue_LocataireDetails {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmModificationDesInformations;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmModificationDesInformations = frame;
 	}
 }

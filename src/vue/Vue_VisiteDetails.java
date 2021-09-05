@@ -3,6 +3,7 @@ package vue;
 import java.awt.Color;
 import java.awt.EventQueue;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JSeparator;
@@ -133,6 +134,11 @@ public class Vue_VisiteDetails {
 		}else {
 			txtRemarques.setText(visite.getRemarque());
 		}
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 789, 591);
+		frame.getContentPane().add(lblBG);
 		
 		
 		

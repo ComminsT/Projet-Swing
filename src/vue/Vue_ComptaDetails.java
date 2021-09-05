@@ -30,7 +30,7 @@ import entite.Locataire;
 
 public class Vue_ComptaDetails {
 
-	private JFrame frame;
+	private JFrame frmDtailDeLa;
 	private Agent agent;
 	private DefaultTableModel model;
 	private Comptabilite compta;
@@ -43,7 +43,7 @@ public class Vue_ComptaDetails {
 			public void run() {
 				try {
 					Vue_ComptaDetails window = new Vue_ComptaDetails();
-					window.frame.setVisible(true);
+					window.frmDtailDeLa.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,23 +68,28 @@ public class Vue_ComptaDetails {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 619);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmDtailDeLa = new JFrame();
+		frmDtailDeLa.setTitle("Détail de la facture");
+		frmDtailDeLa.setBounds(100, 100, 981, 619);
+		frmDtailDeLa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDtailDeLa.setLocationRelativeTo(null);
+		frmDtailDeLa.getContentPane().setLayout(null);
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmDtailDeLa.dispose();
 				new Vue_ComptaList(agent).getFrame().setVisible(true);
 			}
 		});
+				
+				JLabel lblNewLabel_1 = new JLabel("Détail de la facture");
+				lblNewLabel_1.setBounds(429, 30, 106, 16);
+				frmDtailDeLa.getContentPane().add(lblNewLabel_1);
 		
 				JSeparator separator = new JSeparator();
 				separator.setBounds(0, 116, 1000, 4);
-				frame.getContentPane().add(separator);
+				frmDtailDeLa.getContentPane().add(separator);
 		btnRetour.setIcon(new ImageIcon(Vue_ComptaDetails.class.getResource("/img/back.png")));
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -93,12 +98,12 @@ public class Vue_ComptaDetails {
 		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(10, 11, 50, 68);
-		frame.getContentPane().add(btnRetour);
+		frmDtailDeLa.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 143, 330, 348);
-		frame.getContentPane().add(panel);
+		frmDtailDeLa.getContentPane().add(panel);
 		panel.setLayout(null);
 		panel.setBackground(new Color(255,255,255,100));
 
@@ -109,7 +114,7 @@ public class Vue_ComptaDetails {
 		btnConfirmer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				printRecord(frame);
+				printRecord(frmDtailDeLa);
 			}
 		});
 		btnConfirmer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -120,8 +125,8 @@ public class Vue_ComptaDetails {
 		btnConfirmer.setHorizontalAlignment(SwingConstants.CENTER);
 		btnConfirmer.setBorder(null);
 		btnConfirmer.setBackground(Color.LIGHT_GRAY);
-		btnConfirmer.setBounds(896, 10, 59, 70);
-		frame.getContentPane().add(btnConfirmer);
+		btnConfirmer.setBounds(895, 11, 59, 70);
+		frmDtailDeLa.getContentPane().add(btnConfirmer);
 
 		LocataireDAO locataireDAO = new LocataireDAO();
 		Locataire locataire = locataireDAO.getByIdComptabilite(compta.getId());
@@ -212,15 +217,15 @@ public class Vue_ComptaDetails {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmDtailDeLa.getContentPane().add(lblBG);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmDtailDeLa;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmDtailDeLa = frame;
 	}
 	private void printRecord(JFrame frametoprint) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();

@@ -55,7 +55,7 @@ import entite.Proprietaire;
 
 public class Vue_AgentDetailsA {
 
-	private JFrame frame;
+	private JFrame frmDtailDeLagent;
 	private Agent agent;
 	private JSeparator separator;
 	private JLabel btnImprimer;
@@ -73,7 +73,7 @@ public class Vue_AgentDetailsA {
 			public void run() {
 				try {
 					Vue_AgentDetailsA window = new Vue_AgentDetailsA();
-					window.frame.setVisible(true);
+					window.frmDtailDeLagent.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -97,16 +97,17 @@ public class Vue_AgentDetailsA {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 973, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
+		frmDtailDeLagent = new JFrame();
+		frmDtailDeLagent.setTitle("Informations personnelles");
+		frmDtailDeLagent.setBounds(100, 100, 973, 600);
+		frmDtailDeLagent.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmDtailDeLagent.setLocationRelativeTo(null);
 		separator = new JSeparator();
 		separator.setBackground(Color.GRAY);
 		separator.setForeground(Color.GRAY);
 		separator.setBounds(0, 82, 973, 2);
-		frame.getContentPane().add(separator);
-		frame.getContentPane().setLayout(null);
+		frmDtailDeLagent.getContentPane().add(separator);
+		frmDtailDeLagent.getContentPane().setLayout(null);
 		
 
 		JLabel btnRetour = new JLabel("Retour");
@@ -114,7 +115,7 @@ public class Vue_AgentDetailsA {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmDtailDeLagent.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
@@ -122,15 +123,15 @@ public class Vue_AgentDetailsA {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setOpaque(false);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnRetour.setBounds(12, 6, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		btnRetour.setBounds(11, 11, 48, 68);
+		frmDtailDeLagent.getContentPane().add(btnRetour);
 
 		btnImprimer = new JLabel("Imprimer");
 		btnImprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnImprimer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				printRecord(frame);
+				printRecord(frmDtailDeLagent);
 			}
 		});
 		btnImprimer.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/print.png")));
@@ -138,12 +139,12 @@ public class Vue_AgentDetailsA {
 		btnImprimer.setOpaque(false);
 		btnImprimer.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnImprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		btnImprimer.setBounds(893, 6, 52, 68);
-		frame.getContentPane().add(btnImprimer);
+		btnImprimer.setBounds(895, 11, 52, 68);
+		frmDtailDeLagent.getContentPane().add(btnImprimer);
 
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(169, 96, 762, 450);
-		frame.getContentPane().add(layeredPane);
+		frmDtailDeLagent.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 
 		JPanel panel_infos = new JPanel();
@@ -342,11 +343,11 @@ public class Vue_AgentDetailsA {
 				int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
 				if(table_Clients.getValueAt(row, 2).equals("Locataire")) {
 					Locataire locataire = locataireDAO.getById(selectedId);
-					frame.dispose();
+					frmDtailDeLagent.dispose();
 					new Vue_LocataireDetails(locataire,agent).getFrame().setVisible(true);
 				}else {
 					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
-					frame.dispose();
+					frmDtailDeLagent.dispose();
 					new Vue_ProprietaireDetails(proprietaire,agent).getFrame().setVisible(true);
 					
 				}
@@ -356,7 +357,7 @@ public class Vue_AgentDetailsA {
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(12, 117, 145, 461);
-		frame.getContentPane().add(panel);
+		frmDtailDeLagent.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JButton btnNewButton = new JButton("Informations");
@@ -401,7 +402,7 @@ public class Vue_AgentDetailsA {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-27, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmDtailDeLagent.getContentPane().add(lblBG);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -473,11 +474,11 @@ public class Vue_AgentDetailsA {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmDtailDeLagent;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmDtailDeLagent = frame;
 	}
 	
 }

@@ -38,7 +38,7 @@ import javax.swing.JPanel;
 
 public class Vue_ContratConfirmation {
 
-	private JFrame frame;
+	private JFrame frmAjoutDuNouveau;
 	private Agent agent;
 	private Locataire locataire;
 	private Bien bien;
@@ -56,7 +56,7 @@ public class Vue_ContratConfirmation {
 			public void run() {
 				try {
 					Vue_ContratConfirmation window = new Vue_ContratConfirmation();
-					window.frame.setVisible(true);
+					window.frmAjoutDuNouveau.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -90,20 +90,25 @@ public class Vue_ContratConfirmation {
 		contrat = new Contratl();
 		contrat.setId_locataire(locataire.getId());
 		contrat.setId_bien(bien.getId());
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 620);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmAjoutDuNouveau = new JFrame();
+		frmAjoutDuNouveau.setTitle("Ajout d'un nouveau contrat");
+		frmAjoutDuNouveau.setBounds(100, 100, 981, 620);
+		frmAjoutDuNouveau.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAjoutDuNouveau.getContentPane().setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("Ajout d'un nouveau contrat");
+		lblNewLabel_3.setBounds(407, 38, 151, 16);
+		frmAjoutDuNouveau.getContentPane().add(lblNewLabel_3);
 
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(0, 91, 965, 2);
-		frame.getContentPane().add(separator);
+		frmAjoutDuNouveau.getContentPane().add(separator);
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(298, 105, 232, 182);
-		frame.getContentPane().add(panel);
+		frmAjoutDuNouveau.getContentPane().add(panel);
 		panel.setLayout(null);
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(0, 28, 232, 154);
@@ -121,7 +126,7 @@ public class Vue_ContratConfirmation {
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmAjoutDuNouveau.dispose();
 				new Vue_ContratBienSelect(locataire,agent).getFrame().setVisible(true);	
 			
 			}
@@ -130,72 +135,75 @@ public class Vue_ContratConfirmation {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/back.png")));
 		btnNewButton.setBounds(10, 11, 48, 68);
-		frame.getContentPane().add(btnNewButton);
+		frmAjoutDuNouveau.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Locataire :");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(17, 100, 65, 25);
-		frame.getContentPane().add(lblNewLabel);
+		frmAjoutDuNouveau.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(92, 105, 150, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		frmAjoutDuNouveau.getContentPane().add(lblNewLabel_1);
 		lblNewLabel_1.setText(locataire.toString());
 
 		JLabel lblBien = new JLabel("Bien :");
 		lblBien.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblBien.setBounds(17, 136, 65, 25);
-		frame.getContentPane().add(lblBien);
+		frmAjoutDuNouveau.getContentPane().add(lblBien);
 
 		JLabel lblNewLabel_1_1 = new JLabel((String) null);
 		lblNewLabel_1_1.setBounds(92, 141, 150, 14);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		frmAjoutDuNouveau.getContentPane().add(lblNewLabel_1_1);
 		lblNewLabel_1_1.setText(bien.toString());
 
 		JButton btnAjouterDesGarants = new JButton("Ajouter des garants");
+		btnAjouterDesGarants.setOpaque(false);
+		btnAjouterDesGarants.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new Vue_CreationGarant().getFrame().setVisible(true);
+			}
+		});
 		btnAjouterDesGarants.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAjouterDesGarants.setBorder(null);
 		btnAjouterDesGarants.setBackground(new Color(255,255,255,100));
 		btnAjouterDesGarants.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/garant20.png")));
-		btnAjouterDesGarants.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new Vue_CreationGarant().getFrame().setVisible(true);
-			}
-		});
 		btnAjouterDesGarants.setBounds(95, 168, 194, 30);
-		frame.getContentPane().add(btnAjouterDesGarants);
+		frmAjoutDuNouveau.getContentPane().add(btnAjouterDesGarants);
 
 		JButton btnAjouterDesAssurances = new JButton("Ajouter des assurances");
+		btnAjouterDesAssurances.setOpaque(false);
+		btnAjouterDesAssurances.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				new Vue_CreationAssurance().getFrame().setVisible(true);
+			}
+		});
 		btnAjouterDesAssurances.setBackground(new Color(255,255,255,100));
 		btnAjouterDesAssurances.setBorder(null);
 		btnAjouterDesAssurances.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnAjouterDesAssurances.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/assurance20.png")));
-		btnAjouterDesAssurances.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new Vue_CreationAssurance().getFrame().setVisible(true);
-
-			}
-		});
 		btnAjouterDesAssurances.setBounds(95, 358, 194, 30);
-		frame.getContentPane().add(btnAjouterDesAssurances);
+		frmAjoutDuNouveau.getContentPane().add(btnAjouterDesAssurances);
 
 		JLabel lblNewLabel_2 = new JLabel("Garants :");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2.setBounds(26, 173, 56, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		frmAjoutDuNouveau.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Assurances :");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2_1.setBounds(2, 362, 80, 16);
-		frame.getContentPane().add(lblNewLabel_2_1);
+		frmAjoutDuNouveau.getContentPane().add(lblNewLabel_2_1);
 
 		listgarant = new List();
 		listgarant.setBounds(92, 200, 188, 154);
-		frame.getContentPane().add(listgarant);
+		frmAjoutDuNouveau.getContentPane().add(listgarant);
 
 		listassurance = new List();
 		listassurance.setBounds(94, 390, 188, 154);
-		frame.getContentPane().add(listassurance);
+		frmAjoutDuNouveau.getContentPane().add(listassurance);
 
 		JLabel btnNewButton_1 = new JLabel("Confirmer");
 		btnNewButton_1.addMouseListener(new MouseAdapter() {
@@ -234,10 +242,10 @@ public class Vue_ContratConfirmation {
 				Historique historique = new Historique();
 				historique.setDate(Checker.getDateTime());
 				historique.setId_agent(agent.getId());
-				historique.setAction("Création contrat immobilier id : "+newC);
+				historique.setAction("Création contrat immobilier id : "+newC.getId());
 				historiqueDAO.save(historique);	
 				
-				frame.dispose();
+				frmAjoutDuNouveau.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 				
 
@@ -248,13 +256,17 @@ public class Vue_ContratConfirmation {
 		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton_1.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/valider.png")));
-		btnNewButton_1.setBounds(890, 11, 63, 68);
-		frame.getContentPane().add(btnNewButton_1);
+		btnNewButton_1.setBounds(895, 11, 63, 68);
+		frmAjoutDuNouveau.getContentPane().add(btnNewButton_1);
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmAjoutDuNouveau.getContentPane().add(lblBG);
+		
+		JLabel label = new JLabel("New label");
+		label.setBounds(364, 27, 55, 16);
+		frmAjoutDuNouveau.getContentPane().add(label);
 		
 		
 
@@ -272,10 +284,10 @@ public class Vue_ContratConfirmation {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAjoutDuNouveau;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAjoutDuNouveau = frame;
 	}
 }

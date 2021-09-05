@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 
 public class Vue_LocatairesList {
 
-	private JFrame frame;
+	private JFrame frmListeDesLocataires;
 	private JTable tableLocataires;
 	private Agent agent;
 	private JTextField txtSearch;
@@ -44,7 +44,7 @@ public class Vue_LocatairesList {
 			public void run() {
 				try {
 					Vue_LocatairesList window = new Vue_LocatairesList();
-					window.frame.setVisible(true);
+					window.frmListeDesLocataires.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,21 +69,22 @@ public class Vue_LocatairesList {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmListeDesLocataires = new JFrame();
+		frmListeDesLocataires.setTitle("Liste des locataires");
+		frmListeDesLocataires.setBounds(100, 100, 981, 630);
+		frmListeDesLocataires.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmListeDesLocataires.setLocationRelativeTo(null);
+		frmListeDesLocataires.getContentPane().setLayout(null);
 
 		txtSearch = new JTextField();
 
-		txtSearch.setBounds(436, 75, 301, 20);
-		frame.getContentPane().add(txtSearch);
+		txtSearch.setBounds(654, 74, 301, 20);
+		frmListeDesLocataires.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 106, 945, 474);
-		frame.getContentPane().add(scrollPane);
+		frmListeDesLocataires.getContentPane().add(scrollPane);
 
 		LocataireDAO locataireDAO = new LocataireDAO();
 		ArrayList<Locataire> locataires = locataireDAO.getAllFromAgent(agent.getId());
@@ -108,7 +109,7 @@ public class Vue_LocatairesList {
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(10, 24, 396, 71);
-		frame.getContentPane().add(panel);
+		frmListeDesLocataires.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 				JLabel btnNewTenant = new JLabel("Nouveau locataire");
@@ -118,7 +119,7 @@ public class Vue_LocatairesList {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 
-						frame.dispose();
+						frmListeDesLocataires.dispose();
 						new Vue_CreationLocataire(agent).getFrame().setVisible(true);
 
 					}
@@ -138,7 +139,7 @@ public class Vue_LocatairesList {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesLocataires.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
@@ -185,7 +186,7 @@ public class Vue_LocatairesList {
 							int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 							LocataireDAO locataireDAO = new LocataireDAO();
 							Locataire locataire = locataireDAO.getById(selectedId);
-							frame.dispose();
+							frmListeDesLocataires.dispose();
 							new Vue_LocataireDetails(locataire, agent).getFrame().setVisible(true);
 
 						} else {
@@ -203,7 +204,7 @@ public class Vue_LocatairesList {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					LocataireDAO locataireDAO = new LocataireDAO();
 					Locataire locataire = locataireDAO.getById(selectedId);
-					frame.dispose();
+					frmListeDesLocataires.dispose();
 					new Vue_LocataireModif(locataire, agent).getFrame().setVisible(true);
 
 				} else {
@@ -241,8 +242,8 @@ public class Vue_LocatairesList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(411, 74, 21, 21);
-		frame.getContentPane().add(btnSearch);
+		btnSearch.setBounds(621, 74, 21, 21);
+		frmListeDesLocataires.getContentPane().add(btnSearch);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -255,14 +256,14 @@ public class Vue_LocatairesList {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
-		frame.getContentPane().add(lblNewLabel);
+		frmListeDesLocataires.getContentPane().add(lblNewLabel);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmListeDesLocataires;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmListeDesLocataires = frame;
 	}
 }

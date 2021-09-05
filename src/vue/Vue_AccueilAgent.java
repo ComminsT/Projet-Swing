@@ -33,7 +33,7 @@ import javax.swing.JPanel;
 
 public class Vue_AccueilAgent {
 
-	private JFrame frame;
+	private JFrame frmAccueil;
 	private Agent agent;
 	private JTable table;
 	private Vector originalTableModel;
@@ -46,7 +46,7 @@ public class Vue_AccueilAgent {
 			public void run() {
 				try {
 					Vue_AccueilAgent window = new Vue_AccueilAgent();
-					window.frame.setVisible(true);
+					window.frmAccueil.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -70,11 +70,12 @@ public class Vue_AccueilAgent {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
+		frmAccueil = new JFrame();
+		frmAccueil.setTitle("Accueil");
+		frmAccueil.setBounds(100, 100, 981, 630);
+		frmAccueil.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAccueil.getContentPane().setLayout(null);
+		frmAccueil.setLocationRelativeTo(null);
 
 		JButton btnLocataires = new JButton("Locataires");
 		btnLocataires.setBorderPainted(false);
@@ -83,25 +84,25 @@ public class Vue_AccueilAgent {
 		btnLocataires.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				frame.setCursor(Cursor.HAND_CURSOR);
+				frmAccueil.setCursor(Cursor.HAND_CURSOR);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				frame.setCursor(Cursor.DEFAULT_CURSOR);
+				frmAccueil.setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		btnLocataires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
-				frame.dispose();
+				frmAccueil.dispose();
 
 			}
 		});
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(6, 198, 305, 133);
-		frame.getContentPane().add(scrollPane);
+		frmAccueil.getContentPane().add(scrollPane);
 
 		VisiteDAO visiteDAO = new VisiteDAO();
 		ArrayList<Visite> visites = visiteDAO.getAllByIdAgentTODAY(agent.getId());
@@ -128,8 +129,8 @@ public class Vue_AccueilAgent {
 		btnLocataires.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnLocataires.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnLocataires.setHorizontalAlignment(SwingConstants.CENTER);
-		btnLocataires.setBounds(36, 21, 121, 84);
-		frame.getContentPane().add(btnLocataires);
+		btnLocataires.setBounds(34, 21, 121, 84);
+		frmAccueil.getContentPane().add(btnLocataires);
 	
 
 
@@ -138,7 +139,7 @@ public class Vue_AccueilAgent {
 		btnProprietaires.setBorderPainted(false);
 		btnProprietaires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmAccueil.dispose();
 				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
 			}
 		});
@@ -146,12 +147,12 @@ public class Vue_AccueilAgent {
 		btnProprietaires.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				frame.setCursor(Cursor.HAND_CURSOR);
+				frmAccueil.setCursor(Cursor.HAND_CURSOR);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				frame.setCursor(Cursor.DEFAULT_CURSOR);
+				frmAccueil.setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		btnProprietaires.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -159,8 +160,8 @@ public class Vue_AccueilAgent {
 		btnProprietaires.setHorizontalAlignment(SwingConstants.CENTER);
 		btnProprietaires.setBorder(null);
 		btnProprietaires.setBackground(Color.LIGHT_GRAY);
-		btnProprietaires.setBounds(193, 21, 121, 84);
-		frame.getContentPane().add(btnProprietaires);
+		btnProprietaires.setBounds(189, 21, 121, 84);
+		frmAccueil.getContentPane().add(btnProprietaires);
 		btnProprietaires.setOpaque(false);
 
 		JButton btnBiens = new JButton("Biens");
@@ -168,19 +169,19 @@ public class Vue_AccueilAgent {
 		btnBiens.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Vue_BiensList(agent).getFrame().setVisible(true);
-				frame.dispose();
+				frmAccueil.dispose();
 			}
 		});
 		btnBiens.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/bien.png")));
 		btnBiens.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				frame.setCursor(Cursor.HAND_CURSOR);
+				frmAccueil.setCursor(Cursor.HAND_CURSOR);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				frame.setCursor(Cursor.DEFAULT_CURSOR);
+				frmAccueil.setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		btnBiens.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -188,15 +189,15 @@ public class Vue_AccueilAgent {
 		btnBiens.setHorizontalAlignment(SwingConstants.CENTER);
 		btnBiens.setBorder(null);
 		btnBiens.setBackground(Color.LIGHT_GRAY);
-		btnBiens.setBounds(350, 21, 121, 84);
-		frame.getContentPane().add(btnBiens);
+		btnBiens.setBounds(344, 21, 121, 84);
+		frmAccueil.getContentPane().add(btnBiens);
 		btnBiens.setOpaque(false);
 
 		JButton btnVisites = new JButton("Visites");
 		btnVisites.setBorderPainted(false);
 		btnVisites.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmAccueil.dispose();
 				new Vue_VisitesList(agent).getFrame().setVisible(true);
 			}
 		});
@@ -204,12 +205,12 @@ public class Vue_AccueilAgent {
 		btnVisites.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				frame.setCursor(Cursor.HAND_CURSOR);
+				frmAccueil.setCursor(Cursor.HAND_CURSOR);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				frame.setCursor(Cursor.DEFAULT_CURSOR);
+				frmAccueil.setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		btnVisites.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -217,15 +218,15 @@ public class Vue_AccueilAgent {
 		btnVisites.setHorizontalAlignment(SwingConstants.CENTER);
 		btnVisites.setBorder(null);
 		btnVisites.setBackground(Color.LIGHT_GRAY);
-		btnVisites.setBounds(507, 21, 121, 84);
-		frame.getContentPane().add(btnVisites);
+		btnVisites.setBounds(499, 21, 121, 84);
+		frmAccueil.getContentPane().add(btnVisites);
 		btnVisites.setOpaque(false);
 
 		JButton btnComptabilite = new JButton("Comptabilité");
 		btnComptabilite.setBorderPainted(false);
 		btnComptabilite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmAccueil.dispose();
 				new Vue_ComptaList(agent).getFrame().setVisible(true);
 			}
 		});
@@ -233,12 +234,12 @@ public class Vue_AccueilAgent {
 		btnComptabilite.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				frame.setCursor(Cursor.HAND_CURSOR);
+				frmAccueil.setCursor(Cursor.HAND_CURSOR);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				frame.setCursor(Cursor.DEFAULT_CURSOR);
+				frmAccueil.setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		btnComptabilite.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -246,14 +247,14 @@ public class Vue_AccueilAgent {
 		btnComptabilite.setHorizontalAlignment(SwingConstants.CENTER);
 		btnComptabilite.setBorder(null);
 		btnComptabilite.setBackground(Color.LIGHT_GRAY);
-		btnComptabilite.setBounds(664, 21, 121, 84);
-		frame.getContentPane().add(btnComptabilite);
+		btnComptabilite.setBounds(809, 21, 121, 84);
+		frmAccueil.getContentPane().add(btnComptabilite);
 		btnComptabilite.setOpaque(false);
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(715, 501, 260, 84);
-		frame.getContentPane().add(panel);
+		frmAccueil.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 				JButton btnEspacePersonnelle = new JButton("Espace personnel");
@@ -263,16 +264,16 @@ public class Vue_AccueilAgent {
 				btnEspacePersonnelle.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseEntered(MouseEvent e) {
-						frame.setCursor(Cursor.HAND_CURSOR);
+						frmAccueil.setCursor(Cursor.HAND_CURSOR);
 					}
 
 					@Override
 					public void mouseExited(MouseEvent e) {
-						frame.setCursor(Cursor.DEFAULT_CURSOR);
+						frmAccueil.setCursor(Cursor.DEFAULT_CURSOR);
 					}
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						frame.dispose();
+						frmAccueil.dispose();
 						new Vue_AgentDetailsA(agent).getFrame().setVisible(true);
 					}
 				});
@@ -288,7 +289,7 @@ public class Vue_AccueilAgent {
 		panel.add(btnDeconnexion);
 		btnDeconnexion.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmAccueil.dispose();
 				new Vue_Login().getFrame().setVisible(true);
 			}
 		});
@@ -296,12 +297,12 @@ public class Vue_AccueilAgent {
 		btnDeconnexion.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				frame.setCursor(Cursor.HAND_CURSOR);
+				frmAccueil.setCursor(Cursor.HAND_CURSOR);
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				frame.setCursor(Cursor.DEFAULT_CURSOR);
+				frmAccueil.setCursor(Cursor.DEFAULT_CURSOR);
 			}
 		});
 		btnDeconnexion.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -314,7 +315,7 @@ public class Vue_AccueilAgent {
 		JLabel lblNewLabel_1 = new JLabel("Bienvenue " + agent.getPrenom());
 		lblNewLabel_1.setFont(new Font("SansSerif", Font.BOLD, 15));
 		lblNewLabel_1.setBounds(20, 128, 254, 58);
-		frame.getContentPane().add(lblNewLabel_1);
+		frmAccueil.getContentPane().add(lblNewLabel_1);
 
 		JButton btnContrats = new JButton("Contrats");
 		btnContrats.setBorderPainted(false);
@@ -322,7 +323,7 @@ public class Vue_AccueilAgent {
 		btnContrats.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnContrats.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmAccueil.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 
 			}
@@ -334,20 +335,20 @@ public class Vue_AccueilAgent {
 		btnContrats.setHorizontalAlignment(SwingConstants.CENTER);
 		btnContrats.setBorder(null);
 		btnContrats.setBackground(Color.LIGHT_GRAY);
-		btnContrats.setBounds(821, 21, 121, 84);
-		frame.getContentPane().add(btnContrats);
+		btnContrats.setBounds(654, 21, 121, 84);
+		frmAccueil.getContentPane().add(btnContrats);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel_2.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblNewLabel_2);
+		frmAccueil.getContentPane().add(lblNewLabel_2);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAccueil;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAccueil = frame;
 	}
 }

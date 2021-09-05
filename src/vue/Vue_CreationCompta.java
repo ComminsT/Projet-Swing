@@ -39,7 +39,7 @@ public class Vue_CreationCompta {
 			public void run() {
 				try {
 					Vue_CreationCompta window = new Vue_CreationCompta();
-					window.frame.setVisible(true);
+					window.frmAjoutDuneNouvelle.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -47,7 +47,7 @@ public class Vue_CreationCompta {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmAjoutDuneNouvelle;
 	private JSeparator separator;
 	private Agent agent;
 	private JTextField txtEuros;
@@ -67,22 +67,23 @@ public class Vue_CreationCompta {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAjoutDuneNouvelle;
 	}
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAjoutDuneNouvelle = frame;
 	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 Database.Connect();
-		frame = new JFrame();
-		frame.setBounds(100, 100, 534, 503);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmAjoutDuneNouvelle = new JFrame();
+		frmAjoutDuneNouvelle.setTitle("Ajout d'une nouvelle facture");
+		frmAjoutDuneNouvelle.setBounds(100, 100, 534, 503);
+		frmAjoutDuneNouvelle.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frmAjoutDuneNouvelle.getContentPane().setLayout(null);
+		frmAjoutDuneNouvelle.setResizable(false);
+		frmAjoutDuneNouvelle.setLocationRelativeTo(null);
 
 		JLabel btnSuivant = new JLabel("Suivant");
 		
@@ -92,22 +93,22 @@ Database.Connect();
 		btnSuivant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		btnSuivant.setBounds(469, 11, 48, 68);
-		frame.getContentPane().add(btnSuivant);
+		frmAjoutDuneNouvelle.getContentPane().add(btnSuivant);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmAjoutDuneNouvelle.getWidth(), 2);
+		frmAjoutDuneNouvelle.getContentPane().add(separator);
 		
-		JLabel lblNewLabel = new JLabel("Nouvelle facture");
+		JLabel lblNewLabel = new JLabel("Ajout d'une nouvelle facture");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(218, 30, 92, 16);
-		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setBounds(185, 30, 157, 16);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(35, 96, 376, 306);
-		frame.getContentPane().add(panel);
+		frmAjoutDuneNouvelle.getContentPane().add(panel);
 		panel.setLayout(null);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez la date où la facture doit être payée :");
@@ -175,7 +176,7 @@ Database.Connect();
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmAjoutDuneNouvelle.dispose();
 				new Vue_ComptaList(agent).getFrame().setVisible(true);
 			
 			}
@@ -185,7 +186,7 @@ Database.Connect();
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_CreationCompta.class.getResource("/img/back.png")));
 		btnRetour.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		frmAjoutDuneNouvelle.getContentPane().add(btnRetour);
 		btnSuivant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -205,7 +206,7 @@ Database.Connect();
 					String montant=txtEuros.getText()+"."+txtCents.getText();
 					Double montantdu=Double.parseDouble(montant);
 					compta.setMontantdu(montantdu);
-					frame.dispose();
+					frmAjoutDuneNouvelle.dispose();
 					new Vue_CreationCompta2(compta,agent).getFrame().setVisible(true);
 					
 				}
@@ -219,7 +220,7 @@ Database.Connect();
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmAjoutDuneNouvelle.getContentPane().add(lblBG);
 
 	}
 }

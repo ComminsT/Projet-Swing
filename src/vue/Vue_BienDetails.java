@@ -107,7 +107,7 @@ public class Vue_BienDetails {
 	private void initialize() {
 		Database.Connect();
 		frmModificationDeBien = new JFrame();
-		frmModificationDeBien.setTitle("Modification de bien immobilier");
+		frmModificationDeBien.setTitle("Détails du bien immobilier");
 		frmModificationDeBien.setBounds(100, 100, 981, 619);
 		frmModificationDeBien.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frmModificationDeBien.getContentPane().setLayout(null);
@@ -147,7 +147,7 @@ public class Vue_BienDetails {
 		btnImprimer.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/print.png")));
 		btnImprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		btnImprimer.setBounds(911, 11, 52, 68);
+		btnImprimer.setBounds(895, 11, 52, 68);
 		frmModificationDeBien.getContentPane().add(btnImprimer);
 
 		separator = new JSeparator();
@@ -155,7 +155,7 @@ public class Vue_BienDetails {
 		separator.setBounds(0, 82, frmModificationDeBien.getWidth(), 2);
 		frmModificationDeBien.getContentPane().add(separator);
 
-		JLabel lblNewLabel_1 = new JLabel("Modification biens immobilier");
+		JLabel lblNewLabel_1 = new JLabel("Détail du bien immobilier");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(404, 30, 166, 16);
 		frmModificationDeBien.getContentPane().add(lblNewLabel_1);
@@ -220,131 +220,131 @@ public class Vue_BienDetails {
 
 		JLabel txtPays = new JLabel();
 		txtPays.setForeground(Color.BLACK);
-		txtPays.setBounds(128, 48, 296, 20);
+		txtPays.setBounds(199, 64, 296, 20);
 		panel_info.add(txtPays);
 		txtPays.setText(bien.getPays());
 
 		JLabel lblNewLabel = new JLabel("Nom :");
-		lblNewLabel.setBounds(52, 12, 73, 14);
+		lblNewLabel.setBounds(106, 24, 73, 14);
 		panel_info.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtNom = new JLabel();
-		txtNom.setBounds(128, 9, 296, 20);
+		txtNom.setBounds(199, 22, 296, 20);
 		panel_info.add(txtNom);
 		txtNom.setForeground(Color.BLACK);
 		txtNom.setText(bien.getNom());
 
 		lblPays = new JLabel("Pays :");
-		lblPays.setBounds(52, 50, 73, 17);
+		lblPays.setBounds(106, 62, 73, 17);
 		panel_info.add(lblPays);
 		lblPays.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtAdresse = new JLabel();
-		txtAdresse.setBounds(127, 89, 296, 20);
+		txtAdresse.setBounds(199, 106, 296, 20);
 		panel_info.add(txtAdresse);
 		txtAdresse.setText(bien.getAdresse());
 		txtAdresse.setForeground(Color.BLACK);
 
 		JLabel lblVille = new JLabel("Adresse :");
-		lblVille.setBounds(17, 91, 108, 17);
+		lblVille.setBounds(71, 103, 108, 17);
 		panel_info.add(lblVille);
 		lblVille.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblVille_2 = new JLabel("Ville :");
-		lblVille_2.setBounds(52, 132, 73, 17);
+		lblVille_2.setBounds(106, 144, 73, 17);
 		panel_info.add(lblVille_2);
 		lblVille_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtVille = new JLabel();
-		txtVille.setBounds(126, 130, 181, 20);
+		txtVille.setBounds(199, 148, 181, 20);
 		panel_info.add(txtVille);
 		txtVille.setText(bien.getVille());
 		txtVille.setForeground(Color.BLACK);
 
 		txtCodePostale = new JLabel();
-		txtCodePostale.setBounds(129, 173, 105, 20);
+		txtCodePostale.setBounds(199, 190, 105, 20);
 		panel_info.add(txtCodePostale);
 		txtCodePostale.setText(bien.getCp());
 		txtCodePostale.setForeground(Color.BLACK);
 
 		lblVille_1 = new JLabel("Année de construction :");
-		lblVille_1.setBounds(17, 214, 167, 17);
+		lblVille_1.setBounds(12, 226, 167, 17);
 		panel_info.add(lblVille_1);
 		lblVille_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblNewLabel_4_1 = new JLabel("Type :");
-		lblNewLabel_4_1.setBounds(69, 255, 56, 20);
+		lblNewLabel_4_1.setBounds(123, 267, 56, 20);
 		panel_info.add(lblNewLabel_4_1);
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel txtType = new JLabel();
-		txtType.setBounds(128, 254, 119, 22);
+		txtType.setBounds(199, 268, 119, 22);
 		panel_info.add(txtType);
 		txtType.setText(bien.getType());
 
 		JLabel lblNewLabel_4_1_1 = new JLabel("Statut :");
-		lblNewLabel_4_1_1.setBounds(69, 299, 56, 20);
+		lblNewLabel_4_1_1.setBounds(123, 311, 56, 20);
 		panel_info.add(lblNewLabel_4_1_1);
 		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblStatut = new JLabel();
-		lblStatut.setBounds(128, 298, 167, 22);
+		lblStatut.setBounds(199, 312, 167, 22);
 		panel_info.add(lblStatut);
 		lblStatut.setText(bien.getStatut());
 
 		JLabel lblNewLabel_4_1_2 = new JLabel("Valeur :");
-		lblNewLabel_4_1_2.setBounds(69, 343, 56, 20);
+		lblNewLabel_4_1_2.setBounds(123, 355, 56, 20);
 		panel_info.add(lblNewLabel_4_1_2);
 		lblNewLabel_4_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		
 		txtValeur = new JLabel();
-		txtValeur.setBounds(128, 343, 105, 20);
+		txtValeur.setBounds(199, 356, 105, 20);
 		panel_info.add(txtValeur);
 		txtValeur.setText(String.valueOf(bien.getValeur()) + " €");
 		txtValeur.setForeground(Color.BLACK);
 
 		JLabel lblNewLabel_4_1_2_1 = new JLabel("Surface :");
-		lblNewLabel_4_1_2_1.setBounds(52, 387, 73, 20);
+		lblNewLabel_4_1_2_1.setBounds(106, 399, 73, 20);
 		panel_info.add(lblNewLabel_4_1_2_1);
 		lblNewLabel_4_1_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtSurface = new JLabel();
-		txtSurface.setBounds(128, 387, 100, 20);
+		txtSurface.setBounds(199, 398, 100, 20);
 		panel_info.add(txtSurface);
 		txtSurface.setText(String.valueOf(bien.getSurface()) + " m²");
 		txtSurface.setForeground(Color.BLACK);
 
 		JLabel lblPropritaire = new JLabel("Propriétaire :");
-		lblPropritaire.setBounds(25, 431, 100, 14);
+		lblPropritaire.setBounds(79, 443, 100, 14);
 		panel_info.add(lblPropritaire);
 		lblPropritaire.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPropritaire.setFont(new Font("Tahoma", Font.BOLD, 14));
 		JLabel lblProprietaire = new JLabel();
-		lblProprietaire.setBounds(128, 427, 296, 22);
+		lblProprietaire.setBounds(199, 440, 296, 22);
 		panel_info.add(lblProprietaire);
 		ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 		Proprietaire proprietaire = proprietaireDAO.getById(bien.getId_proprietaire());
 		lblProprietaire.setText(proprietaire.toString());
 
 		JLabel lblVille_2_1 = new JLabel("Code Postal :");
-		lblVille_2_1.setBounds(12, 175, 113, 17);
+		lblVille_2_1.setBounds(66, 185, 113, 17);
 		panel_info.add(lblVille_2_1);
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblAnnee = new JLabel("");
-		lblAnnee.setBounds(188, 215, 73, 14);
+		lblAnnee.setBounds(199, 232, 73, 14);
 		panel_info.add(lblAnnee);
 		lblAnnee.setText(String.valueOf(bien.getAnnee()));
 
@@ -353,7 +353,7 @@ public class Vue_BienDetails {
 
 		ContratlDAO contratDAO = new ContratlDAO();
 		ArrayList<Contratl> contrats = contratDAO.getAllByBienId(bien.getId());
-		String[] columns = { "ID", "Locoataire", "Date de début", "Date de fin" };
+		String[] columns = { "ID", "Locataire", "Date de début", "Date de fin" };
 		String[][] data2 = new String[contrats.size()][columns.length];
 		int i = 0;
 		for (Contratl c : contrats) {

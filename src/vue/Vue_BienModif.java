@@ -60,7 +60,7 @@ public class Vue_BienModif {
 			public void run() {
 				try {
 					Vue_BienModif window = new Vue_BienModif();
-					window.frame.setVisible(true);
+					window.frmModificationDuBien.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,7 +68,7 @@ public class Vue_BienModif {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmModificationDuBien;
 	private JSeparator separator;
 	private JTextField txtNom;
 	private JLabel lblPays;
@@ -98,11 +98,11 @@ public class Vue_BienModif {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmModificationDuBien;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmModificationDuBien = frame;
 	}
 
 	/**
@@ -110,12 +110,13 @@ public class Vue_BienModif {
 	 */
 	private void initialize() {
 		Database.Connect();
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 620);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmModificationDuBien = new JFrame();
+		frmModificationDuBien.setTitle("Modification du bien immobilier");
+		frmModificationDuBien.setBounds(100, 100, 981, 620);
+		frmModificationDuBien.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frmModificationDuBien.getContentPane().setLayout(null);
+		frmModificationDuBien.setResizable(false);
+		frmModificationDuBien.setLocationRelativeTo(null);
 
 		JLabel btnNewButton = new JLabel("Confirmer");
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -124,14 +125,14 @@ public class Vue_BienModif {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(913, 11, 57, 68);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 57, 68);
+		frmModificationDuBien.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(45, 91, 73, 14);
-		frame.getContentPane().add(lblNewLabel);
+		frmModificationDuBien.getContentPane().add(lblNewLabel);
 
 		txtNom = new JTextField();
 		txtNom.addFocusListener(new FocusAdapter() {
@@ -155,18 +156,18 @@ public class Vue_BienModif {
 		txtNom.setText(bien.getNom());
 		txtNom.setColumns(10);
 		txtNom.setBounds(128, 90, 296, 20);
-		frame.getContentPane().add(txtNom);
+		frmModificationDuBien.getContentPane().add(txtNom);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmModificationDuBien.getWidth(), 2);
+		frmModificationDuBien.getContentPane().add(separator);
 
 		lblPays = new JLabel("Pays :");
 		lblPays.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPays.setBounds(45, 120, 73, 17);
-		frame.getContentPane().add(lblPays);
+		frmModificationDuBien.getContentPane().add(lblPays);
 
 		JComboBox<String> comboboxPays = new JComboBox<>();
 		comboboxPays.setModel(new DefaultComboBoxModel<>(new String[] { "Allemagne", "Autriche", "Belgique", "Bulgarie",
@@ -174,7 +175,7 @@ public class Vue_BienModif {
 				"Irlande", "Italie", "Lettonie", "Lituanie", "Luxembourg", "Malte", "Pays-Bas", "Pologne", "Portugal",
 				"Roumanie", "Slovaquie", "Slovénie", "Suède", "Tchéquie" }));
 		comboboxPays.setBounds(128, 121, 153, 22);
-		frame.getContentPane().add(comboboxPays);
+		frmModificationDuBien.getContentPane().add(comboboxPays);
 		comboboxPays.setSelectedItem(bien.getPays());
 
 		txtAdresse = new JTextField();
@@ -200,19 +201,19 @@ public class Vue_BienModif {
 		txtAdresse.setForeground(Color.BLACK);
 		txtAdresse.setColumns(10);
 		txtAdresse.setBounds(128, 151, 296, 20);
-		frame.getContentPane().add(txtAdresse);
+		frmModificationDuBien.getContentPane().add(txtAdresse);
 
 		JLabel lblVille = new JLabel("Adresse :");
 		lblVille.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille.setBounds(10, 150, 108, 17);
-		frame.getContentPane().add(lblVille);
+		frmModificationDuBien.getContentPane().add(lblVille);
 
 		JLabel lblVille_2 = new JLabel("Ville :");
 		lblVille_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2.setBounds(45, 178, 73, 17);
-		frame.getContentPane().add(lblVille_2);
+		frmModificationDuBien.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
 		txtVille.addFocusListener(new FocusAdapter() {
@@ -237,7 +238,7 @@ public class Vue_BienModif {
 		txtVille.setForeground(Color.BLACK);
 		txtVille.setColumns(10);
 		txtVille.setBounds(128, 175, 181, 20);
-		frame.getContentPane().add(txtVille);
+		frmModificationDuBien.getContentPane().add(txtVille);
 
 		txtCodePostale = new JTextField();
 		txtCodePostale.addKeyListener(new KeyAdapter() {
@@ -270,43 +271,43 @@ public class Vue_BienModif {
 		txtCodePostale.setForeground(Color.BLACK);
 		txtCodePostale.setColumns(10);
 		txtCodePostale.setBounds(128, 204, 105, 20);
-		frame.getContentPane().add(txtCodePostale);
+		frmModificationDuBien.getContentPane().add(txtCodePostale);
 
 		lblVille_1 = new JLabel("Année de construction :");
 		lblVille_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_1.setBounds(18, 235, 167, 17);
-		frame.getContentPane().add(lblVille_1);
+		frmModificationDuBien.getContentPane().add(lblVille_1);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Type :");
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1.setBounds(62, 263, 56, 20);
-		frame.getContentPane().add(lblNewLabel_4_1);
+		frmModificationDuBien.getContentPane().add(lblNewLabel_4_1);
 
 		JComboBox<String> comboboxType = new JComboBox<String>();
 		comboboxType.setModel(new DefaultComboBoxModel<String>(new String[] { "T1", "T2", "T2 bis", "T3", "T3 bis",
 				"T4", "T3 T4", "T5", "T6", "Duplex", "Triplex", "Souplex", "Loft" }));
 		comboboxType.setBounds(128, 264, 119, 22);
-		frame.getContentPane().add(comboboxType);
+		frmModificationDuBien.getContentPane().add(comboboxType);
 		comboboxType.setSelectedItem(bien.getType());
 
 		JLabel lblNewLabel_4_1_1 = new JLabel("Statut :");
 		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_1.setBounds(62, 293, 56, 20);
-		frame.getContentPane().add(lblNewLabel_4_1_1);
+		frmModificationDuBien.getContentPane().add(lblNewLabel_4_1_1);
 
 		JComboBox<String> comboboxStatut = new JComboBox<String>();
 		comboboxStatut.setModel(new DefaultComboBoxModel<String>(
 				new String[] { "En location", "En recherche de locataire", "Inactif" }));
 		comboboxStatut.setBounds(128, 294, 167, 22);
-		frame.getContentPane().add(comboboxStatut);
+		frmModificationDuBien.getContentPane().add(comboboxStatut);
 		comboboxStatut.setSelectedItem(bien.getStatut());
 
 		JYearChooser yearChooser = new JYearChooser();
 		yearChooser.setBounds(187, 232, 48, 20);
-		frame.getContentPane().add(yearChooser);
+		frmModificationDuBien.getContentPane().add(yearChooser);
 		yearChooser.setMaximum(2021);
 		yearChooser.setYear(bien.getAnnee());
 
@@ -314,7 +315,7 @@ public class Vue_BienModif {
 		lblNewLabel_4_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_2.setBounds(62, 324, 56, 20);
-		frame.getContentPane().add(lblNewLabel_4_1_2);
+		frmModificationDuBien.getContentPane().add(lblNewLabel_4_1_2);
 		// Impossible de mettre un point pour faire un double
 		txtValeur = new JTextField();
 		txtValeur.addKeyListener(new KeyAdapter() {
@@ -349,13 +350,13 @@ public class Vue_BienModif {
 		txtValeur.setForeground(Color.BLACK);
 		txtValeur.setColumns(10);
 		txtValeur.setBounds(128, 326, 105, 20);
-		frame.getContentPane().add(txtValeur);
+		frmModificationDuBien.getContentPane().add(txtValeur);
 
 		JLabel lblNewLabel_4_1_2_1 = new JLabel("Surface :");
 		lblNewLabel_4_1_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_2_1.setBounds(45, 355, 73, 20);
-		frame.getContentPane().add(lblNewLabel_4_1_2_1);
+		frmModificationDuBien.getContentPane().add(lblNewLabel_4_1_2_1);
 
 		txtSurface = new JTextField();
 		txtSurface.addKeyListener(new KeyAdapter() {
@@ -389,13 +390,13 @@ public class Vue_BienModif {
 		txtSurface.setForeground(Color.BLACK);
 		txtSurface.setColumns(10);
 		txtSurface.setBounds(128, 357, 100, 20);
-		frame.getContentPane().add(txtSurface);
+		frmModificationDuBien.getContentPane().add(txtSurface);
 
 		JLabel lblPropritaire = new JLabel("Propriétaire :");
 		lblPropritaire.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPropritaire.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPropritaire.setBounds(18, 386, 100, 14);
-		frame.getContentPane().add(lblPropritaire);
+		frmModificationDuBien.getContentPane().add(lblPropritaire);
 
 		ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 		ArrayList<Proprietaire> proprietaires = proprietaireDAO.getAll();
@@ -411,26 +412,26 @@ public class Vue_BienModif {
 			i++;
 		}
 		comboboxProprietaire.setBounds(128, 384, 296, 22);
-		frame.getContentPane().add(comboboxProprietaire);
+		frmModificationDuBien.getContentPane().add(comboboxProprietaire);
 		comboboxProprietaire.setSelectedIndex(memo);
 
 		JLabel lblVille_2_1 = new JLabel("Code Postal :");
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2_1.setBounds(5, 205, 113, 17);
-		frame.getContentPane().add(lblVille_2_1);
+		frmModificationDuBien.getContentPane().add(lblVille_2_1);
 
-		JLabel lblNewLabel_1 = new JLabel("Modification biens immobiliers");
+		JLabel lblNewLabel_1 = new JLabel("Modification du bien immobilier");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(401, 30, 173, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(399, 30, 176, 16);
+		frmModificationDuBien.getContentPane().add(lblNewLabel_1);
 
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmModificationDuBien.dispose();
 				new Vue_BiensList(agent).getFrame().setVisible(true);
 			}
 		});
@@ -438,7 +439,7 @@ public class Vue_BienModif {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/back.png")));
 		btnRetour.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		frmModificationDuBien.getContentPane().add(btnRetour);
 
 		JLabel btnAjouterDesPhotos = new JLabel("Ajouter des photos");
 		btnAjouterDesPhotos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -487,11 +488,11 @@ public class Vue_BienModif {
 		btnAjouterDesPhotos.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnAjouterDesPhotos.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/photo.png")));
 		btnAjouterDesPhotos.setBounds(101, 11, 93, 66);
-		frame.getContentPane().add(btnAjouterDesPhotos);
+		frmModificationDuBien.getContentPane().add(btnAjouterDesPhotos);
 
 		JLayeredPane layeredPane = new JLayeredPane();
 		layeredPane.setBounds(434, 90, 531, 489);
-		frame.getContentPane().add(layeredPane);
+		frmModificationDuBien.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		JPanel panel = new JPanel();
 		layeredPane.add(panel, "name_463069160670000");
@@ -528,7 +529,7 @@ public class Vue_BienModif {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmModificationDuBien.getContentPane().add(lblBG);
 String d =System.getProperty("user.dir");
 		File pathtoimg_appart_file = new File(
 				d+"\\img_appart\\" + bien.getId());
@@ -643,7 +644,7 @@ String d =System.getProperty("user.dir");
 					
 					
 					
-					frame.dispose();
+					frmModificationDuBien.dispose();
 					new Vue_BiensList(agent).getFrame().setVisible(true);
 				}
 

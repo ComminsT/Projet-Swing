@@ -41,7 +41,7 @@ import java.awt.event.MouseEvent;
 
 public class Vue_ContratDetails {
 
-	private JFrame frame;
+	private JFrame frmDtailDuContrat;
 	private Contratl contrat;
 	private Agent agent;
 	private JTable table;
@@ -55,7 +55,7 @@ public class Vue_ContratDetails {
 			public void run() {
 				try {
 					Vue_ContratDetails window = new Vue_ContratDetails();
-					window.frame.setVisible(true);
+					window.frmDtailDuContrat.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -79,26 +79,27 @@ public class Vue_ContratDetails {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 524, 475);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmDtailDuContrat = new JFrame();
+		frmDtailDuContrat.setTitle("Détail du contrat");
+		frmDtailDuContrat.setBounds(100, 100, 524, 475);
+		frmDtailDuContrat.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frmDtailDuContrat.getContentPane().setLayout(null);
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(0, 88, 508, 2);
-		frame.getContentPane().add(separator);
+		frmDtailDuContrat.getContentPane().add(separator);
 		
-		JLabel lblNewLabel = new JLabel("Détails");
+		JLabel lblNewLabel = new JLabel("Détail du contrat");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(234, 30, 39, 16);
-		frame.getContentPane().add(lblNewLabel);
+		lblNewLabel.setBounds(207, 30, 93, 16);
+		frmDtailDuContrat.getContentPane().add(lblNewLabel);
 		
 		JLabel btnNewButton = new JLabel("Imprimer");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 printRecord(frame);
+				 printRecord(frmDtailDuContrat);
 			}
 		});
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -106,11 +107,11 @@ public class Vue_ContratDetails {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ContratDetails.class.getResource("/img/print.png")));
 		btnNewButton.setBounds(444, 11, 52, 68);
-		frame.getContentPane().add(btnNewButton);
+		frmDtailDuContrat.getContentPane().add(btnNewButton);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 101, 488, 324);
-		frame.getContentPane().add(tabbedPane);
+		frmDtailDuContrat.getContentPane().add(tabbedPane);
 		
 		JPanel panel_info = new JPanel();
 		tabbedPane.addTab("Informations", null, panel_info, null);
@@ -234,7 +235,7 @@ public class Vue_ContratDetails {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmDtailDuContrat.getContentPane().add(lblBG);
 		
 		
 		
@@ -282,10 +283,10 @@ public class Vue_ContratDetails {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmDtailDuContrat;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmDtailDuContrat = frame;
 	}
 }

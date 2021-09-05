@@ -48,7 +48,7 @@ public class Vue_CreationLocataire {
 			public void run() {
 				try {
 					Vue_CreationLocataire window = new Vue_CreationLocataire();
-					window.frame.setVisible(true);
+					window.frmAjoutDunNouveau.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,7 +56,7 @@ public class Vue_CreationLocataire {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmAjoutDunNouveau;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
 	private JTextField txtDomaine;
@@ -89,17 +89,18 @@ public class Vue_CreationLocataire {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 620);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmAjoutDunNouveau = new JFrame();
+		frmAjoutDunNouveau.setTitle("Ajout d'un nouveau locataire");
+		frmAjoutDunNouveau.setBounds(100, 100, 981, 620);
+		frmAjoutDunNouveau.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frmAjoutDunNouveau.getContentPane().setLayout(null);
+		frmAjoutDunNouveau.setResizable(false);
+		frmAjoutDunNouveau.setLocationRelativeTo(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Ajout nouveau locataire");
+		JLabel lblNewLabel_2 = new JLabel("Ajout d'un nouveau locataire");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_2.setBounds(421, 30, 133, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(407, 30, 160, 16);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel_2);
 
 		JLabel btnNewButton = new JLabel("Confirmer");
 
@@ -108,13 +109,13 @@ public class Vue_CreationLocataire {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationLocataire.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(913, 11, 57, 68);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 57, 68);
+		frmAjoutDunNouveau.getContentPane().add(btnNewButton);
 
 		JPanel panel_8 = new JPanel();
 		panel_8.setOpaque(false);
 		panel_8.setBounds(24, 95, 296, 485);
-		frame.getContentPane().add(panel_8);
+		frmAjoutDunNouveau.getContentPane().add(panel_8);
 		panel_8.setLayout(null);
 
 		JPanel panel = new JPanel();
@@ -432,6 +433,7 @@ public class Vue_CreationLocataire {
 		panel_6.add(lblNewLabel_1);
 		lblNewLabel_1.setForeground(Color.RED);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		
 
 		JPanel panel_7 = new JPanel();
 		panel_7.setOpaque(false);
@@ -462,16 +464,17 @@ public class Vue_CreationLocataire {
 				new DefaultComboBoxModel<String>(new String[] { "Locataire", "Ex-Locataire", "Expulsé", "Autre" }));
 
 		lblMailError.setVisible(false);
+		lblNewLabel_1.setVisible(false);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmAjoutDunNouveau.getWidth(), 2);
+		frmAjoutDunNouveau.getContentPane().add(separator);
 
 		JPanel panel_5 = new JPanel();
 		panel_5.setOpaque(false);
 		panel_5.setBounds(365, 93, 219, 177);
-		frame.getContentPane().add(panel_5);
+		frmAjoutDunNouveau.getContentPane().add(panel_5);
 		panel_5.setLayout(null);
 
 		lblVille_1 = new JLabel("Date de naissance");
@@ -488,7 +491,7 @@ public class Vue_CreationLocataire {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmAjoutDunNouveau.dispose();
 				new Vue_LocatairesList(agent).getFrame().setVisible(true);
 
 			}
@@ -497,11 +500,12 @@ public class Vue_CreationLocataire {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_CreationLocataire.class.getResource("/img/back.png")));
 		btnRetour.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		frmAjoutDunNouveau.getContentPane().add(btnRetour);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
+				lblMailError.setVisible(false);
+				lblNewLabel_1.setVisible(false);
 				Database.Connect();
 				lblMailError.setVisible(false);
 				String nom = txtNom.getText();
@@ -548,6 +552,8 @@ public class Vue_CreationLocataire {
 					lblMailError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
 				} else if (!Checker.phonecheckerl(tel)) {
+					JOptionPane.showMessageDialog(null, "Numéro de téléphone invalide");
+					lblNewLabel_1.setVisible(true);
 
 				} else {
 					LocataireDAO locataireDAO = new LocataireDAO();
@@ -577,10 +583,10 @@ public class Vue_CreationLocataire {
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau locataire a bien été enregistré.\n"
 							+ "Souhaitez vous lui attribuer un logement immédiatement ?");
 					if (input == 0) {
-						frame.dispose();
+						frmAjoutDunNouveau.dispose();
 						new Vue_CreationContrat(agent).getFrame().setVisible(true);
 					} else {
-						frame.dispose();
+						frmAjoutDunNouveau.dispose();
 						new Vue_LocatairesList(agent).getFrame().setVisible(true);
 					}
 				}
@@ -591,15 +597,15 @@ public class Vue_CreationLocataire {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmAjoutDunNouveau.getContentPane().add(lblBG);
 
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAjoutDunNouveau;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAjoutDunNouveau = frame;
 	}
 }

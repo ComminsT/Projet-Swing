@@ -28,7 +28,7 @@ import java.awt.event.MouseEvent;
 
 public class Vue_BiensList {
 
-	private JFrame frame;
+	private JFrame frmListeDesBiens;
 	private JTable tableBiens;
 	private Agent agent;
 	private JTextField txtSearch;
@@ -43,7 +43,7 @@ public class Vue_BiensList {
 			public void run() {
 				try {
 					Vue_BiensList window = new Vue_BiensList();
-					window.frame.setVisible(true);
+					window.frmListeDesBiens.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -68,21 +68,22 @@ public class Vue_BiensList {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmListeDesBiens = new JFrame();
+		frmListeDesBiens.setTitle("Liste des biens immobiliers");
+		frmListeDesBiens.setBounds(100, 100, 981, 630);
+		frmListeDesBiens.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmListeDesBiens.setLocationRelativeTo(null);
+		frmListeDesBiens.getContentPane().setLayout(null);
 
 		txtSearch = new JTextField();
 
 		txtSearch.setBounds(641, 75, 314, 20);
-		frame.getContentPane().add(txtSearch);
+		frmListeDesBiens.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 106, 945, 474);
-		frame.getContentPane().add(scrollPane);
+		frmListeDesBiens.getContentPane().add(scrollPane);
 
 		BienDAO bienDAO = new BienDAO();
 
@@ -107,7 +108,7 @@ public class Vue_BiensList {
 		btnNewLandlord.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesBiens.dispose();
 				new Vue_CreationBien(agent).getFrame().setVisible(true);
 			}
 		});
@@ -119,14 +120,14 @@ public class Vue_BiensList {
 		btnNewLandlord.setBorder(null);
 		btnNewLandlord.setBackground(Color.LIGHT_GRAY);
 		btnNewLandlord.setBounds(126, 17, 103, 84);
-		frame.getContentPane().add(btnNewLandlord);
+		frmListeDesBiens.getContentPane().add(btnNewLandlord);
 		btnNewLandlord.setOpaque(false);
 
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesBiens.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
@@ -138,7 +139,7 @@ public class Vue_BiensList {
 		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(6, 25, 68, 68);
-		frame.getContentPane().add(btnRetour);
+		frmListeDesBiens.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 
 		JLabel btnModifier = new JLabel("Modifier");
@@ -150,7 +151,7 @@ public class Vue_BiensList {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					BienDAO bienDAO = new BienDAO();
 					Bien bien = bienDAO.getById(selectedId);
-					frame.dispose();
+					frmListeDesBiens.dispose();
 					new Vue_BienModif(bien, agent).getFrame().setVisible(true);
 
 				} else {
@@ -167,7 +168,7 @@ public class Vue_BiensList {
 		btnModifier.setBorder(null);
 		btnModifier.setBackground(Color.LIGHT_GRAY);
 		btnModifier.setBounds(272, 25, 103, 70);
-		frame.getContentPane().add(btnModifier);
+		frmListeDesBiens.getContentPane().add(btnModifier);
 		btnModifier.setOpaque(false);
 
 		JLabel btnDetails = new JLabel("Détails");
@@ -179,7 +180,7 @@ public class Vue_BiensList {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					BienDAO bienDAO = new BienDAO();
 					Bien bien = bienDAO.getById(selectedId);
-					frame.dispose();
+					frmListeDesBiens.dispose();
 					new Vue_BienDetails(bien, agent).getFrame().setVisible(true);
 
 				} else {
@@ -196,7 +197,7 @@ public class Vue_BiensList {
 		btnDetails.setBorder(null);
 		btnDetails.setBackground(Color.LIGHT_GRAY);
 		btnDetails.setBounds(403, 25, 121, 70);
-		frame.getContentPane().add(btnDetails);
+		frmListeDesBiens.getContentPane().add(btnDetails);
 		btnDetails.setOpaque(false);
 
 		JLabel btnSearch = new JLabel("");
@@ -226,7 +227,7 @@ public class Vue_BiensList {
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearch.setBounds(603, 75, 20, 20);
-		frame.getContentPane().add(btnSearch);
+		frmListeDesBiens.getContentPane().add(btnSearch);
 		btnSearch.setOpaque(false);
 
 		txtSearch.addActionListener(new ActionListener() {
@@ -252,14 +253,14 @@ public class Vue_BiensList {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
-		frame.getContentPane().add(lblNewLabel);
+		frmListeDesBiens.getContentPane().add(lblNewLabel);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmListeDesBiens;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmListeDesBiens = frame;
 	}
 }

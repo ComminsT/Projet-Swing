@@ -15,7 +15,7 @@ public class Checker {
 		Database.Connect();
 		ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 		ArrayList<String> mails = proprietaireDAO.getAllMail();
-		if (mail.matches(
+		if (mail.toLowerCase().matches(
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
 				&& !mails.contains(mail)) {
 			System.out.println("Mail ok");
@@ -30,7 +30,7 @@ public class Checker {
 		Database.Connect();
 		LocataireDAO locataireDAO = new LocataireDAO();
 		ArrayList<String> mails = locataireDAO.getAllMail();
-		if (mail.matches(
+		if (mail.toLowerCase().matches(
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
 				&& !mails.contains(mail)) {
 			System.out.println("Mail ok");
@@ -46,7 +46,7 @@ public class Checker {
 		AgentDAO agentDAO = new AgentDAO();
 		Agent agent = agentDAO.getById(id);
 		ArrayList<String> mails = agentDAO.getAllMail();
-		if (mail.matches(
+		if (mail.toLowerCase().matches(
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
 				&& !mails.contains(mail)||mail.equals(agent.getMail())) {
 			System.out.println("Mail ok");
@@ -60,7 +60,7 @@ public class Checker {
 		Database.Connect();
 		AgentDAO agentDAO = new AgentDAO();
 		ArrayList<String> mails = agentDAO.getAllMail();
-		if (mail.matches(
+		if (mail.toLowerCase().matches(
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
 				&& !mails.contains(mail)) {
 			System.out.println("Mail ok");
@@ -122,10 +122,26 @@ public class Checker {
 	public static boolean phonecheckera(String tel) {
 		AgentDAO agentDAO = new AgentDAO();
 		ArrayList<String> phones = agentDAO.getAllPhone();
+		
 		if (tel.matches(
 				"^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$")
 				&& !phones.contains(tel)) {
 			return true;
+		} else {
+			return false;
+		}
+
+	}
+	public static boolean phonemodifiera(String tel,int id) {
+		AgentDAO agentDAO = new AgentDAO();
+		ArrayList<String> phones = agentDAO.getAllPhone();
+		Agent agent=agentDAO.getById(id);
+		if(agent.getTel().equals(tel)) {
+			return true;
+		}else if (tel.matches(
+					"^\\s*(?:\\+?(\\d{1,3}))?([-. (]*(\\d{3})[-. )]*)?((\\d{3})[-. ]*(\\d{2,4})(?:[-.x ]*(\\d+))?)\\s*$")
+					&& !phones.contains(tel)) {
+				return true;
 		} else {
 			return false;
 		}
@@ -138,7 +154,7 @@ public class Checker {
 		ArrayList<String> mails = locataireDAO.getAllMail();
 		if (mail.equals(locataire.getMail())) {
 			return true;
-		} else if (mail.matches(
+		} else if (mail.toLowerCase().matches(
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
 				&& !mails.contains(mail)) {
 			return true;
@@ -184,7 +200,7 @@ public class Checker {
 		ArrayList<String> mails = proprietaireDAO.getAllMail();
 		if (mail.equals(proprietaire.getMail())) {
 			return true;
-		} else if (mail.matches(
+		} else if (mail.toLowerCase().matches(
 				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
 				&& !mails.contains(mail)) {
 			return true;

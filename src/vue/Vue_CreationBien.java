@@ -50,7 +50,7 @@ public class Vue_CreationBien {
 			public void run() {
 				try {
 					Vue_CreationBien window = new Vue_CreationBien();
-					window.frame.setVisible(true);
+					window.frmCrationDunBien.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -58,7 +58,7 @@ public class Vue_CreationBien {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmCrationDunBien;
 	private JSeparator separator;
 	private JTextField txtNom;
 	private JLabel lblPays;
@@ -83,22 +83,27 @@ public class Vue_CreationBien {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmCrationDunBien;
 	}
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmCrationDunBien = frame;
 	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 Database.Connect();
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 620);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmCrationDunBien = new JFrame();
+		frmCrationDunBien.setTitle("Création d'un bien immobilier");
+		frmCrationDunBien.setBounds(100, 100, 981, 620);
+		frmCrationDunBien.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frmCrationDunBien.getContentPane().setLayout(null);
+		frmCrationDunBien.setResizable(false);
+		frmCrationDunBien.setLocationRelativeTo(null);
+		
+		JLabel lblNewLabel_1 = new JLabel("Création d'un bien immobilier");
+		lblNewLabel_1.setBounds(405, 30, 165, 16);
+		frmCrationDunBien.getContentPane().add(lblNewLabel_1);
 
 		JLabel btnNewButton = new JLabel("Confirmer");
 		
@@ -107,13 +112,13 @@ Database.Connect();
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationBien.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(900, 6, 63, 67);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 63, 67);
+		frmCrationDunBien.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom du bien immobilier");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(115, 96, 210, 14);
-		frame.getContentPane().add(lblNewLabel);
+		frmCrationDunBien.getContentPane().add(lblNewLabel);
 
 		txtNom = new JTextField();
 		txtNom.addFocusListener(new FocusAdapter() {
@@ -137,17 +142,17 @@ Database.Connect();
 		txtNom.setText("Nom");
 		txtNom.setColumns(10);
 		txtNom.setBounds(115, 121, 296, 20);
-		frame.getContentPane().add(txtNom);
+		frmCrationDunBien.getContentPane().add(txtNom);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmCrationDunBien.getWidth(), 2);
+		frmCrationDunBien.getContentPane().add(separator);
 
 		lblPays = new JLabel("Pays");
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPays.setBounds(115, 152, 32, 17);
-		frame.getContentPane().add(lblPays);
+		frmCrationDunBien.getContentPane().add(lblPays);
 
 		JComboBox<String> comboboxPays = new JComboBox<>();
 		comboboxPays.setModel(new DefaultComboBoxModel<>(new String[] { "Allemagne", "Autriche", "Belgique", "Bulgarie",
@@ -155,7 +160,7 @@ Database.Connect();
 				"Irlande", "Italie", "Lettonie", "Lituanie", "Luxembourg", "Malte", "Pays-Bas", "Pologne", "Portugal",
 				"Roumanie", "Slovaquie", "Slovénie", "Suède", "Tchéquie" }));
 		comboboxPays.setBounds(115, 179, 153, 22);
-		frame.getContentPane().add(comboboxPays);
+		frmCrationDunBien.getContentPane().add(comboboxPays);
 
 		txtAdresse = new JTextField();
 		txtAdresse.addFocusListener(new FocusAdapter() {
@@ -180,17 +185,17 @@ Database.Connect();
 		txtAdresse.setForeground(Color.LIGHT_GRAY);
 		txtAdresse.setColumns(10);
 		txtAdresse.setBounds(115, 241, 296, 20);
-		frame.getContentPane().add(txtAdresse);
+		frmCrationDunBien.getContentPane().add(txtAdresse);
 
 		JLabel lblVille = new JLabel("Adresse");
 		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille.setBounds(115, 213, 55, 17);
-		frame.getContentPane().add(lblVille);
+		frmCrationDunBien.getContentPane().add(lblVille);
 
 		JLabel lblVille_2 = new JLabel("Ville");
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2.setBounds(115, 273, 29, 17);
-		frame.getContentPane().add(lblVille_2);
+		frmCrationDunBien.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
 		txtVille.addFocusListener(new FocusAdapter() {
@@ -215,7 +220,7 @@ Database.Connect();
 		txtVille.setForeground(Color.LIGHT_GRAY);
 		txtVille.setColumns(10);
 		txtVille.setBounds(115, 301, 181, 20);
-		frame.getContentPane().add(txtVille);
+		frmCrationDunBien.getContentPane().add(txtVille);
 
 		txtCodePostale = new JTextField();
 		txtCodePostale.addKeyListener(new KeyAdapter() {
@@ -248,43 +253,43 @@ Database.Connect();
 		txtCodePostale.setForeground(Color.LIGHT_GRAY);
 		txtCodePostale.setColumns(10);
 		txtCodePostale.setBounds(306, 301, 105, 20);
-		frame.getContentPane().add(txtCodePostale);
+		frmCrationDunBien.getContentPane().add(txtCodePostale);
 
 		lblVille_1 = new JLabel("Année de construction");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_1.setBounds(115, 333, 175, 17);
-		frame.getContentPane().add(lblVille_1);
+		frmCrationDunBien.getContentPane().add(lblVille_1);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Type");
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1.setBounds(115, 388, 100, 20);
-		frame.getContentPane().add(lblNewLabel_4_1);
+		frmCrationDunBien.getContentPane().add(lblNewLabel_4_1);
 
 		JComboBox<String> comboboxType = new JComboBox<String>();
 		comboboxType.setModel(new DefaultComboBoxModel<String>(new String[] {"T1", "T2", "T2 bis", "T3", "T3 bis", "T4", "T3 T4", "T5", "T6", "Duplex", "Triplex", "Souplex", "Loft"}));
 		comboboxType.setBounds(115, 413, 119, 22);
-		frame.getContentPane().add(comboboxType);
+		frmCrationDunBien.getContentPane().add(comboboxType);
 
 		JLabel lblNewLabel_4_1_1 = new JLabel("Statut");
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_1.setBounds(244, 388, 100, 20);
-		frame.getContentPane().add(lblNewLabel_4_1_1);
+		frmCrationDunBien.getContentPane().add(lblNewLabel_4_1_1);
 
 		JComboBox<String> comboboxStatut = new JComboBox<String>();
 		comboboxStatut.setModel(
 				new DefaultComboBoxModel<String>(new String[] {"En location", "En recherche de locataire", "Inactif"}));
 		comboboxStatut.setBounds(244, 413, 167, 22);
-		frame.getContentPane().add(comboboxStatut);
+		frmCrationDunBien.getContentPane().add(comboboxStatut);
 		
 		JYearChooser yearChooser = new JYearChooser();
 		yearChooser.setBounds(115, 357, 53, 19);
-		frame.getContentPane().add(yearChooser);
+		frmCrationDunBien.getContentPane().add(yearChooser);
 		yearChooser.setMaximum(2021);
 		
 		JLabel lblNewLabel_4_1_2 = new JLabel("Valeur");
 		lblNewLabel_4_1_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_2.setBounds(115, 446, 100, 20);
-		frame.getContentPane().add(lblNewLabel_4_1_2);
+		frmCrationDunBien.getContentPane().add(lblNewLabel_4_1_2);
 		// Impossible de mettre un point pour faire un double
 		txtValeur = new JTextField();
 		txtValeur.addKeyListener(new KeyAdapter() {
@@ -318,12 +323,12 @@ Database.Connect();
 		txtValeur.setForeground(Color.LIGHT_GRAY);
 		txtValeur.setColumns(10);
 		txtValeur.setBounds(115, 477, 105, 20);
-		frame.getContentPane().add(txtValeur);
+		frmCrationDunBien.getContentPane().add(txtValeur);
 		
 		JLabel lblNewLabel_4_1_2_1 = new JLabel("Surface");
 		lblNewLabel_4_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4_1_2_1.setBounds(225, 446, 100, 20);
-		frame.getContentPane().add(lblNewLabel_4_1_2_1);
+		frmCrationDunBien.getContentPane().add(lblNewLabel_4_1_2_1);
 		
 		txtSurface = new JTextField();
 		txtSurface.addKeyListener(new KeyAdapter() {
@@ -356,12 +361,12 @@ Database.Connect();
 		txtSurface.setForeground(Color.LIGHT_GRAY);
 		txtSurface.setColumns(10);
 		txtSurface.setBounds(225, 477, 100, 20);
-		frame.getContentPane().add(txtSurface);
+		frmCrationDunBien.getContentPane().add(txtSurface);
 		
 		JLabel lblPropritaire = new JLabel("Propriétaire");
 		lblPropritaire.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPropritaire.setBounds(115, 508, 100, 14);
-		frame.getContentPane().add(lblPropritaire);
+		frmCrationDunBien.getContentPane().add(lblPropritaire);
 		
 		ProprietaireDAO proprietaireDAO= new ProprietaireDAO();
 		ArrayList<Proprietaire>proprietaires=proprietaireDAO.getAll();
@@ -371,13 +376,13 @@ Database.Connect();
 			comboboxProprietaire.addItem(p);
 		}
 		comboboxProprietaire.setBounds(115, 533, 296, 22);
-		frame.getContentPane().add(comboboxProprietaire);
+		frmCrationDunBien.getContentPane().add(comboboxProprietaire);
 		
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmCrationDunBien.dispose();
 				new Vue_BiensList(agent).getFrame().setVisible(true);
 				
 			}
@@ -386,13 +391,17 @@ Database.Connect();
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_CreationBien.class.getResource("/img/back.png")));
-		btnRetour.setBounds(6, 6, 48, 67);
-		frame.getContentPane().add(btnRetour);
+		btnRetour.setBounds(11, 11, 48, 67);
+		frmCrationDunBien.getContentPane().add(btnRetour);
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmCrationDunBien.getContentPane().add(lblBG);
+		
+		JLabel label = new JLabel("New label");
+		label.setBounds(328, 23, 55, 16);
+		frmCrationDunBien.getContentPane().add(label);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -476,10 +485,10 @@ Database.Connect();
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau bien a bien été enregistré.\n"
 							+ "Souhaitez vous lui attribuer des photos tout de suite?");
 					if (input == 0) {
-						frame.dispose();
+						frmCrationDunBien.dispose();
 						new Vue_BienModif(bien,agent).getFrame().setVisible(true);
 					} else {
-						frame.dispose();
+						frmCrationDunBien.dispose();
 						new Vue_BiensList(agent).getFrame().setVisible(true);
 					}
 				}

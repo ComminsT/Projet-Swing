@@ -47,7 +47,7 @@ public class Vue_CreationCompta2 {
 			public void run() {
 				try {
 					Vue_CreationCompta2 window = new Vue_CreationCompta2();
-					window.frame.setVisible(true);
+					window.frmAjoutDuneNouvelle.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,7 +55,7 @@ public class Vue_CreationCompta2 {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmAjoutDuneNouvelle;
 	private JSeparator separator;
 	private Agent agent;
 	private Comptabilite compta;
@@ -76,22 +76,23 @@ public class Vue_CreationCompta2 {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAjoutDuneNouvelle;
 	}
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAjoutDuneNouvelle = frame;
 	}
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
 Database.Connect();
-		frame = new JFrame();
-		frame.setBounds(100, 100, 534, 503);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmAjoutDuneNouvelle = new JFrame();
+		frmAjoutDuneNouvelle.setTitle("Ajout d'une nouvelle facture");
+		frmAjoutDuneNouvelle.setBounds(100, 100, 534, 503);
+		frmAjoutDuneNouvelle.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frmAjoutDuneNouvelle.getContentPane().setLayout(null);
+		frmAjoutDuneNouvelle.setResizable(false);
+		frmAjoutDuneNouvelle.setLocationRelativeTo(null);
 
 		JLabel btnSuivant = new JLabel("Suivant");
 		
@@ -101,17 +102,17 @@ Database.Connect();
 		btnSuivant.setIcon(new ImageIcon(Vue_CreationCompta2.class.getResource("/img/next.png")));
 
 		btnSuivant.setBounds(469, 11, 48, 68);
-		frame.getContentPane().add(btnSuivant);
+		frmAjoutDuneNouvelle.getContentPane().add(btnSuivant);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmAjoutDuneNouvelle.getWidth(), 2);
+		frmAjoutDuneNouvelle.getContentPane().add(separator);
 		
-		JLabel lblNewLabel = new JLabel("Nouvelle facture");
+		JLabel lblNewLabel = new JLabel("Ajout d'une nouvelle facture");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(218, 30, 92, 16);
-		frame.getContentPane().add(lblNewLabel);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel);
 		Date date=new Date();
 		
 		JLabel btnRetour = new JLabel("Retour");
@@ -119,7 +120,7 @@ Database.Connect();
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				frame.dispose();
+				frmAjoutDuneNouvelle.dispose();
 				new Vue_CreationCompta(agent).getFrame().setVisible(true);
 			
 			}
@@ -129,15 +130,15 @@ Database.Connect();
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_CreationCompta2.class.getResource("/img/back.png")));
 		btnRetour.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		frmAjoutDuneNouvelle.getContentPane().add(btnRetour);
 		
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez le contrat correspondant :");
 		lblNewLabel_1.setBounds(10, 91, 236, 27);
-		frame.getContentPane().add(lblNewLabel_1);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel_1);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(11, 131, 505, 330);
-		frame.getContentPane().add(scrollPane);
+		frmAjoutDuneNouvelle.getContentPane().add(scrollPane);
 		
 		ContratlDAO contratlDAO = new ContratlDAO();
 		ArrayList<Contratl> contrats = contratlDAO.getAllByIdAgentNOTFINISHED(agent.getId());
@@ -181,7 +182,7 @@ Database.Connect();
 						historique.setId_agent(agent.getId());
 						historique.setAction("Creation facture id : "+compta.getId());
 						historiqueDAO.save(historique);
-					frame.dispose();
+					frmAjoutDuneNouvelle.dispose();
 					new Vue_ComptaList(agent).getFrame().setVisible(true);	
 				}
 				
@@ -194,7 +195,7 @@ Database.Connect();
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmAjoutDuneNouvelle.getContentPane().add(lblBG);
 
 	}
 }

@@ -33,7 +33,7 @@ import java.awt.event.MouseEvent;
 
 public class Vue_ContratFin {
 
-	private JFrame frame;
+	private JFrame frmFinDeContrat;
 	private Agent agent;
 	private Contratl contrat;
 
@@ -45,7 +45,7 @@ public class Vue_ContratFin {
 			public void run() {
 				try {
 					Vue_ContratFin window = new Vue_ContratFin();
-					window.frame.setVisible(true);
+					window.frmFinDeContrat.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,24 +69,25 @@ public class Vue_ContratFin {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 534, 411);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmFinDeContrat = new JFrame();
+		frmFinDeContrat.setTitle("Fin de contrat");
+		frmFinDeContrat.setBounds(100, 100, 534, 411);
+		frmFinDeContrat.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmFinDeContrat.getContentPane().setLayout(null);
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(0, 91, 535, 2);
-		frame.getContentPane().add(separator);
+		frmFinDeContrat.getContentPane().add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Fin de contrat");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(220, 30, 77, 16);
-		frame.getContentPane().add(lblNewLabel);
+		frmFinDeContrat.getContentPane().add(lblNewLabel);
 		
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(105, 125, 275, 225);
-		frame.getContentPane().add(calendar);
+		frmFinDeContrat.getContentPane().add(calendar);
 		String date=contrat.getDate();
 		try {
 			Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(date);
@@ -101,13 +102,13 @@ public class Vue_ContratFin {
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez la date de fin du contrat");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(104, 101, 276, 14);
-		frame.getContentPane().add(lblNewLabel_1);
+		frmFinDeContrat.getContentPane().add(lblNewLabel_1);
 		
 		JLabel btnNewButton = new JLabel("Retour");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmFinDeContrat.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 			}
 		});
@@ -116,7 +117,7 @@ public class Vue_ContratFin {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ContratFin.class.getResource("/img/back.png")));
 		btnNewButton.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnNewButton);
+		frmFinDeContrat.getContentPane().add(btnNewButton);
 		
 		JLabel btnValider = new JLabel("Valider");
 		btnValider.addMouseListener(new MouseAdapter() {
@@ -141,7 +142,7 @@ public class Vue_ContratFin {
 				historique.setAction("Fin de contrat ID : "+contrat.getId());
 				historiqueDAO.save(historique);	
 				
-				frame.dispose();
+				frmFinDeContrat.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 			
 			}
@@ -151,20 +152,20 @@ public class Vue_ContratFin {
 		btnValider.setIcon(new ImageIcon(Vue_ContratFin.class.getResource("/img/valider.png")));
 		btnValider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnValider.setBounds(458, 11, 48, 68);
-		frame.getContentPane().add(btnValider);
+		frmFinDeContrat.getContentPane().add(btnValider);
 		
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-300, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmFinDeContrat.getContentPane().add(lblBG);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmFinDeContrat;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmFinDeContrat = frame;
 	}
 }

@@ -47,7 +47,7 @@ public class Vue_ProprietaireDetails {
 			public void run() {
 				try {
 					Vue_ProprietaireDetails window = new Vue_ProprietaireDetails();
-					window.frame.setVisible(true);
+					window.frmDtailsDuPropritaire.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -55,7 +55,7 @@ public class Vue_ProprietaireDetails {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmDtailsDuPropritaire;
 	private JSeparator separator;
 	private JLabel txtAdresseMail;
 	private JLabel txtNom;
@@ -94,42 +94,43 @@ public class Vue_ProprietaireDetails {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmDtailsDuPropritaire = new JFrame();
+		frmDtailsDuPropritaire.setTitle("Détails du propriétaire");
+		frmDtailsDuPropritaire.setBounds(100, 100, 981, 630);
+		frmDtailsDuPropritaire.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frmDtailsDuPropritaire.getContentPane().setLayout(null);
+		frmDtailsDuPropritaire.setResizable(false);
+		frmDtailsDuPropritaire.setLocationRelativeTo(null);
 
 		JLabel btnNewButton = new JLabel("Imprimer");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				printRecord(frame);
+				printRecord(frmDtailsDuPropritaire);
 			}
 		});
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ProprietaireDetails.class.getResource("/img/print.png")));
 
-		btnNewButton.setBounds(911, 11, 52, 68);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 52, 68);
+		frmDtailsDuPropritaire.getContentPane().add(btnNewButton);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmDtailsDuPropritaire.getWidth(), 2);
+		frmDtailsDuPropritaire.getContentPane().add(separator);
 
-		JLabel lblNewLabel_2 = new JLabel("Détails propriétaire");
+		JLabel lblNewLabel_2 = new JLabel("Détails du propriétaire");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(427, 30, 121, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(424, 30, 126, 16);
+		frmDtailsDuPropritaire.getContentPane().add(lblNewLabel_2);
 
 		JLabel btnAnnuler = new JLabel("Retour");
 		btnAnnuler.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmDtailsDuPropritaire.dispose();
 				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
 			}
 		});
@@ -138,13 +139,13 @@ public class Vue_ProprietaireDetails {
 		btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnAnnuler.setIcon(new ImageIcon(Vue_ProprietaireDetails.class.getResource("/img/back.png")));
 		btnAnnuler.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnAnnuler);
+		frmDtailsDuPropritaire.getContentPane().add(btnAnnuler);
 		String[] birth = proprietaire.getNaissance().split("-");
 		
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(0, 82, 270, 264);
-		frame.getContentPane().add(panel);
+		frmDtailsDuPropritaire.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel btnInformations = new JLabel("Informations personnelles");
@@ -167,7 +168,7 @@ public class Vue_ProprietaireDetails {
 
 		layeredPane = new JLayeredPane();
 		layeredPane.setBounds(282, 90, 660, 488);
-		frame.getContentPane().add(layeredPane);
+		frmDtailsDuPropritaire.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 
 		JPanel panelInfos = new JPanel();
@@ -302,11 +303,11 @@ public class Vue_ProprietaireDetails {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1014, 601);
-		frame.getContentPane().add(lblBG);
+		frmDtailsDuPropritaire.getContentPane().add(lblBG);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(269, 82, 1, 519);
-		frame.getContentPane().add(separator_1);
+		frmDtailsDuPropritaire.getContentPane().add(separator_1);
 		btnInformations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -377,10 +378,10 @@ public class Vue_ProprietaireDetails {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmDtailsDuPropritaire;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmDtailsDuPropritaire = frame;
 	}
 }

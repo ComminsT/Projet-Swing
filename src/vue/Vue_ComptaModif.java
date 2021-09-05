@@ -41,7 +41,7 @@ import java.awt.event.MouseEvent;
 
 public class Vue_ComptaModif {
 
-	private JFrame frame;
+	private JFrame frmModificationDeLa;
 	private Agent agent;
 	private DefaultTableModel model;
 	private Comptabilite compta;
@@ -59,7 +59,7 @@ public class Vue_ComptaModif {
 			public void run() {
 				try {
 					Vue_ComptaModif window = new Vue_ComptaModif();
-					window.frame.setVisible(true);
+					window.frmModificationDeLa.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -85,11 +85,12 @@ public class Vue_ComptaModif {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmModificationDeLa = new JFrame();
+		frmModificationDeLa.setTitle("Modification de la facture");
+		frmModificationDeLa.setBounds(100, 100, 981, 630);
+		frmModificationDeLa.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmModificationDeLa.setLocationRelativeTo(null);
+		frmModificationDeLa.getContentPane().setLayout(null);
 
 		ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
 		ArrayList<Comptabilite> comptabilites = comptabiliteDAO.getAllByIdAgentNOTPAID(agent.getId());
@@ -114,10 +115,14 @@ public class Vue_ComptaModif {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmModificationDeLa.dispose();
 				new Vue_ComptaList(agent).getFrame().setVisible(true);
 			}
 		});
+		
+		JLabel lblNewLabel_3 = new JLabel("Modification de la facture");
+		lblNewLabel_3.setBounds(411, 30, 143, 16);
+		frmModificationDeLa.getContentPane().add(lblNewLabel_3);
 		btnRetour.setIcon(new ImageIcon(Vue_ComptaModif.class.getResource("/img/back.png")));
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -126,37 +131,37 @@ public class Vue_ComptaModif {
 		btnRetour.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(10, 11, 50, 69);
-		frame.getContentPane().add(btnRetour);
+		frmModificationDeLa.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 
 		JLabel lblNewLabel = new JLabel("Type de facture :");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setBounds(26, 132, 121, 25);
-		frame.getContentPane().add(lblNewLabel);
+		frmModificationDeLa.getContentPane().add(lblNewLabel);
 
 		JLabel lblDateD = new JLabel("Date due :");
 		lblDateD.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDateD.setBounds(92, 277, 104, 25);
-		frame.getContentPane().add(lblDateD);
+		frmModificationDeLa.getContentPane().add(lblDateD);
 
 		JLabel lblMontantD = new JLabel("Montant dû :");
 		lblMontantD.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMontantD.setBounds(0, 154, 104, 25);
-		frame.getContentPane().add(lblMontantD);
+		frmModificationDeLa.getContentPane().add(lblMontantD);
 
 		JLabel lblMontantPay = new JLabel("Montant payé :");
 		lblMontantPay.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblMontantPay.setBounds(12, 177, 104, 25);
-		frame.getContentPane().add(lblMontantPay);
+		frmModificationDeLa.getContentPane().add(lblMontantPay);
 
 		JLabel lblDatePay = new JLabel("Date payée :");
 		lblDatePay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatePay.setBounds(490, 277, 73, 25);
-		frame.getContentPane().add(lblDatePay);
+		frmModificationDeLa.getContentPane().add(lblDatePay);
 
 		txtType = new JTextField();
 		txtType.setBounds(174, 134, 157, 20);
-		frame.getContentPane().add(txtType);
+		frmModificationDeLa.getContentPane().add(txtType);
 		txtType.setColumns(10);
 
 		txtEuros = new JTextField();
@@ -171,7 +176,7 @@ public class Vue_ComptaModif {
 		});
 		txtEuros.setColumns(10);
 		txtEuros.setBounds(121, 156, 157, 20);
-		frame.getContentPane().add(txtEuros);
+		frmModificationDeLa.getContentPane().add(txtEuros);
 
 		txtEurop = new JTextField();
 		txtEurop.addKeyListener(new KeyAdapter() {
@@ -186,7 +191,7 @@ public class Vue_ComptaModif {
 		});
 		txtEurop.setColumns(10);
 		txtEurop.setBounds(121, 179, 157, 20);
-		frame.getContentPane().add(txtEurop);
+		frmModificationDeLa.getContentPane().add(txtEurop);
 		JCalendar calendar = new JCalendar();
 		try {
 			Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(compta.getDatedue());
@@ -200,11 +205,11 @@ public class Vue_ComptaModif {
 		
 
 		calendar.setBounds(10, 313, 302, 198);
-		frame.getContentPane().add(calendar);
+		frmModificationDeLa.getContentPane().add(calendar);
 
 		JCalendar calendar_1 = new JCalendar();
 		calendar_1.setBounds(368, 313, 302, 198);
-		frame.getContentPane().add(calendar_1);
+		frmModificationDeLa.getContentPane().add(calendar_1);
 
 		JLabel btnConfirmer = new JLabel("Confirmer");
 		btnConfirmer.addMouseListener(new MouseAdapter() {
@@ -250,7 +255,7 @@ public class Vue_ComptaModif {
 					historique.setId_agent(agent.getId());
 					historique.setAction("Modification de la facture : "+compta);
 					historiqueDAO.save(historique);	
-					frame.dispose();
+					frmModificationDeLa.dispose();
 					new Vue_ComptaList(agent).getFrame().setVisible(true);
 				}
 
@@ -265,8 +270,8 @@ public class Vue_ComptaModif {
 		btnConfirmer.setHorizontalAlignment(SwingConstants.CENTER);
 		btnConfirmer.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnConfirmer.setBackground(Color.LIGHT_GRAY);
-		btnConfirmer.setBounds(890, 11, 65, 69);
-		frame.getContentPane().add(btnConfirmer);
+		btnConfirmer.setBounds(895, 11, 65, 69);
+		frmModificationDeLa.getContentPane().add(btnConfirmer);
 
 		txtCents = new JTextField();
 		txtCents.addKeyListener(new KeyAdapter() {
@@ -281,7 +286,7 @@ public class Vue_ComptaModif {
 		});
 		txtCents.setColumns(10);
 		txtCents.setBounds(289, 156, 157, 20);
-		frame.getContentPane().add(txtCents);
+		frmModificationDeLa.getContentPane().add(txtCents);
 
 		txtCentsp = new JTextField();
 		txtCentsp.addKeyListener(new KeyAdapter() {
@@ -295,33 +300,33 @@ public class Vue_ComptaModif {
 		});
 		txtCentsp.setColumns(10);
 		txtCentsp.setBounds(290, 179, 157, 20);
-		frame.getContentPane().add(txtCentsp);
+		frmModificationDeLa.getContentPane().add(txtCentsp);
 
 		JLabel lblNewLabel_1 = new JLabel(".");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(281, 157, 3, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		frmModificationDeLa.getContentPane().add(lblNewLabel_1);
 
 		JLabel lblNewLabel_1_1 = new JLabel(".");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1_1.setBounds(282, 179, 3, 16);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		frmModificationDeLa.getContentPane().add(lblNewLabel_1_1);
 
 		JLabel lblNewLabel_2 = new JLabel("€");
 		lblNewLabel_2.setBounds(452, 158, 38, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		frmModificationDeLa.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("€");
 		lblNewLabel_2_1.setBounds(453, 181, 32, 16);
-		frame.getContentPane().add(lblNewLabel_2_1);
+		frmModificationDeLa.getContentPane().add(lblNewLabel_2_1);
 
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 118, 965, 2);
-		frame.getContentPane().add(separator);
+		frmModificationDeLa.getContentPane().add(separator);
 
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(0, 280, 965, 2);
-		frame.getContentPane().add(separator_1);
+		frmModificationDeLa.getContentPane().add(separator_1);
 
 		txtType.setText(compta.getCategorie());
 
@@ -334,7 +339,7 @@ public class Vue_ComptaModif {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmModificationDeLa.getContentPane().add(lblBG);
 
 		if (compta.getMontantpaye() != null) {
 			Double montantpaye = compta.getMontantpaye();
@@ -346,10 +351,10 @@ public class Vue_ComptaModif {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmModificationDeLa;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmModificationDeLa = frame;
 	}
 }

@@ -32,7 +32,7 @@ import java.awt.event.MouseEvent;
 
 public class Vue_ContratList {
 
-	private JFrame frame;
+	private JFrame frmListeDesContrats;
 	private Agent agent;
 	private DefaultTableModel model;
 	private JTable tableContratEnCours;
@@ -46,7 +46,7 @@ public class Vue_ContratList {
 			public void run() {
 				try {
 					Vue_ContratList window = new Vue_ContratList();
-					window.frame.setVisible(true);
+					window.frmListeDesContrats.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -71,11 +71,12 @@ public class Vue_ContratList {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmListeDesContrats = new JFrame();
+		frmListeDesContrats.setTitle("Liste des contrats");
+		frmListeDesContrats.setBounds(100, 100, 981, 630);
+		frmListeDesContrats.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmListeDesContrats.setLocationRelativeTo(null);
+		frmListeDesContrats.getContentPane().setLayout(null);
 
 		ContratlDAO contratlDAO = new ContratlDAO();
 
@@ -100,7 +101,7 @@ public class Vue_ContratList {
 		btnNewContract.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesContrats.dispose();
 				new Vue_CreationContrat(agent).getFrame().setVisible(true);
 
 			}
@@ -119,11 +120,11 @@ public class Vue_ContratList {
 		btnDetails.setBorder(null);
 		btnDetails.setBackground(Color.LIGHT_GRAY);
 		btnDetails.setBounds(293, 17, 50, 70);
-		frame.getContentPane().add(btnDetails);
+		frmListeDesContrats.getContentPane().add(btnDetails);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 130, 945, 450);
-		frame.getContentPane().add(tabbedPane);
+		frmListeDesContrats.getContentPane().add(tabbedPane);
 
 		JScrollPane scrollPane = new JScrollPane();
 		tabbedPane.addTab("Contrat en cours", null, scrollPane, null);
@@ -159,14 +160,14 @@ public class Vue_ContratList {
 		btnNewContract.setBorder(null);
 		btnNewContract.setBackground(Color.LIGHT_GRAY);
 		btnNewContract.setBounds(72, 17, 108, 70);
-		frame.getContentPane().add(btnNewContract);
+		frmListeDesContrats.getContentPane().add(btnNewContract);
 		btnNewContract.setOpaque(false);
 
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesContrats.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 
 			}
@@ -179,7 +180,7 @@ public class Vue_ContratList {
 		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(10, 17, 50, 70);
-		frame.getContentPane().add(btnRetour);
+		frmListeDesContrats.getContentPane().add(btnRetour);
 		btnRetour.setOpaque(false);
 
 		JLabel btnFin = new JLabel("Fin de contrat");
@@ -192,7 +193,7 @@ public class Vue_ContratList {
 						int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 						ContratlDAO contratDAO = new ContratlDAO();
 						Contratl contrat = contratDAO.getById(selectedId);
-						frame.dispose();
+						frmListeDesContrats.dispose();
 						new Vue_ContratFin(contrat, agent).getFrame().setVisible(true);
 				}else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -215,13 +216,13 @@ public class Vue_ContratList {
 		btnFin.setBorder(null);
 		btnFin.setBackground(Color.LIGHT_GRAY);
 		btnFin.setBounds(192, 17, 89, 70);
-		frame.getContentPane().add(btnFin);
+		frmListeDesContrats.getContentPane().add(btnFin);
 		btnFin.setOpaque(false);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-16, -19, 1023, 636);
-		frame.getContentPane().add(lblNewLabel);
+		frmListeDesContrats.getContentPane().add(lblNewLabel);
 
 		btnDetails.addMouseListener(new MouseAdapter() {
 			@Override
@@ -255,10 +256,10 @@ public class Vue_ContratList {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmListeDesContrats;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmListeDesContrats = frame;
 	}
 }

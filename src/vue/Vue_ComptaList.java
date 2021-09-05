@@ -79,7 +79,6 @@ public class Vue_ComptaList {
 	private void initialize() {
 
 		frmListeDesFactures = new JFrame();
-		frmListeDesFactures.setIconImage(Toolkit.getDefaultToolkit().getImage(Vue_ComptaList.class.getResource("/img/compta.png")));
 		frmListeDesFactures.setTitle("Liste des factures");
 		frmListeDesFactures.setBounds(100, 100, 981, 630);
 		frmListeDesFactures.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

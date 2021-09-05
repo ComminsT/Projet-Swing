@@ -29,7 +29,7 @@ import javax.swing.JPanel;
 
 public class Vue_ProprietairesList {
 
-	private JFrame frame;
+	private JFrame frmListeDesPropritaires;
 	private JTable tableProprietaire;
 	private Agent agent;
 	private JTextField txtSearch;
@@ -44,7 +44,7 @@ public class Vue_ProprietairesList {
 			public void run() {
 				try {
 					Vue_ProprietairesList window = new Vue_ProprietairesList();
-					window.frame.setVisible(true);
+					window.frmListeDesPropritaires.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -69,21 +69,22 @@ public class Vue_ProprietairesList {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmListeDesPropritaires = new JFrame();
+		frmListeDesPropritaires.setTitle("Liste des propriétaires");
+		frmListeDesPropritaires.setBounds(100, 100, 981, 630);
+		frmListeDesPropritaires.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmListeDesPropritaires.setLocationRelativeTo(null);
+		frmListeDesPropritaires.getContentPane().setLayout(null);
 
 		txtSearch = new JTextField();
 
 		txtSearch.setBounds(654, 75, 301, 20);
-		frame.getContentPane().add(txtSearch);
+		frmListeDesPropritaires.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 106, 945, 474);
-		frame.getContentPane().add(scrollPane);
+		frmListeDesPropritaires.getContentPane().add(scrollPane);
 
 		ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 
@@ -107,14 +108,14 @@ public class Vue_ProprietairesList {
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(34, 28, 441, 68);
-		frame.getContentPane().add(panel);
+		frmListeDesPropritaires.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel btnNewLandlord = new JLabel("Nouveau propriétaire");
 		btnNewLandlord.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesPropritaires.dispose();
 				new Vue_CreationProprietaire(agent).getFrame().setVisible(true);
 			}
 		});
@@ -135,7 +136,7 @@ public class Vue_ProprietairesList {
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesPropritaires.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
@@ -201,7 +202,7 @@ public class Vue_ProprietairesList {
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearch.setBounds(632, 75, 20, 20);
-		frame.getContentPane().add(btnSearch);
+		frmListeDesPropritaires.getContentPane().add(btnSearch);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -214,7 +215,7 @@ public class Vue_ProprietairesList {
 		lblNewLabel.setBorder(null);
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
-		frame.getContentPane().add(lblNewLabel);
+		frmListeDesPropritaires.getContentPane().add(lblNewLabel);
 		btnModifier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -223,7 +224,7 @@ public class Vue_ProprietairesList {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
-					frame.dispose();
+					frmListeDesPropritaires.dispose();
 					new Vue_ProprietaireModif(proprietaire, agent).getFrame().setVisible(true);
 
 				} else {
@@ -240,7 +241,7 @@ public class Vue_ProprietairesList {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
-					frame.dispose();
+					frmListeDesPropritaires.dispose();
 					new Vue_ProprietaireDetails(proprietaire, agent).getFrame().setVisible(true);
 
 				} else {
@@ -252,10 +253,10 @@ public class Vue_ProprietairesList {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmListeDesPropritaires;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmListeDesPropritaires = frame;
 	}
 }

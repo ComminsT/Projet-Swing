@@ -39,7 +39,7 @@ import java.awt.event.MouseEvent;
 
 public class Vue_CreationVisite {
 
-	private JFrame frame;
+	private JFrame frmAjoutDuneNouvelle;
 	private Agent agent;
 	private JTextField txtNom;
 	private JTable table_biens;
@@ -55,7 +55,7 @@ public class Vue_CreationVisite {
 			public void run() {
 				try {
 					Vue_CreationVisite window = new Vue_CreationVisite();
-					window.frame.setVisible(true);
+					window.frmAjoutDuneNouvelle.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -79,52 +79,53 @@ public class Vue_CreationVisite {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 436, 617);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		frmAjoutDuneNouvelle = new JFrame();
+		frmAjoutDuneNouvelle.setTitle("Ajout d'une nouvelle visite");
+		frmAjoutDuneNouvelle.setBounds(100, 100, 436, 617);
+		frmAjoutDuneNouvelle.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAjoutDuneNouvelle.getContentPane().setLayout(null);
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
 		separator.setBounds(0, 88, 420, 2);
-		frame.getContentPane().add(separator);
-		frame.setLocationRelativeTo(null);
+		frmAjoutDuneNouvelle.getContentPane().add(separator);
+		frmAjoutDuneNouvelle.setLocationRelativeTo(null);
 
-		JLabel lblNewLabel = new JLabel("Création d'une nouvelle visite");
+		JLabel lblNewLabel = new JLabel("Ajout d'une nouvelle visite");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(127, 30, 165, 16);
-		frame.getContentPane().add(lblNewLabel);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel);
 
 		Date date = new Date();
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(29, 126, 309, 159);
-		frame.getContentPane().add(calendar);
+		frmAjoutDuneNouvelle.getContentPane().add(calendar);
 		calendar.setMinSelectableDate(date);
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez la date de la visite");
 		lblNewLabel_1.setBounds(29, 101, 196, 15);
-		frame.getContentPane().add(lblNewLabel_1);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel_1);
 
 		JLabel lblNewLabel_1_1 = new JLabel("Insérez le nom du visiteur :");
 		lblNewLabel_1_1.setBounds(29, 345, 177, 14);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel_1_1);
 
 		txtNom = new JTextField();
 		txtNom.setBounds(29, 359, 309, 20);
-		frame.getContentPane().add(txtNom);
+		frmAjoutDuneNouvelle.getContentPane().add(txtNom);
 		txtNom.setColumns(10);
 
 		JLabel lblNewLabel_2 = new JLabel("Sélectionnez l'heure de la visite");
 		lblNewLabel_2.setBounds(29, 296, 309, 14);
-		frame.getContentPane().add(lblNewLabel_2);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel_2);
 
 		JComboBox comboboxHeure = new JComboBox();
 		comboboxHeure.setModel(new DefaultComboBoxModel(
 				new String[] { "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19" }));
 		comboboxHeure.setBounds(29, 314, 51, 20);
-		frame.getContentPane().add(comboboxHeure);
+		frmAjoutDuneNouvelle.getContentPane().add(comboboxHeure);
 
 		JLabel lblNewLabel_3 = new JLabel("Heure");
 		lblNewLabel_3.setBounds(90, 314, 91, 21);
-		frame.getContentPane().add(lblNewLabel_3);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel_3);
 
 		JComboBox comboboxMinute = new JComboBox();
 		comboboxMinute.setModel(new DefaultComboBoxModel(
@@ -133,19 +134,19 @@ public class Vue_CreationVisite {
 						"31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46",
 						"47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59" }));
 		comboboxMinute.setBounds(191, 314, 51, 20);
-		frame.getContentPane().add(comboboxMinute);
+		frmAjoutDuneNouvelle.getContentPane().add(comboboxMinute);
 
 		JLabel lblNewLabel_3_1 = new JLabel("Minutes");
 		lblNewLabel_3_1.setBounds(252, 315, 86, 21);
-		frame.getContentPane().add(lblNewLabel_3_1);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel_3_1);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Sélectionnez le bien visité");
 		lblNewLabel_2_1.setBounds(10, 406, 215, 14);
-		frame.getContentPane().add(lblNewLabel_2_1);
+		frmAjoutDuneNouvelle.getContentPane().add(lblNewLabel_2_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 450, 400, 116);
-		frame.getContentPane().add(scrollPane);
+		frmAjoutDuneNouvelle.getContentPane().add(scrollPane);
 
 		BienDAO bienDAO = new BienDAO();
 		ArrayList<Bien> biens = bienDAO.getAllByIdAgent(agent.getId());
@@ -172,9 +173,14 @@ public class Vue_CreationVisite {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationVisite.class.getResource("/img/valider.png")));
 		btnNewButton.setBounds(351, 11, 57, 68);
-		frame.getContentPane().add(btnNewButton);
+		frmAjoutDuneNouvelle.getContentPane().add(btnNewButton);
 
-		JButton btnSearch = new JButton("Recherche");
+		JButton btnSearch = new JButton("");
+		btnSearch.setBorder(null);
+		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnSearch.setOpaque(false);
+		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setIcon(new ImageIcon(Vue_CreationVisite.class.getResource("/img/search20.png")));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String keyword = txtSearch.getText();
@@ -194,8 +200,8 @@ public class Vue_CreationVisite {
 
 			}
 		});
-		btnSearch.setBounds(10, 428, 107, 20);
-		frame.getContentPane().add(btnSearch);
+		btnSearch.setBounds(108, 430, 20, 20);
+		frmAjoutDuneNouvelle.getContentPane().add(btnSearch);
 
 		txtSearch = new JTextField();
 		txtSearch.addActionListener(new ActionListener() {
@@ -206,13 +212,13 @@ public class Vue_CreationVisite {
 		});
 		txtSearch.setColumns(10);
 		txtSearch.setBounds(129, 430, 281, 20);
-		frame.getContentPane().add(txtSearch);
+		frmAjoutDuneNouvelle.getContentPane().add(txtSearch);
 
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmAjoutDuneNouvelle.dispose();
 				new Vue_VisitesList(agent).getFrame().setVisible(true);
 			
 			}
@@ -222,7 +228,7 @@ public class Vue_CreationVisite {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_CreationVisite.class.getResource("/img/back.png")));
 		btnRetour.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		frmAjoutDuneNouvelle.getContentPane().add(btnRetour);
 		
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -260,7 +266,7 @@ public class Vue_CreationVisite {
 						historique.setAction("Ajout visite id : "+visite.getId());
 						historiqueDAO.save(historique);	
 
-					frame.dispose();
+					frmAjoutDuneNouvelle.dispose();
 					new Vue_VisitesList(agent).getFrame().setVisible(true);
 
 				}
@@ -271,15 +277,15 @@ public class Vue_CreationVisite {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmAjoutDuneNouvelle.getContentPane().add(lblBG);
 
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAjoutDuneNouvelle;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAjoutDuneNouvelle = frame;
 	}
 }

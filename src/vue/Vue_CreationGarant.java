@@ -1,23 +1,26 @@
 package vue;
 
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import dao.GarantDAO;
@@ -25,10 +28,6 @@ import entite.Agent;
 import entite.Checker;
 import entite.Database;
 import entite.Garant;
-import javax.swing.ImageIcon;
-import javax.swing.SwingConstants;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class Vue_CreationGarant {
 
@@ -41,7 +40,7 @@ public class Vue_CreationGarant {
 			public void run() {
 				try {
 					Vue_CreationGarant window = new Vue_CreationGarant();
-					window.frame.setVisible(true);
+					window.frmAjoutDunNouveau.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -49,7 +48,7 @@ public class Vue_CreationGarant {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmAjoutDunNouveau;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
 	private JTextField txtDomaine;
@@ -80,26 +79,28 @@ public class Vue_CreationGarant {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 436, 595);
-		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmAjoutDunNouveau = new JFrame();
+		frmAjoutDunNouveau.setTitle("Ajout d'un nouveau garant");
+		frmAjoutDunNouveau.setBounds(100, 100, 436, 595);
+		frmAjoutDunNouveau.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frmAjoutDunNouveau.getContentPane().setLayout(null);
+		frmAjoutDunNouveau.setResizable(false);
+		frmAjoutDunNouveau.setLocationRelativeTo(null);
 
 		JLabel btnNewButton = new JLabel("Confirmer");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationGarant.class.getResource("/img/valider.png")));
 
 		btnNewButton.setBounds(361, 11, 57, 68);
-		frame.getContentPane().add(btnNewButton);
+		frmAjoutDunNouveau.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(10, 95, 46, 14);
-		frame.getContentPane().add(lblNewLabel);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel);
 
 		txtPrenom = new JTextField();
 		txtPrenom.addFocusListener(new FocusAdapter() {
@@ -122,7 +123,7 @@ public class Vue_CreationGarant {
 		txtPrenom.setForeground(Color.LIGHT_GRAY);
 		txtPrenom.setText("Prénom");
 		txtPrenom.setBounds(10, 120, 134, 20);
-		frame.getContentPane().add(txtPrenom);
+		frmAjoutDunNouveau.getContentPane().add(txtPrenom);
 		txtPrenom.setColumns(10);
 
 		txtNom = new JTextField();
@@ -147,17 +148,17 @@ public class Vue_CreationGarant {
 		txtNom.setText("Nom");
 		txtNom.setColumns(10);
 		txtNom.setBounds(172, 120, 134, 20);
-		frame.getContentPane().add(txtNom);
+		frmAjoutDunNouveau.getContentPane().add(txtNom);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmAjoutDunNouveau.getWidth(), 2);
+		frmAjoutDunNouveau.getContentPane().add(separator);
 
 		JLabel lblMail = new JLabel("Mail");
 		lblMail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMail.setBounds(10, 151, 46, 14);
-		frame.getContentPane().add(lblMail);
+		frmAjoutDunNouveau.getContentPane().add(lblMail);
 
 		txtAdresseMail = new JTextField();
 		txtAdresseMail.addFocusListener(new FocusAdapter() {
@@ -182,12 +183,12 @@ public class Vue_CreationGarant {
 		txtAdresseMail.setForeground(Color.LIGHT_GRAY);
 		txtAdresseMail.setColumns(10);
 		txtAdresseMail.setBounds(10, 176, 134, 20);
-		frame.getContentPane().add(txtAdresseMail);
+		frmAjoutDunNouveau.getContentPane().add(txtAdresseMail);
 
 		JLabel lblNewLabel_1_1 = new JLabel("@");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1_1.setBounds(150, 176, 13, 17);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel_1_1);
 
 		txtDomaine = new JTextField();
 		txtDomaine.addFocusListener(new FocusAdapter() {
@@ -213,18 +214,18 @@ public class Vue_CreationGarant {
 		txtDomaine.setForeground(Color.LIGHT_GRAY);
 		txtDomaine.setColumns(10);
 		txtDomaine.setBounds(172, 176, 134, 20);
-		frame.getContentPane().add(txtDomaine);
+		frmAjoutDunNouveau.getContentPane().add(txtDomaine);
 
 		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistrée");
 		lblMailError.setForeground(Color.RED);
 		lblMailError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblMailError.setBounds(10, 194, 252, 13);
-		frame.getContentPane().add(lblMailError);
+		frmAjoutDunNouveau.getContentPane().add(lblMailError);
 
 		lblPays = new JLabel("Pays");
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPays.setBounds(10, 218, 32, 17);
-		frame.getContentPane().add(lblPays);
+		frmAjoutDunNouveau.getContentPane().add(lblPays);
 
 		JComboBox<String> comboboxPays = new JComboBox<>();
 		comboboxPays.setModel(new DefaultComboBoxModel<>(new String[] { "Allemagne", "Autriche", "Belgique", "Bulgarie",
@@ -232,7 +233,7 @@ public class Vue_CreationGarant {
 				"Irlande", "Italie", "Lettonie", "Lituanie", "Luxembourg", "Malte", "Pays-Bas", "Pologne", "Portugal",
 				"Roumanie", "Slovaquie", "Slovénie", "Suède", "Tchéquie" }));
 		comboboxPays.setBounds(10, 245, 153, 22);
-		frame.getContentPane().add(comboboxPays);
+		frmAjoutDunNouveau.getContentPane().add(comboboxPays);
 
 		txtAdresse = new JTextField();
 		txtAdresse.addFocusListener(new FocusAdapter() {
@@ -257,17 +258,17 @@ public class Vue_CreationGarant {
 		txtAdresse.setForeground(Color.LIGHT_GRAY);
 		txtAdresse.setColumns(10);
 		txtAdresse.setBounds(10, 306, 296, 20);
-		frame.getContentPane().add(txtAdresse);
+		frmAjoutDunNouveau.getContentPane().add(txtAdresse);
 
 		JLabel lblVille = new JLabel("Adresse");
 		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille.setBounds(10, 278, 55, 17);
-		frame.getContentPane().add(lblVille);
+		frmAjoutDunNouveau.getContentPane().add(lblVille);
 
 		JLabel lblVille_2 = new JLabel("Ville");
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2.setBounds(10, 337, 29, 17);
-		frame.getContentPane().add(lblVille_2);
+		frmAjoutDunNouveau.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
 		txtVille.addFocusListener(new FocusAdapter() {
@@ -292,7 +293,7 @@ public class Vue_CreationGarant {
 		txtVille.setForeground(Color.LIGHT_GRAY);
 		txtVille.setColumns(10);
 		txtVille.setBounds(10, 365, 181, 20);
-		frame.getContentPane().add(txtVille);
+		frmAjoutDunNouveau.getContentPane().add(txtVille);
 
 		txtCodePostale = new JTextField();
 		txtCodePostale.addKeyListener(new KeyAdapter() {
@@ -325,7 +326,7 @@ public class Vue_CreationGarant {
 		txtCodePostale.setForeground(Color.LIGHT_GRAY);
 		txtCodePostale.setColumns(10);
 		txtCodePostale.setBounds(201, 365, 105, 20);
-		frame.getContentPane().add(txtCodePostale);
+		frmAjoutDunNouveau.getContentPane().add(txtCodePostale);
 
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
 		comboboxidentifiant.setModel(new DefaultComboBoxModel<>(new String[] { "AT +43", "BE +32", "BG +359", "CY +357",
@@ -333,7 +334,7 @@ public class Vue_CreationGarant {
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
 				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44" }));
 		comboboxidentifiant.setBounds(10, 421, 118, 27);
-		frame.getContentPane().add(comboboxidentifiant);
+		frmAjoutDunNouveau.getContentPane().add(comboboxidentifiant);
 
 		txtNumero = new JTextField();
 		txtNumero.addFocusListener(new FocusAdapter() {
@@ -368,17 +369,17 @@ public class Vue_CreationGarant {
 		txtNumero.setForeground(Color.LIGHT_GRAY);
 		txtNumero.setColumns(10);
 		txtNumero.setBounds(140, 422, 139, 22);
-		frame.getContentPane().add(txtNumero);
+		frmAjoutDunNouveau.getContentPane().add(txtNumero);
 
 		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(10, 396, 192, 14);
-		frame.getContentPane().add(lblNewLabel_4);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_2 = new JLabel("Ajout de nouveau garant");
+		JLabel lblNewLabel_2 = new JLabel("Ajout d'un nouveau garant");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_2.setBounds(146, 30, 137, 16);
-		frame.getContentPane().add(lblNewLabel_2);
+		lblNewLabel_2.setBounds(141, 30, 147, 16);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel_2);
 
 		lblMailError.setVisible(false);
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -434,8 +435,10 @@ public class Vue_CreationGarant {
 					garant.setVille(ville);
 					garant.setPays(pays);
 					garantDAO.saveWithoutBien(garant);
+					ArrayList<Garant>garants = garantDAO.getAll();
+					garant=garants.get(garants.size()-1);
 					JOptionPane.showMessageDialog(null, "Le nouveau garant a bien été enregistré.\n");
-					frame.dispose();
+					frmAjoutDunNouveau.dispose();
 					Vue_ContratConfirmation.addToList(garant.toString(),garant);
 					
 				}
@@ -446,15 +449,15 @@ public class Vue_CreationGarant {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmAjoutDunNouveau.getContentPane().add(lblBG);
 
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAjoutDunNouveau;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAjoutDunNouveau = frame;
 	}
 }

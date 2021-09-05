@@ -47,7 +47,7 @@ public class Vue_CreationProprietaire {
 			public void run() {
 				try {
 					Vue_CreationProprietaire window = new Vue_CreationProprietaire();
-					window.frame.setVisible(true);
+					window.frmAjoutDunNouveau.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -56,14 +56,14 @@ public class Vue_CreationProprietaire {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAjoutDunNouveau;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAjoutDunNouveau = frame;
 	}
 
-	private JFrame frame;
+	private JFrame frmAjoutDunNouveau;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
 	private JTextField txtDomaine;
@@ -97,12 +97,13 @@ public class Vue_CreationProprietaire {
 	 */
 	private void initialize() {
 		
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 620);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmAjoutDunNouveau = new JFrame();
+		frmAjoutDunNouveau.setTitle("Ajout d'un nouveau proprietaire");
+		frmAjoutDunNouveau.setBounds(100, 100, 981, 620);
+		frmAjoutDunNouveau.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frmAjoutDunNouveau.getContentPane().setLayout(null);
+		frmAjoutDunNouveau.setResizable(false);
+		frmAjoutDunNouveau.setLocationRelativeTo(null);
 
 		JLabel btnNewButton = new JLabel("Confirmer");
 		
@@ -112,13 +113,13 @@ public class Vue_CreationProprietaire {
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationProprietaire.class.getResource("/img/valider.png")));
 		btnNewButton.setOpaque(false);
 
-		btnNewButton.setBounds(906, 11, 57, 68);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 57, 68);
+		frmAjoutDunNouveau.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel.setBounds(115, 96, 46, 14);
-		frame.getContentPane().add(lblNewLabel);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel);
 
 		txtPrenom = new JTextField();
 		txtPrenom.addFocusListener(new FocusAdapter() {
@@ -141,7 +142,7 @@ public class Vue_CreationProprietaire {
 		txtPrenom.setForeground(Color.LIGHT_GRAY);
 		txtPrenom.setText("Prénom");
 		txtPrenom.setBounds(115, 121, 134, 20);
-		frame.getContentPane().add(txtPrenom);
+		frmAjoutDunNouveau.getContentPane().add(txtPrenom);
 		txtPrenom.setColumns(10);
 
 		txtNom = new JTextField();
@@ -166,17 +167,17 @@ public class Vue_CreationProprietaire {
 		txtNom.setText("Nom");
 		txtNom.setColumns(10);
 		txtNom.setBounds(277, 121, 134, 20);
-		frame.getContentPane().add(txtNom);
+		frmAjoutDunNouveau.getContentPane().add(txtNom);
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmAjoutDunNouveau.getWidth(), 2);
+		frmAjoutDunNouveau.getContentPane().add(separator);
 
 		JLabel lblMail = new JLabel("Mail");
 		lblMail.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblMail.setBounds(115, 153, 46, 14);
-		frame.getContentPane().add(lblMail);
+		frmAjoutDunNouveau.getContentPane().add(lblMail);
 
 		txtAdresseMail = new JTextField();
 		txtAdresseMail.addFocusListener(new FocusAdapter() {
@@ -201,12 +202,12 @@ public class Vue_CreationProprietaire {
 		txtAdresseMail.setForeground(Color.LIGHT_GRAY);
 		txtAdresseMail.setColumns(10);
 		txtAdresseMail.setBounds(115, 178, 134, 20);
-		frame.getContentPane().add(txtAdresseMail);
+		frmAjoutDunNouveau.getContentPane().add(txtAdresseMail);
 
 		JLabel lblNewLabel_1_1 = new JLabel("@");
 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_1_1.setBounds(255, 178, 13, 17);
-		frame.getContentPane().add(lblNewLabel_1_1);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel_1_1);
 
 		txtDomaine = new JTextField();
 		txtDomaine.addFocusListener(new FocusAdapter() {
@@ -232,25 +233,25 @@ public class Vue_CreationProprietaire {
 		txtDomaine.setForeground(Color.LIGHT_GRAY);
 		txtDomaine.setColumns(10);
 		txtDomaine.setBounds(277, 178, 134, 20);
-		frame.getContentPane().add(txtDomaine);
+		frmAjoutDunNouveau.getContentPane().add(txtDomaine);
 
 		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistrée");
 		lblMailError.setForeground(Color.RED);
 		lblMailError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblMailError.setBounds(115, 196, 252, 13);
-		frame.getContentPane().add(lblMailError);
+		frmAjoutDunNouveau.getContentPane().add(lblMailError);
 
 		lblPays = new JLabel("Pays");
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPays.setBounds(115, 221, 32, 17);
-		frame.getContentPane().add(lblPays);	
+		frmAjoutDunNouveau.getContentPane().add(lblPays);	
 		JComboBox<String> comboboxPays = new JComboBox<>();
 		comboboxPays.setModel(new DefaultComboBoxModel<>(new String[] { "Allemagne", "Autriche", "Belgique", "Bulgarie",
 				"Chypre", "Croatie", "Danemark", "Espagne", "Estonie", "Finlande", "France", "Grèce", "Hongrie",
 				"Irlande", "Italie", "Lettonie", "Lituanie", "Luxembourg", "Malte", "Pays-Bas", "Pologne", "Portugal",
 				"Roumanie", "Slovaquie", "Slovénie", "Suède", "Tchéquie" }));
 		comboboxPays.setBounds(115, 248, 153, 22);
-		frame.getContentPane().add(comboboxPays);
+		frmAjoutDunNouveau.getContentPane().add(comboboxPays);
 
 		txtAdresse = new JTextField();
 		txtAdresse.addFocusListener(new FocusAdapter() {
@@ -275,17 +276,17 @@ public class Vue_CreationProprietaire {
 		txtAdresse.setForeground(Color.LIGHT_GRAY);
 		txtAdresse.setColumns(10);
 		txtAdresse.setBounds(115, 310, 296, 20);
-		frame.getContentPane().add(txtAdresse);
+		frmAjoutDunNouveau.getContentPane().add(txtAdresse);
 
 		JLabel lblVille = new JLabel("Adresse");
 		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille.setBounds(115, 282, 55, 17);
-		frame.getContentPane().add(lblVille);
+		frmAjoutDunNouveau.getContentPane().add(lblVille);
 
 		JLabel lblVille_2 = new JLabel("Ville");
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2.setBounds(115, 337, 29, 17);
-		frame.getContentPane().add(lblVille_2);
+		frmAjoutDunNouveau.getContentPane().add(lblVille_2);
 
 		txtVille = new JTextField();
 		txtVille.addFocusListener(new FocusAdapter() {
@@ -310,7 +311,7 @@ public class Vue_CreationProprietaire {
 		txtVille.setForeground(Color.LIGHT_GRAY);
 		txtVille.setColumns(10);
 		txtVille.setBounds(115, 365, 181, 20);
-		frame.getContentPane().add(txtVille);
+		frmAjoutDunNouveau.getContentPane().add(txtVille);
 
 		txtCodePostale = new JTextField();
 		txtCodePostale.addKeyListener(new KeyAdapter() {
@@ -343,12 +344,12 @@ public class Vue_CreationProprietaire {
 		txtCodePostale.setForeground(Color.LIGHT_GRAY);
 		txtCodePostale.setColumns(10);
 		txtCodePostale.setBounds(306, 365, 105, 20);
-		frame.getContentPane().add(txtCodePostale);
+		frmAjoutDunNouveau.getContentPane().add(txtCodePostale);
 
 		lblVille_1 = new JLabel("Date de naissance");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_1.setBounds(465, 108, 125, 17);
-		frame.getContentPane().add(lblVille_1);
+		frmAjoutDunNouveau.getContentPane().add(lblVille_1);
 
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
 		comboboxidentifiant.setModel(new DefaultComboBoxModel<>(new String[] { "AT +43", "BE +32", "BG +359", "CY +357",
@@ -356,7 +357,7 @@ public class Vue_CreationProprietaire {
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
 				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44" }));
 		comboboxidentifiant.setBounds(115, 421, 73, 22);
-		frame.getContentPane().add(comboboxidentifiant);
+		frmAjoutDunNouveau.getContentPane().add(comboboxidentifiant);
 
 		txtNumero = new JTextField();
 		txtNumero.addFocusListener(new FocusAdapter() {
@@ -391,29 +392,29 @@ public class Vue_CreationProprietaire {
 		txtNumero.setForeground(Color.LIGHT_GRAY);
 		txtNumero.setColumns(10);
 		txtNumero.setBounds(191, 421, 147, 22);
-		frame.getContentPane().add(txtNumero);
+		frmAjoutDunNouveau.getContentPane().add(txtNumero);
 
 		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(115, 397, 192, 14);
-		frame.getContentPane().add(lblNewLabel_4);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel_4);
 
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(467, 132, 296, 167);
-		frame.getContentPane().add(calendar);
+		frmAjoutDunNouveau.getContentPane().add(calendar);
 
 		JLabel lblPhoneError = new JLabel("Numéro de téléphone déjà enregistré ou invalide");
 		lblPhoneError.setForeground(Color.RED);
 		lblPhoneError.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		lblPhoneError.setBounds(115, 444, 221, 16);
-		frame.getContentPane().add(lblPhoneError);
+		frmAjoutDunNouveau.getContentPane().add(lblPhoneError);
 		
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmAjoutDunNouveau.dispose();
 				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
 			
 			}
@@ -423,12 +424,12 @@ public class Vue_CreationProprietaire {
 		btnRetour.setIcon(new ImageIcon(Vue_CreationProprietaire.class.getResource("/img/back.png")));
 		btnRetour.setOpaque(false);
 		btnRetour.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		frmAjoutDunNouveau.getContentPane().add(btnRetour);
 		
-		JLabel lblNewLabel_1 = new JLabel("Création nouveau proprietaire");
+		JLabel lblNewLabel_1 = new JLabel("Ajout d'un nouveau proprietaire");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(403, 30, 169, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(399, 30, 177, 16);
+		frmAjoutDunNouveau.getContentPane().add(lblNewLabel_1);
 		lblPhoneError.setVisible(false);
 		
 
@@ -509,10 +510,11 @@ public class Vue_CreationProprietaire {
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau propriétaire a bien été enregistré."
 							+ "Souhaitez vous ajouter des biens immobilier immédiatement ?");
 					if (input == 0) {
+						frmAjoutDunNouveau.dispose();
 						new Vue_CreationBien(agent).getFrame().setVisible(true);
 					} else {
-						System.out.println("Retour vueListeProprietaire");
-						// fenêtre VueListeProprietaire
+						frmAjoutDunNouveau.dispose();
+						new Vue_ProprietairesList(agent).getFrame().setVisible(true);
 					}
 
 				}
@@ -524,7 +526,7 @@ public class Vue_CreationProprietaire {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmAjoutDunNouveau.getContentPane().add(lblBG);
 
 	}
 }

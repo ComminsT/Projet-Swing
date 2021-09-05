@@ -45,7 +45,7 @@ public class Vue_AgentModif {
 			public void run() {
 				try {
 					Vue_AgentModif window = new Vue_AgentModif();
-					window.frame.setVisible(true);
+					window.frmModificationDesInformations.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -53,7 +53,7 @@ public class Vue_AgentModif {
 		});
 	}
 
-	private JFrame frame;
+	private JFrame frmModificationDesInformations;
 	private JSeparator separator;
 	private JTextField txtAdresseMail;
 	private JTextField txtDomaine;
@@ -89,12 +89,13 @@ public class Vue_AgentModif {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 620);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frmModificationDesInformations = new JFrame();
+		frmModificationDesInformations.setTitle("Modification des informations de l'agent immobilier");
+		frmModificationDesInformations.setBounds(100, 100, 981, 620);
+		frmModificationDesInformations.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frmModificationDesInformations.getContentPane().setLayout(null);
+		frmModificationDesInformations.setResizable(false);
+		frmModificationDesInformations.setLocationRelativeTo(null);
 		String className = Vue_Login.getLookAndFeelClassName("Metal");
 		try {
 			UIManager.setLookAndFeel(className);
@@ -119,13 +120,13 @@ public class Vue_AgentModif {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationAgent.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(913, 11, 57, 68);
-		frame.getContentPane().add(btnNewButton);
+		btnNewButton.setBounds(895, 11, 57, 68);
+		frmModificationDesInformations.getContentPane().add(btnNewButton);
 
 		panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(47, 96, 296, 471);
-		frame.getContentPane().add(panel);
+		frmModificationDesInformations.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -427,24 +428,24 @@ public class Vue_AgentModif {
 
 		separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 82, frame.getWidth(), 2);
-		frame.getContentPane().add(separator);
+		separator.setBounds(0, 82, frmModificationDesInformations.getWidth(), 2);
+		frmModificationDesInformations.getContentPane().add(separator);
 
 		lblVille_1 = new JLabel("Date d'entrée dans l'agence");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_1.setBounds(376, 96, 222, 17);
-		frame.getContentPane().add(lblVille_1);
+		frmModificationDesInformations.getContentPane().add(lblVille_1);
 
 		JCalendar calendar = new JCalendar();
 		calendar.setBounds(365, 124, 296, 159);
-		frame.getContentPane().add(calendar);
+		frmModificationDesInformations.getContentPane().add(calendar);
 
 		JLabel lblRetour = new JLabel("Retour");
 		lblRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmModificationDesInformations.dispose();
 				new Vue_AccueilAdmin().getFrame().setVisible(true);
 			}
 		});
@@ -452,12 +453,12 @@ public class Vue_AgentModif {
 		lblRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		lblRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		lblRetour.setBounds(11, 11, 48, 68);
-		frame.getContentPane().add(lblRetour);
+		frmModificationDesInformations.getContentPane().add(lblRetour);
 
-		JLabel lblNewLabel_1 = new JLabel("Modification agent immobilier");
+		JLabel lblNewLabel_1 = new JLabel("Modification des informations de l'agent immobilier");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(404, 30, 167, 16);
-		frame.getContentPane().add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(343, 30, 289, 16);
+		frmModificationDesInformations.getContentPane().add(lblNewLabel_1);
 
 		String[] date = agent.getDateentree().split("-");
 		int annee = Integer.parseInt(date[0]);
@@ -474,7 +475,7 @@ public class Vue_AgentModif {
 				Database.Connect();
 				lblMailError.setVisible(false);
 				lblPhoneError.setVisible(false);
-				String statut = comboBox.getSelectedItem()+"";
+				String statut = comboBox.getSelectedItem() + "";
 				String nom = txtNom.getText();
 				String prenom = txtPrenom.getText();
 				String adresse = txtAdresse.getText();
@@ -512,15 +513,15 @@ public class Vue_AgentModif {
 				} else if (txtNumero.getText().equals("Numero")) {
 					txtNumero.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				} else if (!Checker.mailcheckera(mail,agent.getId())) {
+				} else if (!Checker.mailcheckera(mail, agent.getId())) {
 					lblMailError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
-				} else if (!Checker.phonecheckera(tel)) {
+				} else if (!Checker.phonemodifiera(tel,agent.getId())) {
 					lblPhoneError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Numéro de téléphone déjà enregistré ou invalide");
 				} else {
+
 					AgentDAO agentDAO = new AgentDAO();
-					Agent agent = new Agent();
 					agent.setAdresse(adresse);
 					agent.setCp(cp);
 					agent.setMail(mail);
@@ -530,8 +531,8 @@ public class Vue_AgentModif {
 					agent.setTel(tel);
 					agent.setVille(ville);
 					agentDAO.save(agent);
-					frame.dispose();
-					new Vue_AccueilAdmin().getFrame().setVisible(true	);
+					frmModificationDesInformations.dispose();
+					new Vue_AccueilAdmin().getFrame().setVisible(true);
 
 				}
 
@@ -541,14 +542,14 @@ public class Vue_AgentModif {
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
+		frmModificationDesInformations.getContentPane().add(lblBG);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmModificationDesInformations;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmModificationDesInformations = frame;
 	}
 }

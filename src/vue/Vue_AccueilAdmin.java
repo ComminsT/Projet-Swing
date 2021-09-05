@@ -31,7 +31,7 @@ import entite.Database;
 
 public class Vue_AccueilAdmin {
 
-	private JFrame frame;
+	private JFrame frmAcceuilAdministrateur;
 	private JTable tableAgent;
 	private JTextField txtSearch;
 	private DefaultTableModel model;
@@ -46,7 +46,7 @@ public class Vue_AccueilAdmin {
 			public void run() {
 				try {
 					Vue_AccueilAdmin window = new Vue_AccueilAdmin();
-					window.frame.setVisible(true);
+					window.frmAcceuilAdministrateur.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -89,21 +89,22 @@ public class Vue_AccueilAdmin {
 		String dateTimeSQL=annees+"-"+moisnbr+"-"+jour+" "+heure+":"+minute+":"+seconde;
 		System.out.println(dateTimeSQL);
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmAcceuilAdministrateur = new JFrame();
+		frmAcceuilAdministrateur.setTitle("Acceuil administrateur");
+		frmAcceuilAdministrateur.setBounds(100, 100, 981, 630);
+		frmAcceuilAdministrateur.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAcceuilAdministrateur.setLocationRelativeTo(null);
+		frmAcceuilAdministrateur.getContentPane().setLayout(null);
 
 		txtSearch = new JTextField();
 
 		txtSearch.setBounds(601, 75, 354, 20);
-		frame.getContentPane().add(txtSearch);
+		frmAcceuilAdministrateur.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 106, 945, 474);
-		frame.getContentPane().add(scrollPane);
+		frmAcceuilAdministrateur.getContentPane().add(scrollPane);
 
 		AgentDAO agentDAO = new AgentDAO();
 		ArrayList<Agent> agents = agentDAO.getAll();
@@ -128,17 +129,17 @@ public class Vue_AccueilAdmin {
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(10, 24, 550, 71);
-		frame.getContentPane().add(panel);
+		frmAcceuilAdministrateur.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel btnNewTenant = new JLabel("Nouvel agent");
-		btnNewTenant.setBounds(124, 2, 74, 68);
+		btnNewTenant.setBounds(196, 2, 73, 68);
 		panel.add(btnNewTenant);
 		btnNewTenant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
-				frame.dispose();
+				frmAcceuilAdministrateur.dispose();
 				new Vue_CreationAgent().getFrame().setVisible(true);
 
 			}
@@ -152,13 +153,13 @@ public class Vue_AccueilAdmin {
 		btnNewTenant.setBackground(Color.LIGHT_GRAY);
 		btnNewTenant.setOpaque(false);
 
-		JLabel btnRetour = new JLabel("Retour");
-		btnRetour.setBounds(10, 0, 50, 70);
+		JLabel btnRetour = new JLabel("Déconnexion");
+		btnRetour.setBounds(61, 2, 74, 68);
 		panel.add(btnRetour);
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmAcceuilAdministrateur.dispose();
 				new Vue_Login().getFrame().setVisible(true);
 			}
 		});
@@ -172,7 +173,7 @@ public class Vue_AccueilAdmin {
 		btnRetour.setOpaque(false);
 
 		JLabel btnModifier = new JLabel("Modifier");
-		btnModifier.setBounds(284, 2, 65, 66);
+		btnModifier.setBounds(330, 2, 48, 68);
 		panel.add(btnModifier);
 
 		btnModifier.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/modify.png")));
@@ -185,7 +186,7 @@ public class Vue_AccueilAdmin {
 		btnModifier.setOpaque(false);
 
 		JLabel btnDetails = new JLabel("Détails");
-		btnDetails.setBounds(435, 2, 65, 66);
+		btnDetails.setBounds(439, 2, 48, 68);
 		panel.add(btnDetails);
 
 		btnDetails.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/details.png")));
@@ -205,7 +206,7 @@ public class Vue_AccueilAdmin {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					AgentDAO agentDAO = new AgentDAO();
 					Agent agent = agentDAO.getById(selectedId);
-					frame.dispose();
+					frmAcceuilAdministrateur.dispose();
 					new Vue_AgentDetails(agent).getFrame().setVisible(true);
 
 				} else {
@@ -223,7 +224,7 @@ public class Vue_AccueilAdmin {
 					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 					AgentDAO agentDAO = new AgentDAO();
 					Agent agent = agentDAO.getById(selectedId);
-					frame.dispose();
+					frmAcceuilAdministrateur.dispose();
 					new Vue_AgentModif(agent).getFrame().setVisible(true);
 
 				} else {
@@ -260,7 +261,7 @@ public class Vue_AccueilAdmin {
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnSearch.setBounds(570, 75, 21, 21);
-		frame.getContentPane().add(btnSearch);
+		frmAcceuilAdministrateur.getContentPane().add(btnSearch);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -272,14 +273,14 @@ public class Vue_AccueilAdmin {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
-		frame.getContentPane().add(lblNewLabel);
+		frmAcceuilAdministrateur.getContentPane().add(lblNewLabel);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmAcceuilAdministrateur;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmAcceuilAdministrateur = frame;
 	}
 }

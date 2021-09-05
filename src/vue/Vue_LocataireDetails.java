@@ -185,7 +185,6 @@ public class Vue_LocataireDetails {
 		
 
 		layeredPane = new JLayeredPane();
-		layeredPane.setOpaque(true);
 		layeredPane.setBounds(236, 96, 709, 480);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
@@ -196,10 +195,16 @@ public class Vue_LocataireDetails {
 		layeredPane.add(panelInfos, "name_429148076291500");
 		panelInfos.setLayout(null);
 		
+		JPanel panel_3 = new JPanel();
+		panel_3.setBounds(10, 11, 357, 476);
+		panelInfos.add(panel_3);
+		panel_3.setLayout(null);
+		panel_3.setBackground(new Color(255,255,255,100));
+		
 		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(0, 0, 213, 473);
+		panel_3.add(panel_1);
 		panel_1.setOpaque(false);
-		panel_1.setBounds(10, 11, 213, 473);
-		panelInfos.add(panel_1);
 		panel_1.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
@@ -269,9 +274,9 @@ public class Vue_LocataireDetails {
 																						lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		
 		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(153, 0, 204, 476);
+		panel_3.add(panel_2);
 		panel_2.setOpaque(false);
-		panel_2.setBounds(163, 11, 204, 476);
-		panelInfos.add(panel_2);
 		panel_2.setLayout(null);
 
 		txtPrenom = new JLabel();

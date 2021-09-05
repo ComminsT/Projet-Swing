@@ -174,7 +174,11 @@ public class Vue_ProprietairesList {
 		btnDetails.setBackground(Color.LIGHT_GRAY);
 		btnDetails.setOpaque(false);
 
-		JButton btnSearch = new JButton("Recherche : ");
+		JButton btnSearch = new JButton("");
+		btnSearch.setOpaque(false);
+		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setBorder(null);
+		btnSearch.setIcon(new ImageIcon(Vue_ProprietairesList.class.getResource("/img/search20.png")));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String keyword = txtSearch.getText();
@@ -196,9 +200,8 @@ public class Vue_ProprietairesList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(534, 75, 110, 20);
+		btnSearch.setBounds(632, 75, 20, 20);
 		frame.getContentPane().add(btnSearch);
-		btnSearch.setOpaque(false);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

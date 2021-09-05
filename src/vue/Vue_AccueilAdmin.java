@@ -7,7 +7,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -25,6 +24,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 
 import dao.AgentDAO;
+import dao.ContratlDAO;
 import entite.Agent;
 import entite.Checker;
 import entite.Database;
@@ -66,9 +66,6 @@ public class Vue_AccueilAdmin {
 	 */
 	private void initialize() {
 		Database.Connect();
-		System.out.println(System.getProperty("user.dir"));
-		String chemin = System.getProperty("user.dir");
-		System.out.println(chemin);
 		Date date = new Date();
 		String seconde=String.valueOf(date.getSeconds());
 		String minute = String.valueOf(date.getMinutes());

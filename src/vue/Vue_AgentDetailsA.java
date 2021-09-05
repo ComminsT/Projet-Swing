@@ -53,7 +53,7 @@ import entite.Historique;
 import entite.Locataire;
 import entite.Proprietaire;
 
-public class Vue_AgentDetails {
+public class Vue_AgentDetailsA {
 
 	private JFrame frame;
 	private Agent agent;
@@ -63,7 +63,6 @@ public class Vue_AgentDetails {
 	private JLabel textField_4;
 	private JLabel textField_5;
 	private JLayeredPane layeredPane;
-	private JTable table_Historique;
 	private JTable table_Clients;
 
 	/**
@@ -73,7 +72,7 @@ public class Vue_AgentDetails {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Vue_AgentDetails window = new Vue_AgentDetails();
+					Vue_AgentDetailsA window = new Vue_AgentDetailsA();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -85,11 +84,11 @@ public class Vue_AgentDetails {
 	/**
 	 * Create the application.
 	 */
-	public Vue_AgentDetails() {
+	public Vue_AgentDetailsA() {
 		initialize();
 	}
 
-	public Vue_AgentDetails(Agent agent) {
+	public Vue_AgentDetailsA(Agent agent) {
 		this.agent = agent;
 		initialize();
 	}
@@ -116,7 +115,7 @@ public class Vue_AgentDetails {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
-				new Vue_AccueilAdmin().getFrame().setVisible(true);
+				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
 		btnRetour.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/back.png")));
@@ -248,9 +247,6 @@ public class Vue_AgentDetails {
 		textField_3_1.setBounds(180, 396, 246, 20);
 		panel_infos.add(textField_3_1);
 		textField_3_1.setText(agent.getStatut());
-
-		JScrollPane scrollPane_Historique = new JScrollPane();
-		layeredPane.add(scrollPane_Historique, "name_53670529992000");
 		HistoriqueDAO historiqueDAO = new HistoriqueDAO();
 		ArrayList<Historique> historique = historiqueDAO.getAllByAgentId(agent.getId());
 		String[] columns = { "ID", "Action", "Date" };
@@ -263,9 +259,6 @@ public class Vue_AgentDetails {
 			i++;
 		}
 		DefaultTableModel model = new DefaultTableModel(data, columns);
-
-		table_Historique = new JTable(model);
-		scrollPane_Historique.setViewportView(table_Historique);
 
 		JScrollPane scrollPane_Clients = new JScrollPane();
 		layeredPane.add(scrollPane_Clients, "name_53945579736125");
@@ -334,8 +327,6 @@ public class Vue_AgentDetails {
 		plot.setDomainGridlinesVisible(true);
 		plot.setDomainGridlinePaint(Color.BLACK);
 
-		//chart.getLegend().setFrame(BlockBorder.NONE);
-
 		chart.setTitle(new TextTitle("Nombre de contrats en cours",
 						new Font("Serif", java.awt.Font.BOLD, 18)));
 		JPanel panel_Charts = new JPanel();
@@ -345,30 +336,6 @@ public class Vue_AgentDetails {
 	        panel_Charts. add(chartPanel);
 		
 		
-		
-		
-		
-		
-	
-//	panel_Charts.add(chart);
-//		layeredPane.add(panel_Charts, "name_1319857694185000");
-//		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//		dataset.addValue(120000.0, "Produit 1", "06");
-//		dataset.addValue(550000.0, "Produit 1", "07");
-//		dataset.addValue(180000.0, "Produit 1", "08");
-//		dataset.addValue(270000.0, "Produit 2", "06");
-//		dataset.addValue(600000.0, "Produit 2", "08");
-//		dataset.addValue(230000.0, "Produit 2", "06");
-//		dataset.addValue(90000.0, "Produit 3", "07");
-//		dataset.addValue(450000.0, "Produit 3", "06");
-//		dataset.addValue(170000.0, "Produit 3", "06");
-//		JFreeChart barChart = ChartFactory.createBarChart("Performance trimestriel", "", "Quantité", dataset,
-//				PlotOrientation.VERTICAL, true, true, false);
-//		ChartPanel cPanel = new ChartPanel(barChart,762,450,700,400,700,400,false,true,true,true,false,false);
-//		
-//		panel_Charts.add(cPanel);
-		
-		
 		table_Clients.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				int row = table_Clients.convertRowIndexToModel(table_Clients.getSelectedRow());
@@ -376,11 +343,11 @@ public class Vue_AgentDetails {
 				if(table_Clients.getValueAt(row, 2).equals("Locataire")) {
 					Locataire locataire = locataireDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_LocataireDetails(locataire).getFrame().setVisible(true);
+					new Vue_LocataireDetails(locataire,agent).getFrame().setVisible(true);
 				}else {
 					Proprietaire proprietaire = proprietaireDAO.getById(selectedId);
 					frame.dispose();
-					new Vue_ProprietaireDetails(proprietaire).getFrame().setVisible(true);
+					new Vue_ProprietaireDetails(proprietaire,agent).getFrame().setVisible(true);
 					
 				}
 			}
@@ -396,23 +363,12 @@ public class Vue_AgentDetails {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setOpaque(false);
 
-		btnNewButton.setBounds(12, 55, 116, 40);
+		btnNewButton.setBounds(12, 81, 116, 40);
 		btnNewButton.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/personal.png")));
 		btnNewButton.setBorder(null);
 		btnNewButton.setBorderPainted(false);
 		btnNewButton.setBackground(Color.WHITE);
 		panel.add(btnNewButton);
-
-		JButton btnHistorique = new JButton("Historique");
-		btnHistorique.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnHistorique.setOpaque(false);
-
-		btnHistorique.setBounds(12, 150, 110, 48);
-		btnHistorique.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/historique.png")));
-		btnHistorique.setBorderPainted(false);
-		btnHistorique.setBorder(null);
-		btnHistorique.setBackground(Color.WHITE);
-		panel.add(btnHistorique);
 
 		JButton btnPerformance = new JButton("Performance");
 		btnPerformance.addMouseListener(new MouseAdapter() {
@@ -423,7 +379,7 @@ public class Vue_AgentDetails {
 		});
 		btnPerformance.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnPerformance.setOpaque(false);
-		btnPerformance.setBounds(12, 253, 127, 48);
+		btnPerformance.setBounds(12, 202, 127, 48);
 		btnPerformance.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/performance.png")));
 		btnPerformance.setBorderPainted(false);
 		btnPerformance.setBorder(null);
@@ -438,7 +394,7 @@ public class Vue_AgentDetails {
 		btnClients.setBorderPainted(false);
 		btnClients.setBorder(null);
 		btnClients.setBackground(Color.WHITE);
-		btnClients.setBounds(12, 356, 91, 48);
+		btnClients.setBounds(12, 331, 91, 48);
 		panel.add(btnClients);
 
 		JLabel lblBG = new JLabel("");
@@ -450,12 +406,6 @@ public class Vue_AgentDetails {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				switchPanels(panel_infos);
-			}
-		});
-		btnHistorique.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				switchScrollPane(scrollPane_Historique);
 			}
 		});
 		btnClients.addMouseListener(new MouseAdapter() {
@@ -512,6 +462,7 @@ public class Vue_AgentDetails {
 		layeredPane.add(panel);
 		layeredPane.repaint();
 		layeredPane.revalidate();
+		
 	}
 
 	public void switchScrollPane(JScrollPane panel) {

@@ -79,6 +79,7 @@ public class Vue_CreationContrat {
 		frame.setBounds(100, 100, 436, 595);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setLocationRelativeTo(null);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setBounds(10, 88, 420, 2);
@@ -102,6 +103,7 @@ public class Vue_CreationContrat {
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel btnNext = new JLabel("Suivant");
+		btnNext.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		btnNext.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNext.setIcon(new ImageIcon(Vue_CreationContrat.class.getResource("/img/next.png")));
@@ -112,7 +114,7 @@ public class Vue_CreationContrat {
 
 		JLabel lblNewLabel = new JLabel("Nouveau contrat de location");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(142, 30, 136, 14);
+		lblNewLabel.setBounds(142, 30, 158, 16);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez un locataire ");
@@ -151,7 +153,11 @@ public class Vue_CreationContrat {
 		txtSearch.setBounds(129, 120, 281, 20);
 		frame.getContentPane().add(txtSearch);
 
-		JButton btnSearch = new JButton("Recherche");
+		JButton btnSearch = new JButton("");
+		btnSearch.setBorder(null);
+		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setOpaque(false);
+		btnSearch.setIcon(new ImageIcon(Vue_CreationContrat.class.getResource("/img/search20.png")));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -181,7 +187,7 @@ public class Vue_CreationContrat {
 			}
 		});
 
-		btnSearch.setBounds(10, 119, 109, 23);
+		btnSearch.setBounds(92, 120, 35, 20);
 		frame.getContentPane().add(btnSearch);
 		btnNext.addMouseListener(new MouseAdapter() {
 			@Override

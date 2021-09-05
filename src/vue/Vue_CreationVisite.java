@@ -166,6 +166,7 @@ public class Vue_CreationVisite {
 		scrollPane.setViewportView(table_biens);
 
 		JLabel btnNewButton = new JLabel("Confirmer");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -222,41 +223,7 @@ public class Vue_CreationVisite {
 		btnRetour.setIcon(new ImageIcon(Vue_CreationVisite.class.getResource("/img/back.png")));
 		btnRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnRetour);
-		btnNewButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-
-				Database.Connect();
-				if (txtNom.getText().equals("")) {
-					JOptionPane.showMessageDialog(null, "Veuillez remplir le nom du visiteur");
-				} else if (table_biens.getSelectedRow() == -1) {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir un bien");
-				} else {
-					int row = table_biens.convertRowIndexToModel(table_biens.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					BienDAO bienDAO = new BienDAO();
-					Bien bien = bienDAO.getById(selectedId);
-					String mois = String.valueOf(calendar.getMonthChooser().getMonth() + 1);
-					String jour = String.valueOf(calendar.getDayChooser().getDay());
-					String annee = String.valueOf(calendar.getYearChooser().getYear());
-					String date = annee + "-" + mois + "-" + jour;
-					String heure = comboboxHeure.getSelectedItem() + ":" + comboboxMinute.getSelectedItem();
-					Visite visite = new Visite();
-
-					visite.setDate(date);
-					visite.setHeure(heure);
-					visite.setId_bien(bien.getId());
-					visite.setNom(txtNom.getText());
-					VisiteDAO visiteDAO = new VisiteDAO();
-					visiteDAO.save(visite);
-
-					frame.dispose();
-					new Vue_VisitesList(agent).getFrame().setVisible(true);
-
-				}
-			
-			}
-		});
+		
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

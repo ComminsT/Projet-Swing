@@ -112,7 +112,7 @@ public class Vue_CreationProprietaire {
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationProprietaire.class.getResource("/img/valider.png")));
 		btnNewButton.setOpaque(false);
 
-		btnNewButton.setBounds(913, 11, 57, 68);
+		btnNewButton.setBounds(906, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");

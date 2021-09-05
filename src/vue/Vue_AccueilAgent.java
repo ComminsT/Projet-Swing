@@ -270,6 +270,11 @@ public class Vue_AccueilAgent {
 					public void mouseExited(MouseEvent e) {
 						frame.setCursor(Cursor.DEFAULT_CURSOR);
 					}
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						frame.dispose();
+						new Vue_AgentDetailsA(agent).getFrame().setVisible(true);
+					}
 				});
 		btnEspacePersonnelle.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnEspacePersonnelle.setHorizontalTextPosition(SwingConstants.CENTER);

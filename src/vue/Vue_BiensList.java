@@ -76,7 +76,7 @@ public class Vue_BiensList {
 
 		txtSearch = new JTextField();
 
-		txtSearch.setBounds(769, 75, 186, 20);
+		txtSearch.setBounds(641, 75, 314, 20);
 		frame.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
@@ -157,7 +157,6 @@ public class Vue_BiensList {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
 
-			
 			}
 		});
 		btnModifier.setIcon(new ImageIcon(Vue_BiensList.class.getResource("/img/modify.png")));
@@ -186,7 +185,7 @@ public class Vue_BiensList {
 				} else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
-			
+
 			}
 		});
 		btnDetails.setIcon(new ImageIcon(Vue_BiensList.class.getResource("/img/details.png")));
@@ -200,9 +199,11 @@ public class Vue_BiensList {
 		frame.getContentPane().add(btnDetails);
 		btnDetails.setOpaque(false);
 
-		JButton btnSearch = new JButton("Recherche : ");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel btnSearch = new JLabel("");
+		btnSearch.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+
 				String keyword = txtSearch.getText();
 				DefaultTableModel currtableModel = (DefaultTableModel) tableBiens.getModel();
 				currtableModel.setRowCount(0);
@@ -218,20 +219,32 @@ public class Vue_BiensList {
 				}
 				tableBiens.setModel(currtableModel);
 
-
 			}
 		});
-		
-		
+		btnSearch.setIcon(new ImageIcon(Vue_BiensList.class.getResource("/img/search20.png")));
+
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(665, 75, 94, 20);
+		btnSearch.setBounds(603, 75, 20, 20);
 		frame.getContentPane().add(btnSearch);
 		btnSearch.setOpaque(false);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				btnSearch.doClick();
+				String keyword = txtSearch.getText();
+				DefaultTableModel currtableModel = (DefaultTableModel) tableBiens.getModel();
+				currtableModel.setRowCount(0);
+				for (Object rows : originalTableModel) {
+					Vector rowVector = (Vector) rows;
+					for (Object column : rowVector) {
+						if (column.toString().contains(keyword)) {
+							currtableModel.addRow(rowVector);
+							break;
+						}
+					}
+
+				}
+				tableBiens.setModel(currtableModel);
 
 			}
 		});

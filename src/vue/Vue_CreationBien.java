@@ -94,7 +94,7 @@ public class Vue_CreationBien {
 	private void initialize() {
 Database.Connect();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 534, 693);
+		frame.setBounds(100, 100, 981, 620);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -107,7 +107,7 @@ Database.Connect();
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationBien.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(459, 6, 63, 67);
+		btnNewButton.setBounds(900, 6, 63, 67);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom du bien immobilier");
@@ -388,6 +388,11 @@ Database.Connect();
 		btnRetour.setIcon(new ImageIcon(Vue_CreationBien.class.getResource("/img/back.png")));
 		btnRetour.setBounds(6, 6, 48, 67);
 		frame.getContentPane().add(btnRetour);
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -405,6 +410,7 @@ Database.Connect();
 				int id_proprietaire=comboboxProprietaire.getItemAt(comboboxProprietaire.getSelectedIndex()).getId();
 				int id_agent=agent.getId();
 				String statut = comboboxStatut.getSelectedItem().toString();
+				
 
 				 if (nom.equals("Nom")) {
 					txtNom.setForeground(Color.red);
@@ -446,6 +452,7 @@ Database.Connect();
 				    bienDAO.save(bien);
 				    ArrayList<Bien>biens = bienDAO.getAll();
 				    bien=biens.get(biens.size()-1);
+				    
 				    String c = System.getProperty("user.dir");
 				    String folderName=String.valueOf(bien.getId());
 				    String basePath=c+"\\img_appart";
@@ -457,6 +464,8 @@ Database.Connect();
 				      }else{  
 				         System.out.println("Error Found!");  
 				      }  
+				      
+				      
 				      HistoriqueDAO historiqueDAO = new HistoriqueDAO();
 						Historique historique = new Historique();
 						historique.setDate(Checker.getDateTime());

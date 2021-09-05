@@ -112,7 +112,7 @@ public class Vue_ProprietaireDetails {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ProprietaireDetails.class.getResource("/img/print.png")));
 
-		btnNewButton.setBounds(913, 11, 52, 68);
+		btnNewButton.setBounds(911, 11, 52, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		separator = new JSeparator();
@@ -166,7 +166,7 @@ public class Vue_ProprietaireDetails {
 				panel.add(btnContrats);
 
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(282, 90, 681, 501);
+		layeredPane.setBounds(282, 90, 660, 488);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 

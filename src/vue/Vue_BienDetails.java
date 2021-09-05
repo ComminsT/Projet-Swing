@@ -147,7 +147,7 @@ public class Vue_BienDetails {
 		btnImprimer.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/print.png")));
 		btnImprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		btnImprimer.setBounds(918, 11, 52, 68);
+		btnImprimer.setBounds(911, 11, 52, 68);
 		frmModificationDeBien.getContentPane().add(btnImprimer);
 
 		separator = new JSeparator();
@@ -177,8 +177,7 @@ public class Vue_BienDetails {
 		frmModificationDeBien.getContentPane().add(btnRetour);
 
 		layeredPane = new JLayeredPane();
-		layeredPane.setOpaque(true);
-		layeredPane.setBounds(133, 91, 765, 500);
+		layeredPane.setBounds(133, 91, 765, 487);
 		frmModificationDeBien.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		JPanel panel_photos = new JPanel();
@@ -186,6 +185,7 @@ public class Vue_BienDetails {
 		panel_photos.setLayout(null);
 
 		JLabel btnSuivant = new JLabel("Suivant");
+		btnSuivant.setVisible(false);
 
 		btnSuivant.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSuivant.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -197,6 +197,7 @@ public class Vue_BienDetails {
 		panel_photos.add(btnSuivant);
 
 		JLabel btnPrecedent = new JLabel("Precedent");
+		btnPrecedent.setVisible(false);
 
 		btnPrecedent.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnPrecedent.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -215,134 +216,135 @@ public class Vue_BienDetails {
 		JPanel panel_info = new JPanel();
 		layeredPane.add(panel_info, "name_528310932692899");
 		panel_info.setLayout(null);
+		panel_info.setBackground(new Color(255,255,255,100));
 
 		JLabel txtPays = new JLabel();
 		txtPays.setForeground(Color.BLACK);
-		txtPays.setBounds(133, 42, 296, 20);
+		txtPays.setBounds(128, 48, 296, 20);
 		panel_info.add(txtPays);
 		txtPays.setText(bien.getPays());
 
 		JLabel lblNewLabel = new JLabel("Nom :");
-		lblNewLabel.setBounds(50, 12, 73, 14);
+		lblNewLabel.setBounds(52, 12, 73, 14);
 		panel_info.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtNom = new JLabel();
-		txtNom.setBounds(133, 11, 296, 20);
+		txtNom.setBounds(128, 9, 296, 20);
 		panel_info.add(txtNom);
 		txtNom.setForeground(Color.BLACK);
 		txtNom.setText(bien.getNom());
 
 		lblPays = new JLabel("Pays :");
-		lblPays.setBounds(50, 41, 73, 17);
+		lblPays.setBounds(52, 50, 73, 17);
 		panel_info.add(lblPays);
 		lblPays.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtAdresse = new JLabel();
-		txtAdresse.setBounds(133, 72, 296, 20);
+		txtAdresse.setBounds(127, 89, 296, 20);
 		panel_info.add(txtAdresse);
 		txtAdresse.setText(bien.getAdresse());
 		txtAdresse.setForeground(Color.BLACK);
 
 		JLabel lblVille = new JLabel("Adresse :");
-		lblVille.setBounds(15, 71, 108, 17);
+		lblVille.setBounds(17, 91, 108, 17);
 		panel_info.add(lblVille);
 		lblVille.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblVille_2 = new JLabel("Ville :");
-		lblVille_2.setBounds(50, 99, 73, 17);
+		lblVille_2.setBounds(52, 132, 73, 17);
 		panel_info.add(lblVille_2);
 		lblVille_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtVille = new JLabel();
-		txtVille.setBounds(133, 96, 181, 20);
+		txtVille.setBounds(126, 130, 181, 20);
 		panel_info.add(txtVille);
 		txtVille.setText(bien.getVille());
 		txtVille.setForeground(Color.BLACK);
 
 		txtCodePostale = new JLabel();
-		txtCodePostale.setBounds(133, 125, 105, 20);
+		txtCodePostale.setBounds(129, 173, 105, 20);
 		panel_info.add(txtCodePostale);
 		txtCodePostale.setText(bien.getCp());
 		txtCodePostale.setForeground(Color.BLACK);
 
 		lblVille_1 = new JLabel("Année de construction :");
-		lblVille_1.setBounds(15, 156, 167, 17);
+		lblVille_1.setBounds(17, 214, 167, 17);
 		panel_info.add(lblVille_1);
 		lblVille_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblNewLabel_4_1 = new JLabel("Type :");
-		lblNewLabel_4_1.setBounds(67, 184, 56, 20);
+		lblNewLabel_4_1.setBounds(69, 255, 56, 20);
 		panel_info.add(lblNewLabel_4_1);
 		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel txtType = new JLabel();
-		txtType.setBounds(133, 185, 119, 22);
+		txtType.setBounds(128, 254, 119, 22);
 		panel_info.add(txtType);
 		txtType.setText(bien.getType());
 
 		JLabel lblNewLabel_4_1_1 = new JLabel("Statut :");
-		lblNewLabel_4_1_1.setBounds(67, 214, 56, 20);
+		lblNewLabel_4_1_1.setBounds(69, 299, 56, 20);
 		panel_info.add(lblNewLabel_4_1_1);
 		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblStatut = new JLabel();
-		lblStatut.setBounds(133, 215, 167, 22);
+		lblStatut.setBounds(128, 298, 167, 22);
 		panel_info.add(lblStatut);
 		lblStatut.setText(bien.getStatut());
 
 		JLabel lblNewLabel_4_1_2 = new JLabel("Valeur :");
-		lblNewLabel_4_1_2.setBounds(67, 245, 56, 20);
+		lblNewLabel_4_1_2.setBounds(69, 343, 56, 20);
 		panel_info.add(lblNewLabel_4_1_2);
 		lblNewLabel_4_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_2.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		
 		txtValeur = new JLabel();
-		txtValeur.setBounds(133, 247, 105, 20);
+		txtValeur.setBounds(128, 343, 105, 20);
 		panel_info.add(txtValeur);
 		txtValeur.setText(String.valueOf(bien.getValeur()) + " €");
 		txtValeur.setForeground(Color.BLACK);
 
 		JLabel lblNewLabel_4_1_2_1 = new JLabel("Surface :");
-		lblNewLabel_4_1_2_1.setBounds(50, 276, 73, 20);
+		lblNewLabel_4_1_2_1.setBounds(52, 387, 73, 20);
 		panel_info.add(lblNewLabel_4_1_2_1);
 		lblNewLabel_4_1_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		txtSurface = new JLabel();
-		txtSurface.setBounds(133, 278, 100, 20);
+		txtSurface.setBounds(128, 387, 100, 20);
 		panel_info.add(txtSurface);
 		txtSurface.setText(String.valueOf(bien.getSurface()) + " m²");
 		txtSurface.setForeground(Color.BLACK);
 
 		JLabel lblPropritaire = new JLabel("Propriétaire :");
-		lblPropritaire.setBounds(23, 307, 100, 14);
+		lblPropritaire.setBounds(25, 431, 100, 14);
 		panel_info.add(lblPropritaire);
 		lblPropritaire.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblPropritaire.setFont(new Font("Tahoma", Font.BOLD, 14));
 		JLabel lblProprietaire = new JLabel();
-		lblProprietaire.setBounds(133, 305, 296, 22);
+		lblProprietaire.setBounds(128, 427, 296, 22);
 		panel_info.add(lblProprietaire);
 		ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 		Proprietaire proprietaire = proprietaireDAO.getById(bien.getId_proprietaire());
 		lblProprietaire.setText(proprietaire.toString());
 
 		JLabel lblVille_2_1 = new JLabel("Code Postal :");
-		lblVille_2_1.setBounds(10, 126, 113, 17);
+		lblVille_2_1.setBounds(12, 175, 113, 17);
 		panel_info.add(lblVille_2_1);
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JLabel lblAnnee = new JLabel("");
-		lblAnnee.setBounds(192, 159, 73, 14);
+		lblAnnee.setBounds(188, 215, 73, 14);
 		panel_info.add(lblAnnee);
 		lblAnnee.setText(String.valueOf(bien.getAnnee()));
 
@@ -408,6 +410,8 @@ public class Vue_BienDetails {
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
 		frmModificationDeBien.getContentPane().add(lblBG);
+		
+		
 		String dir = System.getProperty("user.dir");
 		File pathtoimg_appart_file = new File(dir + "\\img_appart\\" + bien.getId());
 		File[] paths = pathtoimg_appart_file.listFiles();
@@ -416,6 +420,8 @@ public class Vue_BienDetails {
 			imgpaths.add(f.getAbsolutePath());
 		}
 		int fileCount = pathtoimg_appart_file.list().length;
+		
+		
 		if (fileCount > 0) {
 			btnPrecedent.setVisible(true);
 			btnSuivant.setVisible(true);

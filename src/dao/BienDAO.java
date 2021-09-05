@@ -341,4 +341,7 @@ public Bien getByIdComptabilite(int id) {
 }
 
 
+
+
+
 }

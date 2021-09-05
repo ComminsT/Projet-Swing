@@ -28,10 +28,11 @@ import entite.Checker;
 import entite.Historique;
 import entite.Visite;
 import javax.swing.JPanel;
+import java.awt.Toolkit;
 
 public class Vue_VisitesList {
 
-	private JFrame frame;
+	private JFrame frmListeDesVisites;
 	private JTextField txtSearch;
 	private JTable table_VisiteEnCours;
 	private Agent agent;
@@ -49,7 +50,7 @@ public class Vue_VisitesList {
 			public void run() {
 				try {
 					Vue_VisitesList window = new Vue_VisitesList();
-					window.frame.setVisible(true);
+					window.frmListeDesVisites.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -73,16 +74,18 @@ public class Vue_VisitesList {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-		frame.setLocationRelativeTo(null);
+		frmListeDesVisites = new JFrame();
+		frmListeDesVisites.setIconImage(Toolkit.getDefaultToolkit().getImage(Vue_VisitesList.class.getResource("/img/calendar.png")));
+		frmListeDesVisites.setTitle("Liste des visites");
+		frmListeDesVisites.setBounds(100, 100, 981, 630);
+		frmListeDesVisites.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmListeDesVisites.getContentPane().setLayout(null);
+		frmListeDesVisites.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setBounds(10, 19, 731, 75);
-		frame.getContentPane().add(panel);
+		frmListeDesVisites.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JButton btnModification = new JButton("Modification");
@@ -107,7 +110,7 @@ public class Vue_VisitesList {
 		btnRetour.setOpaque(false);
 		btnRetour.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmListeDesVisites.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
@@ -125,7 +128,7 @@ public class Vue_VisitesList {
 		btnNouvelleVisite.setOpaque(false);
 		btnNouvelleVisite.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
+				frmListeDesVisites.dispose();
 				new Vue_CreationVisite(agent).getFrame().setVisible(true);
 			}
 		});
@@ -176,7 +179,7 @@ public class Vue_VisitesList {
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 106, 945, 474);
-		frame.getContentPane().add(tabbedPane);
+		frmListeDesVisites.getContentPane().add(tabbedPane);
 
 		JScrollPane scrollPane = new JScrollPane();
 		tabbedPane.addTab("Visites en préparation", null, scrollPane, null);
@@ -184,12 +187,14 @@ public class Vue_VisitesList {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		tabbedPane.addTab("Visites terminées", null, scrollPane_1, null);
 
-		JButton btnSearch = new JButton("Recherche");
+		JButton btnSearch = new JButton("");
+		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setIcon(new ImageIcon(Vue_VisitesList.class.getResource("/img/search20.png")));
 		btnSearch.setOpaque(false);
 		btnSearch.setBorder(null);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(823, 69, 105, 20);
-		frame.getContentPane().add(btnSearch);
+		btnSearch.setBounds(756, 95, 20, 20);
+		frmListeDesVisites.getContentPane().add(btnSearch);
 
 		txtSearch = new JTextField();
 		txtSearch.addActionListener(new ActionListener() {
@@ -199,7 +204,7 @@ public class Vue_VisitesList {
 		});
 		txtSearch.setColumns(10);
 		txtSearch.setBounds(784, 95, 171, 20);
-		frame.getContentPane().add(txtSearch);
+		frmListeDesVisites.getContentPane().add(txtSearch);
 		VisiteDAO visiteDAO = new VisiteDAO();
 		ArrayList<Visite> visites = visiteDAO.getAllByIdAgent(agent.getId());
 		String columns[] = { "ID", "Nom", "Date", "Heure" };
@@ -237,7 +242,7 @@ public class Vue_VisitesList {
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel_2.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblNewLabel_2);
+		frmListeDesVisites.getContentPane().add(lblNewLabel_2);
 
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -280,7 +285,7 @@ public class Vue_VisitesList {
 						int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 						VisiteDAO visiteDAO = new VisiteDAO();
 						Visite visite = visiteDAO.getById(selectedId);
-						frame.dispose();
+						frmListeDesVisites.dispose();
 						new Vue_VisiteModif(visite, agent).getFrame().setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -291,7 +296,7 @@ public class Vue_VisitesList {
 						int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
 						VisiteDAO visiteDAO = new VisiteDAO();
 						Visite visite = visiteDAO.getById(selectedId);
-						frame.dispose();
+						frmListeDesVisites.dispose();
 						new Vue_VisiteModif(visite, agent).getFrame().setVisible(true);
 					} else {
 						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
@@ -308,7 +313,7 @@ public class Vue_VisitesList {
 						int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
 						VisiteDAO visiteDAO = new VisiteDAO();
 						Visite visite = visiteDAO.getById(selectedId);
-						frame.dispose();
+						frmListeDesVisites.dispose();
 						new Vue_VisiteFin(visite, agent).getFrame().setVisible(true);
 
 					} else {
@@ -373,9 +378,9 @@ public class Vue_VisitesList {
 							historique.setAction("Suppression de la visite ID : " + visite.getId());
 							historiqueDAO.save(historique);
 							model.removeRow(row);
-						} else {
+						} 
+						}else {
 							JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
-						}
 
 					}
 
@@ -403,10 +408,10 @@ public class Vue_VisitesList {
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmListeDesVisites;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmListeDesVisites = frame;
 	}
 }

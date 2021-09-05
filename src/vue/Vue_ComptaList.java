@@ -31,10 +31,11 @@ import entite.Locataire;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JEditorPane;
+import java.awt.Toolkit;
 
 public class Vue_ComptaList {
 
-	private JFrame frame;
+	private JFrame frmListeDesFactures;
 	private JTable tableComptabiliteEnCours;
 	private Agent agent;
 	private JTextField txtSearch;
@@ -52,7 +53,7 @@ public class Vue_ComptaList {
 			public void run() {
 				try {
 					Vue_ComptaList window = new Vue_ComptaList();
-					window.frame.setVisible(true);
+					window.frmListeDesFactures.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -77,21 +78,23 @@ public class Vue_ComptaList {
 	 */
 	private void initialize() {
 
-		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setLocationRelativeTo(null);
-		frame.getContentPane().setLayout(null);
+		frmListeDesFactures = new JFrame();
+		frmListeDesFactures.setIconImage(Toolkit.getDefaultToolkit().getImage(Vue_ComptaList.class.getResource("/img/compta.png")));
+		frmListeDesFactures.setTitle("Liste des factures");
+		frmListeDesFactures.setBounds(100, 100, 981, 630);
+		frmListeDesFactures.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmListeDesFactures.setLocationRelativeTo(null);
+		frmListeDesFactures.getContentPane().setLayout(null);
 
 		txtSearch = new JTextField();
 
 		txtSearch.setBounds(654, 75, 301, 20);
-		frame.getContentPane().add(txtSearch);
+		frmListeDesFactures.getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
 
 		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane_1.setBounds(10, 106, 945, 474);
-		frame.getContentPane().add(tabbedPane_1);
+		frmListeDesFactures.getContentPane().add(tabbedPane_1);
 
 		JScrollPane scrollPane = new JScrollPane();
 		tabbedPane_1.addTab("Facture en attente", null, scrollPane, null);
@@ -147,7 +150,7 @@ public class Vue_ComptaList {
 		btnNewTenant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesFactures.dispose();
 				new Vue_CreationCompta(agent).getFrame().setVisible(true);
 			}
 		});
@@ -160,13 +163,13 @@ public class Vue_ComptaList {
 		btnNewTenant.setBorder(null);
 		btnNewTenant.setBackground(Color.LIGHT_GRAY);
 		btnNewTenant.setBounds(107, 24, 105, 70);
-		frame.getContentPane().add(btnNewTenant);
+		frmListeDesFactures.getContentPane().add(btnNewTenant);
 
 		JLabel btnRetour = new JLabel("Retour");
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				frame.dispose();
+				frmListeDesFactures.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
 			}
 		});
@@ -179,29 +182,32 @@ public class Vue_ComptaList {
 		btnRetour.setBorder(null);
 		btnRetour.setBackground(Color.LIGHT_GRAY);
 		btnRetour.setBounds(10, 25, 48, 68);
-		frame.getContentPane().add(btnRetour);
+		frmListeDesFactures.getContentPane().add(btnRetour);
 
 		JLabel btnModifier = new JLabel("Modifier");
 		btnModifier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (tableComptabiliteEnCours.getSelectedRow() != -1) {
-					int row = tableComptabiliteEnCours
-							.convertRowIndexToModel(tableComptabiliteEnCours.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
-					Comptabilite comptabilite = comptabiliteDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_ComptaModif(comptabilite, agent).getFrame().setVisible(true);
-
-				} else if (tableComptabilitePayee.getSelectedRow() != -1) {
-					JOptionPane.showMessageDialog(null,
-							"Cette facture est déjà réglée, vous ne pouvez plus la modifier");
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+				if (scrollPane.isVisible()) {
+					if (tableComptabiliteEnCours.getSelectedRow() != -1) {
+						int row = tableComptabiliteEnCours
+								.convertRowIndexToModel(tableComptabiliteEnCours.getSelectedRow());
+						int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+						ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
+						Comptabilite comptabilite = comptabiliteDAO.getById(selectedId);
+						frmListeDesFactures.dispose();
+						new Vue_ComptaModif(comptabilite, agent).getFrame().setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+					}
+				} else if (scrollPane_1.isVisible()) {
+					if (tableComptabilitePayee.getSelectedRow() != -1) {
+						JOptionPane.showMessageDialog(null,
+								"Cette facture est déjà réglée, vous ne pouvez plus la modifier");
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+					}
 				}
-
-			
 			}
 		});
 		btnModifier.setIcon(new ImageIcon(Vue_ComptaList.class.getResource("/img/modify.png")));
@@ -212,34 +218,41 @@ public class Vue_ComptaList {
 		btnModifier.setBorder(null);
 		btnModifier.setBackground(Color.LIGHT_GRAY);
 		btnModifier.setBounds(224, 24, 54, 70);
-		frame.getContentPane().add(btnModifier);
+		frmListeDesFactures.getContentPane().add(btnModifier);
 		btnModifier.setOpaque(false);
 
 		JLabel btnDetails = new JLabel("Détails");
 		btnDetails.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (scrollPane.isVisible()) {
+					if (tableComptabiliteEnCours.getSelectedRow() != -1) {
+						int row = tableComptabiliteEnCours
+								.convertRowIndexToModel(tableComptabiliteEnCours.getSelectedRow());
+						int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+						ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
+						Comptabilite comptabilite = comptabiliteDAO.getById(selectedId);
+						frmListeDesFactures.dispose();
+						new Vue_ComptaDetails(comptabilite, agent).getFrame().setVisible(true);
 
-				if (tableComptabiliteEnCours.getSelectedRow() != -1) {
-					int row = tableComptabiliteEnCours
-							.convertRowIndexToModel(tableComptabiliteEnCours.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
-					Comptabilite comptabilite = comptabiliteDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_ComptaDetails(comptabilite, agent).getFrame().setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+					}
 
-				} else if (tableComptabilitePayee.getSelectedRow() != -1) {
-					int row = tableComptabilitePayee.convertRowIndexToModel(tableComptabilitePayee.getSelectedRow());
-					int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
-					ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
-					Comptabilite comptabilite = comptabiliteDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_ComptaDetails(comptabilite, agent).getFrame().setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+				} else if (scrollPane_1.isVisible()) {
+					if (tableComptabilitePayee.getSelectedRow() != -1) {
+						int row = tableComptabilitePayee
+								.convertRowIndexToModel(tableComptabilitePayee.getSelectedRow());
+						int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
+						ComptabiliteDAO comptabiliteDAO = new ComptabiliteDAO();
+						Comptabilite comptabilite = comptabiliteDAO.getById(selectedId);
+						frmListeDesFactures.dispose();
+						new Vue_ComptaDetails(comptabilite, agent).getFrame().setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+					}
+
 				}
-			
 			}
 		});
 		btnDetails.setIcon(new ImageIcon(Vue_ComptaList.class.getResource("/img/details.png")));
@@ -251,9 +264,13 @@ public class Vue_ComptaList {
 		btnDetails.setBorder(null);
 		btnDetails.setBackground(Color.LIGHT_GRAY);
 		btnDetails.setBounds(290, 24, 50, 70);
-		frame.getContentPane().add(btnDetails);
+		frmListeDesFactures.getContentPane().add(btnDetails);
 
-		JButton btnSearch = new JButton("Recherche : ");
+		JButton btnSearch = new JButton("");
+		btnSearch.setOpaque(false);
+		btnSearch.setBorder(null);
+		btnSearch.setBackground(Color.WHITE);
+		btnSearch.setIcon(new ImageIcon(Vue_ComptaList.class.getResource("/img/search20.png")));
 		btnSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String keyword = txtSearch.getText();
@@ -288,8 +305,8 @@ public class Vue_ComptaList {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(534, 75, 110, 20);
-		frame.getContentPane().add(btnSearch);
+		btnSearch.setBounds(632, 75, 20, 20);
+		frmListeDesFactures.getContentPane().add(btnSearch);
 
 		txtSearch.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -301,23 +318,23 @@ public class Vue_ComptaList {
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-26, -19, 1023, 636);
-		frame.getContentPane().add(lblNewLabel);
+		frmListeDesFactures.getContentPane().add(lblNewLabel);
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 100, 945, 480);
-		frame.getContentPane().add(tabbedPane);
+		frmListeDesFactures.getContentPane().add(tabbedPane);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel_2.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblNewLabel_2);
+		frmListeDesFactures.getContentPane().add(lblNewLabel_2);
 	}
 
 	public JFrame getFrame() {
-		return frame;
+		return frmListeDesFactures;
 	}
 
 	public void setFrame(JFrame frame) {
-		this.frame = frame;
+		this.frmListeDesFactures = frame;
 	}
 }

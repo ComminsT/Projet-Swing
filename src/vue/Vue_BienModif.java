@@ -446,7 +446,6 @@ public class Vue_BienModif {
 		btnAjouterDesPhotos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG", "jpg", "png");
 				Path pathtoimg_appart = Paths
 						.get(c+"\\img_appart\\" + bien.getId() + "\\");
@@ -460,7 +459,6 @@ public class Vue_BienModif {
 				int response = fileChooser.showSaveDialog(null);
 				int fileCount = pathtoimg_appart_file.list().length;
 				System.out.println(fileCount);
-
 				if (response == JFileChooser.APPROVE_OPTION) {
 					int filesselected = fileChooser.getSelectedFiles().length;
 					for (int i = 0; i < filesselected; i++) {
@@ -470,7 +468,6 @@ public class Vue_BienModif {
 						int index = fileName.lastIndexOf('.');
 						System.out.println(fileName.substring(index + 1));
 						System.out.println(file);
-
 						try {
 							Files.copy(pathtofile,
 									pathtoimg_appart.resolve(i + fileCount + 1 + "." + fileName.substring(index + 1)),
@@ -512,6 +509,8 @@ public class Vue_BienModif {
 
 		JLabel btnPrecedent = new JLabel("Précédent");
 		btnPrecedent.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnPrecedent.setVisible(false);
+		btnSuivant.setVisible(false);
 
 		btnPrecedent.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnPrecedent.setHorizontalTextPosition(SwingConstants.CENTER);

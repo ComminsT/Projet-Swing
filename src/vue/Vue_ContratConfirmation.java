@@ -34,6 +34,7 @@ import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.Cursor;
+import javax.swing.JPanel;
 
 public class Vue_ContratConfirmation {
 
@@ -90,19 +91,33 @@ public class Vue_ContratConfirmation {
 		contrat.setId_locataire(locataire.getId());
 		contrat.setId_bien(bien.getId());
 		frame = new JFrame();
-		frame.setBounds(100, 100, 527, 826);
+		frame.setBounds(100, 100, 981, 620);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		JSeparator separator = new JSeparator();
 		separator.setForeground(Color.LIGHT_GRAY);
-		separator.setBounds(0, 88, 420, 2);
+		separator.setBounds(0, 91, 965, 2);
 		frame.getContentPane().add(separator);
+		
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(298, 105, 232, 182);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(41, 586, 232, 154);
-		frame.getContentPane().add(calendar);
+		calendar.setBounds(0, 28, 232, 154);
+		panel.add(calendar);
+		
+		
+		
+		JLabel lblNewLabel_2_1_1 = new JLabel("Date d'activation du contrat :");
+		lblNewLabel_2_1_1.setBounds(0, 0, 161, 16);
+		panel.add(lblNewLabel_2_1_1);
+		lblNewLabel_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
 
 		JLabel btnNewButton = new JLabel("Retour");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -138,22 +153,30 @@ public class Vue_ContratConfirmation {
 		lblNewLabel_1_1.setText(bien.toString());
 
 		JButton btnAjouterDesGarants = new JButton("Ajouter des garants");
+		btnAjouterDesGarants.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAjouterDesGarants.setBorder(null);
+		btnAjouterDesGarants.setBackground(new Color(255,255,255,100));
+		btnAjouterDesGarants.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/garant20.png")));
 		btnAjouterDesGarants.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Vue_CreationGarant().getFrame().setVisible(true);
 			}
 		});
-		btnAjouterDesGarants.setBounds(95, 168, 178, 29);
+		btnAjouterDesGarants.setBounds(95, 168, 194, 30);
 		frame.getContentPane().add(btnAjouterDesGarants);
 
 		JButton btnAjouterDesAssurances = new JButton("Ajouter des assurances");
+		btnAjouterDesAssurances.setBackground(new Color(255,255,255,100));
+		btnAjouterDesAssurances.setBorder(null);
+		btnAjouterDesAssurances.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnAjouterDesAssurances.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/assurance20.png")));
 		btnAjouterDesAssurances.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				new Vue_CreationAssurance().getFrame().setVisible(true);
 
 			}
 		});
-		btnAjouterDesAssurances.setBounds(95, 358, 178, 29);
+		btnAjouterDesAssurances.setBounds(95, 358, 194, 30);
 		frame.getContentPane().add(btnAjouterDesAssurances);
 
 		JLabel lblNewLabel_2 = new JLabel("Garants :");
@@ -167,11 +190,11 @@ public class Vue_ContratConfirmation {
 		frame.getContentPane().add(lblNewLabel_2_1);
 
 		listgarant = new List();
-		listgarant.setBounds(85, 198, 188, 154);
+		listgarant.setBounds(92, 200, 188, 154);
 		frame.getContentPane().add(listgarant);
 
 		listassurance = new List();
-		listassurance.setBounds(85, 389, 188, 154);
+		listassurance.setBounds(94, 390, 188, 154);
 		frame.getContentPane().add(listassurance);
 
 		JLabel btnNewButton_1 = new JLabel("Confirmer");
@@ -225,15 +248,13 @@ public class Vue_ContratConfirmation {
 		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton_1.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/valider.png")));
-		btnNewButton_1.setBounds(436, 11, 63, 68);
+		btnNewButton_1.setBounds(890, 11, 63, 68);
 		frame.getContentPane().add(btnNewButton_1);
-		
-		
-		
-		JLabel lblNewLabel_2_1_1 = new JLabel("Date d'activation du contrat :");
-		lblNewLabel_2_1_1.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewLabel_2_1_1.setBounds(10, 561, 264, 14);
-		frame.getContentPane().add(lblNewLabel_2_1_1);
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
 		
 		
 

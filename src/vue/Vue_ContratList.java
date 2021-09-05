@@ -102,13 +102,13 @@ public class Vue_ContratList {
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_CreationContrat(agent).getFrame().setVisible(true);
-			
+
 			}
 		});
 		btnNewContract.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		JLabel btnDetails = new JLabel("Détails");
-		
+
 		btnDetails.setIcon(new ImageIcon(Vue_ContratList.class.getResource("/img/details.png")));
 		btnDetails.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
@@ -168,7 +168,7 @@ public class Vue_ContratList {
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 				new Vue_AccueilAgent(agent).getFrame().setVisible(true);
-			
+
 			}
 		});
 		btnRetour.setIcon(new ImageIcon(Vue_ContratList.class.getResource("/img/back.png")));
@@ -186,20 +186,25 @@ public class Vue_ContratList {
 		btnFin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (tableContratEnCours.getSelectedRow() != -1) {
-					int row = tableContratEnCours.convertRowIndexToModel(tableContratEnCours.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					ContratlDAO contratDAO = new ContratlDAO();
-					Contratl contrat = contratDAO.getById(selectedId);
-					frame.dispose();
-					new Vue_ContratFin(contrat, agent).getFrame().setVisible(true);
-				} else if (tableContratFini.getSelectedRow() != -1) {
-					JOptionPane.showMessageDialog(null, "Ce contrat est déjà terminé");
-				} else {
+				if(scrollPane.isVisible()) {
+					if (tableContratEnCours.getSelectedRow() != -1) {
+						int row = tableContratEnCours.convertRowIndexToModel(tableContratEnCours.getSelectedRow());
+						int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+						ContratlDAO contratDAO = new ContratlDAO();
+						Contratl contrat = contratDAO.getById(selectedId);
+						frame.dispose();
+						new Vue_ContratFin(contrat, agent).getFrame().setVisible(true);
+				}else {
 					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
 				}
-
-			
+				
+				} else if(scrollPane_1.isVisible()) {
+					if (tableContratFini.getSelectedRow() != -1) {
+						JOptionPane.showMessageDialog(null, "Ce contrat est déjà terminé");
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+					}	
+				}
 			}
 		});
 		btnFin.setIcon(new ImageIcon(Vue_ContratList.class.getResource("/img/endcontrat.png")));
@@ -217,27 +222,34 @@ public class Vue_ContratList {
 		lblNewLabel.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/accueil_bg.jpeg")));
 		lblNewLabel.setBounds(-16, -19, 1023, 636);
 		frame.getContentPane().add(lblNewLabel);
-		
+
 		btnDetails.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (tableContratEnCours.getSelectedRow() != -1) {
-					int row = tableContratEnCours.convertRowIndexToModel(tableContratEnCours.getSelectedRow());
-					int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
-					ContratlDAO contratDAO = new ContratlDAO();
-					Contratl contrat = contratDAO.getById(selectedId);
-					new Vue_ContratDetails(contrat, agent).getFrame().setVisible(true);
-				} else if (tableContratFini.getSelectedRow() != -1) {
-					int row = tableContratFini.convertRowIndexToModel(tableContratFini.getSelectedRow());
-					int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
-					ContratlDAO contratDAO = new ContratlDAO();
-					Contratl contrat = contratDAO.getById(selectedId);
-					new Vue_ContratDetails(contrat, agent).getFrame().setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+				if (scrollPane.isVisible()) {
+					if (tableContratEnCours.getSelectedRow() != -1) {
+						int row = tableContratEnCours.convertRowIndexToModel(tableContratEnCours.getSelectedRow());
+						int selectedId = Integer.parseInt(model.getValueAt(row, 0).toString());
+						ContratlDAO contratDAO = new ContratlDAO();
+						Contratl contrat = contratDAO.getById(selectedId);
+						new Vue_ContratDetails(contrat, agent).getFrame().setVisible(true);
+
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+					}
+
+				} else if (scrollPane_1.isVisible()) {
+					if (tableContratFini.getSelectedRow() != -1) {
+						int row = tableContratFini.convertRowIndexToModel(tableContratFini.getSelectedRow());
+						int selectedId = Integer.parseInt(model2.getValueAt(row, 0).toString());
+						ContratlDAO contratDAO = new ContratlDAO();
+						Contratl contrat = contratDAO.getById(selectedId);
+						new Vue_ContratDetails(contrat, agent).getFrame().setVisible(true);
+					} else {
+						JOptionPane.showMessageDialog(null, "Veuillez choisir une ligne");
+					}
 				}
 
-			
 			}
 		});
 	}

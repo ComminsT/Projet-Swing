@@ -61,8 +61,9 @@ public class Vue_VisiteDetails {
 		separator.setBounds(0, 88, 420, 2);
 		frame.getContentPane().add(separator);
 		
-		JLabel lblNewLabel = new JLabel("Details de la visite");
-		lblNewLabel.setBounds(144, 30, 116, 15);
+		JLabel lblNewLabel = new JLabel("Détails de la visite");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(159, 30, 102, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Id : ");

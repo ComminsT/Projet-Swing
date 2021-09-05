@@ -106,12 +106,8 @@ public class Vue_LocataireDetails {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setOrientation(SwingConstants.VERTICAL);
-		separator_1.setBounds(502, 82, 2, 519);
-		frame.getContentPane().add(separator_1);
-
 		JLabel btnNewButton = new JLabel("Imprimer");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -122,7 +118,7 @@ public class Vue_LocataireDetails {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/print.png")));
 
-		btnNewButton.setBounds(908, 7, 57, 68);
+		btnNewButton.setBounds(913, 11, 52, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		separator = new JSeparator();
@@ -131,7 +127,8 @@ public class Vue_LocataireDetails {
 		frame.getContentPane().add(separator);
 
 		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du locataire");
-		lblNewLabel_2.setBounds(277, 26, 275, 16);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(365, 30, 245, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel btnAnnuler = new JLabel("Retour");
@@ -147,172 +144,197 @@ public class Vue_LocataireDetails {
 		btnAnnuler.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnAnnuler.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/back.png")));
 		btnAnnuler.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnAnnuler.setBounds(24, 7, 48, 68);
+		btnAnnuler.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnAnnuler);
 		String[] birth = locataire.getNaissance().split("-");
+		
+		JPanel panel = new JPanel();
+		panel.setOpaque(false);
+		panel.setBounds(10, 95, 214, 446);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
 
 		JLabel btnInformations = new JLabel("Informations personnel");
+		btnInformations.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnInformations.setBounds(0, 77, 176, 40);
+		panel.add(btnInformations);
 		
 		btnInformations.setBackground(Color.WHITE);
 		btnInformations.setBorder(null);
 		btnInformations.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/personal.png")));
-
-		btnInformations.setBounds(0, 82, 191, 40);
-		frame.getContentPane().add(btnInformations);
-
-		JLabel btnHistorique = new JLabel("Historique de paiement");
-
-		btnHistorique.setBackground(Color.WHITE);
-		btnHistorique.setBorder(null);
-		btnHistorique.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/compta.png")));
-
-		btnHistorique.setBounds(0, 146, 199, 48);
-		frame.getContentPane().add(btnHistorique);
-
-		JLabel btnContrats = new JLabel("Contrats");
-
-		btnContrats.setBackground(Color.WHITE);
-		btnContrats.setBorder(null);
-		btnContrats.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/contract.png")));
-		btnContrats.setBounds(0, 218, 115, 60);
-		frame.getContentPane().add(btnContrats);
+		
+				JLabel btnHistorique = new JLabel("Historique de paiement");
+				btnHistorique.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+				btnHistorique.setBounds(0, 194, 183, 48);
+				panel.add(btnHistorique);
+				
+						btnHistorique.setBackground(Color.WHITE);
+						btnHistorique.setBorder(null);
+						btnHistorique.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/compta.png")));
+						
+								JLabel btnContrats = new JLabel("Contrats");
+								btnContrats.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+								btnContrats.setBounds(0, 319, 101, 48);
+								panel.add(btnContrats);
+								
+										btnContrats.setBackground(Color.WHITE);
+										btnContrats.setBorder(null);
+										btnContrats.setIcon(new ImageIcon(Vue_LocataireDetails.class.getResource("/img/contract.png")));
+									
+						
+		
 
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(236, 82, 745, 519);
+		layeredPane.setOpaque(true);
+		layeredPane.setBounds(236, 96, 709, 480);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
+		layeredPane.setBackground(new Color(255,255,255,100));
 
 		JPanel panelInfos = new JPanel();
 		panelInfos.setOpaque(false);
 		layeredPane.add(panelInfos, "name_429148076291500");
 		panelInfos.setLayout(null);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setOpaque(false);
+		panel_1.setBounds(10, 11, 213, 473);
+		panelInfos.add(panel_1);
+		panel_1.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
-		lblNewLabel.setBounds(10, 11, 103, 14);
-		panelInfos.add(lblNewLabel);
+		lblNewLabel.setBounds(38, 25, 103, 14);
+		panel_1.add(lblNewLabel);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+				JLabel lblMail = new JLabel("Mail :");
+				lblMail.setBounds(52, 103, 89, 14);
+				panel_1.add(lblMail);
+				lblMail.setHorizontalAlignment(SwingConstants.RIGHT);
+				lblMail.setFont(new Font("Tahoma", Font.BOLD, 14));
+				
+						lblPays = new JLabel("Pays :");
+						lblPays.setBounds(52, 142, 89, 17);
+						panel_1.add(lblPays);
+						lblPays.setHorizontalAlignment(SwingConstants.RIGHT);
+						lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
+						
+								JLabel lblVille = new JLabel("Adresse :");
+								lblVille.setBounds(52, 184, 89, 17);
+								panel_1.add(lblVille);
+								lblVille.setHorizontalAlignment(SwingConstants.RIGHT);
+								lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
+								
+										JLabel lblVille_2 = new JLabel("Ville :");
+										lblVille_2.setBounds(52, 226, 89, 17);
+										panel_1.add(lblVille_2);
+										lblVille_2.setHorizontalAlignment(SwingConstants.RIGHT);
+										lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
+										
+												lblVille_1 = new JLabel("Date de naissance :");
+												lblVille_1.setHorizontalAlignment(SwingConstants.RIGHT);
+												lblVille_1.setBounds(0, 427, 141, 17);
+												panel_1.add(lblVille_1);
+												lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+												
+														JLabel lblNewLabel_4 = new JLabel("Téléphone :");
+														lblNewLabel_4.setBounds(38, 388, 103, 14);
+														panel_1.add(lblNewLabel_4);
+														lblNewLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
+														lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
+														
+																JLabel lblNewLabel_4_1 = new JLabel("Situation :");
+																lblNewLabel_4_1.setBounds(41, 310, 100, 14);
+																panel_1.add(lblNewLabel_4_1);
+																lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.RIGHT);
+																lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+																
+																		JLabel lblNewLabel_4_1_1 = new JLabel("Statut :");
+																		lblNewLabel_4_1_1.setBounds(51, 349, 90, 14);
+																		panel_1.add(lblNewLabel_4_1_1);
+																		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+																		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+																		
+																				JLabel lblPrnom = new JLabel("Prénom :");
+																				lblPrnom.setBounds(38, 64, 103, 14);
+																				panel_1.add(lblPrnom);
+																				lblPrnom.setHorizontalAlignment(SwingConstants.RIGHT);
+																				lblPrnom.setFont(new Font("Tahoma", Font.BOLD, 14));
+																				
+																						JLabel lblVille_2_1 = new JLabel("Code postal :");
+																						lblVille_2_1.setBounds(28, 268, 113, 17);
+																						panel_1.add(lblVille_2_1);
+																						lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
+																						lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setOpaque(false);
+		panel_2.setBounds(163, 11, 204, 476);
+		panelInfos.add(panel_2);
+		panel_2.setLayout(null);
 
 		txtPrenom = new JLabel();
-		txtPrenom.setBounds(123, 42, 134, 20);
-		panelInfos.add(txtPrenom);
+		txtPrenom.setBounds(0, 64, 192, 20);
+		panel_2.add(txtPrenom);
 		txtPrenom.setForeground(Color.BLACK);
 		txtPrenom.setText(locataire.getPrenom());
 
 		txtNom = new JLabel();
-		txtNom.setBounds(123, 11, 134, 20);
-		panelInfos.add(txtNom);
+		txtNom.setBounds(0, 23, 192, 20);
+		panel_2.add(txtNom);
 		txtNom.setForeground(Color.BLACK);
 		txtNom.setText(locataire.getNom());
 
-		JLabel lblMail = new JLabel("Mail :");
-		lblMail.setBounds(24, 67, 89, 14);
-		panelInfos.add(lblMail);
-		lblMail.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblMail.setFont(new Font("Tahoma", Font.BOLD, 14));
-
 		txtAdresseMail = new JLabel();
-		txtAdresseMail.setBounds(123, 67, 134, 20);
-		panelInfos.add(txtAdresseMail);
+		txtAdresseMail.setBounds(0, 102, 181, 20);
+		panel_2.add(txtAdresseMail);
 
 		txtAdresseMail.setText(locataire.getMail());
 		txtAdresseMail.setForeground(Color.BLACK);
 
-		lblPays = new JLabel("Pays :");
-		lblPays.setBounds(24, 92, 89, 17);
-		panelInfos.add(lblPays);
-		lblPays.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPays.setFont(new Font("Tahoma", Font.BOLD, 14));
-
 		txtAdresse = new JLabel();
-		txtAdresse.setBounds(123, 121, 226, 20);
-		panelInfos.add(txtAdresse);
+		txtAdresse.setBounds(0, 184, 181, 20);
+		panel_2.add(txtAdresse);
 		txtAdresse.setText(locataire.getAdresse());
 		txtAdresse.setForeground(Color.BLACK);
 
-		JLabel lblVille = new JLabel("Adresse :");
-		lblVille.setBounds(24, 120, 89, 17);
-		panelInfos.add(lblVille);
-		lblVille.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblVille.setFont(new Font("Tahoma", Font.BOLD, 14));
-
-		JLabel lblVille_2 = new JLabel("Ville :");
-		lblVille_2.setBounds(24, 148, 89, 17);
-		panelInfos.add(lblVille_2);
-		lblVille_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblVille_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-
 		txtVille = new JLabel();
-		txtVille.setBounds(123, 149, 181, 20);
-		panelInfos.add(txtVille);
+		txtVille.setBounds(0, 226, 181, 20);
+		panel_2.add(txtVille);
 		txtVille.setText(locataire.getVille());
 		txtVille.setForeground(Color.BLACK);
 
 		txtCodePostale = new JLabel();
-		txtCodePostale.setBounds(123, 176, 105, 20);
-		panelInfos.add(txtCodePostale);
+		txtCodePostale.setBounds(0, 269, 181, 20);
+		panel_2.add(txtCodePostale);
 		txtCodePostale.setText(locataire.getCp());
 		txtCodePostale.setForeground(Color.BLACK);
 
-		lblVille_1 = new JLabel("Date de naissance :");
-		lblVille_1.setBounds(10, 279, 141, 17);
-		panelInfos.add(lblVille_1);
-		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-
-		JLabel lblNewLabel_4 = new JLabel("Telephone :");
-		lblNewLabel_4.setBounds(10, 254, 103, 14);
-		panelInfos.add(lblNewLabel_4);
-		lblNewLabel_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
-
-		JLabel lblNewLabel_4_1 = new JLabel("Situation :");
-		lblNewLabel_4_1.setBounds(13, 204, 100, 14);
-		panelInfos.add(lblNewLabel_4_1);
-		lblNewLabel_4_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_4_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-
-		JLabel lblNewLabel_4_1_1 = new JLabel("Statut :");
-		lblNewLabel_4_1_1.setBounds(23, 229, 90, 14);
-		panelInfos.add(lblNewLabel_4_1_1);
-		lblNewLabel_4_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_4_1_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-
-		JLabel lblPrnom = new JLabel("Prénom :");
-		lblPrnom.setBounds(10, 42, 103, 14);
-		panelInfos.add(lblPrnom);
-		lblPrnom.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblPrnom.setFont(new Font("Tahoma", Font.BOLD, 14));
-
 		JLabel txtPays = new JLabel("New label");
-		txtPays.setBounds(123, 95, 181, 14);
-		panelInfos.add(txtPays);
+		txtPays.setBounds(0, 145, 181, 14);
+		panel_2.add(txtPays);
 		txtPays.setText(locataire.getPays());
 
 		JLabel txtSituation = new JLabel("New label");
-		txtSituation.setBounds(123, 207, 105, 14);
-		panelInfos.add(txtSituation);
+		txtSituation.setBounds(0, 312, 181, 14);
+		panel_2.add(txtSituation);
 		txtSituation.setText(locataire.getSituation());
 
 		JLabel txtStatut = new JLabel("New label");
-		txtStatut.setBounds(123, 229, 105, 14);
-		panelInfos.add(txtStatut);
+		txtStatut.setBounds(0, 351, 181, 14);
+		panel_2.add(txtStatut);
 		txtStatut.setText(locataire.getStatut());
 
 		JLabel txtTelephone = new JLabel("New label");
-		txtTelephone.setBounds(123, 256, 89, 14);
-		panelInfos.add(txtTelephone);
+		txtTelephone.setBounds(0, 389, 181, 14);
+		panel_2.add(txtTelephone);
 		txtTelephone.setText(locataire.getTel());
 
 		JLabel txtDateOfBirth = new JLabel("New label");
-		txtDateOfBirth.setBounds(150, 282, 181, 14);
-		panelInfos.add(txtDateOfBirth);
+		txtDateOfBirth.setBounds(0, 430, 181, 14);
+		panel_2.add(txtDateOfBirth);
 		txtDateOfBirth.setText(birth[2] + "/" + birth[1] + "/" + birth[0]);
-
-		JLabel lblVille_2_1 = new JLabel("Code postal :");
-		lblVille_2_1.setBounds(0, 176, 113, 17);
-		panelInfos.add(lblVille_2_1);
-		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 
 		JScrollPane scrollPane = new JScrollPane();
 		layeredPane.add(scrollPane, "name_68207472195916");
@@ -360,10 +382,15 @@ public class Vue_LocataireDetails {
 
 		table_1 = new JTable(model2);
 		scrollPane_1.setViewportView(table_1);
-		btnContrats.addMouseListener(new MouseAdapter() {
+		JLabel lblBG = new JLabel("");
+		lblBG.setOpaque(true);
+		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
+		lblBG.setBounds(-16, 0, 1000, 591);
+		frame.getContentPane().add(lblBG);
+		btnInformations.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				switchScrollPane(scrollPane_1);
+				switchPanels(panelInfos);
 			}
 		});
 		btnHistorique.addMouseListener(new MouseAdapter() {
@@ -372,17 +399,12 @@ public class Vue_LocataireDetails {
 				switchScrollPane(scrollPane);
 			}
 		});
-		btnInformations.addMouseListener(new MouseAdapter() {
+		btnContrats.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				switchPanels(panelInfos);
+				switchScrollPane(scrollPane_1);
 			}
 		});
-		JLabel lblBG = new JLabel("");
-		lblBG.setOpaque(true);
-		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
-		lblBG.setBounds(-16, 0, 1000, 591);
-		frame.getContentPane().add(lblBG);
 	}
 
 	public void switchPanels(JPanel panel) {

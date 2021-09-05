@@ -292,7 +292,7 @@ public class VisiteDAO {
 
 			PreparedStatement ps = Database.connexion.prepareStatement("SELECT * FROM visite WHERE id_bien=? ");
 			ps.setInt(1, id);
-			ps.setString(2, date);
+			//ps.setString(2, date);
 			ResultSet resultat = ps.executeQuery();
 
 			while (resultat.next()) {

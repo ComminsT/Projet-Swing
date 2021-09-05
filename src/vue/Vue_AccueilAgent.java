@@ -134,7 +134,7 @@ public class Vue_AccueilAgent {
 
 
 
-		JButton btnProprietaires = new JButton("Proprietaires");
+		JButton btnProprietaires = new JButton("Propriétaires");
 		btnProprietaires.setBorderPainted(false);
 		btnProprietaires.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

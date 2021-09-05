@@ -19,13 +19,16 @@ import dao.AssuranceDAO;
 import dao.BienDAO;
 import dao.ContratlDAO;
 import dao.GarantDAO;
+import dao.HistoriqueDAO;
 import dao.LocataireDAO;
 import entite.Agent;
 import entite.Assurance;
 import entite.Bien;
+import entite.Checker;
 import entite.Contratl;
 import entite.Database;
 import entite.Garant;
+import entite.Historique;
 import entite.Locataire;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
@@ -116,21 +119,21 @@ public class Vue_ContratConfirmation {
 
 		JLabel lblNewLabel = new JLabel("Locataire :");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel.setBounds(10, 101, 65, 25);
+		lblNewLabel.setBounds(17, 100, 65, 25);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(85, 106, 150, 14);
+		lblNewLabel_1.setBounds(92, 105, 150, 14);
 		frame.getContentPane().add(lblNewLabel_1);
 		lblNewLabel_1.setText(locataire.toString());
 
 		JLabel lblBien = new JLabel("Bien :");
 		lblBien.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblBien.setBounds(10, 137, 65, 25);
+		lblBien.setBounds(17, 136, 65, 25);
 		frame.getContentPane().add(lblBien);
 
 		JLabel lblNewLabel_1_1 = new JLabel((String) null);
-		lblNewLabel_1_1.setBounds(85, 142, 150, 14);
+		lblNewLabel_1_1.setBounds(92, 141, 150, 14);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		lblNewLabel_1_1.setText(bien.toString());
 
@@ -140,7 +143,7 @@ public class Vue_ContratConfirmation {
 				new Vue_CreationGarant().getFrame().setVisible(true);
 			}
 		});
-		btnAjouterDesGarants.setBounds(95, 168, 167, 29);
+		btnAjouterDesGarants.setBounds(95, 168, 178, 29);
 		frame.getContentPane().add(btnAjouterDesGarants);
 
 		JButton btnAjouterDesAssurances = new JButton("Ajouter des assurances");
@@ -150,16 +153,17 @@ public class Vue_ContratConfirmation {
 
 			}
 		});
-		btnAjouterDesAssurances.setBounds(95, 358, 190, 29);
+		btnAjouterDesAssurances.setBounds(95, 358, 178, 29);
 		frame.getContentPane().add(btnAjouterDesAssurances);
 
 		JLabel lblNewLabel_2 = new JLabel("Garants :");
-		lblNewLabel_2.setBounds(34, 174, 56, 16);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_2.setBounds(26, 173, 56, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Assurances :");
 		lblNewLabel_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_2_1.setBounds(10, 363, 80, 16);
+		lblNewLabel_2_1.setBounds(2, 362, 80, 16);
 		frame.getContentPane().add(lblNewLabel_2_1);
 
 		listgarant = new List();
@@ -201,6 +205,15 @@ public class Vue_ContratConfirmation {
 					a.setId_contratl(contratsaved.getId());
 					assuranceDAO.save(a);
 				}
+				ArrayList<Contratl> newContrat=contratDAO.getAllByIdAgentNOTFINISHED(agent.getId());
+				Contratl newC=newContrat.get(newContrat.size()-1);
+				HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+				Historique historique = new Historique();
+				historique.setDate(Checker.getDateTime());
+				historique.setId_agent(agent.getId());
+				historique.setAction("Création contrat immobilier id : "+newC);
+				historiqueDAO.save(historique);	
+				
 				frame.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 				
@@ -212,7 +225,7 @@ public class Vue_ContratConfirmation {
 		btnNewButton_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton_1.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton_1.setIcon(new ImageIcon(Vue_ContratConfirmation.class.getResource("/img/valider.png")));
-		btnNewButton_1.setBounds(458, 11, 63, 68);
+		btnNewButton_1.setBounds(436, 11, 63, 68);
 		frame.getContentPane().add(btnNewButton_1);
 		
 		

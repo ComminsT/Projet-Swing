@@ -14,7 +14,7 @@ public class Contratl {
 	}
 	@Override
 	public String toString() {
-		return "Contratl [date=" + date + ", id_locataire=" + id_locataire + ", id_bien=" + id_bien + "]";
+		return "ID "+id;
 	}
 	public int getId() {
 		return id;

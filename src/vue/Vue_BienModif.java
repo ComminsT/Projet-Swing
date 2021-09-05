@@ -1,57 +1,53 @@
 package vue;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
+
+import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.Date;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.filechooser.FileSystemView;
 
 import com.toedter.calendar.JYearChooser;
 
 import dao.BienDAO;
+import dao.HistoriqueDAO;
 import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Checker;
 import entite.Database;
+import entite.Historique;
 import entite.Proprietaire;
-import javax.swing.JLayeredPane;
-import java.awt.CardLayout;
-import javax.swing.JPanel;
-import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Cursor;
 
 public class Vue_BienModif {
 
@@ -115,7 +111,7 @@ public class Vue_BienModif {
 	private void initialize() {
 		Database.Connect();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 981, 630);
+		frame.setBounds(100, 100, 981, 620);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -128,7 +124,7 @@ public class Vue_BienModif {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(892, 12, 73, 68);
+		btnNewButton.setBounds(913, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
@@ -279,7 +275,7 @@ public class Vue_BienModif {
 		lblVille_1 = new JLabel("Année de construction :");
 		lblVille_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(-49, 235, 167, 17);
+		lblVille_1.setBounds(18, 235, 167, 17);
 		frame.getContentPane().add(lblVille_1);
 
 		JLabel lblNewLabel_4_1 = new JLabel("Type :");
@@ -418,14 +414,15 @@ public class Vue_BienModif {
 		frame.getContentPane().add(comboboxProprietaire);
 		comboboxProprietaire.setSelectedIndex(memo);
 
-		JLabel lblVille_2_1 = new JLabel("Code Postale :");
+		JLabel lblVille_2_1 = new JLabel("Code Postal :");
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblVille_2_1.setBounds(5, 205, 113, 17);
 		frame.getContentPane().add(lblVille_2_1);
 
 		JLabel lblNewLabel_1 = new JLabel("Modification biens immobiliers");
-		lblNewLabel_1.setBounds(406, 25, 296, 34);
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(401, 30, 173, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		JLabel btnRetour = new JLabel("Retour");
@@ -440,20 +437,21 @@ public class Vue_BienModif {
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/back.png")));
-		btnRetour.setBounds(10, 11, 61, 69);
+		btnRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnRetour);
 
 		JLabel btnAjouterDesPhotos = new JLabel("Ajouter des photos");
 		btnAjouterDesPhotos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		String c=System.getProperty("user.dir");
 		btnAjouterDesPhotos.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 
 				FileNameExtensionFilter filter = new FileNameExtensionFilter("JPG & PNG", "jpg", "png");
 				Path pathtoimg_appart = Paths
-						.get("C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId() + "\\");
+						.get(c+"\\img_appart\\" + bien.getId() + "\\");
 				File pathtoimg_appart_file = new File(
-						"C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
+						c+"\\img_appart\\" + bien.getId());
 				System.out.println(pathtoimg_appart);
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setFileFilter(filter);
@@ -491,7 +489,7 @@ public class Vue_BienModif {
 		btnAjouterDesPhotos.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnAjouterDesPhotos.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnAjouterDesPhotos.setIcon(new ImageIcon(Vue_BienModif.class.getResource("/img/photo.png")));
-		btnAjouterDesPhotos.setBounds(101, 12, 113, 68);
+		btnAjouterDesPhotos.setBounds(101, 11, 93, 66);
 		frame.getContentPane().add(btnAjouterDesPhotos);
 
 		JLayeredPane layeredPane = new JLayeredPane();
@@ -512,7 +510,7 @@ public class Vue_BienModif {
 		btnSuivant.setBounds(471, 241, 48, 69);
 		panel.add(btnSuivant);
 
-		JLabel btnPrecedent = new JLabel("Precedent");
+		JLabel btnPrecedent = new JLabel("Précédent");
 		btnPrecedent.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
 		btnPrecedent.setVerticalTextPosition(SwingConstants.BOTTOM);
@@ -532,9 +530,9 @@ public class Vue_BienModif {
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
 		frame.getContentPane().add(lblBG);
-
+String d =System.getProperty("user.dir");
 		File pathtoimg_appart_file = new File(
-				"C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
+				d+"\\img_appart\\" + bien.getId());
 		File[] paths = pathtoimg_appart_file.listFiles();
 		ArrayList<String> imgpaths = new ArrayList<String>();
 		for (File f : paths) {
@@ -636,6 +634,16 @@ public class Vue_BienModif {
 					int annee = Integer.parseInt(strannee);
 					bien.setAnnee(annee);
 					bienDAO.save(bien);
+					HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+					Historique historique = new Historique();
+					historique.setDate(Checker.getDateTime());
+					historique.setId_agent(agent.getId());
+					historique.setAction("Modification du bien immobilier : "+bien);
+					historiqueDAO.save(historique);					
+				
+					
+					
+					
 					frame.dispose();
 					new Vue_BiensList(agent).getFrame().setVisible(true);
 				}

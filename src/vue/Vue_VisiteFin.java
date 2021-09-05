@@ -70,22 +70,23 @@ public class Vue_VisiteFin {
 		frame.getContentPane().add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Finaliser la visite");
-		lblNewLabel.setBounds(141, 27, 119, 26);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(163, 30, 94, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Id : ");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1.setBounds(32, 101, 68, 16);
+		lblNewLabel_1.setBounds(49, 101, 68, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("Date :");
 		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1.setBounds(32, 128, 68, 16);
+		lblNewLabel_1_1.setBounds(49, 128, 68, 16);
 		frame.getContentPane().add(lblNewLabel_1_1);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("Heure :");
 		lblNewLabel_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1.setBounds(32, 153, 68, 16);
+		lblNewLabel_1_1_1.setBounds(49, 153, 68, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("Nom du visiteur :");
@@ -95,7 +96,7 @@ public class Vue_VisiteFin {
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("Remarques :");
 		lblNewLabel_1_1_1_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1_1_1.setBounds(-19, 233, 119, 16);
+		lblNewLabel_1_1_1_1_1.setBounds(-2, 233, 119, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1_1_1);
 		
 		JTextPane txtRemarques = new JTextPane();
@@ -120,7 +121,7 @@ public class Vue_VisiteFin {
 	
 		JLabel lblNewLabel_1_1_1_1_2 = new JLabel("Bien concerné :");
 		lblNewLabel_1_1_1_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_1_1_1_1_2.setBounds(-19, 205, 119, 16);
+		lblNewLabel_1_1_1_1_2.setBounds(-2, 205, 119, 16);
 		frame.getContentPane().add(lblNewLabel_1_1_1_1_2);
 		
 		JLabel lblBien = new JLabel((String) null);
@@ -150,7 +151,7 @@ public class Vue_VisiteFin {
 		btnValider.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnValider.setIcon(new ImageIcon(Vue_VisiteFin.class.getResource("/img/valider.png")));
-		btnValider.setBounds(372, 14, 48, 66);
+		btnValider.setBounds(360, 11, 48, 68);
 		frame.getContentPane().add(btnValider);
 		
 		JLabel btnRetour = new JLabel("Retour");
@@ -165,7 +166,7 @@ public class Vue_VisiteFin {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setIcon(new ImageIcon(Vue_VisiteFin.class.getResource("/img/back.png")));
-		btnRetour.setBounds(10, 13, 48, 68);
+		btnRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnRetour);
 		if(visite.getRemarque()==null) {
 			txtRemarques.setText("Pas de remarque pour l'instant");

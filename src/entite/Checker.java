@@ -1,6 +1,7 @@
 package entite;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import dao.AgentDAO;
 import dao.LocataireDAO;
@@ -40,7 +41,22 @@ public class Checker {
 		}
 	}
 
-	public static boolean mailcheckera(String mail) {
+	public static boolean mailcheckera(String mail,int id) {
+		Database.Connect();
+		AgentDAO agentDAO = new AgentDAO();
+		Agent agent = agentDAO.getById(id);
+		ArrayList<String> mails = agentDAO.getAllMail();
+		if (mail.matches(
+				"[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+				&& !mails.contains(mail)||mail.equals(agent.getMail())) {
+			System.out.println("Mail ok");
+			return true;
+		} else {
+			System.out.println("Mail FAIL");
+			return false;
+		}
+	}
+	public static boolean mailcheckeraCreation(String mail) {
 		Database.Connect();
 		AgentDAO agentDAO = new AgentDAO();
 		ArrayList<String> mails = agentDAO.getAllMail();
@@ -175,6 +191,59 @@ public class Checker {
 		} else {
 			return false;
 		}
+	}
+	public static String getMonthName() {
+		Date date = new Date();
+		String mois="";
+		int m=date.getMonth();
+		if(m==0) {
+			mois="Janvier";
+		}else if(m==1) {
+			mois="Février";
+		}else if(m==2) {
+			mois="Mars";
+		}else if(m==3) {
+			mois="Avril";
+		}else if(m==4) {
+			mois="Mai";
+		}else if(m==5) {
+			mois="Juin";
+		}else if(m==6) {
+			mois="Juillet";
+		}else if(m==7) {
+			mois="Août";
+		}else if(m==8) {
+			mois="Septembre";
+		}else if(m==9) {
+			mois="Octobre";
+		}else if(m==10) {
+			mois="Novembre";
+		}else if(m==11) {
+			mois="Décembre";
+		}
+		return mois;}
+	
+	public static String getDateTime() {
+		Date date = new Date();
+		String seconde=String.valueOf(date.getSeconds());
+		String minute = String.valueOf(date.getMinutes());
+		String heure=String.valueOf(date.getHours());
+		String jour = "";
+		if(date.getDate()<10) {
+			jour="0"+date.getDate();
+		}else {
+			jour=date.getDate()+"";
+		}
+		String moisnbr="";
+		if(date.getMonth()<10) {
+			 moisnbr ="0"+(date.getMonth()+1);
+		}else {
+			moisnbr=date.getMonth()+1+"";
+		}
+		String mois=Checker.getMonthName();
+		String annees=String.valueOf(date.getYear()+1900);
+		String dateTimeSQL=annees+"-"+moisnbr+"-"+jour+" "+heure+":"+minute+":"+seconde;
+		return dateTimeSQL;
 	}
 	
 

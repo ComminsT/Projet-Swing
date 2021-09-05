@@ -113,33 +113,32 @@ public class Vue_BienDetails {
 		frmModificationDeBien.getContentPane().setLayout(null);
 		frmModificationDeBien.setResizable(false);
 		frmModificationDeBien.setLocationRelativeTo(null);
-		
-				JLabel btnContrats = new JLabel("Contrats");
-				
-				btnContrats.setOpaque(false);
-				btnContrats.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				btnContrats.setBorder(null);
-				btnContrats.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/contract.png")));
-				
-				
-				JLabel btnVisites = new JLabel("Visites");
-				
-				
-				btnVisites.setOpaque(false);
-				btnVisites.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-				btnVisites.setBorder(null);
-				btnVisites.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/visits.png")));
-				
-				btnVisites.setBounds(0, 476, 86, 40);
-				frmModificationDeBien.getContentPane().add(btnVisites);
-				btnContrats.setBounds(0, 343, 106, 48);
-				frmModificationDeBien.getContentPane().add(btnContrats);
+
+		JLabel btnContrats = new JLabel("Contrats");
+
+		btnContrats.setOpaque(false);
+		btnContrats.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnContrats.setBorder(null);
+		btnContrats.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/contract.png")));
+
+		JLabel btnVisites = new JLabel("Visites");
+
+		btnVisites.setOpaque(false);
+		btnVisites.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnVisites.setBorder(null);
+		btnVisites.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/visits.png")));
+
+		btnVisites.setBounds(0, 476, 86, 40);
+		frmModificationDeBien.getContentPane().add(btnVisites);
+		btnContrats.setBounds(0, 343, 106, 48);
+		frmModificationDeBien.getContentPane().add(btnContrats);
 
 		JLabel btnImprimer = new JLabel("Imprimer");
 		btnImprimer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				printRecord(frmModificationDeBien);}
+				printRecord(frmModificationDeBien);
+			}
 		});
 		btnImprimer.setHorizontalAlignment(SwingConstants.CENTER);
 		btnImprimer.setOpaque(false);
@@ -148,7 +147,7 @@ public class Vue_BienDetails {
 		btnImprimer.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/print.png")));
 		btnImprimer.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		btnImprimer.setBounds(884, 11, 81, 68);
+		btnImprimer.setBounds(918, 11, 52, 68);
 		frmModificationDeBien.getContentPane().add(btnImprimer);
 
 		separator = new JSeparator();
@@ -158,7 +157,7 @@ public class Vue_BienDetails {
 
 		JLabel lblNewLabel_1 = new JLabel("Modification biens immobilier");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(383, 28, 214, 34);
+		lblNewLabel_1.setBounds(404, 30, 166, 16);
 		frmModificationDeBien.getContentPane().add(lblNewLabel_1);
 
 		JLabel btnRetour = new JLabel("Retour");
@@ -174,7 +173,7 @@ public class Vue_BienDetails {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/back.png")));
-		btnRetour.setBounds(10, 10, 62, 69);
+		btnRetour.setBounds(11, 11, 48, 68);
 		frmModificationDeBien.getContentPane().add(btnRetour);
 
 		layeredPane = new JLayeredPane();
@@ -183,13 +182,11 @@ public class Vue_BienDetails {
 		frmModificationDeBien.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 		JPanel panel_photos = new JPanel();
-		panel_photos.setOpaque(false);
 		layeredPane.add(panel_photos, "name_463069160670000");
 		panel_photos.setLayout(null);
-		panel_photos.setVisible(false);
 
 		JLabel btnSuivant = new JLabel("Suivant");
-		
+
 		btnSuivant.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnSuivant.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnSuivant.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/next.png")));
@@ -200,7 +197,7 @@ public class Vue_BienDetails {
 		panel_photos.add(btnSuivant);
 
 		JLabel btnPrecedent = new JLabel("Precedent");
-		
+
 		btnPrecedent.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnPrecedent.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnPrecedent.setIcon(new ImageIcon(Vue_BienDetails.class.getResource("/img/back.png")));
@@ -216,7 +213,6 @@ public class Vue_BienDetails {
 		panel_photos.add(lblNewLabel_2);
 
 		JPanel panel_info = new JPanel();
-		panel_info.setOpaque(false);
 		layeredPane.add(panel_info, "name_528310932692899");
 		panel_info.setLayout(null);
 
@@ -307,7 +303,8 @@ public class Vue_BienDetails {
 		panel_info.add(lblNewLabel_4_1_2);
 		lblNewLabel_4_1_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_4_1_2.setFont(new Font("Tahoma", Font.BOLD, 14));
-		// Impossible de mettre un point pour faire un double
+
+		
 		txtValeur = new JLabel();
 		txtValeur.setBounds(133, 247, 105, 20);
 		panel_info.add(txtValeur);
@@ -343,60 +340,54 @@ public class Vue_BienDetails {
 		panel_info.add(lblVille_2_1);
 		lblVille_2_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblVille_2_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		
+
 		JLabel lblAnnee = new JLabel("");
 		lblAnnee.setBounds(192, 159, 73, 14);
 		panel_info.add(lblAnnee);
 		lblAnnee.setText(String.valueOf(bien.getAnnee()));
-					
+
 		JScrollPane scroll_Contrats = new JScrollPane();
 		layeredPane.add(scroll_Contrats, "name_989719240449800");
-		
+
 		ContratlDAO contratDAO = new ContratlDAO();
-		ArrayList<Contratl>contrats = contratDAO.getAllByBienId(bien.getId());
-		String[] columns= {"ID","Locoataire","Date de début","Date de fin"};
-		String[][]data2=new String[contrats.size()][columns.length];
-		int i=0;
-		for(Contratl c : contrats) {
+		ArrayList<Contratl> contrats = contratDAO.getAllByBienId(bien.getId());
+		String[] columns = { "ID", "Locoataire", "Date de début", "Date de fin" };
+		String[][] data2 = new String[contrats.size()][columns.length];
+		int i = 0;
+		for (Contratl c : contrats) {
 			LocataireDAO locataireDAO = new LocataireDAO();
 			Locataire locataire = locataireDAO.getById(c.getId_locataire());
-			data2[i][0]=c.getId()+"";
-			data2[i][1]=locataire.toString();
-			data2[i][2]=c.getDate();
-			data2[i][3]=c.getDatefin();
+			data2[i][0] = c.getId() + "";
+			data2[i][1] = locataire.toString();
+			data2[i][2] = c.getDate();
+			data2[i][3] = c.getDatefin();
 			i++;
 		}
-		DefaultTableModel model2 = new DefaultTableModel(data2,columns);
-		
-		
+		DefaultTableModel model2 = new DefaultTableModel(data2, columns);
+
 		table_Contrats = new JTable(model2);
 		scroll_Contrats.setViewportView(table_Contrats);
-		
+
 		JScrollPane scroll_Visites = new JScrollPane();
 		layeredPane.add(scroll_Visites, "name_989722156527600");
-		
+
 		VisiteDAO visiteDAO = new VisiteDAO();
-		ArrayList<Visite>visites = visiteDAO.getAllByBienId(bien.getId());
-		
-		String[] column = {"ID","Date","Visiteur"};
-		String[][] data=new String[visites.size()][column.length];
-		i=0;
-		for(Visite v : visites) {
-			data[i][0]=v.getId()+"";
-			data[i][1]=v.getDate();
-			data[i][2]=v.getNom();
+		ArrayList<Visite> visites = visiteDAO.getAllByBienId(bien.getId());
+
+		String[] column = { "ID", "Date", "Visiteur" };
+		String[][] data = new String[visites.size()][column.length];
+		i = 0;
+		for (Visite v : visites) {
+			data[i][0] = v.getId() + "";
+			data[i][1] = v.getDate();
+			data[i][2] = v.getNom();
 			i++;
 		}
-		DefaultTableModel model1=new DefaultTableModel(data,column);
+		DefaultTableModel model1 = new DefaultTableModel(data, column);
 		table_Visites = new JTable(model1);
 		scroll_Visites.setViewportView(table_Visites);
 		JLabel btnInfos = new JLabel("Informations");
-		btnInfos.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				switchPanels(panel_info);
-			}
-		});
+		
 		btnInfos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnInfos.setBorder(null);
 		btnInfos.setOpaque(false);
@@ -405,12 +396,7 @@ public class Vue_BienDetails {
 		frmModificationDeBien.getContentPane().add(btnInfos);
 
 		JLabel btnPhotos = new JLabel("Photos");
-		btnPhotos.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				switchPanels(panel_photos);
-			}
-		});
+		
 		btnPhotos.setOpaque(false);
 		btnPhotos.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnPhotos.setBorder(null);
@@ -422,9 +408,8 @@ public class Vue_BienDetails {
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
 		lblBG.setBounds(-16, 0, 1000, 591);
 		frmModificationDeBien.getContentPane().add(lblBG);
-
-		File pathtoimg_appart_file = new File(
-				"C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart\\" + bien.getId());
+		String dir = System.getProperty("user.dir");
+		File pathtoimg_appart_file = new File(dir + "\\img_appart\\" + bien.getId());
 		File[] paths = pathtoimg_appart_file.listFiles();
 		ArrayList<String> imgpaths = new ArrayList<String>();
 		for (File f : paths) {
@@ -442,107 +427,119 @@ public class Vue_BienDetails {
 					.getImage().getScaledInstance(832, 414, Image.SCALE_DEFAULT)));
 
 		}
-		
+
 		btnPrecedent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				 if (photoDisplayed == 1) {
-			            photoDisplayed = fileCount;
-			            lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-			                    .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
-			        } else {
-			            photoDisplayed--;
-			            lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-			                    .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
-			        }
+				if (photoDisplayed == 1) {
+					photoDisplayed = fileCount;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+				} else {
+					photoDisplayed--;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+				}
 			}
 		});
-		
+
 		btnSuivant.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (photoDisplayed != fileCount) {
-				    photoDisplayed++;
-				    lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-				            .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+					photoDisplayed++;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
 				} else {
-				    photoDisplayed = 1;
-				    lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
-				            .getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
+					photoDisplayed = 1;
+					lblNewLabel_2.setIcon(new ImageIcon(new ImageIcon(imgpaths.get(photoDisplayed - 1)).getImage()
+							.getScaledInstance(832, 500, Image.SCALE_DEFAULT)));
 				}
 			}
 		});
-		layeredPane.setBackground(new Color(0,0,0,0));
-		
+		layeredPane.setBackground(new Color(0, 0, 0, 0));
+
 		btnVisites.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				switchScrollPane(scroll_Visites);
 			}
-			
+
 		});
-		
+
 		btnContrats.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				switchScrollPane(scroll_Contrats);
 			}
 		});
-		
-		
+		btnPhotos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchPanels(panel_photos);
+			}
+		});
+		btnInfos.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchPanels(panel_info);
+			}
+		});
 
 	}
+
 	public void switchPanels(JPanel panel) {
 		layeredPane.removeAll();
 		layeredPane.add(panel);
 		layeredPane.repaint();
 		layeredPane.revalidate();
 	}
-	
+
 	public void switchScrollPane(JScrollPane jscrollpane) {
 		layeredPane.removeAll();
 		layeredPane.add(jscrollpane);
 		layeredPane.repaint();
 		layeredPane.revalidate();
 	}
-	
+
 	private void printRecord(JFrame frametoprint) {
 		PrinterJob printerJob = PrinterJob.getPrinterJob();
 		printerJob.setJobName("Print Record");
 		printerJob.setPrintable(new Printable() {
-            @Override
-            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
-                // Check If No Printable Content
-                if(pageIndex > 0){
-                    return Printable.NO_SUCH_PAGE;
-                }
-                
-                // Make 2D Graphics to map content
-                Graphics2D graphics2D = (Graphics2D)graphics;
-                // Set Graphics Translations
-                // A Little Correction here Multiplication was not working so I replaced with addition
-                graphics2D.translate(pageFormat.getImageableX()+10, pageFormat.getImageableY()+10);
-                // This is a page scale. Default should be 0.3 I am using 0.5
-                graphics2D.scale(0.5, 0.5);
-                
-                // Now paint panel as graphics2D
-                frametoprint.paint(graphics2D);
-                
-                // return if page exists
-                return Printable.PAGE_EXISTS;
-            }
-        });
-		 boolean returningResult = printerJob.printDialog();
-	        // check if dialog is showing
-	        if(returningResult){
-	            // Use try catch exeption for failure
-	            try{
-	                // Now call print method inside printerJob to print
-	                printerJob.print();
-	            }catch (PrinterException printerException){
-	                JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
-	            }
-	        }
-		
+			@Override
+			public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+				// Check If No Printable Content
+				if (pageIndex > 0) {
+					return Printable.NO_SUCH_PAGE;
+				}
+
+				// Make 2D Graphics to map content
+				Graphics2D graphics2D = (Graphics2D) graphics;
+				// Set Graphics Translations
+				// A Little Correction here Multiplication was not working so I replaced with
+				// addition
+				graphics2D.translate(pageFormat.getImageableX() + 10, pageFormat.getImageableY() + 10);
+				// This is a page scale. Default should be 0.3 I am using 0.5
+				graphics2D.scale(0.5, 0.5);
+
+				// Now paint panel as graphics2D
+				frametoprint.paint(graphics2D);
+
+				// return if page exists
+				return Printable.PAGE_EXISTS;
+			}
+		});
+		boolean returningResult = printerJob.printDialog();
+		// check if dialog is showing
+		if (returningResult) {
+			// Use try catch exeption for failure
+			try {
+				// Now call print method inside printerJob to print
+				printerJob.print();
+			} catch (PrinterException printerException) {
+				JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
+			}
+		}
+
 	}
 }

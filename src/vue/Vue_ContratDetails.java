@@ -90,7 +90,8 @@ public class Vue_ContratDetails {
 		frame.getContentPane().add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Détails");
-		lblNewLabel.setBounds(218, 26, 121, 30);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(234, 30, 39, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel btnNewButton = new JLabel("Imprimer");
@@ -104,7 +105,7 @@ public class Vue_ContratDetails {
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ContratDetails.class.getResource("/img/print.png")));
-		btnNewButton.setBounds(426, 11, 57, 67);
+		btnNewButton.setBounds(444, 11, 52, 68);
 		frame.getContentPane().add(btnNewButton);
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);

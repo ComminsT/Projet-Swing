@@ -20,12 +20,15 @@ import javax.swing.table.DefaultTableModel;
 import dao.BienDAO;
 import dao.ComptabiliteDAO;
 import dao.ContratlDAO;
+import dao.HistoriqueDAO;
 import dao.LocataireDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Checker;
 import entite.Comptabilite;
 import entite.Contratl;
 import entite.Database;
+import entite.Historique;
 import entite.Locataire;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -97,7 +100,7 @@ Database.Connect();
 		btnSuivant.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnSuivant.setIcon(new ImageIcon(Vue_CreationCompta2.class.getResource("/img/next.png")));
 
-		btnSuivant.setBounds(468, 11, 48, 68);
+		btnSuivant.setBounds(469, 11, 48, 68);
 		frame.getContentPane().add(btnSuivant);
 
 		separator = new JSeparator();
@@ -106,7 +109,8 @@ Database.Connect();
 		frame.getContentPane().add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Nouvelle facture");
-		lblNewLabel.setBounds(197, 11, 113, 53);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(218, 30, 92, 16);
 		frame.getContentPane().add(lblNewLabel);
 		Date date=new Date();
 		
@@ -169,6 +173,14 @@ Database.Connect();
 					compta.setMontantpaye(0.0);
 					ComptabiliteDAO comptaDAO = new ComptabiliteDAO();
 					comptaDAO.save(compta);
+					ArrayList<Comptabilite>comp=comptaDAO.getAll();
+					compta=comp.get(comp.size()-1);
+					 HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+						Historique historique = new Historique();
+						historique.setDate(Checker.getDateTime());
+						historique.setId_agent(agent.getId());
+						historique.setAction("Creation facture id : "+compta.getId());
+						historiqueDAO.save(historique);
 					frame.dispose();
 					new Vue_ComptaList(agent).getFrame().setVisible(true);	
 				}

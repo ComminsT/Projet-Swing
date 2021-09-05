@@ -25,7 +25,6 @@ import entite.Database;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
-
 public class Vue_Login {
 
 	private JFrame frame;
@@ -79,21 +78,23 @@ public class Vue_Login {
 		} catch (UnsupportedLookAndFeelException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} 
+		}
 		frame.setLocationRelativeTo(null);
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setBounds(304, 180, 372, 232);
+		panel.setBounds(296, 180, 372, 232);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("Identifiant");
-		lblNewLabel.setBounds(6, 31, 86, 14);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(143, 31, 86, 14);
 		panel.add(lblNewLabel);
 
 		JLabel lblMotDePasse = new JLabel("Mot de passe");
-		lblMotDePasse.setBounds(6, 97, 86, 14);
+		lblMotDePasse.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMotDePasse.setBounds(143, 97, 86, 14);
 		panel.add(lblMotDePasse);
 
 		// bouton valider
@@ -104,12 +105,12 @@ public class Vue_Login {
 		btnsubmit.setBackground(Color.WHITE);
 		btnsubmit.setBorder(null);
 		btnsubmit.setOpaque(false);
-		btnsubmit.setBounds(10, 151, 67, 67);
+		btnsubmit.setBounds(152, 151, 67, 67);
 		panel.add(btnsubmit);
 
 		// champ mdp
 		tmdp = new JPasswordField();
-		tmdp.setBounds(0, 120, 366, 19);
+		tmdp.setBounds(64, 120, 244, 19);
 		panel.add(tmdp);
 		tmdp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -120,7 +121,7 @@ public class Vue_Login {
 
 		// champ identifiant
 		tidentifiant = new JTextField();
-		tidentifiant.setBounds(0, 50, 366, 20);
+		tidentifiant.setBounds(64, 50, 244, 20);
 		panel.add(tidentifiant);
 		tidentifiant.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -162,14 +163,15 @@ public class Vue_Login {
 	public JFrame getFrame() {
 		return frame;
 	}
+
 	public static String getLookAndFeelClassName(String nameSnippet) {
-	    LookAndFeelInfo[] plafs = UIManager.getInstalledLookAndFeels();
-	    for (LookAndFeelInfo info : plafs) {
-	        if (info.getName().contains(nameSnippet)) {
-	            return info.getClassName();
-	        }
-	    }
-	    return null;
+		LookAndFeelInfo[] plafs = UIManager.getInstalledLookAndFeels();
+		for (LookAndFeelInfo info : plafs) {
+			if (info.getName().contains(nameSnippet)) {
+				return info.getClassName();
+			}
+		}
+		return null;
 	}
 
 	public void setFrame(JFrame frame) {

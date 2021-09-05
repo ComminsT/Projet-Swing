@@ -2,6 +2,7 @@ package vue;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -12,6 +13,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.util.Date;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -26,6 +28,12 @@ import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 import dao.HistoriqueDAO;
 import dao.LocataireDAO;
@@ -81,7 +89,7 @@ public class Vue_AgentDetails {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 973, 619);
+		frame.setBounds(100, 100, 973, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		separator = new JSeparator();
 		separator.setBackground(Color.GRAY);
@@ -91,6 +99,7 @@ public class Vue_AgentDetails {
 		frame.getContentPane().setLayout(null);
 
 		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -102,10 +111,11 @@ public class Vue_AgentDetails {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setOpaque(false);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
-		btnRetour.setBounds(6, 6, 62, 68);
+		btnRetour.setBounds(12, 6, 48, 68);
 		frame.getContentPane().add(btnRetour);
 
 		btnImprimer = new JLabel("Imprimer");
+		btnImprimer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnImprimer.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -117,11 +127,11 @@ public class Vue_AgentDetails {
 		btnImprimer.setOpaque(false);
 		btnImprimer.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnImprimer.setHorizontalAlignment(SwingConstants.CENTER);
-		btnImprimer.setBounds(892, 6, 81, 68);
+		btnImprimer.setBounds(893, 6, 52, 68);
 		frame.getContentPane().add(btnImprimer);
 
 		layeredPane = new JLayeredPane();
-		layeredPane.setBounds(169, 117, 774, 461);
+		layeredPane.setBounds(169, 96, 762, 450);
 		frame.getContentPane().add(layeredPane);
 		layeredPane.setLayout(new CardLayout(0, 0));
 
@@ -191,7 +201,7 @@ public class Vue_AgentDetails {
 		panel_infos.add(textField_4_1);
 		textField_4_1.setText(date[2] + "/" + date[1] + "/" + date[0]);
 
-		JLabel lblPrenom = new JLabel("Prenom");
+		JLabel lblPrenom = new JLabel("Prénom");
 		lblPrenom.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblPrenom.setBounds(6, 88, 54, 17);
 		panel_infos.add(lblPrenom);
@@ -203,7 +213,7 @@ public class Vue_AgentDetails {
 		panel_infos.add(textField_1);
 		textField_1.setText(agent.getPrenom());
 
-		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone");
+		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(384, 18, 192, 14);
 		panel_infos.add(lblNewLabel_4);
@@ -271,6 +281,26 @@ public class Vue_AgentDetails {
 		DefaultTableModel model2 = new DefaultTableModel(data2, columns2);
 		table_Clients = new JTable(model2);
 		scrollPane_Clients.setViewportView(table_Clients);
+		
+		JPanel panel_Charts = new JPanel();
+		layeredPane.add(panel_Charts, "name_1319857694185000");
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		dataset.addValue(120000.0, "Produit 1", "06");
+		dataset.addValue(550000.0, "Produit 1", "07");
+		dataset.addValue(180000.0, "Produit 1", "08");
+		dataset.addValue(270000.0, "Produit 2", "06");
+		dataset.addValue(600000.0, "Produit 2", "08");
+		dataset.addValue(230000.0, "Produit 2", "06");
+		dataset.addValue(90000.0, "Produit 3", "07");
+		dataset.addValue(450000.0, "Produit 3", "06");
+		dataset.addValue(170000.0, "Produit 3", "06");
+		JFreeChart barChart = ChartFactory.createBarChart("Performance trimestriel", "", "Quantité", dataset,
+				PlotOrientation.VERTICAL, true, true, false);
+		ChartPanel cPanel = new ChartPanel(barChart,762,450,700,400,700,400,false,true,true,true,false,false);
+		
+		panel_Charts.add(cPanel);
+		
+		
 		table_Clients.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
 				int row = table_Clients.convertRowIndexToModel(table_Clients.getSelectedRow());
@@ -290,13 +320,15 @@ public class Vue_AgentDetails {
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setBounds(12, 117, 138, 461);
+		panel.setBounds(12, 117, 145, 461);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
 		JButton btnNewButton = new JButton("Informations");
+		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNewButton.setOpaque(false);
 
-		btnNewButton.setBounds(12, 55, 113, 40);
+		btnNewButton.setBounds(12, 55, 116, 40);
 		btnNewButton.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/personal.png")));
 		btnNewButton.setBorder(null);
 		btnNewButton.setBorderPainted(false);
@@ -304,8 +336,10 @@ public class Vue_AgentDetails {
 		panel.add(btnNewButton);
 
 		JButton btnHistorique = new JButton("Historique");
+		btnHistorique.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnHistorique.setOpaque(false);
 
-		btnHistorique.setBounds(15, 150, 108, 48);
+		btnHistorique.setBounds(12, 150, 110, 48);
 		btnHistorique.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/historique.png")));
 		btnHistorique.setBorderPainted(false);
 		btnHistorique.setBorder(null);
@@ -313,7 +347,15 @@ public class Vue_AgentDetails {
 		panel.add(btnHistorique);
 
 		JButton btnPerformance = new JButton("Performance");
-		btnPerformance.setBounds(9, 253, 120, 48);
+		btnPerformance.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				switchPanels(panel_Charts);
+			}
+		});
+		btnPerformance.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnPerformance.setOpaque(false);
+		btnPerformance.setBounds(12, 253, 127, 48);
 		btnPerformance.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/performance.png")));
 		btnPerformance.setBorderPainted(false);
 		btnPerformance.setBorder(null);
@@ -321,18 +363,20 @@ public class Vue_AgentDetails {
 		panel.add(btnPerformance);
 
 		JButton btnClients = new JButton("Clients");
+		btnClients.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnClients.setOpaque(false);
 
 		btnClients.setIcon(new ImageIcon(Vue_AgentDetails.class.getResource("/img/clients.png")));
 		btnClients.setBorderPainted(false);
 		btnClients.setBorder(null);
 		btnClients.setBackground(Color.WHITE);
-		btnClients.setBounds(5, 356, 120, 48);
+		btnClients.setBounds(12, 356, 91, 48);
 		panel.add(btnClients);
 
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);
 		lblBG.setIcon(new ImageIcon(Vue_AccueilAgent.class.getResource("/img/accueil_bg.jpeg")));
-		lblBG.setBounds(-27, 6, 1000, 591);
+		lblBG.setBounds(-27, 0, 1000, 591);
 		frame.getContentPane().add(lblBG);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -416,4 +460,5 @@ public class Vue_AgentDetails {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
+	
 }

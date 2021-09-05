@@ -91,7 +91,7 @@ Database.Connect();
 		btnSuivant.setIcon(new ImageIcon(Vue_CreationCompta.class.getResource("/img/next.png")));
 		btnSuivant.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
-		btnSuivant.setBounds(468, 11, 48, 68);
+		btnSuivant.setBounds(469, 11, 48, 68);
 		frame.getContentPane().add(btnSuivant);
 
 		separator = new JSeparator();
@@ -100,7 +100,8 @@ Database.Connect();
 		frame.getContentPane().add(separator);
 		
 		JLabel lblNewLabel = new JLabel("Nouvelle facture");
-		lblNewLabel.setBounds(197, 11, 113, 53);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(218, 30, 92, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
@@ -109,7 +110,7 @@ Database.Connect();
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Sélectionnez la date ou la facture doit être payée :");
+		JLabel lblNewLabel_1 = new JLabel("Sélectionnez la date où la facture doit être payée :");
 		lblNewLabel_1.setBounds(0, 47, 376, 14);
 		panel.add(lblNewLabel_1);
 		

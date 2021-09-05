@@ -22,15 +22,18 @@ import javax.swing.WindowConstants;
 
 import com.toedter.calendar.JCalendar;
 
+import dao.HistoriqueDAO;
 import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Checker;
 import entite.Database;
+import entite.Historique;
 import entite.Proprietaire;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.Cursor;
 
 public class Vue_CreationProprietaire {
@@ -95,7 +98,7 @@ public class Vue_CreationProprietaire {
 	private void initialize() {
 		
 		frame = new JFrame();
-		frame.setBounds(100, 100, 534, 749);
+		frame.setBounds(100, 100, 981, 620);
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
@@ -109,7 +112,7 @@ public class Vue_CreationProprietaire {
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationProprietaire.class.getResource("/img/valider.png")));
 		btnNewButton.setOpaque(false);
 
-		btnNewButton.setBounds(465, 12, 63, 68);
+		btnNewButton.setBounds(913, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -344,7 +347,7 @@ public class Vue_CreationProprietaire {
 
 		lblVille_1 = new JLabel("Date de naissance");
 		lblVille_1.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblVille_1.setBounds(115, 397, 125, 17);
+		lblVille_1.setBounds(465, 108, 125, 17);
 		frame.getContentPane().add(lblVille_1);
 
 		JComboBox<String> comboboxidentifiant = new JComboBox<>();
@@ -352,7 +355,7 @@ public class Vue_CreationProprietaire {
 				"CZ +420", "DE +49", "DK +45", "EE +372", "EL +30", "ES +34", "FI +358", "FR +33", "GI +350", "HR +385",
 				"HU +36", "IE +353", "IS +354", "IT +39", "LI +423", "LT +370", "LUX +352", "LV +371", "MT +356",
 				"NL +31", "NO +47", "PL +48", "PT +351", "RO +40", "SE +46", "SI +386", "SK +421", "UK+44" }));
-		comboboxidentifiant.setBounds(115, 624, 73, 22);
+		comboboxidentifiant.setBounds(115, 421, 73, 22);
 		frame.getContentPane().add(comboboxidentifiant);
 
 		txtNumero = new JTextField();
@@ -387,25 +390,26 @@ public class Vue_CreationProprietaire {
 		txtNumero.setText("Numero");
 		txtNumero.setForeground(Color.LIGHT_GRAY);
 		txtNumero.setColumns(10);
-		txtNumero.setBounds(191, 624, 147, 22);
+		txtNumero.setBounds(191, 421, 147, 22);
 		frame.getContentPane().add(txtNumero);
 
-		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone");
+		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblNewLabel_4.setBounds(115, 600, 192, 14);
+		lblNewLabel_4.setBounds(115, 397, 192, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 
 		JCalendar calendar = new JCalendar();
-		calendar.setBounds(117, 421, 296, 167);
+		calendar.setBounds(467, 132, 296, 167);
 		frame.getContentPane().add(calendar);
 
 		JLabel lblPhoneError = new JLabel("Numéro de téléphone déjà enregistré ou invalide");
 		lblPhoneError.setForeground(Color.RED);
 		lblPhoneError.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		lblPhoneError.setBounds(115, 647, 221, 16);
+		lblPhoneError.setBounds(115, 444, 221, 16);
 		frame.getContentPane().add(lblPhoneError);
 		
 		JLabel btnRetour = new JLabel("Retour");
+		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -418,12 +422,12 @@ public class Vue_CreationProprietaire {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_CreationProprietaire.class.getResource("/img/back.png")));
 		btnRetour.setOpaque(false);
-		btnRetour.setBounds(12, 12, 48, 68);
+		btnRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnRetour);
 		
 		JLabel lblNewLabel_1 = new JLabel("Création nouveau proprietaire");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_1.setBounds(148, 12, 221, 53);
+		lblNewLabel_1.setBounds(403, 30, 169, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 		lblPhoneError.setVisible(false);
 		
@@ -494,6 +498,14 @@ public class Vue_CreationProprietaire {
 					proprietaire.setVille(ville);
 					proprietaire.setPays(pays);
 					proprietaireDAO.save(proprietaire);
+					ArrayList<Proprietaire>proprietaires = proprietaireDAO.getAll();
+					proprietaire = proprietaires.get(proprietaires.size()-1);
+					 HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+						Historique historique = new Historique();
+						historique.setDate(Checker.getDateTime());
+						historique.setId_agent(agent.getId());
+						historique.setAction("Ajout proprietaire id : "+proprietaire.getId());
+						historiqueDAO.save(historique);	
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau propriétaire a bien été enregistré."
 							+ "Souhaitez vous ajouter des biens immobilier immédiatement ?");
 					if (input == 0) {

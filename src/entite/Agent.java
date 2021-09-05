@@ -1,5 +1,7 @@
 package entite;
 
+import java.util.Date;
+
 public class Agent {
 	private int id;
 	private String nom;
@@ -99,5 +101,7 @@ public class Agent {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	}
 
-}
+

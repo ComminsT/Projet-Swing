@@ -25,10 +25,13 @@ import javax.swing.WindowConstants;
 import com.toedter.calendar.JYearChooser;
 
 import dao.BienDAO;
+import dao.HistoriqueDAO;
 import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Checker;
 import entite.Database;
+import entite.Historique;
 import entite.Proprietaire;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -443,8 +446,9 @@ Database.Connect();
 				    bienDAO.save(bien);
 				    ArrayList<Bien>biens = bienDAO.getAll();
 				    bien=biens.get(biens.size()-1);
+				    String c = System.getProperty("user.dir");
 				    String folderName=String.valueOf(bien.getId());
-				    String basePath="C:\\Users\\Seria\\OneDrive\\CDA\\Java\\projet SWING\\img_appart";
+				    String basePath=c+"\\img_appart";
 				    String concat=basePath+"\\"+folderName;
 				    File f1=new File(concat);
 				    boolean bool = f1.mkdir();  
@@ -453,6 +457,12 @@ Database.Connect();
 				      }else{  
 				         System.out.println("Error Found!");  
 				      }  
+				      HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+						Historique historique = new Historique();
+						historique.setDate(Checker.getDateTime());
+						historique.setId_agent(agent.getId());
+						historique.setAction("Ajout bien immobilier id : "+bien.getId());
+						historiqueDAO.save(historique);	
 	
 					int input = JOptionPane.showConfirmDialog(null, "Le nouveau bien a bien été enregistré.\n"
 							+ "Souhaitez vous lui attribuer des photos tout de suite?");

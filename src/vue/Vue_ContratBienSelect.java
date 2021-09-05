@@ -99,7 +99,7 @@ public class Vue_ContratBienSelect {
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ContratBienSelect.class.getResource("/img/back.png")));
-		btnNewButton.setBounds(10, 11, 48, 68);
+		btnNewButton.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel btnNext = new JLabel("Suivant");
@@ -124,12 +124,12 @@ public class Vue_ContratBienSelect {
 		btnNext.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNext.setIcon(new ImageIcon(Vue_ContratBienSelect.class.getResource("/img/next.png")));
 
-		btnNext.setBounds(371, 11, 48, 68);
+		btnNext.setBounds(363, 11, 48, 68);
 		frame.getContentPane().add(btnNext);
 
 		JLabel lblNewLabel = new JLabel("Nouveau contrat de location");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(78, 10, 281, 66);
+		lblNewLabel.setBounds(131, 30, 158, 16);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez un bien");
@@ -140,8 +140,10 @@ public class Vue_ContratBienSelect {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 142, 400, 330);
 		frame.getContentPane().add(scrollPane);
+		//scrollPane.setBackground(new Color(255,255,255,100));
 
 		table_proprietaire = new JTable();
+		table_proprietaire.setBackground(new Color(255,255,255,100));
 
 		txtSearch = new JTextField();
 

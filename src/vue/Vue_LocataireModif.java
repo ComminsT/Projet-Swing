@@ -24,13 +24,16 @@ import javax.swing.WindowConstants;
 
 import com.toedter.calendar.JCalendar;
 
+import dao.HistoriqueDAO;
 import dao.LocataireDAO;
 import entite.Agent;
 import entite.Checker;
 import entite.Database;
+import entite.Historique;
 import entite.Locataire;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.awt.Cursor;
 
 public class Vue_LocataireModif {
@@ -406,7 +409,7 @@ public class Vue_LocataireModif {
 		txtNumero.setBounds(118, 380, 139, 22);
 		frame.getContentPane().add(txtNumero);
 
-		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone :");
+		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(10, 361, 170, 14);
 		frame.getContentPane().add(lblNewLabel_4);
@@ -456,7 +459,7 @@ public class Vue_LocataireModif {
 		frame.getContentPane().add(lblPhoneError);
 
 		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du locataire");
-		lblNewLabel_2.setBounds(277, 26, 226, 14);
+		lblNewLabel_2.setBounds(361, 30, 245, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblPrnom = new JLabel("Prénom :");
@@ -561,6 +564,12 @@ public class Vue_LocataireModif {
 					locataire.setSituation(situation);
 					locataire.setStatut(statut);
 					locataireDAO.save(locataire);
+					 HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+						Historique historique = new Historique();
+						historique.setDate(Checker.getDateTime());
+						historique.setId_agent(agent.getId());
+						historique.setAction("Modification locataire id : "+locataire.getId());
+						historiqueDAO.save(historique);	
 						frame.dispose();
 						new Vue_LocatairesList(agent).getFrame().setVisible(true);
 				}

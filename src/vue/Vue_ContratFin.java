@@ -18,10 +18,14 @@ import com.toedter.calendar.JCalendar;
 
 import dao.BienDAO;
 import dao.ContratlDAO;
+import dao.HistoriqueDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Checker;
 import entite.Contratl;
 import entite.Database;
+import entite.Historique;
+
 import javax.swing.ImageIcon;
 import java.awt.Cursor;
 import java.awt.event.MouseAdapter;
@@ -77,7 +81,7 @@ public class Vue_ContratFin {
 		
 		JLabel lblNewLabel = new JLabel("Fin de contrat");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(167, 11, 185, 51);
+		lblNewLabel.setBounds(220, 30, 77, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JCalendar calendar = new JCalendar();
@@ -111,7 +115,7 @@ public class Vue_ContratFin {
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_ContratFin.class.getResource("/img/back.png")));
-		btnNewButton.setBounds(17, 11, 48, 68);
+		btnNewButton.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnNewButton);
 		
 		JLabel btnValider = new JLabel("Valider");
@@ -130,6 +134,13 @@ public class Vue_ContratFin {
 				bienDAO.save(bien);
 				ContratlDAO contratDAO = new ContratlDAO();
 				contratDAO.save(contrat);
+				HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+				Historique historique = new Historique();
+				historique.setDate(Checker.getDateTime());
+				historique.setId_agent(agent.getId());
+				historique.setAction("Fin de contrat ID : "+contrat.getId());
+				historiqueDAO.save(historique);	
+				
 				frame.dispose();
 				new Vue_ContratList(agent).getFrame().setVisible(true);
 			
@@ -139,7 +150,7 @@ public class Vue_ContratFin {
 		btnValider.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnValider.setIcon(new ImageIcon(Vue_ContratFin.class.getResource("/img/valider.png")));
 		btnValider.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnValider.setBounds(470, 11, 48, 67);
+		btnValider.setBounds(458, 11, 48, 68);
 		frame.getContentPane().add(btnValider);
 		
 		JLabel lblBG = new JLabel("");

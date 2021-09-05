@@ -88,7 +88,7 @@ public class Vue_ProprietairesList {
 		ProprietaireDAO proprietaireDAO = new ProprietaireDAO();
 
 		ArrayList<Proprietaire> proprietaires = proprietaireDAO.getAllByIdAgent(agent.getId());
-		String columns[] = { "ID", "Nom", "Prenom", "Telephone" };
+		String columns[] = { "ID", "Nom", "Prénom", "Téléphone" };
 		String data[][] = new String[proprietaires.size()][columns.length];
 		int i = 0;
 		for (Proprietaire p : proprietaires) {

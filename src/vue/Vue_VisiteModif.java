@@ -26,10 +26,13 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JCalendar;
 
 import dao.BienDAO;
+import dao.HistoriqueDAO;
 import dao.VisiteDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Checker;
 import entite.Database;
+import entite.Historique;
 import entite.Visite;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -92,7 +95,8 @@ public class Vue_VisiteModif {
 		frame.setLocationRelativeTo(null);
 
 		JLabel lblNewLabel = new JLabel("Modification visite");
-		lblNewLabel.setBounds(151, 21, 151, 30);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(159, 30, 102, 16);
 		frame.getContentPane().add(lblNewLabel);
 		Date date1 = null;
 		try {
@@ -136,7 +140,7 @@ public class Vue_VisiteModif {
 		comboboxHeure.setSelectedItem(heure[0]);
 
 		JLabel lblNewLabel_3 = new JLabel("Heure");
-		lblNewLabel_3.setBounds(101, 314, 91, 27);
+		lblNewLabel_3.setBounds(104, 314, 91, 27);
 		frame.getContentPane().add(lblNewLabel_3);
 
 		JComboBox comboboxMinute = new JComboBox();
@@ -150,7 +154,7 @@ public class Vue_VisiteModif {
 		comboboxMinute.setSelectedItem(heure[1]);
 
 		JLabel lblNewLabel_3_1 = new JLabel("Minutes");
-		lblNewLabel_3_1.setBounds(252, 314, 86, 27);
+		lblNewLabel_3_1.setBounds(245, 314, 86, 27);
 		frame.getContentPane().add(lblNewLabel_3_1);
 
 		JLabel lblNewLabel_2_1 = new JLabel("Sélectionnez le bien visité");
@@ -202,13 +206,18 @@ public class Vue_VisiteModif {
 					String annee = String.valueOf(calendar.getYearChooser().getYear());
 					String date = annee + "-" + mois + "-" + jour;
 					String heure = comboboxHeure.getSelectedItem() + ":" + comboboxMinute.getSelectedItem();
-
 					visite.setDate(date);
 					visite.setHeure(heure);
 					visite.setId_bien(bien.getId());
 					visite.setNom(txtNom.getText());
 					VisiteDAO visiteDAO = new VisiteDAO();
 					visiteDAO.save(visite);
+					 HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+						Historique historique = new Historique();
+						historique.setDate(Checker.getDateTime());
+						historique.setId_agent(agent.getId());
+						historique.setAction("Modification de la visite id : "+visite.getId());
+						historiqueDAO.save(historique);	
 
 					frame.dispose();
 					new Vue_VisitesList(agent).getFrame().setVisible(true);
@@ -220,7 +229,7 @@ public class Vue_VisiteModif {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_VisiteModif.class.getResource("/img/valider.png")));
 		btnNewButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewButton.setBounds(361, 15, 63, 68);
+		btnNewButton.setBounds(351, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnSearch = new JButton("Recherche");
@@ -270,7 +279,7 @@ public class Vue_VisiteModif {
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setIcon(new ImageIcon(Vue_VisiteModif.class.getResource("/img/back.png")));
-		btnRetour.setBounds(12, 15, 48, 68);
+		btnRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnRetour);
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);

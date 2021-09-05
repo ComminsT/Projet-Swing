@@ -3,38 +3,30 @@ package vue;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.EventQueue;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.Date;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 
-import javax.swing.JButton;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextField;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 
-import com.toedter.calendar.JCalendar;
-
 import dao.BienDAO;
-import dao.ComptabiliteDAO;
 import dao.LocataireDAO;
 import entite.Agent;
 import entite.Bien;
 import entite.Comptabilite;
 import entite.Locataire;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.Component;
-import javax.swing.Box;
-import javax.swing.JSeparator;
-import javax.swing.ImageIcon;
-import javax.swing.JCheckBox;
-import javax.swing.JPanel;
 
 public class Vue_ComptaDetails {
 
@@ -105,15 +97,22 @@ public class Vue_ComptaDetails {
 		btnRetour.setOpaque(false);
 		
 		JPanel panel = new JPanel();
-		panel.setOpaque(false);
 		panel.setBounds(10, 143, 330, 348);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
+		panel.setBackground(new Color(255,255,255,100));
 
 		
 		
 
 		JLabel btnConfirmer = new JLabel("Imprimer");
+		btnConfirmer.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				printRecord(frame);
+			}
+		});
+		btnConfirmer.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnConfirmer.setIcon(new ImageIcon(Vue_ComptaDetails.class.getResource("/img/print.png")));
 		btnConfirmer.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnConfirmer.setOpaque(false);
@@ -121,7 +120,7 @@ public class Vue_ComptaDetails {
 		btnConfirmer.setHorizontalAlignment(SwingConstants.CENTER);
 		btnConfirmer.setBorder(null);
 		btnConfirmer.setBackground(Color.LIGHT_GRAY);
-		btnConfirmer.setBounds(914, 10, 59, 70);
+		btnConfirmer.setBounds(896, 10, 59, 70);
 		frame.getContentPane().add(btnConfirmer);
 
 		LocataireDAO locataireDAO = new LocataireDAO();
@@ -150,7 +149,7 @@ public class Vue_ComptaDetails {
 		panel.add(lblMontantPay);
 		lblMontantPay.setHorizontalAlignment(SwingConstants.RIGHT);
 
-		JLabel lblDatePaye = new JLabel("Date payé :");
+		JLabel lblDatePaye = new JLabel("Date payée :");
 		lblDatePaye.setBounds(56, 299, 70, 16);
 		panel.add(lblDatePaye);
 		lblDatePaye.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -222,5 +221,44 @@ public class Vue_ComptaDetails {
 
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
+	}
+	private void printRecord(JFrame frametoprint) {
+		PrinterJob printerJob = PrinterJob.getPrinterJob();
+		printerJob.setJobName("Print Record");
+		printerJob.setPrintable(new Printable() {
+            @Override
+            public int print(Graphics graphics, PageFormat pageFormat, int pageIndex) throws PrinterException {
+                // Check If No Printable Content
+                if(pageIndex > 0){
+                    return Printable.NO_SUCH_PAGE;
+                }
+                
+                // Make 2D Graphics to map content
+                Graphics2D graphics2D = (Graphics2D)graphics;
+                // Set Graphics Translations
+                // A Little Correction here Multiplication was not working so I replaced with addition
+                graphics2D.translate(pageFormat.getImageableX()+10, pageFormat.getImageableY()+10);
+                // This is a page scale. Default should be 0.3 I am using 0.5
+                graphics2D.scale(0.5, 0.5);
+                
+                // Now paint panel as graphics2D
+                frametoprint.paint(graphics2D);
+                
+                // return if page exists
+                return Printable.PAGE_EXISTS;
+            }
+        });
+		 boolean returningResult = printerJob.printDialog();
+	        // check if dialog is showing
+	        if(returningResult){
+	            // Use try catch exeption for failure
+	            try{
+	                // Now call print method inside printerJob to print
+	                printerJob.print();
+	            }catch (PrinterException printerException){
+	                JOptionPane.showMessageDialog(frametoprint, "Print Error: " + printerException.getMessage());
+	            }
+	        }
+		
 	}
 }

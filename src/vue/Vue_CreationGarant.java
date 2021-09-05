@@ -93,7 +93,7 @@ public class Vue_CreationGarant {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationGarant.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(367, 13, 63, 68);
+		btnNewButton.setBounds(361, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom");
@@ -370,13 +370,14 @@ public class Vue_CreationGarant {
 		txtNumero.setBounds(140, 422, 139, 22);
 		frame.getContentPane().add(txtNumero);
 
-		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone");
+		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(10, 396, 192, 14);
 		frame.getContentPane().add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_2 = new JLabel("Ajout de nouveau garant");
-		lblNewLabel_2.setBounds(159, 30, 154, 16);
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(146, 30, 137, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		lblMailError.setVisible(false);

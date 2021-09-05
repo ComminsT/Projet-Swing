@@ -97,7 +97,7 @@ public class Vue_CreationAgent {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationAgent.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(906, 10, 63, 67);
+		btnNewButton.setBounds(913, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		panel = new JPanel();
@@ -219,7 +219,7 @@ public class Vue_CreationAgent {
 		txtDomaine.setForeground(Color.LIGHT_GRAY);
 		txtDomaine.setColumns(10);
 
-		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistrée");
+		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistré");
 		lblMailError.setBounds(0, 137, 252, 13);
 		panel.add(lblMailError);
 		lblMailError.setForeground(Color.RED);
@@ -362,7 +362,7 @@ public class Vue_CreationAgent {
 		txtNumero.setForeground(Color.LIGHT_GRAY);
 		txtNumero.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone");
+		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone");
 		lblNewLabel_4.setBounds(0, 325, 192, 14);
 		panel.add(lblNewLabel_4);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -416,11 +416,12 @@ public class Vue_CreationAgent {
 		lblRetour.setIcon(new ImageIcon(Vue_CreationAgent.class.getResource("/img/back.png")));
 		lblRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		lblRetour.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblRetour.setBounds(12, 10, 48, 67);
+		lblRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(lblRetour);
 
-		JLabel lblNewLabel_1 = new JLabel("Création de nouvel agent immobilier");
-		lblNewLabel_1.setBounds(376, 31, 229, 15);
+		JLabel lblNewLabel_1 = new JLabel("Création d'un nouvel agent immobilier");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(381, 30, 213, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -466,7 +467,7 @@ public class Vue_CreationAgent {
 				} else if (txtNumero.getText().equals("Numero")) {
 					txtNumero.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				} else if (!Checker.mailcheckera(mail)) {
+				} else if (!Checker.mailcheckeraCreation(mail)) {
 					lblMailError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
 				} else if (!Checker.phonecheckera(tel)) {

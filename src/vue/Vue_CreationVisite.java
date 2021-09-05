@@ -23,10 +23,13 @@ import javax.swing.table.DefaultTableModel;
 import com.toedter.calendar.JCalendar;
 
 import dao.BienDAO;
+import dao.HistoriqueDAO;
 import dao.VisiteDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Checker;
 import entite.Database;
+import entite.Historique;
 import entite.Visite;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
@@ -87,7 +90,8 @@ public class Vue_CreationVisite {
 		frame.setLocationRelativeTo(null);
 
 		JLabel lblNewLabel = new JLabel("Création d'une nouvelle visite");
-		lblNewLabel.setBounds(90, 32, 186, 15);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(127, 30, 165, 16);
 		frame.getContentPane().add(lblNewLabel);
 
 		Date date = new Date();
@@ -140,7 +144,7 @@ public class Vue_CreationVisite {
 		frame.getContentPane().add(lblNewLabel_2_1);
 
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 450, 400, 130);
+		scrollPane.setBounds(10, 450, 400, 116);
 		frame.getContentPane().add(scrollPane);
 
 		BienDAO bienDAO = new BienDAO();
@@ -166,7 +170,7 @@ public class Vue_CreationVisite {
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationVisite.class.getResource("/img/valider.png")));
-		btnNewButton.setBounds(357, 13, 63, 67);
+		btnNewButton.setBounds(351, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JButton btnSearch = new JButton("Recherche");
@@ -216,7 +220,7 @@ public class Vue_CreationVisite {
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setIcon(new ImageIcon(Vue_CreationVisite.class.getResource("/img/back.png")));
-		btnRetour.setBounds(12, 13, 48, 67);
+		btnRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnRetour);
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -280,6 +284,14 @@ public class Vue_CreationVisite {
 					visite.setNom(txtNom.getText());
 					VisiteDAO visiteDAO = new VisiteDAO();
 					visiteDAO.save(visite);
+					ArrayList<Visite>visites = visiteDAO.getAll();
+					visite=visites.get(visites.size()-1);
+					 HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+						Historique historique = new Historique();
+						historique.setDate(Checker.getDateTime());
+						historique.setId_agent(agent.getId());
+						historique.setAction("Ajout visite id : "+visite.getId());
+						historiqueDAO.save(historique);	
 
 					frame.dispose();
 					new Vue_VisitesList(agent).getFrame().setVisible(true);

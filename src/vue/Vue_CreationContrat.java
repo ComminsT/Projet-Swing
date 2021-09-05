@@ -98,7 +98,7 @@ public class Vue_CreationContrat {
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationContrat.class.getResource("/img/back.png")));
-		btnNewButton.setBounds(10, 11, 48, 68);
+		btnNewButton.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel btnNext = new JLabel("Suivant");
@@ -107,12 +107,12 @@ public class Vue_CreationContrat {
 		btnNext.setIcon(new ImageIcon(Vue_CreationContrat.class.getResource("/img/next.png")));
 		btnNext.setVerticalTextPosition(SwingConstants.BOTTOM);
 
-		btnNext.setBounds(372, 8, 48, 68);
+		btnNext.setBounds(361, 11, 48, 66);
 		frame.getContentPane().add(btnNext);
 
 		JLabel lblNewLabel = new JLabel("Nouveau contrat de location");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setBounds(110, 29, 178, 16);
+		lblNewLabel.setBounds(142, 30, 136, 14);
 		frame.getContentPane().add(lblNewLabel);
 
 		JLabel lblNewLabel_1 = new JLabel("Sélectionnez un locataire ");
@@ -128,7 +128,7 @@ public class Vue_CreationContrat {
 
 		LocataireDAO locataireDAO = new LocataireDAO();
 		ArrayList<Locataire> locataires = locataireDAO.getAllFromAgent(agent.getId());
-		String columns[] = { "ID", "Nom", "Prenom", "Telephone", "Statut", "Situation" };
+		String columns[] = { "ID", "Nom", "Prénom", "Téléphone", "Statut", "Situation" };
 		String data[][] = new String[locataires.size()][columns.length];
 		int i = 0;
 		for (Locataire l : locataires) {

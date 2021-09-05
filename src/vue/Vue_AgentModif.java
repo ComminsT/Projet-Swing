@@ -25,14 +25,14 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 
-import com.cemiltokatli.passwordgenerate.Password;
-import com.cemiltokatli.passwordgenerate.PasswordType;
 import com.toedter.calendar.JCalendar;
 
 import dao.AgentDAO;
+import dao.HistoriqueDAO;
 import entite.Agent;
 import entite.Checker;
 import entite.Database;
+import entite.Historique;
 
 public class Vue_AgentModif {
 
@@ -119,7 +119,7 @@ public class Vue_AgentModif {
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationAgent.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(906, 10, 63, 67);
+		btnNewButton.setBounds(913, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		panel = new JPanel();
@@ -242,7 +242,7 @@ public class Vue_AgentModif {
 		txtDomaine.setForeground(Color.BLACK);
 		txtDomaine.setColumns(10);
 
-		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistrée");
+		lblMailError = new JLabel("Adresse mail invalide ou déjà enregistré");
 		lblMailError.setBounds(0, 151, 252, 13);
 		panel.add(lblMailError);
 		lblMailError.setForeground(Color.RED);
@@ -399,7 +399,7 @@ public class Vue_AgentModif {
 		txtNumero.setForeground(Color.BLACK);
 		txtNumero.setColumns(10);
 
-		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone");
+		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone");
 		lblNewLabel_4.setBounds(0, 355, 192, 14);
 		panel.add(lblNewLabel_4);
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
@@ -440,6 +440,7 @@ public class Vue_AgentModif {
 		frame.getContentPane().add(calendar);
 
 		JLabel lblRetour = new JLabel("Retour");
+		lblRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -450,11 +451,12 @@ public class Vue_AgentModif {
 		lblRetour.setIcon(new ImageIcon(Vue_CreationAgent.class.getResource("/img/back.png")));
 		lblRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		lblRetour.setHorizontalTextPosition(SwingConstants.CENTER);
-		lblRetour.setBounds(12, 10, 48, 67);
+		lblRetour.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(lblRetour);
 
-		JLabel lblNewLabel_1 = new JLabel("Création de nouvel agent immobilier");
-		lblNewLabel_1.setBounds(376, 31, 229, 15);
+		JLabel lblNewLabel_1 = new JLabel("Modification agent immobilier");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_1.setBounds(404, 30, 167, 16);
 		frame.getContentPane().add(lblNewLabel_1);
 
 		String[] date = agent.getDateentree().split("-");
@@ -472,6 +474,7 @@ public class Vue_AgentModif {
 				Database.Connect();
 				lblMailError.setVisible(false);
 				lblPhoneError.setVisible(false);
+				String statut = comboBox.getSelectedItem()+"";
 				String nom = txtNom.getText();
 				String prenom = txtPrenom.getText();
 				String adresse = txtAdresse.getText();
@@ -509,20 +512,15 @@ public class Vue_AgentModif {
 				} else if (txtNumero.getText().equals("Numero")) {
 					txtNumero.setForeground(Color.red);
 					JOptionPane.showMessageDialog(null, "Veuillez remplir tous les champs");
-				} else if (!Checker.mailcheckera(mail)) {
+				} else if (!Checker.mailcheckera(mail,agent.getId())) {
 					lblMailError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Adresse mail invalide");
 				} else if (!Checker.phonecheckera(tel)) {
 					lblPhoneError.setVisible(true);
 					JOptionPane.showMessageDialog(null, "Numéro de téléphone déjà enregistré ou invalide");
 				} else {
-					String identifiant = nom.toLowerCase().substring(0, 3) + "-" + prenom.toLowerCase().substring(0, 3)
-							+ Math.round(Math.random() * 100);
-					Password password = Password.createPassword(PasswordType.ALPHANUMERIC, 5, 5);
-					String mdp = password.generate();
 					AgentDAO agentDAO = new AgentDAO();
 					Agent agent = new Agent();
-					agent.setStatut("Employé");
 					agent.setAdresse(adresse);
 					agent.setCp(cp);
 					agent.setMail(mail);
@@ -531,11 +529,9 @@ public class Vue_AgentModif {
 					agent.setPrenom(prenom);
 					agent.setTel(tel);
 					agent.setVille(ville);
-					agent.setIdentifiant(identifiant);
-					agent.setMdp(mdp);
 					agentDAO.save(agent);
-					JOptionPane.showMessageDialog(null, "Le nouvel agent immobilier a bien été enregistré.\n"
-							+ "Identifiant : " + identifiant + "\n" + "MDP : " + mdp);
+					frame.dispose();
+					new Vue_AccueilAdmin().getFrame().setVisible(true	);
 
 				}
 

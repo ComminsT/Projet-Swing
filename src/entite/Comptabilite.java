@@ -81,9 +81,7 @@ public class Comptabilite {
 
 	@Override
 	public String toString() {
-		return "Comptabilite [id=" + id + ", datedue=" + datedue + ", datepaye=" + datepaye + ", categorie="
-				+ categorie + ", montantdu=" + montantdu + ", montantpaye=" + montantpaye + ", id_contratl="
-				+ id_contratl + "]";
+		return " ID "+ id;
 	}
 	
 	

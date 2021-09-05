@@ -63,8 +63,9 @@ public class Vue_CreationAssurance {
 		separator.setBounds(0, 88, 518, 2);
 		frame.getContentPane().add(separator);
 		
-		JLabel lblNewLabel = new JLabel("Ajout Assurance");
-		lblNewLabel.setBounds(185, 26, 137, 51);
+		JLabel lblNewLabel = new JLabel("Ajout assurance");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(212, 30, 93, 16);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Type d'assurance :");
@@ -111,7 +112,7 @@ public class Vue_CreationAssurance {
 		btnNewButton.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewButton.setIcon(new ImageIcon(Vue_CreationAssurance.class.getResource("/img/valider.png")));
-		btnNewButton.setBounds(455, 9, 63, 67);
+		btnNewButton.setBounds(450, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 		JLabel lblBG = new JLabel("");
 		lblBG.setOpaque(true);

@@ -7,7 +7,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 import javax.swing.ImageIcon;
@@ -24,16 +26,17 @@ import javax.swing.table.DefaultTableModel;
 
 import dao.AgentDAO;
 import entite.Agent;
+import entite.Checker;
 import entite.Database;
 
 public class Vue_AccueilAdmin {
 
 	private JFrame frame;
 	private JTable tableAgent;
-	private Agent agent;
 	private JTextField txtSearch;
 	private DefaultTableModel model;
 	private Vector originalTableModel;
+	private Agent agent;
 
 	/**
 	 * Launch the application.
@@ -64,6 +67,30 @@ public class Vue_AccueilAdmin {
 	private void initialize() {
 		Database.Connect();
 		System.out.println(System.getProperty("user.dir"));
+		String chemin = System.getProperty("user.dir");
+		System.out.println(chemin);
+		Date date = new Date();
+		String seconde=String.valueOf(date.getSeconds());
+		String minute = String.valueOf(date.getMinutes());
+		String heure=String.valueOf(date.getHours());
+		
+		String jour = "";
+		if(date.getDate()<10) {
+			jour="0"+date.getDate();
+		}else {
+			jour=date.getDate()+"";
+		}
+		
+		String moisnbr="";
+		if(date.getMonth()<10) {
+			 moisnbr ="0"+(date.getMonth()+1);
+		}else {
+			moisnbr=date.getMonth()+1+"";
+		}
+		String mois=Checker.getMonthName();
+		String annees=String.valueOf(date.getYear()+1900);
+		String dateTimeSQL=annees+"-"+moisnbr+"-"+jour+" "+heure+":"+minute+":"+seconde;
+		System.out.println(dateTimeSQL);
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 981, 630);
@@ -83,7 +110,7 @@ public class Vue_AccueilAdmin {
 
 		AgentDAO agentDAO = new AgentDAO();
 		ArrayList<Agent> agents = agentDAO.getAll();
-		String columns[] = { "ID", "Nom", "Prenom", "Telephone", "Statut" };
+		String columns[] = { "ID", "Nom", "Prénom", "Téléphone", "Statut" };
 		String data[][] = new String[agents.size()][columns.length];
 		int i = 0;
 		for (Agent a : agents) {
@@ -103,12 +130,12 @@ public class Vue_AccueilAdmin {
 
 		JPanel panel = new JPanel();
 		panel.setOpaque(false);
-		panel.setBounds(10, 24, 447, 71);
+		panel.setBounds(10, 24, 550, 71);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 
-		JLabel btnNewTenant = new JLabel("Nouvel Agent");
-		btnNewTenant.setBounds(120, 0, 115, 70);
+		JLabel btnNewTenant = new JLabel("Nouvel agent");
+		btnNewTenant.setBounds(124, 2, 74, 68);
 		panel.add(btnNewTenant);
 		btnNewTenant.addMouseListener(new MouseAdapter() {
 			@Override
@@ -129,16 +156,16 @@ public class Vue_AccueilAdmin {
 		btnNewTenant.setOpaque(false);
 
 		JLabel btnRetour = new JLabel("Retour");
-		btnRetour.setBounds(35, 1, 50, 70);
+		btnRetour.setBounds(10, 0, 50, 70);
 		panel.add(btnRetour);
 		btnRetour.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
-				new Vue_AccueilAdmin().getFrame().setVisible(true);
+				new Vue_Login().getFrame().setVisible(true);
 			}
 		});
-		btnRetour.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/back.png")));
+		btnRetour.setIcon(new ImageIcon(Vue_AccueilAdmin.class.getResource("/img/logOut.png")));
 		btnRetour.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		btnRetour.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnRetour.setHorizontalTextPosition(SwingConstants.CENTER);
@@ -148,7 +175,7 @@ public class Vue_AccueilAdmin {
 		btnRetour.setOpaque(false);
 
 		JLabel btnModifier = new JLabel("Modifier");
-		btnModifier.setBounds(270, 0, 54, 70);
+		btnModifier.setBounds(284, 2, 65, 66);
 		panel.add(btnModifier);
 
 		btnModifier.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/modify.png")));
@@ -161,7 +188,7 @@ public class Vue_AccueilAdmin {
 		btnModifier.setOpaque(false);
 
 		JLabel btnDetails = new JLabel("Détails");
-		btnDetails.setBounds(359, 0, 50, 70);
+		btnDetails.setBounds(435, 2, 65, 66);
 		panel.add(btnDetails);
 
 		btnDetails.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/details.png")));
@@ -209,7 +236,7 @@ public class Vue_AccueilAdmin {
 			}
 		});
 
-		JButton btnSearch = new JButton("Recherche : ");
+		JButton btnSearch = new JButton("");
 		btnSearch.setBackground(Color.WHITE);
 		btnSearch.setBorder(null);
 		btnSearch.setOpaque(false);
@@ -235,7 +262,7 @@ public class Vue_AccueilAdmin {
 		});
 		btnSearch.setHorizontalAlignment(SwingConstants.RIGHT);
 		btnSearch.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnSearch.setBounds(492, 74, 97, 20);
+		btnSearch.setBounds(570, 75, 21, 21);
 		frame.getContentPane().add(btnSearch);
 
 		txtSearch.addActionListener(new ActionListener() {

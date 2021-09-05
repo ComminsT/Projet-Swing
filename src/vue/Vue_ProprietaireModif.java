@@ -24,10 +24,12 @@ import javax.swing.WindowConstants;
 
 import com.toedter.calendar.JCalendar;
 
+import dao.HistoriqueDAO;
 import dao.ProprietaireDAO;
 import entite.Agent;
 import entite.Checker;
 import entite.Database;
+import entite.Historique;
 import entite.Proprietaire;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -103,7 +105,7 @@ public class Vue_ProprietaireModif {
 		
 		btnNewButton.setIcon(new ImageIcon(Vue_ProprietaireModif.class.getResource("/img/valider.png")));
 
-		btnNewButton.setBounds(852, 7, 103, 77);
+		btnNewButton.setBounds(898, 11, 57, 68);
 		frame.getContentPane().add(btnNewButton);
 
 		JLabel lblNewLabel = new JLabel("Nom :");
@@ -407,7 +409,7 @@ public class Vue_ProprietaireModif {
 		txtNumero.setBounds(93, 333, 139, 22);
 		frame.getContentPane().add(txtNumero);
 
-		JLabel lblNewLabel_4 = new JLabel("Numéro de telephone :");
+		JLabel lblNewLabel_4 = new JLabel("Numéro de téléphone :");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(10, 314, 170, 14);
 		frame.getContentPane().add(lblNewLabel_4);
@@ -433,8 +435,9 @@ public class Vue_ProprietaireModif {
 		lblPhoneError.setBounds(10, 358, 240, 14);
 		frame.getContentPane().add(lblPhoneError);
 
-		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du proprietaire");
-		lblNewLabel_2.setBounds(277, 26, 226, 14);
+		JLabel lblNewLabel_2 = new JLabel("Modifications des informations du propriétaire");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_2.setBounds(352, 30, 262, 16);
 		frame.getContentPane().add(lblNewLabel_2);
 
 		JLabel lblPrnom = new JLabel("Prénom :");
@@ -461,8 +464,8 @@ public class Vue_ProprietaireModif {
 				new Vue_ProprietairesList(agent).getFrame().setVisible(true);
 			}
 		});
-		btnAnnuler.setIcon(new ImageIcon(Vue_ProprietaireModif.class.getResource("/img/abort.png")));
-		btnAnnuler.setBounds(47, 7, 56, 77);
+		btnAnnuler.setIcon(new ImageIcon(Vue_ProprietaireModif.class.getResource("/img/back.png")));
+		btnAnnuler.setBounds(11, 11, 48, 68);
 		frame.getContentPane().add(btnAnnuler);
 
 		lblMailError.setVisible(false);
@@ -533,6 +536,12 @@ public class Vue_ProprietaireModif {
 					proprietaire.setVille(ville);
 					proprietaire.setPays(pays);
 					proprietaireDAO.save(proprietaire);
+					 HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+						Historique historique = new Historique();
+						historique.setDate(Checker.getDateTime());
+						historique.setId_agent(agent.getId());
+						historique.setAction("Modification du proprietaire id : "+proprietaire.getId());
+						historiqueDAO.save(historique);	
 						frame.dispose();
 						new Vue_ProprietairesList(agent).getFrame().setVisible(true);
 				}

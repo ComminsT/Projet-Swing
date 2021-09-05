@@ -26,11 +26,14 @@ import com.toedter.calendar.JCalendar;
 
 import dao.BienDAO;
 import dao.ComptabiliteDAO;
+import dao.HistoriqueDAO;
 import dao.LocataireDAO;
 import entite.Agent;
 import entite.Bien;
+import entite.Checker;
 import entite.Comptabilite;
 import entite.Database;
+import entite.Historique;
 import entite.Locataire;
 import javax.swing.ImageIcon;
 import java.awt.event.MouseAdapter;
@@ -131,7 +134,7 @@ public class Vue_ComptaModif {
 		lblNewLabel.setBounds(26, 132, 121, 25);
 		frame.getContentPane().add(lblNewLabel);
 
-		JLabel lblDateD = new JLabel("Date dû :");
+		JLabel lblDateD = new JLabel("Date due :");
 		lblDateD.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDateD.setBounds(92, 277, 104, 25);
 		frame.getContentPane().add(lblDateD);
@@ -146,7 +149,7 @@ public class Vue_ComptaModif {
 		lblMontantPay.setBounds(12, 177, 104, 25);
 		frame.getContentPane().add(lblMontantPay);
 
-		JLabel lblDatePay = new JLabel("Date payé :");
+		JLabel lblDatePay = new JLabel("Date payée :");
 		lblDatePay.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDatePay.setBounds(490, 277, 73, 25);
 		frame.getContentPane().add(lblDatePay);
@@ -241,6 +244,12 @@ public class Vue_ComptaModif {
 					compta.setMontantdu(dbmontantdue);
 					ComptabiliteDAO comptaDAO = new ComptabiliteDAO();
 					comptaDAO.save(compta);
+					HistoriqueDAO historiqueDAO = new HistoriqueDAO();
+					Historique historique = new Historique();
+					historique.setDate(Checker.getDateTime());
+					historique.setId_agent(agent.getId());
+					historique.setAction("Modification de la facture : "+compta);
+					historiqueDAO.save(historique);	
 					frame.dispose();
 					new Vue_ComptaList(agent).getFrame().setVisible(true);
 				}
@@ -256,7 +265,7 @@ public class Vue_ComptaModif {
 		btnConfirmer.setHorizontalAlignment(SwingConstants.CENTER);
 		btnConfirmer.setBorder(new LineBorder(new Color(0, 0, 0)));
 		btnConfirmer.setBackground(Color.LIGHT_GRAY);
-		btnConfirmer.setBounds(900, 11, 65, 69);
+		btnConfirmer.setBounds(890, 11, 65, 69);
 		frame.getContentPane().add(btnConfirmer);
 
 		txtCents = new JTextField();

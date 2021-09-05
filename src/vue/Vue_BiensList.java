@@ -103,7 +103,7 @@ public class Vue_BiensList {
 		tableBiens.setAutoCreateRowSorter(true);
 		originalTableModel = (Vector) ((DefaultTableModel) tableBiens.getModel()).getDataVector().clone();
 
-		JLabel btnNewLandlord = new JLabel("Nouveau Bien");
+		JLabel btnNewLandlord = new JLabel("Nouveau bien");
 		btnNewLandlord.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -112,7 +112,7 @@ public class Vue_BiensList {
 			}
 		});
 		btnNewLandlord.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		btnNewLandlord.setIcon(new ImageIcon(Vue_LocatairesList.class.getResource("/img/peopleAdd.png")));
+		btnNewLandlord.setIcon(new ImageIcon(Vue_BiensList.class.getResource("/img/bien.png")));
 		btnNewLandlord.setVerticalTextPosition(SwingConstants.BOTTOM);
 		btnNewLandlord.setHorizontalTextPosition(SwingConstants.CENTER);
 		btnNewLandlord.setHorizontalAlignment(SwingConstants.CENTER);
